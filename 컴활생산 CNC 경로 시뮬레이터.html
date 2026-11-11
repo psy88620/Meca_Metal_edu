@@ -1,0 +1,975 @@
+<!doctype html><html lang="ko" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body class="mm-page mm-cnc">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process" aria-current="page">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#process">가공·용접</a><span>/</span>CNC 경로 시뮬레이터</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process" aria-current="page">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>CNC 경로 시뮬레이터</title>
+
+
+
+<style>
+/* Layout: workbench — controller screen (path view + DRO readout) beside the program sheet */
+:root{
+  --bg:#eceff2; --panel:#ffffff; --ink:#16212c; --muted:#5a6775; --line:#d3dae1;
+  --accent:#d9561a; --accent-soft:#fbe9df; --steel:#2d68ad; --steel-soft:#e3edf8;
+  --canvas:#f8fafb; --grid:#e3e8ed; --grid-strong:#c7d0d9; --stock:#e6ecf1; --stock-edge:#b3bfca;
+  --ghost:#c3ccd5; --tool:#16212c; --ok:#2f8a4e; --warn:#b4401a;
+  --dro-bg:#18222d; --dro-ink:#ffb45e; --dro-dim:#8796a5; --dro-line:#2b3845;
+  --font-ui:"IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#10161d; --panel:#18212a; --ink:#e4eaf0; --muted:#94a2b0; --line:#2a3644;
+  --accent:#ff8640; --accent-soft:#3a251a; --steel:#6ea6e6; --steel-soft:#1d2c3d;
+  --canvas:#141c24; --grid:#1d2731; --grid-strong:#2c3946; --stock:#1f2a35; --stock-edge:#3b4a59;
+  --ghost:#34424f; --tool:#f2f5f8; --ok:#5cc07d; --warn:#ff8a65;
+  --dro-bg:#0a0f14; --dro-ink:#ffb45e; --dro-dim:#7b8a99; --dro-line:#24303c;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#10161d; --panel:#18212a; --ink:#e4eaf0; --muted:#94a2b0; --line:#2a3644;
+  --accent:#ff8640; --accent-soft:#3a251a; --steel:#6ea6e6; --steel-soft:#1d2c3d;
+  --canvas:#141c24; --grid:#1d2731; --grid-strong:#2c3946; --stock:#1f2a35; --stock-edge:#3b4a59;
+  --ghost:#34424f; --tool:#f2f5f8; --ok:#5cc07d; --warn:#ff8a65;
+  --dro-bg:#0a0f14; --dro-ink:#ffb45e; --dro-dim:#7b8a99; --dro-line:#24303c;
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.55;padding:0 16px;padding-block:20px 40px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{margin:0;font-size:1.6rem;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.sub{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+.seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{font:inherit;font-weight:500;border:0;background:transparent;color:var(--muted);padding:7px 16px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
+.seg button:focus-visible,.btn:focus-visible,.tab:focus-visible,.row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);min-width:0}
+
+.machine{display:flex;flex-direction:column}
+.viewbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:22px;height:0;border-top:3px solid var(--accent)}
+.sw.rapid{border-top:2px dashed var(--steel)}
+.sw.ghost{border-top:2px solid var(--ghost)}
+.sw.hole{width:11px;height:11px;border:2px solid var(--accent);border-radius:50%;background:var(--accent-soft)}
+.viewopts{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.viewopts label{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+.cv{position:relative;height:clamp(280px,46vw,440px);background:var(--canvas)}
+canvas{display:block;width:100%;height:100%}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 14px;border-top:1px solid var(--line)}
+.btn{font:inherit;font-size:.9rem;font-weight:500;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 13px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+.speed{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--muted)}
+.speed input{width:110px;accent-color:var(--accent)}
+.prog{font-family:var(--font-mono);font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+.dro{background:var(--dro-bg);color:var(--dro-ink);border-radius:0 0 var(--r) var(--r);padding:14px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:14px}
+@media (max-width:560px){.dro{grid-template-columns:minmax(0,1fr)}}
+.axes{display:flex;flex-direction:column;gap:4px;font-family:var(--font-mono)}
+.ax{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--dro-line);padding-bottom:4px}
+.ax b{width:3.2em;font-weight:600;color:var(--dro-dim);font-size:.8rem;letter-spacing:.06em}
+.ax output{font-size:1.45rem;font-weight:500;font-variant-numeric:tabular-nums;margin-left:auto}
+.ax small{color:var(--dro-dim);font-size:.75rem;min-width:7.5em;text-align:right}
+.modal{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-family:var(--font-mono);font-size:.78rem;padding:2px 8px;border:1px solid var(--dro-line);border-radius:5px;color:var(--dro-dim)}
+.chip.on{color:var(--dro-ink);border-color:var(--dro-ink)}
+.now{min-width:0;display:flex;flex-direction:column;gap:6px}
+.now .lbl{font-size:.72rem;letter-spacing:.1em;color:var(--dro-dim)}
+.now code{font-family:var(--font-mono);font-size:1.05rem;color:#fff;overflow-wrap:anywhere}
+.now ul{margin:0;padding-left:1.1em;color:#d9e1e8;font-size:.92rem}
+.now li{margin:2px 0}
+.now .err{color:#ff9a7a}
+
+.side{display:flex;flex-direction:column;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tab{font:inherit;font-weight:500;flex:1;border:0;background:transparent;color:var(--muted);padding:12px;cursor:pointer;border-bottom:2px solid transparent}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.list{max-height:640px;overflow-y:auto;padding:6px 0}
+.row{display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:8px;padding:8px 14px;cursor:pointer;border-left:3px solid transparent}
+.row:hover{background:var(--steel-soft)}
+.row .ln{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums}
+.row code{font-family:var(--font-mono);font-size:.9rem;font-weight:500;overflow-wrap:anywhere}
+.row p{margin:2px 0 0;font-size:.85rem;color:var(--muted)}
+.row.done code{color:var(--muted)}
+.row.active{background:var(--accent-soft);border-left-color:var(--accent)}
+.row.active code{color:var(--ink)}
+.row.active p{color:var(--ink)}
+.row .e{color:var(--warn)}
+.editor{display:flex;flex-direction:column;gap:10px;padding:14px}
+textarea{width:100%;min-height:440px;resize:vertical;font-family:var(--font-mono);font-size:.92rem;line-height:1.6;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--canvas);color:var(--ink)}
+textarea:focus{outline:2px solid var(--accent);outline-offset:0}
+.hint{font-size:.83rem;color:var(--muted);margin:0}
+.edrow{display:flex;gap:8px;flex-wrap:wrap}
+
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.note{padding:14px 16px}
+.note h2{margin:0 0 4px;font-size:.95rem}
+.note p{margin:0;font-size:.88rem;color:var(--muted)}
+.note code{font-family:var(--font-mono);font-size:.85em;color:var(--ink)}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>컴활생산 CNC 경로 시뮬레이터</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+      <p class="sub">G코드를 한 줄씩 실행하면서 공구가 어디로, 어떻게 움직이는지 확인해요.</p>
+    </div>
+    <div class="seg" role="group" aria-label="장비 선택">
+      <button id="m-lathe" aria-pressed="true">CNC 선반</button>
+      <button id="m-mill" aria-pressed="false">머시닝센터</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="panel machine" aria-label="공구 경로 화면">
+      <div class="viewbar">
+        <div class="legend">
+          <span><i class="sw"></i>절삭 (G01·G02·G03)</span>
+          <span><i class="sw rapid"></i>빠른 이동 (G00)</span>
+          <span><i class="sw ghost"></i>남은 경로</span>
+          <span id="lg-hole" hidden><i class="sw hole"></i>구멍 (고정 사이클)</span>
+        </div>
+        <div class="viewopts">
+          <label><input type="checkbox" id="ghost" checked> 남은 경로 보기</label>
+          <label><input type="checkbox" id="fitall"> 전체 보기</label>
+        </div>
+      </div>
+      <div class="cv" id="cvwrap"><canvas id="cv" aria-label="공구 경로 그림"></canvas></div>
+      <div class="controls">
+        <button class="btn" id="b-reset" title="처음으로">⏮ 처음</button>
+        <button class="btn" id="b-prev">◀ 이전 줄</button>
+        <button class="btn primary" id="b-next">다음 줄 ▶</button>
+        <button class="btn" id="b-play">▶ 자동 실행</button>
+        <button class="btn" id="b-end">끝 ⏭</button>
+        <span class="prog" id="prog">0 / 0</span>
+        <label class="speed" for="spd">속도 <input type="range" id="spd" min="0.4" max="3" step="0.2" value="1"></label>
+      </div>
+      <div class="dro">
+        <div>
+          <div class="axes" id="axes"></div>
+          <div class="modal" id="modal"></div>
+        </div>
+        <div class="now" aria-live="polite">
+          <span class="lbl">지금 실행한 줄</span>
+          <code id="nowcode">—</code>
+          <ul id="nowdesc"><li>‘다음 줄’을 눌러 한 줄씩 실행해 보세요.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel side" aria-label="프로그램">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="t-read" aria-selected="true">한 줄씩 해석</button>
+        <button class="tab" role="tab" id="t-edit" aria-selected="false">코드 편집</button>
+      </div>
+      <div class="list" id="list" role="tabpanel"></div>
+      <div class="editor" id="editor" role="tabpanel" hidden>
+        <textarea id="code" spellcheck="false" aria-label="G코드 프로그램"></textarea>
+        <p class="hint" id="edhint"></p>
+        <div class="edrow">
+          <button class="btn" id="b-sample">예제 다시 불러오기</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="notes" id="notes"></div>
+</div>
+
+<script>
+(function(){
+const SAMPLES = {
+lathe:`%
+O0001 (계단 축 + 모서리 라운드)
+G28 U0. W0.
+T0101 (외경 황삭 공구)
+G50 S2000
+G96 S150 M03
+G00 X52. Z2. M08
+X0.
+G01 Z0. F0.2
+X20.
+G03 X30. Z-5. R5.
+G01 Z-20.
+X40.
+Z-35.
+G02 X50. Z-40. R5.
+G01 X52.
+G00 X100. Z100. M09
+M05
+M30
+%`,
+mill:`%
+O0002 (외곽 윤곽 + 원 각인)
+G90 G54 G17 G40 G49 G80
+G91 G30 Z0. (공구 교환 위치로)
+T01 M06
+G90 G00 X-10. Y0.
+G43 Z50. H01 S1200 M03
+Z3. M08
+G01 Z-2. F80
+X0. F150
+Y30.
+G02 X10. Y40. R10.
+G01 X50.
+G02 X60. Y30. R10.
+G01 Y0.
+X0.
+G00 Z3.
+X30. Y12.
+G01 Z-1. F60
+G03 I0. J8. F120
+G00 Z30.
+G99 G81 X10. Y10. Z-8. R3. F100 (R점 복귀)
+X50.
+G98 X50. Y30. (마지막 구멍은 초기점 복귀)
+G80 G00 Z50. M09
+M05
+M30
+%`};
+
+const NOTES = {
+lathe:[
+ ['X는 지름값','선반에서 <code>X30.</code>은 중심에서 15mm 떨어진 곳이에요. 화면의 세로축은 반지름으로 그려서 실제 모양과 같게 보여요.'],
+ ['U·W는 증분','<code>U</code>는 X 방향, <code>W</code>는 Z 방향으로 지금 위치에서 얼마나 더 갈지 정해요. <code>U</code>도 지름값이에요.'],
+ ['G02·G03 방향','이 화면은 교과서 그림처럼 X가 위, Z가 오른쪽인 방향으로 그렸어요. 이 방향에서 시계 방향이 G02, 반시계 방향이 G03이에요.'],
+ ['지원하지 않는 것','G71 같은 복합 반복 사이클과 G90·G92·G94 고정 사이클은 해석만 하고 경로는 그리지 않아요.']],
+mill:[
+ ['G90과 G91','G90은 공작물 원점 기준 위치(절대), G91은 지금 위치 기준 거리(증분)예요. 같은 <code>X10.</code>도 뜻이 달라져요.'],
+ ['Z는 깊이','Z0이 소재 윗면이에요. Z가 음수면 소재 속을 깎는 중이고, 오른쪽 표시창에 몇 mm 들어갔는지 나와요.'],
+ ['R과 I·J','원호 끝점과 반지름 R만 주거나, 시작점에서 중심까지의 거리 I·J를 줘요. 완전한 원은 I·J로만 그릴 수 있어요.'],
+ ['G98과 G99','고정 사이클에서 구멍 하나를 끝낸 뒤 올라갈 높이예요. <code>G98</code>은 사이클 시작 전 높이(초기점), <code>G99</code>는 R점이에요. 오른쪽 Z 막대에서 차이를 볼 수 있어요.'],
+ ['지원하지 않는 것','G41·G42 공구 반경 보정은 해석만 하고, 그림은 공구 중심 경로 그대로 보여줘요. G76·G87·G88 보링 사이클도 경로를 그리지 않아요.']]
+};
+
+let mode='lathe';
+const programs={lathe:SAMPLES.lathe, mill:SAMPLES.mill};
+try{ const s=localStorage.getItem('cnc-sim-drafts'); if(s){ const o=JSON.parse(s); if(o.lathe) programs.lathe=o.lathe; if(o.mill) programs.mill=o.mill; } }catch(e){}
+function saveDrafts(){ try{ localStorage.setItem('cnc-sim-drafts', JSON.stringify(programs)); }catch(e){} }
+
+const $=id=>document.getElementById(id);
+const fmt=n=>{ const v=Math.abs(n)<5e-4?0:n; return v.toFixed(1); };
+const fmt3=n=>{ const v=Math.abs(n)<5e-4?0:n; return v.toFixed(3); };
+
+const HOME={lathe:{x:100,y:0,z:100}, mill:{x:0,y:0,z:100}};
+const SECOND={lathe:{x:150,y:0,z:120}, mill:{x:0,y:0,z:80}}; // 제2원점: 실제 위치는 기계 파라미터, 화면 표시용 값
+
+const GL={
+ lathe:{4:'잠시 멈춤 (드웰)',20:'인치 단위',21:'mm 단위',28:'기계 원점으로 복귀',40:'공구 인선 반경 보정 취소',41:'공구 인선 반경 보정 (왼쪽)',42:'공구 인선 반경 보정 (오른쪽)',96:'절삭속도 일정 제어 (지름이 작아지면 회전수가 올라가요)',97:'주축 회전수 일정 (rpm 고정)',98:'분당 이송 (mm/min)',99:'회전당 이송 (mm/rev)'},
+ mill:{4:'잠시 멈춤 (드웰)',17:'XY 평면 선택 (원호를 XY 평면에서 그려요)',18:'ZX 평면 선택',19:'YZ 평면 선택',20:'인치 단위',21:'mm 단위',28:'기계 원점으로 복귀',40:'공구 반경 보정 취소',41:'공구 반경 보정 (진행 방향 왼쪽)',42:'공구 반경 보정 (진행 방향 오른쪽)',43:'공구 길이 보정 시작',49:'공구 길이 보정 취소',80:'고정 사이클 취소',90:'절대 좌표 (원점 기준)',91:'증분 좌표 (지금 위치 기준)',94:'분당 이송 (mm/min)',95:'회전당 이송 (mm/rev)'}
+};
+const CYC={73:'고속 펙 드릴링 사이클 (칩 끊기)',74:'왼나사 탭 사이클',81:'드릴 사이클',82:'카운터보링 사이클 (바닥에서 잠시 멈춤)',83:'펙 드릴링 사이클 (깊은 구멍, 칩 배출)',84:'탭 사이클 (오른나사)',85:'보링 사이클 (리머, 이송으로 복귀)',86:'보링 사이클 (주축 정지 후 복귀)',89:'보링 사이클 (바닥 멈춤 후 이송 복귀)'};
+const ML={0:'프로그램 일시 정지',1:'선택 정지',3:'주축 정회전 (시계 방향)',4:'주축 역회전',5:'주축 정지',6:'공구 교환',8:'절삭유 켜기',9:'절삭유 끄기',30:'프로그램 끝, 처음으로 되감기'};
+
+function parse(text, md){
+  const st={x:HOME[md].x,y:0,z:HOME[md].z,motion:null,abs:true,feed:null,speed:null,css:false,perRev:md==='lathe',maxS:null,comp:null,ret:98,cycle:null};
+  const items=[];
+  text.split(/\r?\n/).forEach((raw,idx)=>{
+    const trimmed=raw.trim(); if(!trimmed) return;
+    const it={raw:trimmed,n:idx+1,desc:[],move:null,err:null};
+    const comments=[...trimmed.matchAll(/\(([^)]*)\)/g)].map(m=>m[1].trim()).filter(Boolean);
+    let s=trimmed.replace(/\([^)]*\)/g,' ').replace(/;.*/,'').toUpperCase().trim();
+    if(s==='%'){ it.desc.push('프로그램의 시작과 끝을 알리는 표시예요.'); finish(); return; }
+    const om=s.match(/^O\s*(\d+)/);
+    if(om){ it.desc.push('프로그램 번호 O'+om[1]+(comments.length?' · '+comments.join(' '):'')); s=s.slice(om[0].length).trim(); comments.length=0; }
+    s=s.replace(/^N\s*\d+/,'').trim();
+    const words=[...s.matchAll(/([A-Z])\s*([+-]?(?:\d+\.?\d*|\.\d+))/g)];
+    const v={}, rawv={}, gs=[], ms=[];
+    for(const w of words){ const L=w[1], num=parseFloat(w[2]);
+      if(L==='G') gs.push(Math.round(num*10)/10); else if(L==='M') ms.push(Math.round(num)); else { v[L]=num; rawv[L]=w[2]; } }
+    const gDesc=[], rest=[]; let motionExplicit=false, home=false, unsupported=null, sUsed=false, cycG=null;
+    for(const g of gs){
+      if(g>=0&&g<=3){ st.motion=g; motionExplicit=true; if(md==='mill') st.cycle=null; continue; }
+      if(g===28||g===30){ home=g; continue; }
+      if(md==='lathe'){
+        if(g===50){ if('S' in v){ st.maxS=v.S; sUsed=true; gDesc.push('G50 · 주축 최고 회전수를 '+v.S+' rpm으로 제한 (G96에서 너무 빨리 도는 것 방지)'); } else gDesc.push('G50 · 좌표계 설정'); continue; }
+        if(g===96) st.css=true; if(g===97) st.css=false; if(g===98) st.perRev=false; if(g===99) st.perRev=true;
+        if([70,71,72,73,74,75,76].includes(g)){ unsupported='G'+g+' · 복합 반복 사이클이에요. 이 시뮬레이터는 경로를 그리지 않아요.'; continue; }
+        if([90,92,94].includes(g)){ unsupported='G'+g+' · 선반에서는 고정 사이클이에요. 이 시뮬레이터는 경로를 그리지 않아요.'; continue; }
+      } else {
+        if(g===90) st.abs=true; if(g===91) st.abs=false; if(g===94) st.perRev=false; if(g===95) st.perRev=true;
+        if(g>=54&&g<=59){ gDesc.push('G'+g+' · 공작물 좌표계 '+(g-53)+'번 사용 (미리 잡아둔 원점 기준)'); continue; }
+        if(g===98||g===99){ st.ret=g; gDesc.push(g===98?'G98 · 고정 사이클이 끝나면 초기점 높이로 올라가요':'G99 · 고정 사이클이 끝나면 R점 높이로 올라가요'); continue; }
+        if(CYC[g]){ cycG=g; continue; }
+        if([76,87,88].includes(g)){ unsupported='G'+g+' · 이 보링 사이클은 해석만 하고 경로는 그리지 않아요.'; continue; }
+        if(g===80) st.cycle=null;
+      }
+      if(g===41||g===42) st.comp=g; if(g===40) st.comp=null;
+      const d=GL[md][g]; gDesc.push(d?('G'+String(g).padStart(2,'0')+' · '+d):('G'+g+' · 이 시뮬레이터가 모르는 코드예요'));
+    }
+    if(home){
+      const REF = home===28 ? HOME[md] : SECOND[md], name = home===28 ? '기계 원점(제1원점)' : '제2원점';
+      gDesc.push(home===28 ? 'G28 · 기계 원점(제1원점)으로 복귀'
+        : (md==='mill' ? 'G30 · 제2원점으로 복귀. 보통 공구를 바꾸기 전에 Z축을 공구 교환 위치까지 올릴 때 써요'
+                       : 'G30 · 제2원점으로 복귀. 보통 터릿을 돌려 공구를 바꿀 수 있는 안전한 위치로 보낼 때 써요'));
+      if(home===30 && 'P' in v && v.P!==2) gDesc.push('P'+v.P+' → 제'+v.P+'원점 (이 화면에서는 제2원점 위치로 그려요)');
+      const mid={x:st.x,y:st.y,z:st.z}, fin={...mid}, axs=[];
+      if(md==='lathe'){
+        if('X' in v){mid.x=v.X; axs.push('x');} if('U' in v){mid.x=st.x+v.U; axs.push('x');}
+        if('Z' in v){mid.z=v.Z; axs.push('z');} if('W' in v){mid.z=st.z+v.W; axs.push('z');}
+      } else for(const a of ['X','Y','Z']) if(a in v){ const k=a.toLowerCase(); mid[k]=st.abs?v[a]:st[k]+v[a]; axs.push(k); }
+      if(!axs.length) gDesc.push('복귀할 축이 없어요. 보통 '+(md==='lathe'?'G'+home+' U0. W0.':'G91 G'+home+' Z0.')+'처럼 축을 함께 적어요');
+      else {
+        axs.forEach(k=>fin[k]=REF[k]);
+        const segs=[]; let p={x:st.x,y:st.y,z:st.z};
+        const add=q=>{ const d=Math.hypot(q.x-p.x,q.y-p.y,q.z-p.z); if(d>1e-9) segs.push({type:'rapid',a:p,b:q,w:d*0.45}); p=q; };
+        const fp=q=>md==='lathe'?'X'+fmt(q.x)+' Z'+fmt(q.z):axs.map(k=>k.toUpperCase()+fmt(q[k])).join(' ');
+        if(Math.hypot(mid.x-st.x,mid.y-st.y,mid.z-st.z)>1e-9){
+          gDesc.push('① 경유점 '+fp(mid)+'까지 빠르게 이동'); add(mid);
+          if(md==='mill' && st.abs && 'Z' in v && mid.z<st.z) gDesc.push('⚠ G90 절대좌표라 Z'+fmt(v.Z)+'이 공작물 기준 높이가 돼서 공구가 먼저 아래로 내려가요. 보통 G91 G'+home+' Z0.처럼 증분으로 써요');
+          else if(md==='lathe' && ('X' in v||'Z' in v)) gDesc.push('⚠ X·Z는 절대값이라 그 위치를 먼저 거쳐 가요. 보통 U0. W0.로 지금 위치에서 바로 복귀해요');
+        } else gDesc.push('① 증분 0이라 지금 위치가 경유점이에요 (중간에 다른 곳을 거치지 않아요)');
+        gDesc.push('② '+name+' '+fp(fin)+'까지 '+axs.map(k=>k.toUpperCase()).join('·')+'축만 빠르게 복귀'+(home===30?' (실제 위치는 기계 파라미터로 정해져요. 화면에서는 '+fp(fin)+'로 그려요)':''));
+        add(fin);
+        if(segs.length){ let c=0; segs.forEach(s=>{s.c0=c;c+=s.w;s.c1=c;}); const P=q=>md==='lathe'?[q.z,q.x/2]:[q.x,q.y];
+          it.move={type:'ref', segs, from:{x:st.x,y:st.y,z:st.z}, to:p, pts:[P(segs[0].a),...segs.map(s=>P(s.b))], zFrom:st.z, zTo:p.z, len:c}; }
+        st.x=fin.x; st.y=fin.y; st.z=fin.z;
+      }
+    }
+    if(unsupported) gDesc.push(unsupported);
+
+    // canned cycles (mill)
+    let cycleHandled=false;
+    if(md==='mill' && cycG!=null && !unsupported){
+      st.cycle = st.cycle ? {...st.cycle, g:cycG} : {g:cycG, init:st.z, Rraw:null, Zraw:null, Q:null, P:null};
+    }
+    if(md==='mill' && st.cycle && !home && !unsupported){
+      cycleHandled=true;
+      const cy=st.cycle, isDef=cycG!=null;
+      if('R' in v) cy.Rraw=v.R; if('Z' in v) cy.Zraw=v.Z; if('Q' in v) cy.Q=Math.abs(v.Q); if('P' in v) cy.P=v.P;
+      const exec = isDef ? ['X','Y','Z','R'].some(a=>a in v) : ('X' in v||'Y' in v);
+      gDesc.push(isDef ? 'G'+cy.g+' · '+CYC[cy.g] : '앞에서 지정한 G'+cy.g+' 사이클을 이 위치에서 한 번 더 실행해요');
+      if(exec && 'K' in v && v.K===0) gDesc.push('K0 · 위치만 옮기고 구멍은 뚫지 않아요');
+      else if(exec){
+        if(cy.Rraw==null||cy.Zraw==null) it.err='고정 사이클에는 R점(R)과 구멍 바닥(Z) 값이 필요해요.';
+        else {
+          const Rabs = st.abs ? cy.Rraw : cy.init+cy.Rraw;
+          const Zb = st.abs ? cy.Zraw : Rabs+cy.Zraw;
+          cy.Rabs=Rabs; cy.Zb=Zb;
+          if(Zb>=Rabs) it.err='구멍 바닥 Z'+fmt(Zb)+'은 R점 Z'+fmt(Rabs)+'보다 낮아야 해요.';
+          else if((cy.g===73||cy.g===83) && !(cy.Q>=0.1)) it.err='G'+cy.g+'는 한 번에 뚫을 깊이 Q가 필요해요 (예: Q3.).';
+          else {
+            const hx='X' in v?(st.abs?v.X:st.x+v.X):st.x, hy='Y' in v?(st.abs?v.Y:st.y+v.Y):st.y;
+            const retZ = st.ret===99 ? Rabs : cy.init;
+            const lvl = z => Math.abs(z-cy.init)<1e-6?' (초기점)':(Math.abs(z-Rabs)<1e-6?' (R점)':'');
+            const segs=[], steps=[], extra=[]; let p={x:st.x,y:st.y,z:st.z};
+            const add=(type,to)=>{ const q={x:to.x??p.x,y:to.y??p.y,z:to.z??p.z}; const d=Math.hypot(q.x-p.x,q.y-p.y,q.z-p.z); segs.push({type,a:p,b:q,w:type==='dwell'?10:(type==='rapid'?d*0.45:d)}); p=q; };
+            if(Rabs>cy.init+1e-6) extra.push('⚠ R점이 초기점보다 높아요. 보통 R점은 소재 위 2~5mm로 잡아요.');
+            if(Math.abs(hx-p.x)>1e-9||Math.abs(hy-p.y)>1e-9){ steps.push('지금 높이 Z'+fmt(p.z)+lvl(p.z)+'에서 X'+fmt(hx)+' Y'+fmt(hy)+' 위로 빠르게 이동'); add('rapid',{x:hx,y:hy}); }
+            if(Math.abs(p.z-Rabs)>1e-9){ steps.push('R점 Z'+fmt(Rabs)+'까지 빠르게 내려와요. 여기서부터 이송 속도로 바뀌어요'); add('rapid',{z:Rabs}); }
+            else steps.push('이미 R점 Z'+fmt(Rabs)+' 높이라 바로 가공을 시작해요');
+            const g=cy.g, P=cy.P;
+            if(g===73||g===83){
+              const Q=cy.Q; let depth=Rabs, n=0;
+              while(depth>Zb+1e-9 && n++<400){ const nd=Math.max(Zb,depth-Q); add('feed',{z:nd}); depth=nd;
+                if(depth>Zb+1e-9){ if(g===73) add('rapid',{z:depth+0.5}); else { add('rapid',{z:Rabs}); add('rapid',{z:Math.min(Rabs,depth+1)}); } } }
+              const k=Math.ceil((Rabs-Zb)/Q-1e-9);
+              steps.push(g===73 ? 'Q'+fmt(Q)+'씩 '+k+'번 나눠 뚫고, 매번 조금(여기선 0.5mm) 물러나 칩을 끊어요 → 바닥 Z'+fmt(Zb)
+                                : 'Q'+fmt(Q)+'씩 '+k+'번 나눠 뚫고, 매번 R점까지 완전히 빠져나와 칩을 빼내요 → 바닥 Z'+fmt(Zb));
+            } else if(g===84||g===74){
+              add('feed',{z:Zb}); steps.push((g===84?'정회전':'역회전')+'으로 바닥 Z'+fmt(Zb)+'까지 탭 가공. 주축 1바퀴에 나사 피치만큼 내려가요');
+              if(P){ add('dwell',{}); steps.push('바닥에서 P'+P+'만큼 멈춤'); }
+              add('feed',{z:Rabs}); steps.push('바닥에서 주축이 '+(g===84?'역회전':'정회전')+'으로 바뀌고, 이송 속도 그대로 R점까지 빠져나와요');
+              const F='F' in v?v.F:st.feed, S='S' in v?v.S:st.speed;
+              if(st.perRev && F) extra.push('G95 회전당 이송이라 F'+F+'가 곧 탭 피치예요');
+              else if(F && S) extra.push('탭 피치 확인: F ÷ S = '+F+' ÷ '+S+' = '+(F/S).toFixed(2)+'mm');
+            } else if(g===85||g===89){
+              add('feed',{z:Zb}); if(g===89&&P) add('dwell',{}); add('feed',{z:Rabs});
+              steps.push('바닥 Z'+fmt(Zb)+'까지 이송'+(g===89&&P?', P'+P+'만큼 멈춤':'')+', 다시 이송 속도로 R점까지 빠져나와요');
+            } else {
+              add('feed',{z:Zb}); let s='바닥 Z'+fmt(Zb)+'까지 이송으로 뚫기';
+              if(g===82&&P){ add('dwell',{}); s+=', 바닥에서 P'+P+'만큼 멈춤'; }
+              if(g===86) s+=', 바닥에서 주축 정지';
+              steps.push(s);
+            }
+            if(Math.abs(p.z-retZ)>1e-9) add('rapid',{z:retZ});
+            steps.push(st.ret===99 ? 'G99 → R점 Z'+fmt(Rabs)+'에서 멈춰요. 다음 구멍까지 이 낮은 높이로 이동해서 시간이 줄어요'
+                                   : 'G98 → 초기점 Z'+fmt(cy.init)+'까지 올라가요. 구멍 사이에 클램프 같은 장애물이 있을 때 안전해요');
+            const nums='①②③④⑤⑥⑦⑧⑨';
+            gDesc.push('높이: 초기점 Z'+fmt(cy.init)+' · R점 Z'+fmt(Rabs)+' · 바닥 Z'+fmt(Zb));
+            steps.forEach((s,i)=>gDesc.push(nums[i]+' '+s));
+            gDesc.push(...extra);
+            let c=0; segs.forEach(s=>{ s.c0=c; c+=s.w; s.c1=c; });
+            it.move={type:'cycle', g, segs, from:{x:st.x,y:st.y,z:st.z}, to:p, hole:[hx,hy], R:Rabs, Zb, init:cy.init, ret:st.ret,
+                     pts:[[st.x,st.y],[hx,hy]], zFrom:st.z, zTo:p.z, len:c};
+            st.x=p.x; st.y=p.y; st.z=p.z;
+          }
+        }
+      }
+    }
+
+    // motion
+    const axes = md==='lathe'?['X','Z','U','W']:['X','Y','Z'];
+    const hasAxis=axes.some(a=>a in v) || (md==='mill' && ('I' in v||'J' in v) && (st.motion===2||st.motion===3));
+    let motionDesc=null;
+    if(hasAxis && !home && !unsupported && !cycleHandled){
+      if(st.motion===null){ it.err='이동 방식(G00·G01·G02·G03)이 아직 정해지지 않았어요.'; }
+      else {
+        const from={x:st.x,y:st.y,z:st.z}; let to;
+        if(md==='lathe'){
+          let nx=st.x, nz=st.z;
+          if('X' in v) nx=v.X; if('U' in v) nx=st.x+v.U;
+          if('Z' in v) nz=v.Z; if('W' in v) nz=st.z+v.W;
+          to={x:nx,y:0,z:nz};
+        } else {
+          const g=(a,cur)=> a in v ? (st.abs? v[a] : cur+v[a]) : cur;
+          to={x:g('X',st.x),y:g('Y',st.y),z:g('Z',st.z)};
+        }
+        const P = p => md==='lathe'? [p.z, p.x/2] : [p.x, p.y];
+        const a=P(from), b=P(to);
+        const mv={type: st.motion===0?'rapid':(st.motion===1?'line':'arc'), from, to, pts:null, zFrom:from.z, zTo:to.z};
+        if(st.motion<=1){ mv.pts=[a,b]; }
+        else {
+          const cw = st.motion===2; let c=null, r;
+          if('R' in v){
+            const R=v.R, dx=b[0]-a[0], dy=b[1]-a[1], d=Math.hypot(dx,dy);
+            if(d<1e-9){ it.err='R로는 완전한 원을 그릴 수 없어요. I·'+(md==='lathe'?'K':'J')+'를 쓰세요.'; }
+            else if(d>2*Math.abs(R)+1e-6){ it.err='R'+fmt(R)+'이 너무 작아요. 시작점과 끝점 거리('+fmt(d)+'mm)의 절반보다 커야 해요.'; }
+            else { const h=Math.sqrt(Math.max(0,R*R-d*d/4)), lx=-dy/d, ly=dx/d, sg=(R>0?1:-1)*(cw?-1:1);
+              c=[(a[0]+b[0])/2+lx*h*sg,(a[1]+b[1])/2+ly*h*sg]; r=Math.abs(R); }
+          } else {
+            const I=v.I||0, J=v.J||0, K=v.K||0;
+            if(md==='lathe') c=[a[0]+K, a[1]+I]; else c=[a[0]+I, a[1]+J];
+            r=Math.hypot(a[0]-c[0],a[1]-c[1]);
+            const r2=Math.hypot(b[0]-c[0],b[1]-c[1]);
+            if(r<1e-9) it.err='원호 중심이 시작점과 같아요. I·'+(md==='lathe'?'K':'J')+' 값을 확인하세요.';
+            else if(Math.abs(r-r2)>0.05) it.err='시작점과 끝점이 중심에서 같은 거리에 있지 않아요 ('+fmt(r)+' / '+fmt(r2)+'mm).';
+          }
+          if(c && !it.err){
+            const a0=Math.atan2(a[1]-c[1],a[0]-c[0]), a1=Math.atan2(b[1]-c[1],b[0]-c[0]);
+            let sw=a1-a0;
+            if(cw){ if(sw>=-1e-9) sw-=2*Math.PI; } else { if(sw<=1e-9) sw+=2*Math.PI; }
+            const n=Math.max(16,Math.ceil(Math.abs(sw)*24)); const pts=[];
+            for(let i=0;i<=n;i++){ const t=a0+sw*i/n; pts.push([c[0]+r*Math.cos(t), c[1]+r*Math.sin(t)]); }
+            pts[pts.length-1]=b; mv.pts=pts; mv.center=c; mv.r=r; mv.full=Math.abs(Math.abs(sw)-2*Math.PI)<1e-6;
+          }
+        }
+        if(mv.pts){
+          let L=0; mv.cum=[0]; for(let i=1;i<mv.pts.length;i++){ L+=Math.hypot(mv.pts[i][0]-mv.pts[i-1][0],mv.pts[i][1]-mv.pts[i-1][1]); mv.cum.push(L); }
+          mv.len=L; mv.zlen=Math.abs(to.z-from.z)*(md==='mill'?1:0);
+          it.move=mv;
+          st.x=to.x; st.y=to.y; st.z=to.z;
+        }
+        // describe
+        const verb={0:'빠르게 이동 (깎지 않음)',1:'깎으면서 직선 이동',2:'시계 방향(CW)으로 원호를 그리며 깎기',3:'반시계 방향(CCW)으로 원호를 그리며 깎기'}[st.motion];
+        const code='G0'+st.motion;
+        let tgt='';
+        if(md==='lathe'){
+          tgt='도착 위치: 지름 Ø'+fmt(to.x)+' (반지름 '+fmt(to.x/2)+'), Z '+fmt(to.z);
+          if('U' in v||'W' in v) tgt+=' · U·W는 지금 위치에서 더하는 증분값이에요';
+        } else {
+          const xyMoved = Math.abs(to.x-from.x)>1e-9||Math.abs(to.y-from.y)>1e-9;
+          const zt = to.z<0? 'Z '+fmt(to.z)+' (소재 윗면 아래 '+fmt(-to.z)+'mm)' : (to.z===0?'Z 0 (소재 윗면)':'Z '+fmt(to.z)+' (소재 위 '+fmt(to.z)+'mm)');
+          if(!xyMoved && st.motion<=1) tgt='위아래로만 이동 → '+zt;
+          else { tgt='도착 위치: X '+fmt(to.x)+', Y '+fmt(to.y); if(Math.abs(to.z-from.z)>1e-9) tgt+=', '+zt; }
+          if(!st.abs) tgt+=' · G91 증분이라 지금 위치에서 더한 값이에요';
+        }
+        motionDesc=code+' · '+verb+(motionExplicit?'':' (앞에서 지정한 '+code+'가 계속 적용돼요)');
+        it.desc.push(...gDesc); gDesc.length=0;
+        it.desc.push(motionDesc, tgt);
+        if(st.motion>=2 && mv.pts){
+          if('R' in v) it.desc.push('원호 반지름 R'+fmt(Math.abs(v.R))+(v.R<0?' (R이 음수라 180°보다 큰 원호)':''));
+          else it.desc.push('중심 위치: 시작점에서 '+(md==='lathe'?('I'+fmt(v.I||0)+' (X 반지름 방향), K'+fmt(v.K||0)+' (Z 방향)'):('I'+fmt(v.I||0)+' (X 방향), J'+fmt(v.J||0)+' (Y 방향)'))+(mv.full?' → 완전한 원':''));
+        }
+      }
+    }
+    it.desc.unshift(...gDesc);
+    if('F' in v){ st.feed=v.F; rest.push('이송속도 F'+rawv.F+' → '+(st.perRev? '주축 1회전마다 '+v.F+'mm 이동':'1분에 '+v.F+'mm 이동')); }
+    if('S' in v && !sUsed){ st.speed=v.S; rest.push(md==='lathe'&&st.css? '절삭속도 S'+v.S+' → 공작물 표면이 1분에 '+v.S+'m 지나가도록 회전수를 자동 조절' : '주축 회전수 S'+v.S+' → 1분에 '+v.S+'바퀴'); }
+    if('T' in v){ const t=rawv.T.replace(/\..*/,''); if(md==='lathe'){ const p=t.padStart(4,'0'); rest.push('T'+t+' → '+parseInt(p.slice(0,2),10)+'번 공구를 쓰고, '+parseInt(p.slice(2),10)+'번 보정값 적용'); } else rest.push('T'+t+' → '+parseInt(t,10)+'번 공구 준비 (M06으로 교환)'); }
+    if('H' in v) rest.push('H'+rawv.H+' → '+v.H+'번 공구 길이 보정값 사용');
+    if('D' in v) rest.push('D'+rawv.D+' → '+v.D+'번 공구 반경 보정값 사용');
+    if('P' in v && gs.includes(4)) rest.push('P'+rawv.P+' 만큼 멈춤');
+    if('X' in v && gs.includes(4) && md==='lathe'){ /* dwell X */ }
+    for(const m of ms){ rest.push('M'+String(m).padStart(2,'0')+' · '+(ML[m]||'기계마다 다른 보조 기능')); }
+    it.desc.push(...rest);
+    if(comments.length) it.desc.push('메모: '+comments.join(' · '));
+    finish();
+    function finish(){
+      it.after={x:st.x,y:st.y,z:st.z,motion:st.motion,abs:st.abs,feed:st.feed,speed:st.speed,css:st.css,perRev:st.perRev,comp:st.comp,ret:st.ret,cycle:st.cycle?{...st.cycle}:null};
+      if(!it.desc.length && !it.err) it.desc.push('이 줄에는 실행할 내용이 없어요.');
+      items.push(it);
+    }
+  });
+  return items;
+}
+
+// ---------- state ----------
+let items=[], cur=0, anim=null, playing=false, timer=null, view=null;
+const cv=$('cv'), ctx=cv.getContext('2d');
+
+function initialState(){ return {x:HOME[mode].x,y:0,z:HOME[mode].z,motion:null,abs:true,feed:null,speed:null,css:false,perRev:mode==='lathe',comp:null,ret:98,cycle:null}; }
+function pos3(mv,t){
+  if(mv.segs){ const W=mv.len*t; for(let i=0;i<mv.segs.length;i++){ const s=mv.segs[i];
+      if(W<=s.c1+1e-9||i===mv.segs.length-1){ const f=s.w>0?Math.min(1,Math.max(0,(W-s.c0)/s.w)):1; return {x:s.a.x+(s.b.x-s.a.x)*f,y:s.a.y+(s.b.y-s.a.y)*f,z:s.a.z+(s.b.z-s.a.z)*f}; } }
+    return {...mv.to}; }
+  const q=pointAt(mv,t);
+  if(mode==='lathe') return {x:q[1]*2,y:0,z:q[0]};
+  return {x:q[0],y:q[1],z:mv.zFrom+(mv.zTo-mv.zFrom)*t};
+}
+function cycMinZ(mv,t){ let m=Math.min(mv.from.z,pos3(mv,t).z); const W=mv.len*t; for(const s of mv.segs){ if(s.c1<=W+1e-9) m=Math.min(m,s.b.z); } return m; }
+function stateAt(k){ return k<=0? initialState() : items[k-1].after; }
+
+function computeView(){
+  const P = p => mode==='lathe'? [p.z,p.x/2] : [p.x,p.y];
+  let cut=[], all=[P(HOME[mode])];
+  const zs=[0];
+  for(const it of items) if(it.move){ const m=it.move;
+    if(m.type==='cycle'){ all.push(...m.pts); cut.push(m.hole); zs.push(m.init,m.R,m.Zb); continue; }
+    if(m.type==='ref'){ all.push(...m.pts); continue; }
+    if(m.type!=='rapid') zs.push(m.zFrom,m.zTo);
+    for(const q of m.pts){ all.push(q); if(m.type!=='rapid') cut.push(q);} }
+  if(mode==='mill'){ let lo=Math.min(...zs)-3, hi=Math.max(...zs)+4; if(hi-lo<14) hi=lo+14; var zr=[lo,hi]; }
+  if(!cut.length) cut=all.slice();
+  const bb=pts=>{ let a=[Infinity,Infinity,-Infinity,-Infinity]; for(const p of pts){a[0]=Math.min(a[0],p[0]);a[1]=Math.min(a[1],p[1]);a[2]=Math.max(a[2],p[0]);a[3]=Math.max(a[3],p[1]);} return a; };
+  const c=bb(cut);
+  let stock;
+  if(mode==='lathe'){
+    const R=Math.max(5,c[3]); const right=Math.max(0,c[2]); const left=Math.min(c[0],right-10)-10;
+    stock={u0:left,u1:right,v0:-R,v1:R};
+  } else stock={u0:c[0]-5,u1:c[2]+5,v0:c[1]-5,v1:c[3]+5};
+  const focus = $('fitall').checked ? bb(all.concat([[stock.u0,stock.v0],[stock.u1,stock.v1]])) : [Math.min(c[0],stock.u0),Math.min(c[1],stock.v0),Math.max(c[2],stock.u1),Math.max(c[3],stock.v1)];
+  if(mode==='lathe'){ const m=Math.max(Math.abs(focus[1]),Math.abs(focus[3])); focus[1]=-m; focus[3]=m; if($('fitall').checked){} }
+  view={b:focus,stock,zr:mode==='mill'?zr:null};
+}
+
+function resize(){
+  const r=$('cvwrap').getBoundingClientRect(), d=window.devicePixelRatio||1;
+  cv.width=Math.round(r.width*d); cv.height=Math.round(r.height*d); ctx.setTransform(d,0,0,d,0,0); draw();
+}
+
+function niceStep(raw){ const p=Math.pow(10,Math.floor(Math.log10(raw))); for(const m of [1,2,5,10]) if(m*p>=raw) return m*p; return 10*p; }
+
+function pointAt(mv,t){
+  const L=mv.len*t; const c=mv.cum, p=mv.pts;
+  if(mv.len<1e-9) return p[p.length-1];
+  for(let i=1;i<p.length;i++){ if(c[i]>=L){ const f=(L-c[i-1])/((c[i]-c[i-1])||1); return [p[i-1][0]+(p[i][0]-p[i-1][0])*f, p[i-1][1]+(p[i][1]-p[i-1][1])*f]; } }
+  return p[p.length-1];
+}
+
+function draw(){
+  if(!view) return;
+  const W=cv.clientWidth, H=cv.clientHeight; const cs=getComputedStyle(document.documentElement); const col=n=>cs.getPropertyValue(n).trim();
+  ctx.fillStyle=col('--canvas'); ctx.fillRect(0,0,W,H);
+  const GW = mode==='mill' ? (W<520?100:120) : 0, MW=W-GW;
+  const b=view.b, pad=44; const bw=Math.max(b[2]-b[0],1), bh=Math.max(b[3]-b[1],1);
+  const sc=Math.min((MW-pad*2)/bw,(H-pad*2)/bh);
+  const cu=(b[0]+b[2])/2, cvv=(b[1]+b[3])/2;
+  const X=u=>MW/2+(u-cu)*sc, Y=v=>H/2-(v-cvv)*sc;
+  const U=x=>cu+(x-MW/2)/sc, V=y=>cvv-(y-H/2)/sc;
+  ctx.save(); ctx.beginPath(); ctx.rect(0,0,MW,H); ctx.clip();
+  // grid
+  const step=niceStep(40/sc);
+  ctx.lineWidth=1; ctx.font='11px '+col('--font-mono'); ctx.fillStyle=col('--muted');
+  const u0=Math.floor(U(0)/step)*step, u1=U(MW), v0=Math.floor(V(H)/step)*step, v1=V(0);
+  for(let u=u0;u<=u1;u+=step){ const x=Math.round(X(u))+.5; ctx.strokeStyle=Math.abs(u%(step*5))<1e-6?col('--grid-strong'):col('--grid'); ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke(); }
+  for(let v=v0;v<=v1;v+=step){ const y=Math.round(Y(v))+.5; ctx.strokeStyle=Math.abs(v%(step*5))<1e-6?col('--grid-strong'):col('--grid'); ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(MW,y);ctx.stroke(); }
+  // stock
+  const s=view.stock;
+  ctx.fillStyle=col('--stock'); ctx.strokeStyle=col('--stock-edge'); ctx.lineWidth=1;
+  ctx.fillRect(X(s.u0),Y(s.v1),(s.u1-s.u0)*sc,(s.v1-s.v0)*sc); ctx.strokeRect(X(s.u0)+.5,Y(s.v1)+.5,(s.u1-s.u0)*sc,(s.v1-s.v0)*sc);
+  if(mode==='lathe'){
+    ctx.save(); ctx.beginPath(); ctx.rect(0,Y(s.v1)-14,Math.max(0,X(s.u0)),(s.v1-s.v0)*sc+28); ctx.clip(); ctx.strokeStyle=col('--stock-edge');
+    for(let x=-H;x<X(s.u0);x+=8){ ctx.beginPath(); ctx.moveTo(x,Y(s.v1)-14); ctx.lineTo(x+60,Y(s.v0)+14); ctx.stroke(); }
+    ctx.restore();
+    if(X(s.u0)>30){ ctx.fillStyle=col('--muted'); ctx.fillText('척',8,Y(s.v1)-20); }
+  }
+  // axes
+  ctx.strokeStyle=col('--muted'); ctx.lineWidth=1;
+  if(mode==='lathe'){ ctx.setLineDash([14,4,3,4]); ctx.beginPath(); ctx.moveTo(0,Y(0)+.5); ctx.lineTo(MW,Y(0)+.5); ctx.stroke(); ctx.setLineDash([]); }
+  else { ctx.beginPath(); ctx.moveTo(0,Y(0)+.5); ctx.lineTo(MW,Y(0)+.5); ctx.stroke(); }
+  ctx.beginPath(); ctx.moveTo(X(0)+.5,0); ctx.lineTo(X(0)+.5,H); ctx.stroke();
+  ctx.fillStyle=col('--ink'); ctx.beginPath(); ctx.arc(X(0),Y(0),4,0,Math.PI*2); ctx.fill();
+  ctx.font='600 12px '+col('--font-mono'); ctx.fillText('원점',X(0)+7,Y(0)-7);
+  ctx.fillStyle=col('--muted'); ctx.font='12px '+col('--font-ui');
+  ctx.fillText(mode==='lathe'?'+Z →':'+X →',MW-48,Y(0)-8);
+  ctx.fillText(mode==='lathe'?'↑ +X (반지름으로 그림)':'↑ +Y',X(0)+8,16);
+  ctx.font='11px '+col('--font-mono'); ctx.fillText('눈금 '+step+'mm',10,H-10);
+
+  const active = anim? anim.i : -1;
+  const drawMove=(mv,t,color,dashed,width,mirror)=>{
+    if(!mv||!mv.pts||mv.segs) return;
+    ctx.strokeStyle=color; ctx.lineWidth=width; ctx.setLineDash(dashed?[6,5]:[]); ctx.lineJoin='round'; ctx.lineCap='round';
+    const L=mv.len*t; ctx.beginPath(); const p=mv.pts; const sgn=mirror?-1:1;
+    ctx.moveTo(X(p[0][0]),Y(sgn*p[0][1]));
+    for(let i=1;i<p.length;i++){ if(mv.cum[i]<=L+1e-9) ctx.lineTo(X(p[i][0]),Y(sgn*p[i][1])); else { const q=pointAt(mv,t); ctx.lineTo(X(q[0]),Y(sgn*q[1])); break; } }
+    ctx.stroke(); ctx.setLineDash([]);
+  };
+  const drawRef=(mv,t,color)=>{
+    const W=mv.len*t; const P=q=>mode==='lathe'?[q.z,q.x/2]:[q.x,q.y];
+    ctx.strokeStyle=color; ctx.lineWidth=1.6; ctx.setLineDash([6,5]); ctx.beginPath();
+    const a=P(mv.segs[0].a); ctx.moveTo(X(a[0]),Y(a[1]));
+    for(const sg of mv.segs){ if(sg.c1<=W+1e-9){ const q=P(sg.b); ctx.lineTo(X(q[0]),Y(q[1])); } else { const q=P(pos3(mv,t)); ctx.lineTo(X(q[0]),Y(q[1])); break; } }
+    ctx.stroke(); ctx.setLineDash([]);
+  };
+  const drawCycle=(mv,t,ghost)=>{
+    const s0=mv.segs[0];
+    if(s0 && (s0.a.x!==s0.b.x||s0.a.y!==s0.b.y)){
+      const f=ghost?1:Math.min(1,Math.max(0,(mv.len*t-s0.c0)/(s0.w||1)));
+      ctx.strokeStyle=ghost?col('--ghost'):col('--steel'); ctx.lineWidth=ghost?1.5:1.6; ctx.setLineDash([6,5]);
+      ctx.beginPath(); ctx.moveTo(X(s0.a.x),Y(s0.a.y)); ctx.lineTo(X(s0.a.x+(s0.b.x-s0.a.x)*f),Y(s0.a.y+(s0.b.y-s0.a.y)*f)); ctx.stroke(); ctx.setLineDash([]);
+    }
+    const hx=X(mv.hole[0]), hy=Y(mv.hole[1]), tap=mv.g===84||mv.g===74;
+    if(ghost){ ctx.strokeStyle=col('--ghost'); ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(hx,hy,6,0,Math.PI*2); ctx.stroke(); return; }
+    const drilled = t>=1 || cycMinZ(mv,t) < mv.R-1e-6;
+    if(!drilled) return;
+    ctx.fillStyle=col('--accent-soft'); ctx.strokeStyle=col('--accent'); ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(hx,hy,6,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    if(tap){ ctx.lineWidth=1.2; ctx.setLineDash([3,3]); ctx.beginPath(); ctx.arc(hx,hy,9.5,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]); }
+  };
+  if($('ghost').checked){ items.forEach((it,i)=>{ if(i>=cur && i!==active && it.move){ if(it.move.type==='cycle') drawCycle(it.move,1,true); else if(it.move.type==='ref') drawRef(it.move,1,col('--ghost')); else drawMove(it.move,1,col('--ghost'),it.move.type==='rapid',1.5); } }); }
+  if(mode==='lathe'){ ctx.globalAlpha=.35; items.forEach((it,i)=>{ if(it.move&&it.move.type!=='rapid'){ if(i<cur) drawMove(it.move,1,col('--accent'),false,2,true); else if(i===active) drawMove(it.move,anim.t,col('--accent'),false,2,true);} }); ctx.globalAlpha=1; }
+  items.forEach((it,i)=>{ const m=it.move; if(!m) return;
+    if(m.type==='cycle'){ if(i<cur) drawCycle(m,1,false); else if(i===active) drawCycle(m,anim.t,false); return; }
+    if(m.type==='ref'){ if(i<cur) drawRef(m,1,col('--steel')); else if(i===active) drawRef(m,anim.t,col('--steel')); return; }
+    const r=m.type==='rapid';
+    if(i<cur) drawMove(m,1,r?col('--steel'):col('--accent'),r,r?1.6:2.8);
+    else if(i===active) drawMove(m,anim.t,r?col('--steel'):col('--accent'),r,r?1.6:2.8);
+  });
+  if(mode==='mill'){ items.forEach((it,i)=>{ const m=it.move; if(m&&!m.segs&&i<cur&&m.len<1e-6&&m.zTo<m.zFrom&&m.zTo<0){ ctx.strokeStyle=col('--accent'); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(X(m.pts[0][0]),Y(m.pts[0][1]),5,0,Math.PI*2); ctx.stroke(); } }); }
+  // tool
+  const amv = anim && items[anim.i].move;
+  const tool3 = amv ? pos3(amv,anim.t) : stateAt(cur);
+  const tp = mode==='lathe' ? [tool3.z, tool3.x/2] : [tool3.x, tool3.y];
+  const tx=X(tp[0]), ty=Y(tp[1]);
+  ctx.fillStyle=col('--tool'); ctx.strokeStyle=col('--canvas'); ctx.lineWidth=2;
+  if(mode==='lathe'){ ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(tx+9,ty-22); ctx.lineTo(tx+22,ty-10); ctx.closePath(); ctx.stroke(); ctx.fill();
+    ctx.fillRect(tx+12,ty-34,16,12); }
+  else {
+    ctx.beginPath(); ctx.arc(tx,ty,9,0,Math.PI*2); ctx.globalAlpha=tool3.z<0?0.85:0.35; ctx.fill(); ctx.globalAlpha=1; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(tx-13,ty); ctx.lineTo(tx+13,ty); ctx.moveTo(tx,ty-13); ctx.lineTo(tx,ty+13); ctx.strokeStyle=col('--tool'); ctx.lineWidth=1; ctx.stroke(); }
+  ctx.restore();
+  if(mode==='mill') drawGauge(MW,GW,H,col,tool3,amv);
+}
+
+function drawGauge(x0,GW,H,col,tool3,amv){
+  const zr=view.zr; if(!zr) return;
+  const top=34, bot=H-14, Zy=z=>top+(zr[1]-z)/(zr[1]-zr[0])*(bot-top);
+  ctx.fillStyle=col('--panel'); ctx.fillRect(x0,0,GW,H);
+  ctx.strokeStyle=col('--line'); ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x0+.5,0); ctx.lineTo(x0+.5,H); ctx.stroke();
+  ctx.fillStyle=col('--muted'); ctx.font='600 11px '+col('--font-ui'); ctx.fillText('Z 높이',x0+8,18);
+  const sx=x0+30, colX=x0+40;
+  // stock
+  const y0=Zy(0);
+  ctx.fillStyle=col('--stock'); ctx.fillRect(sx,y0,GW-36,H-y0);
+  ctx.strokeStyle=col('--stock-edge'); ctx.beginPath(); ctx.moveTo(sx,y0+.5); ctx.lineTo(x0+GW-6,y0+.5); ctx.stroke();
+  // which cycle levels to show
+  const S = anim ? items[anim.i].after : stateAt(cur);
+  let lv=null;
+  if(amv && amv.type==='cycle') lv={init:amv.init,R:amv.R,Zb:amv.Zb};
+  else if(S.cycle && S.cycle.Rabs!=null) lv={init:S.cycle.init,R:S.cycle.Rabs,Zb:S.cycle.Zb};
+  else if(items[cur] && items[cur].move && items[cur].move.type==='cycle'){ const m=items[cur].move; lv={init:m.init,R:m.R,Zb:m.Zb}; }
+  // cavity
+  let cav=Math.min(0,tool3.z);
+  if(amv && amv.type==='cycle') cav=Math.min(cav,cycMinZ(amv,anim.t));
+  else if(cur>0 && items[cur-1].move && items[cur-1].move.type==='cycle') cav=Math.min(cav,items[cur-1].move.Zb);
+  if(cav<0){ ctx.fillStyle=col('--canvas'); ctx.fillRect(colX-6,y0,12,Zy(cav)-y0); ctx.strokeStyle=col('--stock-edge'); ctx.strokeRect(colX-6+.5,y0,11,Zy(cav)-y0); }
+  // ticks
+  const st=niceStep((zr[1]-zr[0])/6);
+  ctx.font='10px '+col('--font-mono'); ctx.fillStyle=col('--muted'); ctx.textAlign='right';
+  for(let z=Math.ceil(zr[0]/st)*st; z<=zr[1]; z+=st){ const y=Math.round(Zy(z))+.5; ctx.strokeStyle=col('--grid-strong'); ctx.beginPath(); ctx.moveTo(sx-4,y); ctx.lineTo(sx,y); ctx.stroke(); ctx.fillText(String(Math.round(z*100)/100),sx-6,y+3); }
+  ctx.textAlign='left';
+  // levels
+  if(lv){
+    const L=[{z:lv.init,t:'초기점 '+fmt(lv.init),c:col('--steel'),d:[4,3]},{z:lv.R,t:'R점 '+fmt(lv.R),c:col('--accent'),d:[4,3]},{z:lv.Zb,t:'바닥 '+fmt(lv.Zb),c:col('--ink'),d:[]}];
+    L.forEach(l=>{ ctx.strokeStyle=l.c; ctx.lineWidth=1.4; ctx.setLineDash(l.d); const y=Math.round(Zy(l.z))+.5; ctx.beginPath(); ctx.moveTo(sx,y); ctx.lineTo(x0+GW-6,y); ctx.stroke(); });
+    ctx.setLineDash([]);
+    const sorted=L.map(l=>({...l,y:Zy(l.z)-4})).sort((a,b)=>a.y-b.y); let prev=-99;
+    ctx.font='600 10px '+col('--font-ui');
+    sorted.forEach(l=>{ let y=Math.max(l.y,prev+12); prev=y; const w=ctx.measureText(l.t).width; ctx.fillStyle=col('--panel'); ctx.globalAlpha=.85; ctx.fillRect(colX+10,y-9,w+4,12); ctx.globalAlpha=1; ctx.fillStyle=l.c; ctx.fillText(l.t,colX+12,y); });
+  }
+  // tool (drill seen from the side)
+  const over = tool3.z>zr[1];
+  const tip = Zy(Math.max(zr[0],Math.min(zr[1],tool3.z)));
+  ctx.fillStyle=col('--tool');
+  ctx.fillRect(colX-4,Math.max(0,tip-40),8,tip-6-Math.max(0,tip-40));
+  ctx.beginPath(); ctx.moveTo(colX-4,tip-6); ctx.lineTo(colX+4,tip-6); ctx.lineTo(colX,tip); ctx.closePath(); ctx.fill();
+  if(over){ ctx.fillStyle=col('--muted'); ctx.font='10px '+col('--font-mono'); ctx.fillText('↑ Z'+fmt(tool3.z),colX+8,top+10); }
+}
+
+// ---------- UI ----------
+function renderList(){
+  const L=$('list'); L.innerHTML='';
+  items.forEach((it,i)=>{
+    const r=document.createElement('div'); r.className='row'; r.tabIndex=0; r.dataset.i=i;
+    const ln=document.createElement('span'); ln.className='ln'; ln.textContent=it.n;
+    const body=document.createElement('div');
+    const c=document.createElement('code'); c.textContent=it.raw;
+    const p=document.createElement('p'); p.textContent=it.desc[0]||'';
+    body.append(c,p);
+    if(it.err){ const e=document.createElement('p'); e.className='e'; e.textContent='⚠ '+it.err; body.append(e); }
+    r.append(ln,body);
+    r.addEventListener('click',()=>jump(i+1));
+    r.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); jump(i+1);} });
+    L.append(r);
+  });
+}
+function updateUI(){
+  const active = anim? anim.i : cur-1;
+  $('list').querySelectorAll('.row').forEach((r,i)=>{ r.classList.toggle('done',i<cur&&i!==active); r.classList.toggle('active',i===active); });
+  const ar=$('list').querySelector('.row.active');
+  if(ar && !$('list').hidden){ const L=$('list'); const top=ar.offsetTop-L.offsetTop; if(top<L.scrollTop||top+ar.offsetHeight>L.scrollTop+L.clientHeight) L.scrollTop=top-L.clientHeight/3; }
+  $('prog').textContent=Math.min(cur,items.length)+' / '+items.length;
+  // now
+  const it=items[active];
+  const ul=$('nowdesc'); ul.innerHTML='';
+  if(it){ $('nowcode').textContent=it.raw; for(const d of it.desc){ const li=document.createElement('li'); li.textContent=d; ul.append(li);} if(it.err){ const li=document.createElement('li'); li.className='err'; li.textContent='⚠ '+it.err; ul.append(li);} }
+  else { $('nowcode').textContent='—'; const li=document.createElement('li'); li.textContent='‘다음 줄’을 눌러 한 줄씩 실행해 보세요.'; ul.append(li); }
+  // DRO
+  const st=stateAt(cur); let pos={x:st.x,y:st.y,z:st.z};
+  if(anim && items[anim.i].move) pos=pos3(items[anim.i].move,anim.t);
+  const S0=anim?items[anim.i].after:st; let lvn='';
+  if(mode==='mill' && S0.cycle && S0.cycle.Rabs!=null){ const c=S0.cycle, near=a=>Math.abs(pos.z-a)<1e-3;
+    lvn = near(c.Rabs)?'R점 · ':(near(c.init)?'초기점 · ':(near(c.Zb)?'바닥 · ':'')); }
+  if(!lvn && mode==='mill' && Math.abs(pos.z-SECOND.mill.z)<1e-3) lvn='제2원점 · ';
+  const rows = mode==='lathe'
+    ? [['X','지름',fmt3(pos.x),'반지름 '+fmt(pos.x/2)],['Z','',fmt3(pos.z),pos.z<0?'끝면에서 '+fmt(-pos.z)+' 안쪽':'끝면 바깥']]
+    : [['X','',fmt3(pos.x),''],['Y','',fmt3(pos.y),''],['Z','',fmt3(pos.z),lvn+(pos.z<0?'소재 속 '+fmt(-pos.z)+'mm':'소재 위')]];
+  $('axes').innerHTML=rows.map(r=>`<div class="ax"><b>${r[0]}${r[1]?' <span style="font-weight:400">'+r[1]+'</span>':''}</b><output>${r[2]}</output><small>${r[3]}</small></div>`).join('');
+  const mot=(anim?items[anim.i].after:st).motion;
+  const S=anim?items[anim.i].after:st;
+  const chips=[['G00',mot===0],['G01',mot===1],['G02',mot===2],['G03',mot===3]];
+  if(mode==='mill'){ chips.push([S.abs?'G90 절대':'G91 증분',true]); chips.push([S.ret===99?'G99 R점 복귀':'G98 초기점 복귀',!!S.cycle]); if(S.cycle) chips.push(['G'+S.cycle.g+' 사이클 중',true]); }
+  else chips.push([S.css?'G96 일정 속도':'G97 일정 rpm',true]);
+  chips.push(['F '+(S.feed??'—'),S.feed!=null],['S '+(S.speed??'—'),S.speed!=null]);
+  $('modal').innerHTML=chips.map(c=>`<span class="chip${c[1]?' on':''}">${c[0]}</span>`).join('');
+  $('b-prev').disabled=cur===0&&!anim; $('b-reset').disabled=cur===0&&!anim;
+  $('b-next').disabled=cur>=items.length&&!anim; $('b-end').disabled=cur>=items.length&&!anim;
+  $('b-play').textContent=playing?'⏸ 멈춤':'▶ 자동 실행';
+  draw();
+}
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+function runLine(then){
+  if(cur>=items.length){ stop(); return; }
+  const i=cur, mv=items[i].move;
+  const spd=parseFloat($('spd').value);
+  if(!mv || reduce.matches){ cur++; updateUI(); then&&then(); return; }
+  const dist=mv.len+(mv.zlen||0);
+  const dur=(mv.type==='ref' ? Math.min(2400,Math.max(600,30*mv.len)) : mv.type==='cycle' ? Math.min(4500,Math.max(1200,32*mv.len)) : Math.min(2200,Math.max(350,(mv.type==='rapid'?12:28)*dist)))/spd;
+  const t0=performance.now(); anim={i,t:0};
+  const tick=now=>{ if(!anim||anim.i!==i) return; anim.t=Math.min(1,(now-t0)/dur); updateUI();
+    if(anim.t<1) requestAnimationFrame(tick); else { anim=null; cur=i+1; updateUI(); then&&then(); } };
+  requestAnimationFrame(tick);
+}
+function finishAnim(){ if(anim){ cur=anim.i+1; anim=null; } }
+function next(){ if(anim){ finishAnim(); updateUI(); return; } runLine(); }
+function playLoop(){ if(!playing) return; if(cur>=items.length){ stop(); return; } runLine(()=>{ if(!playing) return; const spd=parseFloat($('spd').value); timer=setTimeout(playLoop, (items[cur-1]&&items[cur-1].move?250:550)/spd); }); }
+function stop(){ playing=false; clearTimeout(timer); updateUI(); }
+function jump(k){ stop(); anim=null; cur=Math.max(0,Math.min(items.length,k)); updateUI(); }
+
+$('b-next').onclick=()=>{ stop(); next(); };
+$('b-prev').onclick=()=>{ if(anim){ const i=anim.i; jump(i); } else jump(cur-1); };
+$('b-reset').onclick=()=>jump(0);
+$('b-end').onclick=()=>jump(items.length);
+$('b-play').onclick=()=>{ if(playing){ stop(); return; } if(cur>=items.length) cur=0; finishAnim(); playing=true; updateUI(); playLoop(); };
+$('ghost').onchange=draw;
+$('fitall').onchange=()=>{ computeView(); draw(); };
+
+function setMode(m){
+  stop(); mode=m; $('m-lathe').setAttribute('aria-pressed',m==='lathe'); $('m-mill').setAttribute('aria-pressed',m==='mill');
+  $('code').value=programs[m];
+  $('edhint').textContent = m==='lathe' ? '선반: X는 지름값, Z는 길이 방향이에요. U·W로 증분 이동도 할 수 있어요. 고친 내용은 이 브라우저에 저장돼요.' : '머시닝센터: G90 절대·G91 증분, Z0이 소재 윗면이에요. G28·G30 원점 복귀, G73·G74·G81~G86·G89 고정 사이클과 G98·G99 복귀 높이도 그려요. 고친 내용은 이 브라우저에 저장돼요.';
+  $('lg-hole').hidden = m!=='mill';
+  $('notes').innerHTML=NOTES[m].map(n=>`<div class="panel note"><h2>${n[0]}</h2><p>${n[1]}</p></div>`).join('');
+  rebuild(true);
+}
+function rebuild(reset){ items=parse(programs[mode],mode); if(reset) cur=0; cur=Math.min(cur,items.length); anim=null; computeView(); renderList(); updateUI(); }
+$('m-lathe').onclick=()=>setMode('lathe');
+$('m-mill').onclick=()=>setMode('mill');
+
+let deb; $('code').addEventListener('input',()=>{ programs[mode]=$('code').value; saveDrafts(); clearTimeout(deb); deb=setTimeout(()=>{ stop(); rebuild(false); },300); });
+$('b-sample').onclick=()=>{ programs[mode]=SAMPLES[mode]; $('code').value=programs[mode]; saveDrafts(); rebuild(true); };
+
+function tab(which){ const ed=which==='edit'; $('t-read').setAttribute('aria-selected',!ed); $('t-edit').setAttribute('aria-selected',ed); $('list').hidden=ed; $('editor').hidden=!ed; if(!ed) updateUI(); }
+$('t-read').onclick=()=>tab('read'); $('t-edit').onclick=()=>tab('edit');
+
+new ResizeObserver(resize).observe($('cvwrap'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+document.fonts && document.fonts.ready.then(draw);
+
+setMode('lathe');
+// open in a useful state: first few lines already run
+jump(7);
+})();
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="용접 시뮬레이터.html">← 이전 자료</a><a href="index.html">전체 자료 목록</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

@@ -1,0 +1,438 @@
+<!doctype html><html lang="ko" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body class="mm-page mm-standard">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics" aria-current="page">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#dynamics">동역학</a><span>/</span>원운동과 구심력</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics" aria-current="page">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>원운동과 구심력</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+/* Layout: 제목 → (무대 + 조작판) 2열 → 보조 카드 → 생각해보기. 폰에서는 1열. */
+:root{
+  --font-display:'Black Han Sans','Noto Sans KR',system-ui,sans-serif;
+  --font-body:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --bg:#edf1f6; --panel:#ffffff; --panel2:#f3f6fb; --fg:#17202e; --muted:#586479; --line:#d5dce7;
+  --accent:#0a66c2; --on-accent:#ffffff; --force:#d83a22; --amber:#b8650a;
+  --good:#14804f; --good-bg:#dff3e8; --warn:#8f5200; --warn-bg:#fdecc8; --bad:#b3261e; --bad-bg:#fbdcd8;
+  --steel:#a9b6c9; --steel2:#6c7b93; --ghost:#7b8798; --tint:#0a66c222;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+    --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+    --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+    --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+  --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+  --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+  --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.65;
+  padding-block:22px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:18px}
+.kicker{font:600 12px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,5vw,46px);line-height:1.18;margin:10px 0 8px;text-wrap:balance}
+.lede{color:var(--muted);max-width:64ch;margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.grid.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:880px){.grid,.grid.even{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.card h2{font-size:16px;margin:0 0 4px;font-weight:700}
+.card .sub{margin:0 0 12px;color:var(--muted);font-size:14px}
+svg{display:block;width:100%;height:auto;max-width:100%}
+.ctl{display:grid;gap:2px;margin-bottom:12px}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:500;font-size:14px}
+.ctl output{font:600 15px var(--font-mono);color:var(--accent);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:30px;accent-color:var(--accent);margin:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.btn,.seg button{font:500 14px var(--font-body);padding:8px 13px;min-height:40px;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel);color:var(--fg);cursor:pointer}
+.btn:hover,.seg button:hover{border-color:var(--accent)}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:10px}
+.stat{background:var(--panel2);border-radius:10px;padding:10px 12px;min-width:0}
+.stat .k{font-size:12px;color:var(--muted);line-height:1.3}
+.stat .v{font:600 clamp(20px,3.2vw,26px)/1.25 var(--font-mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stat .v small{font-size:13px;color:var(--muted);font-weight:500;margin-left:3px}
+.stat.hero .v{font-size:clamp(28px,4.6vw,40px);color:var(--accent)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:700;line-height:1.6}
+.pill.ok{background:var(--good-bg);color:var(--good)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.info{background:var(--tint);color:var(--accent)}
+.formula{font:500 clamp(17px,3.2vw,26px)/1.5 var(--font-mono);margin:6px 0;overflow-wrap:anywhere}
+.hl-a{color:var(--accent);font-weight:700}.hl-f{color:var(--force);font-weight:700}.hl-m{color:var(--amber);font-weight:700}
+.calc{background:var(--panel2);border-radius:10px;padding:10px 12px;font:500 14px/1.7 var(--font-mono);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+ul.tips{margin:8px 0 0;padding-left:1.2em;display:grid;gap:6px}
+.exp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.exp button{text-align:left;display:grid;gap:2px;padding:12px;min-height:0;font:inherit;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--fg);cursor:pointer}
+.exp button:hover{border-color:var(--accent)}
+.exp .t{font-weight:700;font-size:14px}.exp .r{font:600 24px var(--font-mono);color:var(--accent)}.exp .w{font-size:13px;color:var(--muted);line-height:1.45}
+details.quiz{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:0 14px}
+details.quiz summary{cursor:pointer;padding:12px 0;font-weight:700}
+details.quiz .ans{padding:0 0 12px;color:var(--muted)}
+.s-axis{stroke:var(--muted);stroke-width:1.5;fill:none}
+.s-grid{stroke:var(--line);stroke-width:1}
+.s-txt{fill:var(--muted);font:13px var(--font-body)}
+.s-lbl{fill:var(--fg);font:700 15px var(--font-body)}
+.s-mono{font-family:var(--font-mono)}
+.s-force{stroke:var(--force);fill:var(--force)}
+.s-accent{stroke:var(--accent);fill:var(--accent)}
+.s-amber{stroke:var(--amber);fill:var(--amber)}
+.s-good{stroke:var(--good);fill:var(--good)}
+.s-ghost{stroke:var(--ghost);fill:none;stroke-dasharray:6 5;stroke-width:1.6}
+.foot{color:var(--muted);font-size:13px}
+.foot a{color:var(--accent);font-weight:700}
+.bar{height:22px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .15s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+
+<div class="wrap">
+  <header>
+    <div class="kicker">동역학 · 원운동</div>
+    <h1>원운동과 구심력</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+    <p class="lede">공을 줄에 매달아 돌리면 줄이 공을 중심 쪽으로 계속 당겨요. 이 힘이 구심력이에요. 빨리 돌릴수록 줄에 걸리는 힘이 커지다가 한계를 넘으면 줄이 끊어지고, 공은 바깥이 아니라 접선 방향으로 날아가요.</p>
+  </header>
+
+  <div class="grid">
+    <section class="card" aria-label="위에서 본 회전">
+      <h2>위에서 본 원운동 (마찰 없는 테이블)</h2>
+      <p class="sub"><b style="color:var(--force)">빨강</b> 줄이 당기는 힘(구심력), <b style="color:var(--accent)">파랑</b> 속도(접선 방향)</p>
+      <svg id="stage" viewBox="0 0 600 360" role="img" aria-label="줄에 매달려 도는 공을 위에서 본 그림"></svg>
+      <p style="margin:6px 0 0"><span class="pill info" id="judge">-</span> <span class="foot" id="judgeNote"></span></p>
+    </section>
+
+    <section class="card" aria-label="조작판">
+      <h2>조건 바꾸기</h2>
+      <div class="ctl"><label for="sm">공 질량 m <output id="om"></output></label><input id="sm" type="range" min="0.1" max="2" step="0.1"></div>
+      <div class="ctl"><label for="sr">줄 길이(반지름) r <output id="or"></output></label><input id="sr" type="range" min="0.3" max="1.3" step="0.05"></div>
+      <div class="ctl"><label for="sw">각속도 ω <output id="ow"></output></label><input id="sw" type="range" min="1" max="20" step="0.5"></div>
+      <div class="ctl"><label>줄의 강도 (끊어지는 장력)</label><div class="seg" id="lim"><button data-v="15" type="button">약한 줄 15 N</button><button data-v="40" type="button">보통 줄 40 N</button><button data-v="100" type="button">튼튼한 줄 100 N</button></div></div>
+      <div class="ctl"><label>화면 속도</label><div class="seg" id="slow"><button data-v="0.15" type="button">아주 느리게</button><button data-v="0.35" type="button">느리게</button><button data-v="1" type="button">실제 속도</button></div></div>
+      <div class="row"><button class="btn primary" id="cut" type="button">줄 자르기</button><button class="btn" id="tie" type="button">다시 묶기</button></div>
+    </section>
+  </div>
+
+  <section class="card" aria-label="결과">
+    <h2>계산 결과</h2>
+    <div class="stats" id="stats"></div>
+    <div class="calc" id="calc" style="margin-top:12px"></div>
+  </section>
+
+  <div class="grid even">
+    <section class="card" aria-label="그래프">
+      <h2>각속도에 따른 줄의 힘</h2>
+      <p class="sub">ω가 2배가 되면 힘은 4배예요(제곱에 비례). 붉은 점선 위로 올라가면 줄이 끊어져요.</p>
+      <svg id="chart" viewBox="0 0 520 280" role="img" aria-label="각속도와 구심력의 그래프"></svg>
+    </section>
+    <section class="card" aria-label="공식" id="mm-theory">
+      <h2>공식</h2>
+      <div class="formula"><span class="hl-a">v</span> = r·ω<br><span class="hl-f">F</span> = m·v² / r = <span class="hl-m">m</span>·r·<span class="hl-a">ω</span>²</div>
+      <ul class="tips">
+        <li>구심력은 줄이 <b>중심 쪽으로 당기는 힘</b>이에요. 공이 바깥으로 밀리는 힘이 아니에요.</li>
+        <li>줄이 끊어지면 힘이 사라져서 공은 <b>관성</b>대로 그 순간의 속도 방향(접선)으로 직진해요.</li>
+        <li>속도(ω)가 2배면 힘은 4배, 질량이나 반지름이 2배면 힘은 2배예요.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card" aria-label="현장 연결">
+    <h2>그래서 현장에서는</h2>
+    <ul class="tips">
+      <li><b>선반 척에 물린 불균형한 공작물</b>은 회전하면서 중심에서 벗어난 질량이 mrω²만큼 큰 힘을 만들어요. 회전수가 2배가 되면 진동 힘은 4배예요.</li>
+      <li><b>연삭숫돌의 최고 사용 회전수</b>가 정해져 있는 이유도 같아요. 한계를 넘으면 숫돌이 파괴되어 조각이 접선 방향으로 튀어 나가요.</li>
+      <li>그래서 척이나 지그의 <b>안전 덮개</b>는 회전 방향의 접선 쪽을 막도록 설계해요.</li>
+    </ul>
+  </section>
+
+  <section class="card" aria-label="생각해보기" id="mm-inquiry">
+    <h2>생각해 보기</h2>
+    <div style="display:grid;gap:10px;margin-top:10px">
+      <details class="quiz"><summary>m = 0.5 kg, r = 1 m, ω = 6 rad/s일 때 구심력은?</summary><div class="ans">F = 0.5 × 1 × 6² = <b>18 N</b> 이에요.</div></details>
+      <details class="quiz"><summary>회전 속도를 2배로 올리면 줄에 걸리는 힘은 몇 배일까요?</summary><div class="ans"><b>4배</b>예요. F = mrω²에서 ω가 제곱으로 들어가요.</div></details>
+      <details class="quiz"><summary>줄이 끊어지면 공은 바깥쪽(반지름 방향)으로 날아갈까요?</summary><div class="ans">아니요. <b>접선 방향</b>으로 날아가요. 직접 “줄 자르기”를 눌러 확인해 보세요.</div></details>
+    </div>
+  </section>
+  <p class="foot"><a href="index.html" target="_blank" rel="noopener">← 기계 금속 시각화 모음으로 돌아가기</a></p>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt=(v,n=1)=>{let r=+(+v).toFixed(n);if(r===0)r=0;return r.toLocaleString('ko-KR',{minimumFractionDigits:n,maximumFractionDigits:n});};
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+const niceMax=v=>{if(!(v>0))return 1;const m=10**Math.floor(Math.log10(v));return ([1,2,2.5,5,10].find(x=>x*m>=v*0.999))*m;};
+const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+function head(x,y,dx,dy,cls,h=10){const a=Math.atan2(dy,dx);
+  const p=[[x,y],[x-h*Math.cos(a-.45),y-h*Math.sin(a-.45)],[x-h*Math.cos(a+.45),y-h*Math.sin(a+.45)]].map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
+  return `<polygon points="${p}" class="${cls}"/>`;}
+function arrow(x1,y1,x2,y2,cls,w=3,dash=''){const a=Math.atan2(y2-y1,x2-x1),L=Math.hypot(x2-x1,y2-y1);if(L<3)return '';
+  const hl=Math.min(10,L*0.6);
+  return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${(x2-hl*0.8*Math.cos(a)).toFixed(1)}" y2="${(y2-hl*0.8*Math.sin(a)).toFixed(1)}" class="${cls}" stroke-width="${w}" ${dash?`stroke-dasharray="${dash}"`:''}/>`+head(x2,y2,Math.cos(a),Math.sin(a),cls,hl+2);}
+function bind(st,key,id,fmtFn,render){const el=$(id),out=$('o'+id.slice(1));
+  const upd=()=>{el.value=st[key];out.textContent=fmtFn(st[key]);};
+  el.addEventListener('input',()=>{st[key]=+el.value;upd();render();});upd();return upd;}
+function chips(sel,st,key,render,conv=x=>x){const bs=$$(sel+' button');
+  const upd=()=>bs.forEach(b=>b.setAttribute('aria-pressed',String(conv(b.dataset.v)===st[key])));
+  bs.forEach(b=>b.onclick=()=>{st[key]=conv(b.dataset.v);upd();render();});upd();return upd;}
+function lineChart(id,o){
+  const W=o.W||520,H=o.H||280,ml=o.ml||58,mr=o.mr||16,mt=o.mt||14,mb=o.mb||44,pw=W-ml-mr,ph=H-mt-mb;
+  const X=x=>ml+(x-o.xmin)/(o.xmax-o.xmin)*pw;
+  const Y=y=>mt+ph-(clamp(y,o.ymin,o.ymax)-o.ymin)/(o.ymax-o.ymin)*ph;
+  let h='';
+  (o.yticks||[]).forEach(v=>{h+=`<line x1="${ml}" y1="${Y(v)}" x2="${W-mr}" y2="${Y(v)}" class="s-grid"/><text x="${ml-8}" y="${Y(v)+4}" text-anchor="end" class="s-txt s-mono">${o.yf?o.yf(v):fmt(v,0)}</text>`;});
+  (o.xticks||[]).forEach(v=>{h+=`<line x1="${X(v)}" y1="${mt+ph}" x2="${X(v)}" y2="${mt+ph+5}" class="s-axis"/><text x="${X(v)}" y="${mt+ph+20}" text-anchor="middle" class="s-txt s-mono">${o.xf?o.xf(v):fmt(v,0)}</text>`;});
+  h+=`<line x1="${ml}" y1="${mt+ph}" x2="${W-mr}" y2="${mt+ph}" class="s-axis"/><line x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ph}" class="s-axis"/>`;
+  if(o.xlab)h+=`<text x="${ml+pw/2}" y="${H-6}" text-anchor="middle" class="s-txt">${o.xlab}</text>`;
+  if(o.ylab)h+=`<text x="13" y="${mt+ph/2}" text-anchor="middle" class="s-txt" transform="rotate(-90 13 ${mt+ph/2})">${o.ylab}</text>`;
+  (o.hlines||[]).forEach(l=>{if(l.y<o.ymin||l.y>o.ymax)return;h+=`<line x1="${ml}" y1="${Y(l.y)}" x2="${W-mr}" y2="${Y(l.y)}" stroke="${l.color||'var(--force)'}" stroke-dasharray="6 4" stroke-width="1.6"/>`;
+    if(l.label)h+=`<text x="${l.left?ml+6:W-mr-4}" y="${Y(l.y)-6}" text-anchor="${l.left?'start':'end'}" class="s-txt" style="fill:${l.color||'var(--force)'};font-weight:700">${l.label}</text>`;});
+  (o.curves||[]).forEach(c=>{h+=`<polyline points="${pts(c.pts.map(p=>[X(p[0]),Y(p[1])]))}" fill="none" stroke="${c.color||'var(--accent)'}" stroke-width="${c.w||3}" ${c.dash?`stroke-dasharray="${c.dash}"`:''} ${c.op?`opacity="${c.op}"`:''} stroke-linejoin="round"/>`;
+    if(c.label){const q=c.pts[c.lp!==undefined?c.lp:c.pts.length-1];h+=`<text x="${Math.min(X(q[0]),W-mr-4)}" y="${Y(q[1])-8}" text-anchor="end" class="s-txt" style="fill:${c.color||'var(--accent)'};font-weight:700">${c.label}</text>`;}});
+  if(o.extra)h+=o.extra(X,Y,{ml,mt,pw,ph,W,H});
+  (o.dots||[]).forEach(d=>{const cx=X(d.x),cy=Y(d.y);
+    if(d.drop!==false)h+=`<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${mt+ph}" stroke="${d.color||'var(--force)'}" stroke-dasharray="3 3"/>`;
+    h+=`<circle cx="${cx}" cy="${cy}" r="7" fill="${d.color||'var(--force)'}" stroke="var(--panel)" stroke-width="2"/>`;
+    if(d.label){const an=cx>W-150?'end':'start';h+=`<text x="${cx+(an==='end'?-12:12)}" y="${Math.max(cy-10,mt+14)}" text-anchor="${an}" class="s-lbl s-mono">${d.label}</text>`;}});
+  $(id).innerHTML=h;return{X,Y};
+}
+// 프레임 루프 도우미: fn(dt,now)가 true를 반환하는 동안 계속 돈다
+function loop(fn){let on=false,prev=0;const step=now=>{const dt=Math.min(0.05,(now-prev)/1000);prev=now;if(fn(dt,now))requestAnimationFrame(step);else on=false;};
+  return()=>{if(on)return;on=true;prev=performance.now();requestAnimationFrame(step);};}
+
+(()=>{
+const CX=230,CY=180,PM=130;
+const st={m:0.5,r:0.8,w:6,lim:40,slow:0.35};
+let phi=0,broken=false,bx=0,by=0,bvx=0,bvy=0,gone=false,bx0=0,by0=0;
+const F=()=>st.m*st.r*st.w*st.w;
+function breakNow(){if(broken)return;broken=true;gone=false;const R=st.r*PM,v=st.w*st.r*PM;bx=CX+R*Math.cos(phi);by=CY-R*Math.sin(phi);bx0=bx;by0=by;bvx=-v*Math.sin(phi);bvy=-v*Math.cos(phi);}
+function tie(){broken=false;gone=false;}
+function draw(){
+  const R=st.r*PM,f=F();
+  let h=`<rect x="6" y="6" width="588" height="348" rx="14" fill="var(--panel2)" stroke="var(--line)" stroke-width="2"/>`;
+  h+=`<circle cx="${CX}" cy="${CY}" r="${R}" class="s-ghost"/>`;
+  const x=broken?bx:CX+R*Math.cos(phi),y=broken?by:CY-R*Math.sin(phi);
+  if(!broken){
+    h+=`<line x1="${CX}" y1="${CY}" x2="${x}" y2="${y}" stroke="var(--fg)" stroke-width="3"/>`;
+    const L=clamp(18+f*1.9,24,140),ux=(CX-x)/R,uy=(CY-y)/R;
+    h+=arrow(x,y,x+ux*L,y+uy*L,'s-force',5);
+    const v=st.w*st.r,vl=clamp(v*9,20,150),vx=-Math.sin(phi),vy=-Math.cos(phi);
+    h+=arrow(x,y,x+vx*vl,y+vy*vl,'s-accent',4);
+    h+=`<text x="${x+ux*L*0.5+(ux>=0?8:-8)}" y="${y+uy*L*0.5}" text-anchor="${ux>=0?'start':'end'}" class="s-lbl s-mono" style="fill:var(--force)">F ${fmt(f,1)} N</text>`;
+    h+=`<text x="${x+vx*vl+(vx>=0?6:-6)}" y="${y+vy*vl+(vy>0?16:-6)}" text-anchor="${vx>=0?'start':'end'}" class="s-lbl s-mono" style="fill:var(--accent)">v ${fmt(v,1)} m/s</text>`;
+  }else{
+    h+=`<line x1="${CX}" y1="${CY}" x2="${CX+R*Math.cos(phi)}" y2="${CY-R*Math.sin(phi)}" stroke="var(--fg)" stroke-width="3" stroke-dasharray="3 6" opacity=".6"/>`;
+    h+=`<line x1="${bx0}" y1="${by0}" x2="${x}" y2="${y}" stroke="var(--accent)" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>`;
+    h+=arrow(x,y,x+bvx*0.04,y+bvy*0.04,'s-accent',3);
+  }
+  h+=`<circle cx="${CX}" cy="${CY}" r="7" fill="var(--steel2)"/><circle cx="${x}" cy="${y}" r="${10+st.m*5}" fill="${broken?'var(--amber)':'var(--force)'}" stroke="var(--fg)" stroke-width="2"/>`;
+  if(broken)h+=`<text x="300" y="30" class="s-lbl" style="fill:var(--bad)">줄이 끊어졌어요 → 접선 방향으로 직진</text>`;
+  $('stage').innerHTML=h;
+}
+function readout(){
+  const f=F(),v=st.w*st.r,j=$('judge');
+  $('stats').innerHTML=`<div class="stat hero"><div class="k">구심력 = 줄의 장력 F</div><div class="v">${fmt(f,1)}<small>N</small></div></div><div class="stat"><div class="k">속도 v = rω</div><div class="v">${fmt(v,2)}<small>m/s</small></div></div><div class="stat"><div class="k">회전수</div><div class="v">${fmt(st.w*60/(2*Math.PI),0)}<small>rpm</small></div></div><div class="stat"><div class="k">한 바퀴 시간</div><div class="v">${fmt(2*Math.PI/st.w,2)}<small>s</small></div></div>`;
+  $('calc').innerHTML=`F = ${st.m} × ${fmt(st.r,2)} × ${st.w}² = <b>${fmt(f,1)} N</b><br>줄이 버티는 한계 ${st.lim} N 중 <b>${fmt(f/st.lim*100,0)}%</b>를 쓰고 있어요.`;
+  if(broken){j.className='pill bad';j.textContent='줄이 끊어졌어요';$('judgeNote').textContent='"다시 묶기"를 누르거나 조건을 바꾸면 다시 시작해요.';}
+  else if(f>st.lim*0.8){j.className='pill warn';j.textContent='끊어지기 직전';$('judgeNote').textContent='장력이 한계의 '+fmt(f/st.lim*100,0)+'%예요.';}
+  else{j.className='pill ok';j.textContent='안전하게 돌아요';$('judgeNote').textContent='장력은 한계의 '+fmt(f/st.lim*100,0)+'%예요.';}
+}
+function chart(){
+  const ymax=niceMax(Math.max(st.lim*1.3,F()*1.1)),cv=[];
+  for(let w=0;w<=20.01;w+=0.5)cv.push([w,st.m*st.r*w*w]);
+  lineChart('chart',{xmin:0,xmax:20,ymin:0,ymax,xticks:[0,5,10,15,20],yticks:[0,ymax/2,ymax],xlab:'각속도 ω (rad/s)',ylab:'줄의 힘 F (N)',ml:58,
+    hlines:[{y:st.lim,label:'끊어짐 '+st.lim+' N',color:'var(--bad)',left:true}],curves:[{pts:cv,color:'var(--force)'}],dots:[{x:st.w,y:F(),label:fmt(F(),1)+' N'}]});
+}
+function params(){tie();readout();chart();draw();kick();}
+const kick=loop(dt=>{
+  if(!broken&&F()>st.lim){breakNow();readout();}
+  if(broken){bx+=bvx*dt*st.slow;by+=bvy*dt*st.slow;draw();if(bx<-10||bx>610||by<-10||by>370){gone=true;return false;}return true;}
+  if(reduce){draw();return false;}
+  phi+=st.w*dt*st.slow;draw();return true;});
+bind(st,'m','sm',x=>fmt(x,1)+' kg',params);bind(st,'r','sr',x=>fmt(x,2)+' m',params);bind(st,'w','sw',x=>fmt(x,1)+' rad/s',params);
+chips('#lim',st,'lim',params,Number);chips('#slow',st,'slow',()=>{kick();},Number);
+$('cut').onclick=()=>{breakNow();readout();kick();};$('tie').onclick=params;
+params();
+})();
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="포물선 운동 표적 맞히기.html">← 이전 자료</a><a href="index.html">전체 자료 목록</a><a href="스프링 질량 진동.html">다음 자료 →</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

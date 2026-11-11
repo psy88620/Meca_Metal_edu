@@ -1,0 +1,723 @@
+<!doctype html><html lang="ko" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body class="mm-page mm-steel">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material" aria-current="page">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#material">재료·측정</a><span>/</span>철강 일관제철 공정도</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material" aria-current="page">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>일관제철 공정도</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+
+
+<style>
+/* Layout: 야간 제철소 관제실 — 헤더 띠, 전체 폭 공정 캔버스, 공정 레일, 상세 패널 (단일 다크 테마) */
+:root{
+  --bg:#0e1216;
+  --panel:#151b21;
+  --line:#26303a;
+  --fg:#d9dee3;
+  --muted:#8793a0;
+  --molten:#ff8a1f;
+  --hot:#ffc65a;
+  --f-display:"Black Han Sans","IBM Plex Sans KR","Malgun Gothic",sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 40px}
+.wrap{max-width:1400px;margin:0 auto;display:grid;gap:20px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--molten);margin:0}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,5vw,48px);line-height:1.1;margin:4px 0 6px;text-wrap:balance;letter-spacing:.01em}
+.lede{margin:0;color:var(--muted);max-width:60ch}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:#3a4652}
+button:focus-visible{outline:2px solid var(--hot);outline-offset:2px}
+.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{border:0;border-radius:0;font-family:var(--f-mono);font-size:13px;padding:6px 10px}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"],#labels[aria-pressed="true"]{background:#2a2117;color:var(--hot)}
+#play{min-width:92px}
+.plant{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#0b0f13}
+canvas{display:block;width:100%;min-width:960px;aspect-ratio:1940/570;cursor:default}
+.hint{display:none;font-size:13px;color:var(--muted);margin:-12px 0 0}
+@media (max-width:980px){.hint{display:block}}
+.stages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+.stages button{width:100%;text-align:left;display:grid;gap:2px;padding:8px 10px;border-color:transparent;background:transparent;border-top:2px solid var(--line);border-radius:0}
+.stages button span{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.stages button[aria-current="true"]{border-top-color:var(--molten);background:var(--panel)}
+.stages button[aria-current="true"] span{color:var(--molten)}
+@media (max-width:900px){.stages{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:480px){.stages{grid-template-columns:repeat(2,1fr)}}
+.detail{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px 24px}
+@media (max-width:760px){.detail{grid-template-columns:minmax(0,1fr)}}
+.detail h2{font-family:var(--f-display);font-weight:400;font-size:28px;margin:0 0 8px;letter-spacing:.01em}
+.detail h2 small{font-family:var(--f-mono);font-size:14px;color:var(--molten);margin-right:10px}
+.detail p{margin:0;max-width:62ch}
+.now{display:flex;align-items:center;gap:8px;margin-top:14px;font-family:var(--f-mono);font-size:13px;color:var(--hot)}
+.now::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--molten);box-shadow:0 0 8px var(--molten);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+dl{margin:0;display:grid;gap:10px;align-content:start}
+dl div{display:grid;gap:2px;border-bottom:1px solid var(--line);padding-bottom:8px}
+dt{font-size:12px;letter-spacing:.06em;color:var(--muted)}
+dd{margin:0;font-family:var(--f-mono);font-size:15px;font-variant-numeric:tabular-nums}
+footer{font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.now::before{animation:none}}
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+
+<div class="wrap">
+  <header>
+    <div>
+      <p class="eyebrow">철광석에서 열연 코일까지</p>
+      <h1>철강 일관제철 공정도</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+      <p class="lede">원료가 고로에서 쇳물이 되고, 전로와 연속주조를 거쳐 코일로 감기기까지의 흐름을 한 화면에 움직이는 그림으로 담았습니다. 공정을 누르면 설명과 지금 상태가 나옵니다.</p>
+    </div>
+    <div class="controls">
+      <button id="play" type="button">일시정지</button>
+      <div class="seg" role="group" aria-label="재생 속도">
+        <button type="button" data-speed="0.5" aria-pressed="false">0.5×</button>
+        <button type="button" data-speed="1" aria-pressed="true">1×</button>
+        <button type="button" data-speed="2" aria-pressed="false">2×</button>
+        <button type="button" data-speed="4" aria-pressed="false">4×</button>
+      </div>
+      <button id="labels" type="button" aria-pressed="true">온도 표시</button>
+    </div>
+  </header>
+
+  <div class="plant">
+    <canvas id="plant" role="img" aria-label="원료 야드, 소결·코크스 공장, 고로, 토페도카, 전로, RH 정련, 연속주조기, 열간압연기가 왼쪽에서 오른쪽으로 이어진 제철소 단면 애니메이션"></canvas>
+  </div>
+  <p class="hint">그림을 옆으로 밀면 전체 공정을 볼 수 있습니다.</p>
+
+  <ol class="stages" id="stages"></ol>
+
+  <section class="detail" aria-live="polite">
+    <div>
+      <h2 id="d-title"></h2>
+      <p id="d-desc"></p>
+      <div class="now" id="d-now"></div>
+    </div>
+    <dl id="d-metrics"></dl>
+  </section>
+
+  <footer>수치는 일반적인 범위이며 제철소와 설비마다 다릅니다. 애니메이션 시간은 실제보다 크게 압축했습니다.</footer>
+</div>
+
+<script>
+const STAGES=[
+ {no:'01',name:'원료 처리',x0:0,x1:220,
+  desc:'배로 들여온 철광석과 유연탄, 석회석을 원료 야드에 쌓아 두고, 리클레이머로 퍼내 품위에 맞게 섞은 뒤 컨베이어로 다음 공정에 보냅니다.',
+  m:[['주원료','철광석 · 유연탄 · 석회석'],['쇳물 1톤당 철광석','약 1.6톤'],['운반','벨트 컨베이어']]},
+ {no:'02',name:'소결·코크스',x0:220,x1:400,
+  desc:'가루 철광석에 코크스 가루와 석회석을 섞어 구워 덩어리 소결광을 만들고, 유연탄은 코크스 오븐에서 공기를 막은 채 쪄서 코크스로 바꿉니다. 고로 안에서 가스가 잘 통하도록 원료를 덩어리로 만드는 단계입니다.',
+  m:[['소결 온도','약 1,300°C'],['코크스 건류','약 1,100°C · 17~18시간'],['코크스 역할','연료 + 환원제']]},
+ {no:'03',name:'고로',x0:400,x1:640,
+  desc:'꼭대기로 소결광과 코크스를 층층이 넣고, 아래쪽 풍구로 뜨거운 바람을 불어 넣습니다. 코크스가 타며 생긴 일산화탄소가 산화철의 산소를 빼앗아 쇳물(용선)이 되고, 출선구로 흘러나옵니다.',
+  m:[['환원 반응','Fe₂O₃ + 3CO → 2Fe + 3CO₂'],['열풍','약 1,200°C'],['용선','약 1,500°C · 탄소 약 4.5%']]},
+ {no:'04',name:'용선 운반',x0:640,x1:815,
+  desc:'어뢰 모양의 내화물 화차(토페도카)가 쇳물을 받아 제강 공장으로 옮기고 장입 래들에 부어 줍니다. 이동하면서 황·인을 미리 빼는 용선 예비처리를 하기도 합니다.',
+  m:[['적재량','약 300톤'],['예비처리','탈황 · 탈인'],['다음 공정','전로 장입']]},
+ {no:'05',name:'전로',x0:815,x1:1020,
+  desc:'용선을 전로에 붓고 랜스로 순산소를 초음속으로 불어 넣습니다. 탄소가 타서 일산화탄소로 빠져나가고, 그 반응열만으로 온도가 올라가 외부 연료 없이 용강이 됩니다.',
+  m:[['탄소','약 4.5% → 0.05% 이하'],['취련 시간','약 15~20분'],['출강 온도','약 1,650°C']]},
+ {no:'06',name:'2차 정련',x0:1020,x1:1130,
+  desc:'RH 설비가 진공조의 두 침지관을 래들 속 용강에 담그고, 진공으로 용강을 빨아올려 돌리면서 수소·질소 같은 가스를 빼고 합금 성분을 정밀하게 맞춥니다.',
+  m:[['방식','RH 진공 탈가스'],['제거 대상','수소 · 질소 · 탄소'],['처리 시간','약 20~30분']]},
+ {no:'07',name:'연속주조',x0:1130,x1:1455,
+  desc:'래들의 용강이 턴디시를 거쳐 물로 식히는 구리 주형(몰드)에 들어가 겉부터 굳습니다. 휘어진 롤 사이를 지나며 속까지 굳은 강은 토치로 잘려 슬래브가 됩니다. 래들이 비면 터렛이 돌아 다음 래들로 바꿔 끊김 없이 주조합니다.',
+  m:[['턴디시','약 1,550°C'],['슬래브 두께','약 250mm'],['주조 속도','분당 약 1~2m']]},
+ {no:'08',name:'열간압연',x0:1455,x1:1940,
+  desc:'슬래브를 가열로에서 다시 데운 뒤 조압연기와 사상압연기를 차례로 통과시켜 얇고 길게 늘립니다. 냉각대에서 물을 뿌려 식힌 뒤 코일로 감아 출하합니다.',
+  m:[['재가열','약 1,200°C'],['두께','250mm → 1.2~25mm'],['권취 온도','약 550~700°C']]},
+];
+
+const W=1940,H=570,GY=500,P=30,PS=5,PC=10;
+const cv=document.getElementById('plant'),ctx=cv.getContext('2d');
+let k=1,scale=1,time=22,speed=1,paused=false,showTags=true,sel=4,hover=-1,last=performance.now();
+
+// ---------- helpers ----------
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const ease=x=>x*x*(3-2*x);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+function kf(p,keys){
+  if(p<=keys[0][0])return keys[0][1];
+  for(let i=1;i<keys.length;i++){const[t1,v1]=keys[i];if(p<=t1){const[t0,v0]=keys[i-1];return t1===t0?v1:v0+(v1-v0)*ease((p-t0)/(t1-t0));}}
+  return keys[keys.length-1][1];
+}
+function line(x1,y1,x2,y2){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
+function rect(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(x,y,w,h);}
+function poly(pts,fill){ctx.beginPath();pts.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();ctx.fillStyle=fill;ctx.fill();}
+function circle(x,y,r,c){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=c;ctx.fill();}
+function cyl(x0,x1,lo='#2a3239',hi='#63707c'){const g=ctx.createLinearGradient(x0,0,x1,0);g.addColorStop(0,lo);g.addColorStop(.35,hi);g.addColorStop(1,lo);return g;}
+function glow(x,y,r,a){const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,200,110,${a})`);g.addColorStop(1,'rgba(255,110,30,0)');ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);}
+function stream(x1,y1,x2,y2,w){
+  ctx.save();ctx.lineCap='round';ctx.shadowColor='#ff8a1f';ctx.shadowBlur=10;
+  ctx.strokeStyle='#ffc65a';ctx.lineWidth=w+Math.sin(time*40)*.5;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.quadraticCurveTo(x2,y1,x2,y2);ctx.stroke();ctx.restore();
+}
+function mixHex(a,b,f){const pa=[1,3,5].map(i=>parseInt(a.substr(i,2),16)),pb=[1,3,5].map(i=>parseInt(b.substr(i,2),16));return `rgb(${pa.map((v,i)=>Math.round(v+(pb[i]-v)*f)).join(',')})`;}
+
+// seeded skyline
+let seed=7;const srnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
+const SKY=[],WIN=[],STARS=[];
+for(let x=0;x<W;){const w=30+srnd()*70,h=20+srnd()*80;SKY.push([x,w,h]);for(let i=0;i<3;i++)if(srnd()<.5)WIN.push([x+srnd()*w,GY-srnd()*h]);x+=w+srnd()*30;}
+for(let i=0;i<70;i++)STARS.push([srnd()*W,srnd()*300]);
+
+// ---------- particles ----------
+const parts=[];
+function emit(x,y,vx,vy,life,size,color,grav=0,grow=0){if(parts.length<800)parts.push({x,y,vx,vy,life,max:life,size,color,grav,grow});}
+function rate(r,dt,fn){let n=r*dt;while(n>=1){fn();n--;}if(Math.random()<n)fn();}
+const smoke=(x,y,c='rgba(150,160,170,.2)')=>emit(x+rnd(-3,3),y,rnd(2,9),rnd(-24,-14),rnd(3,5),4,c,0,3.5);
+const spark=(x,y,vx0=0,vy0=-140,sp=90)=>emit(x,y,vx0+rnd(-sp,sp),vy0+rnd(-80,80),rnd(.35,.8),1.6,'#ffd27a',380);
+const steam=(x,y)=>emit(x,y,rnd(-3,3),rnd(-18,-10),rnd(1.2,2),3,'rgba(200,212,224,.16)',0,4);
+
+function update(dt){
+  const p=((time%P)+P)%P,tm=time%PS;
+  for(let i=parts.length-1;i>=0;i--){const q=parts[i];q.life-=dt;if(q.life<=0){parts.splice(i,1);continue;}q.vy+=q.grav*dt;q.x+=q.vx*dt;q.y+=q.vy*dt;q.size+=q.grow*dt;}
+  rate(5,dt,()=>smoke(230,236));
+  rate(3,dt,()=>smoke(1476,340));
+  rate(2,dt,()=>steam(540,128));
+  if(p<8||p>=16)rate(14,dt,()=>emit(662,466,rnd(-30,30),rnd(-60,-10),rnd(.2,.5),1.3,'#ffd27a',300));
+  if(p>=11.2&&p<12.8)rate(14,dt,()=>emit(760,510,rnd(-30,30),rnd(-60,-10),rnd(.2,.5),1.3,'#ffd27a',300));
+  if(p>=21.5&&p<25.5){rate(70,dt,()=>spark(900+rnd(-10,10),320,0,-150,110));rate(12,dt,()=>smoke(1006,88,'rgba(190,172,150,.22)'));}
+  if(p>=27.6&&p<29.4)rate(20,dt,()=>emit(990,446,rnd(-40,40),rnd(-80,-20),rnd(.2,.5),1.3,'#ffd27a',300));
+  if(tm>PS-1)rate(60,dt,()=>emit(1416,476,rnd(-50,50),rnd(10,110),rnd(.3,.6),1.4,'#ffd27a',300));
+  rate(22,dt,()=>{const a=rnd(Math.PI*.55,Math.PI*.95);steam(1300+114*Math.cos(a),380+114*Math.sin(a));});
+  rate(6,dt,()=>steam(rnd(1310,1400),466));
+  rate(55,dt,()=>emit(rnd(1802,1866),457,0,rnd(40,70),.35,1.1,'#8fc3e6',200));
+  rate(12,dt,()=>steam(rnd(1800,1868),474));
+}
+
+// ---------- scene pieces ----------
+function sky(){
+  const g=ctx.createLinearGradient(0,0,0,GY);g.addColorStop(0,'#0a0e12');g.addColorStop(1,'#1a2028');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,GY);
+  ctx.fillStyle='#2c3540';for(const[x,y]of STARS)ctx.fillRect(x,y,1.6,1.6);
+  ctx.fillStyle='#141a21';for(const[x,w,h]of SKY)ctx.fillRect(x,GY-h,w,h);
+  ctx.fillStyle='rgba(255,170,80,.2)';for(const[x,y]of WIN)ctx.fillRect(x,y,2,2);
+  rect(0,GY,W,H-GY,'#0f1317');
+  ctx.strokeStyle='#26303a';ctx.lineWidth=1.5;line(0,GY,W,GY);
+  // 제강 공장 지붕 트러스
+  ctx.strokeStyle='#1f2830';ctx.lineWidth=2;line(720,205,1240,205);line(720,214,1240,214);
+  ctx.lineWidth=1;for(let x=720;x<1240;x+=16)line(x,205,x+8,214),line(x+8,214,x+16,205);
+}
+
+function yard(){
+  const pile=(x1,x2,py,c1,c2)=>{const m=(x1+x2)/2,g=ctx.createLinearGradient(0,py,0,GY);g.addColorStop(0,c1);g.addColorStop(1,c2);
+    ctx.beginPath();ctx.moveTo(x1,GY);ctx.lineTo(m-8,py+3);ctx.quadraticCurveTo(m,py-3,m+8,py+3);ctx.lineTo(x2,GY);ctx.closePath();ctx.fillStyle=g;ctx.fill();};
+  pile(20,128,420,'#8a4a32','#4e2a1e');
+  pile(146,218,438,'#2c2f33','#17191c');
+  pile(160,206,468,'#a9a397','#6f6a60');
+  // 리클레이머
+  const rx=137;
+  ctx.strokeStyle='#3a444e';ctx.lineWidth=2;line(10,GY-2,215,GY-2);
+  rect(rx-9,468,18,30,'#3a444e');rect(rx-2,436,4,34,'#56626e');
+  const ang=Math.PI+.42+Math.sin(time*.5)*.12,bx=rx+68*Math.cos(ang),by=450+68*Math.sin(ang);
+  ctx.strokeStyle='#6b7783';ctx.lineWidth=3;line(rx,450,bx,by);line(rx,450,rx+26,458);
+  rect(rx+22,454,10,10,'#2c343c');
+  circle(bx,by,9,'#46515c');
+  ctx.strokeStyle='#8a96a2';ctx.lineWidth=1.5;
+  for(let i=0;i<4;i++){const a=time*2.4+i*Math.PI/4;line(bx-9*Math.cos(a),by-9*Math.sin(a),bx+9*Math.cos(a),by+9*Math.sin(a));}
+}
+
+function backStructures(){
+  // 코크스 굴뚝
+  rect(224,236,12,GY-236,cyl(224,236,'#2a3138','#59656f'));rect(224,244,12,5,'#7a3b2c');
+  // 열풍로 3기
+  for(const sx of[425,455,485]){ctx.beginPath();ctx.moveTo(sx-13,445);ctx.lineTo(sx-13,272);ctx.arc(sx,272,13,Math.PI,0);ctx.lineTo(sx+13,445);ctx.closePath();ctx.fillStyle=cyl(sx-13,sx+13,'#232a31','#4b5661');ctx.fill();}
+  // 제진기·가스관
+  ctx.strokeStyle='#46515c';ctx.lineWidth=5;
+  line(530,142,530,95);line(550,142,550,95);line(528,95,625,95);line(623,93,623,192);
+  rect(610,190,26,80,cyl(610,636,'#262e35','#4f5a65'));poly([[610,270],[636,270],[626,298],[620,298]],'#353f48');
+  ctx.lineWidth=3;line(623,298,623,GY);
+}
+
+function cokeSinter(){
+  // 코크스 오븐
+  rect(250,440,130,60,'#262e36');
+  rect(255,322,120,118,'#3a2f2a');
+  const hot=Math.floor(time/2.5)%12,ph=(time%2.5)/2.5;
+  for(let i=0;i<12;i++){const x=255+i*10;rect(x+2,328,6,106,'#2a2422');
+    if(i===hot){ctx.fillStyle=`rgba(255,${120+Math.round(80*Math.sin(ph*Math.PI))},40,${.35+.6*Math.sin(ph*Math.PI)})`;ctx.fillRect(x+2,328,6,106);}
+    rect(x,322,1.5,118,'#4b5661');}
+  rect(253,318,124,5,'#4b5661');
+  const cx=255+((time*14)%110);rect(cx,306,14,12,'#56626e');rect(cx+2,300,4,6,'#56626e');rect(cx+8,300,4,6,'#56626e');
+  // 소결기
+  rect(250,466,132,34,'#2a333c');
+  for(let i=0;i<15;i++){const x=252+((i*9+time*10)%126),f=(x-252)/126;
+    const h=f<.08?0:f<.35?(f-.08)/.27:1-(f-.35)/.65*.85;rect(x,460,8,6,mixHex('#3a2a24','#ff9a3a',clamp(h,0,1)));}
+  rect(258,446,32,12,'#3a434d');glow(274,460,16,.5);
+}
+
+function conveyor(x1,y1,x2,y2,cols,sp){
+  const len=Math.hypot(x2-x1,y2-y1),ux=(x2-x1)/len,uy=(y2-y1)/len;
+  ctx.strokeStyle='#232b33';ctx.lineWidth=2;
+  for(let s=40;s<len-10;s+=50){const x=x1+ux*s,y=y1+uy*s;if(GY-y>12)line(x,y+3,x,GY);}
+  ctx.strokeStyle='#2c353e';ctx.lineWidth=6;line(x1,y1,x2,y2);
+  ctx.strokeStyle='#46515c';ctx.lineWidth=1;line(x1,y1-3,x2,y2-3);
+  const n=Math.floor(len/13);
+  for(let i=0;i<n;i++){const s=(i*13+time*sp)%len;ctx.fillStyle=cols[i%cols.length];ctx.fillRect(x1+ux*s-2,y1+uy*s-7,4,4);}
+}
+
+function blastFurnace(tapping){
+  // 꼭대기 장입 설비
+  rect(522,126,36,16,'#4b5661');rect(516,140,48,6,'#56626e');
+  const outer=[[512,146],[478,330],[478,360],[490,405],[490,445],[590,445],[590,405],[602,360],[602,330],[568,146]];
+  const inner=[[519,154],[486,330],[486,360],[497,405],[497,442],[583,442],[583,405],[594,360],[594,330],[561,154]];
+  poly(outer,cyl(478,602,'#2a3239','#66737f'));
+  ctx.save();ctx.beginPath();inner.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();ctx.clip();
+  const off=(time*5)%18;
+  for(let y=150-18+off,i=0;y<450;y+=9,i++)rect(480,y,124,9,i%2?'#2b2c2f':'#8a4a33');
+  const g=ctx.createLinearGradient(0,154,0,445);
+  g.addColorStop(0,'rgba(20,24,28,.25)');g.addColorStop(.5,'rgba(255,110,30,.25)');g.addColorStop(.75,'rgba(255,130,40,.7)');g.addColorStop(1,'rgba(255,190,90,.95)');
+  ctx.fillStyle=g;ctx.fillRect(480,150,124,300);
+  rect(497,428,86,14,'#ffb347');
+  const f=.75+.25*Math.sin(time*13);glow(502,400,22*f,.9);glow(578,400,22*f,.9);
+  ctx.restore();
+  ctx.strokeStyle='#7a8794';ctx.lineWidth=1;ctx.beginPath();outer.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();ctx.stroke();
+  // 열풍 본관·환상관·풍구
+  ctx.strokeStyle='#6b4430';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(440,330);ctx.lineTo(470,330);ctx.lineTo(470,383);ctx.lineTo(610,383);ctx.stroke();
+  ctx.strokeStyle='rgba(255,140,50,.55)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(440,330);ctx.lineTo(470,330);ctx.lineTo(470,383);ctx.lineTo(610,383);ctx.stroke();
+  ctx.strokeStyle='#6b4430';ctx.lineWidth=4;line(494,385,500,399);line(586,385,580,399);
+  // 주상(출선 바닥)
+  rect(468,445,192,7,'#323c46');for(const x of[478,565,650])rect(x-2,452,4,GY-452,'#2a333c');
+  ctx.strokeStyle='#4a3a32';ctx.lineWidth=5;line(588,440,664,448);
+  if(tapping){ctx.strokeStyle='#ffb347';ctx.lineWidth=2.5;line(588,440,664,448);glow(590,438,14,.8);stream(663,449,663,466,3);}
+}
+
+function torpedo(x,fill,pouring){
+  rect(x-48,487,96,4,'#20272e');
+  for(const wx of[x-40,x-28,x+28,x+40])circle(wx,493,4,'#3a434c');
+  const g=ctx.createLinearGradient(0,462,0,486);g.addColorStop(0,'#3a444e');g.addColorStop(.35,'#6b7783');g.addColorStop(1,'#262d34');
+  poly([[x-28,462],[x+28,462],[x+50,468],[x+50,480],[x+28,486],[x-28,486],[x-50,480],[x-50,468]],g);
+  rect(x-28,472,56,3,'#7a3b2c');
+  rect(x-6,457,12,5,'#4b5661');
+  if(fill>.02)glow(x,458,12,.7*fill);
+  if(pouring)glow(x,488,10,.8);
+}
+
+function ladle(cx,top,lv,tilt=0,alpha=1){
+  ctx.save();ctx.globalAlpha=alpha;ctx.translate(cx,top+22);ctx.rotate(tilt);
+  poly([[-23,-22],[23,-22],[18,22],[-18,22]],cyl(-23,23,'#2a3138','#5a6672'));
+  rect(-21,-2,42,5,'#232a31');rect(-25,-24,50,4,'#4d5864');
+  circle(-22,-8,3,'#56626e');circle(22,-8,3,'#56626e');
+  if(lv>.03){const g=ctx.createRadialGradient(0,-22,1,0,-22,24);g.addColorStop(0,`rgba(255,210,120,${.95*Math.min(1,lv*2)})`);g.addColorStop(1,'rgba(255,120,30,0)');ctx.fillStyle=g;ctx.fillRect(-26,-40,52,18);
+    rect(-21,-23,42,2,`rgba(255,190,90,${Math.min(1,lv*2)})`);}
+  ctx.restore();
+}
+function hook(cx,top,beamY){
+  ctx.strokeStyle='#8a96a2';ctx.lineWidth=1;line(cx-22,top+14,cx,top-16);line(cx+22,top+14,cx,top-16);
+  ctx.strokeStyle='#56626e';line(cx,beamY+8,cx,top-16);
+  rect(cx-8,beamY,16,8,'#56626e');
+}
+
+function converter(a,glowAmt){
+  const cx=900,cy=400;
+  poly([[cx-60,GY],[cx-46,cy-4],[cx-36,cy-4],[cx-30,GY]],'#2b343d');
+  poly([[cx+60,GY],[cx+46,cy-4],[cx+36,cy-4],[cx+30,GY]],'#2b343d');
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
+  ctx.beginPath();ctx.moveTo(-16,-78);ctx.lineTo(16,-78);ctx.lineTo(44,-42);ctx.lineTo(44,28);ctx.quadraticCurveTo(44,54,0,54);ctx.quadraticCurveTo(-44,54,-44,28);ctx.lineTo(-44,-42);ctx.closePath();
+  ctx.fillStyle=cyl(-44,44,'#2a3239','#6b7987');ctx.fill();ctx.strokeStyle='#7a8794';ctx.lineWidth=1;ctx.stroke();
+  rect(-48,-6,96,12,'#39434d');rect(-17,-81,34,4,'#56626e');
+  if(glowAmt>0)glow(0,-80,16+30*glowAmt,.5+.5*glowAmt);
+  ctx.restore();
+  circle(cx,cy,7,'#6b7783');
+}
+
+function bofHood(tip,blowing){
+  rect(886,128,28,146,cyl(886,914,'#262e35','#4f5a65'));
+  rect(886,118,126,22,'#39434d');rect(1000,88,12,32,cyl(1000,1012,'#262e35','#4f5a65'));
+  poly([[872,300],[928,300],[918,272],[882,272]],'#38424c');
+  rect(892,76,16,8,'#6b7783');rect(898,84,4,tip-84,'#a0abb5');
+  if(blowing){const f=.8+.2*Math.sin(time*25);
+    ctx.save();ctx.globalCompositeOperation='lighter';glow(900,318,60*f,.75);
+    poly([[886,322],[914,322],[922,300],[878,300]],`rgba(255,${170+Math.round(60*f)},90,.55)`);ctx.restore();}
+}
+
+function rh(drop){
+  ctx.strokeStyle='#46515c';ctx.lineWidth=6;line(1060,290,1060,214);
+  ctx.beginPath();ctx.moveTo(1038,400);ctx.lineTo(1038,302);ctx.quadraticCurveTo(1060,284,1082,302);ctx.lineTo(1082,400);ctx.closePath();
+  ctx.fillStyle=cyl(1038,1082,'#2c2624','#5a4c46');ctx.fill();
+  for(const y of[320,350,380])rect(1036,y,48,3,'#4b5661');
+  const active=drop>40;
+  for(const[lx,dir]of[[1046,-1],[1067,1]]){
+    rect(lx,400,7,drop,'#4b4440');
+    if(active){rect(lx+1.5,400,4,drop-2,'#ff9a3a');ctx.save();ctx.strokeStyle='rgba(255,235,180,.8)';ctx.lineWidth=2;ctx.setLineDash([3,6]);ctx.lineDashOffset=dir*time*20;line(lx+3.5,400,lx+3.5,400+drop-2);ctx.restore();}
+  }
+  if(active){rect(1044,384,32,14,'#ff9a3a');glow(1060,390,20,.6);}
+}
+
+function car(x){rect(x-28,487,56,5,'#2c343c');circle(x-18,494,4,'#3a434c');circle(x+18,494,4,'#3a434c');}
+
+function caster(p){
+  // 터렛·래들
+  rect(1134,298,12,GY-298,'#2d363f');rect(1128,292,24,8,'#46515c');
+  const Lc=1-(((p-20)%P+P)%P)/P*.88;
+  let castX=1170,wait=null,old=null;
+  if(p>=15&&p<18)wait={x:1110,top:kf(p,[[15,444],[17.5,252]]),hooked:true};
+  if(p>=18&&p<20){const th=kf(p,[[18,0],[20,Math.PI]]);castX=1140+30*Math.cos(th);wait={x:1140-30*Math.cos(th),top:252};}
+  if(p>=20&&p<21.5)old={x:1110,a:1-(p-20)/1.5};
+  ctx.strokeStyle='#46515c';ctx.lineWidth=4;
+  line(1140,298,castX,298);if(wait&&!wait.hooked)line(1140,298,wait.x,298);if(old)line(1140,298,1110,298);
+  // 크레인
+  rect(1090,222,44,6,'#3a444e');ctx.strokeStyle='#2c353e';ctx.lineWidth=2;line(1094,214,1094,222);line(1130,214,1130,222);
+  if(wait&&wait.hooked)hook(1110,wait.top,228);else{rect(1102,228,16,8,'#56626e');ctx.strokeStyle='#56626e';ctx.lineWidth=1;line(1110,236,1110,256);}
+  if(old)ladle(1110,252,.12,0,old.a);
+  if(wait)ladle(wait.x,wait.top,1);
+  ladle(castX,252,Lc);
+  // 턴디시·몰드
+  if(!(p>=18&&p<20)){rect(1167,296,6,24,'#56626e');stream(1170,298,1170,320,2.5);}
+  poly([[1150,320],[1228,320],[1222,342],[1156,342]],'#3a434d');
+  rect(1154,321,70,4,'#ffb347');glow(1189,322,26,.35);
+  rect(1197,342,6,8,'#56626e');rect(1189,350,22,22,'#a5653a');rect(1192,350,16,4,'#ffb347');
+  // 스트랜드
+  const tm=time%PS,ext=1415+tm*8;
+  const path=()=>{ctx.beginPath();ctx.moveTo(1200,352);ctx.lineTo(1200,380);ctx.arc(1300,380,100,Math.PI,Math.PI/2,true);ctx.lineTo(ext,480);};
+  ctx.lineCap='butt';
+  path();ctx.strokeStyle='#1c2228';ctx.lineWidth=18;ctx.stroke();
+  const g=ctx.createLinearGradient(1200,0,1420,0);g.addColorStop(0,'#ffd27a');g.addColorStop(.3,'#ff8a2a');g.addColorStop(1,'#b8401a');
+  path();ctx.strokeStyle=g;ctx.lineWidth=13;ctx.stroke();
+  ctx.save();path();ctx.setLineDash([3,14]);ctx.lineDashOffset=-time*14;ctx.strokeStyle='rgba(255,240,200,.35)';ctx.lineWidth=2;ctx.stroke();ctx.restore();
+  rect(1189,350,22,22,'#a5653a');rect(1192,350,16,4,'#ffb347');
+  for(let a=Math.PI*.98;a>Math.PI*.52;a-=.13)for(const r of[88,112])circle(1300+r*Math.cos(a),380+r*Math.sin(a),3.5,'#56626e');
+  for(let x=1312;x<1450;x+=16){circle(x,468,3.5,'#56626e');circle(x,492,3.5,'#56626e');}
+  // 절단된 슬래브
+  const tail=1415+tm*8+6*ease(Math.min(tm/.6,1));
+  const sg=ctx.createLinearGradient(tail,0,tail+40,0);sg.addColorStop(0,'#c2481c');sg.addColorStop(1,'#9a3416');
+  rect(tail,473,40,14,sg);
+  // 토치 대차
+  rect(1406,450,20,10,'#4b5661');rect(1414,460,4,10,'#8a96a2');
+  if(tm>PS-1)glow(1416,474,10,.9);
+}
+
+function hotStrip(){
+  // 가열로
+  rect(1460,420,90,80,'#3a3430');rect(1458,416,94,6,'#4b5661');
+  for(let i=0;i<4;i++){const x=1474+i*22,f=.7+.3*Math.sin(time*9+i*1.7);glow(x,446,9*f,.85);circle(x,446,3,'#ffc65a');}
+  rect(1470,340,12,80,cyl(1470,1482,'#2a3138','#59656f'));
+  rect(1546,470,6,20,'#ffb347');glow(1550,480,16,.6);
+  // 압연 라인
+  const coilR=8+16*((time%PC)/PC),coilY=479+coilR;
+  const SEG=[[1552,1602,11],[1602,1662,7],[1662,1702,5],[1702,1742,4],[1742,1782,3],[1782,1895,2.4]];
+  const g=ctx.createLinearGradient(1552,0,1895,0);g.addColorStop(0,'#ffc15a');g.addColorStop(.6,'#ff7a1f');g.addColorStop(.72,'#f2631a');g.addColorStop(1,'#7a2a1a');
+  for(let x=1560;x<1880;x+=18)circle(x,491,3,'#2c343c');
+  for(const[x0,x1,th]of SEG){
+    rect(x0,480-th/2,x1-x0,th,g);
+    const sp=6*11/th,off=(time*sp)%14;ctx.fillStyle='rgba(255,240,210,.35)';
+    for(let x=x0+off;x<x1;x+=14)ctx.fillRect(x,480-th/2,1.5,th);
+  }
+  const stand=(x,th,r)=>{
+    rect(x-r-6,436-r,4,GY-436+r,'#46515c');rect(x+r+2,436-r,4,GY-436+r,'#46515c');rect(x-r-6,432-r,2*r+12,6,'#56626e');
+    const sp=6*11/th,ang=time*sp/r;
+    for(const cy of[480-th/2-r,480+th/2+r]){circle(x,cy,r,'#6b7783');ctx.strokeStyle='#2c343c';ctx.lineWidth=1.5;line(x-r*Math.cos(ang),cy-r*Math.sin(ang),x+r*Math.cos(ang),cy+r*Math.sin(ang));circle(x,cy,2,'#2c343c');}
+  };
+  stand(1602,11,13);for(const[x,th]of[[1662,7],[1702,5],[1742,4],[1782,3]])stand(x,th,9);
+  // 냉각대 헤더
+  rect(1800,450,68,5,'#4b5763');for(let x=1804;x<1868;x+=8)rect(x,455,2,3,'#6b7783');
+  // 권취기
+  rect(1866,500,60,36,'#080b0e');
+  const cg=ctx.createRadialGradient(1895,coilY,2,1895,coilY,coilR);cg.addColorStop(0,'#3a2420');cg.addColorStop(1,'#8a2e1c');
+  ctx.beginPath();ctx.arc(1895,coilY,coilR,0,Math.PI*2);ctx.fillStyle=cg;ctx.fill();
+  ctx.strokeStyle='rgba(20,10,8,.45)';ctx.lineWidth=1;for(let r=5;r<coilR;r+=3){ctx.beginPath();ctx.arc(1895,coilY,r,0,Math.PI*2);ctx.stroke();}
+  circle(1895,coilY,4,'#56626e');
+  const cm=time%PC;
+  if(cm<1.4){const x=1895+cm*40;ctx.beginPath();ctx.arc(x,503,24,0,Math.PI*2);ctx.fillStyle='#5a2418';ctx.fill();circle(x,503,4,'#3a2420');}
+}
+
+function drawParts(){for(const q of parts){ctx.globalAlpha=clamp(q.life/q.max,0,1);circle(q.x,q.y,q.size,q.color);}ctx.globalAlpha=1;}
+
+function tag(x,y,text){
+  ctx.font='500 17px "IBM Plex Mono",ui-monospace,monospace';
+  const w=ctx.measureText(text).width+14;
+  rect(x,y-14,w,22,'rgba(11,15,19,.8)');rect(x,y-14,2,22,'#ff8a1f');
+  ctx.fillStyle='#ffc65a';ctx.fillText(text,x+8,y+2);
+}
+
+function overlay(){
+  const s=STAGES[sel];
+  rect(s.x0,78,s.x1-s.x0,H-78,'rgba(255,198,90,.045)');
+  if(hover>=0&&hover!==sel){const h=STAGES[hover];rect(h.x0,78,h.x1-h.x0,H-78,'rgba(255,255,255,.025)');}
+  STAGES.forEach((st,i)=>{
+    const cx=(st.x0+st.x1)/2,on=i===sel;
+    ctx.textAlign='center';
+    ctx.font='500 17px "IBM Plex Mono",ui-monospace,monospace';ctx.fillStyle=on?'#ff8a1f':'#7d8894';ctx.fillText(st.no,cx,30);
+    ctx.font='600 22px "IBM Plex Sans KR","Malgun Gothic",sans-serif';ctx.fillStyle=on?'#ffe3b0':'#cfd6dd';ctx.fillText(st.name,cx,57);
+    ctx.strokeStyle=on?'#ff8a1f':'#2c3640';ctx.lineWidth=on?3:1.5;line(st.x0+8,70,st.x1-8,70);
+  });
+  ctx.textAlign='left';
+  if(showTags){
+    tag(352,300,'1,100°C');tag(296,436,'1,300°C');tag(392,250,'열풍 1,200°C');
+    tag(600,424,'1,500°C');tag(950,262,'1,650°C');tag(1232,316,'1,550°C');
+    tag(1488,404,'1,200°C');tag(1758,420,'≈880°C');tag(1838,520,'≈600°C');
+  }
+}
+
+function draw(){
+  const p=((time%P)+P)%P;
+  ctx.setTransform(k,0,0,k,0,0);
+  sky();backStructures();yard();cokeSinter();
+  conveyor(205,488,252,466,['#8a4b33','#9a948a'],18);
+  conveyor(190,470,262,318,['#2a2c30'],18);
+  conveyor(388,468,522,138,['#9a5236','#33363b'],22);
+  const tapping=p<8||p>=16;
+  blastFurnace(tapping);
+  // 레일·피트
+  ctx.strokeStyle='#3a444e';ctx.lineWidth=2;line(600,496,830,496);line(950,496,1135,496);
+  rect(733,500,54,58,'#080b0e');
+  // 토페도카
+  const tx=kf(p,[[0,662],[8,662],[11,760],[13,760],[16,662],[30,662]]);
+  const tfill=kf(p,[[0,1],[11,1],[13,0],[16,0],[30,1]]);
+  const tPour=p>=11.2&&p<12.8;
+  torpedo(tx,tfill,tPour);
+  // 장입 래들 + 크레인
+  const lx=kf(p,[[0,760],[15,760],[16,795],[19,795],[20,760],[30,760]]);
+  const ltop=kf(p,[[0,510],[13,510],[15,280],[20,280],[22,510],[30,510]]);
+  const ltilt=kf(p,[[0,0],[16,0],[17,.9],[18.5,.9],[19,0],[30,0]]);
+  const llv=kf(p,[[0,0],[11,0],[13,1],[16.6,1],[18.8,0],[30,0]]);
+  rect(735,226,110,6,'#3a444e');ctx.strokeStyle='#2c353e';ctx.lineWidth=2;line(740,214,740,226);line(840,214,840,226);
+  hook(lx,ltop,232);ladle(lx,ltop,llv,ltilt);
+  if(tPour)stream(760,490,760,510,3);
+  // 전로
+  const a=kf(p,[[0,0],[14,0],[16,-65],[19,-65],[20.5,0],[26,0],[27.5,95],[29.5,95],[30,0]])*Math.PI/180;
+  const blowing=p>=21.5&&p<25.5,full=p>=16.6&&p<29.4;
+  const tip=kf(p,[[0,250],[21,250],[21.5,334],[25.5,334],[26,250],[30,250]]);
+  bofHood(tip,false);
+  converter(a,blowing?1:full?.3:0);
+  bofHood(tip,blowing);
+  const mx=900+78*Math.sin(a),my=400-78*Math.cos(a);
+  if(p>=16.9&&p<18.8){const c=Math.cos(ltilt),s=Math.sin(ltilt);stream(lx+23*c+22*s,ltop+22+23*s-22*c,mx,my,3);}
+  if(p>=27.6&&p<29.4)stream(mx,my,990,446,3.5);
+  // 래들 대차 + RH
+  const cx=kf(p,[[0,990],[1,990],[4,1060],[12,1060],[14,1110],[16,1110],[20,990],[30,990]]);
+  car(cx);
+  if(p>=26||p<15){const lv=p>=26?kf(p,[[26,0],[27.6,0],[29.4,1]]):1;ladle(cx,444,lv,0,p>=26?clamp((p-26)/.6,0,1):1);}
+  rh(kf(p,[[0,0],[4.5,0],[5.5,55],[11,55],[12,0],[30,0]]));
+  caster(p);
+  hotStrip();
+  drawParts();
+  overlay();
+}
+
+// ---------- status ----------
+function status(i){
+  const p=((time%P)+P)%P;
+  switch(i){
+    case 0:return '리클레이머가 원료를 퍼내 컨베이어로 보내는 중';
+    case 1:return '소결기와 코크스 오븐 연속 가동 중';
+    case 2:return (p<8||p>=16)?'출선 중 · 토페도카에 용선을 받는 중':'노 안 환원 진행 · 다음 토페도카 대기';
+    case 3:return (p<8||p>=16)?'고로에서 용선 받는 중':p<11?'제강 공장으로 이동 중':p<13?'장입 래들에 붓는 중':'고로로 돌아가는 중';
+    case 4:return p>=14&&p<16.6?'장입하려고 전로를 기울이는 중':p>=16.6&&p<19?'용선 장입 중':p>=21.5&&p<25.5?'산소 취련 중':p>=26&&p<27.6?'출강하려고 기울이는 중':p>=27.6&&p<29.6?'래들로 출강 중':'다음 작업 준비';
+    case 5:return p>=4.5&&p<11.5?'진공 탈가스 처리 중':p>=1&&p<4.5?'래들 도착 중':p>=12&&p<18?'처리한 래들을 연주기로 보내는 중':'다음 래들 대기';
+    case 6:{if(p>=18&&p<20)return '터렛 회전 · 래들 교체 중';const L=1-(((p-20)%P+P)%P)/P*.88;return `주조 중 · 래들 잔량 ${Math.round(L*100)}%`;}
+    case 7:return `압연 중 · 코일 ${Math.floor(time/PC)}개 생산`;
+  }
+}
+
+// ---------- UI ----------
+const stagesEl=document.getElementById('stages');
+STAGES.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<button type="button"><span>${s.no}</span>${s.name}</button>`;li.firstChild.onclick=()=>select(i);stagesEl.appendChild(li);});
+function select(i){
+  sel=i;const s=STAGES[i];
+  document.getElementById('d-title').innerHTML=`<small>${s.no}</small>${s.name}`;
+  document.getElementById('d-desc').textContent=s.desc;
+  document.getElementById('d-metrics').innerHTML=s.m.map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
+  stagesEl.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-current',j===i));
+  document.getElementById('d-now').textContent=status(i);
+}
+const playBtn=document.getElementById('play');
+function setPaused(v){paused=v;playBtn.textContent=v?'재생':'일시정지';}
+playBtn.onclick=()=>setPaused(!paused);
+document.querySelectorAll('[data-speed]').forEach(b=>b.onclick=()=>{speed=+b.dataset.speed;document.querySelectorAll('[data-speed]').forEach(o=>o.setAttribute('aria-pressed',o===b));});
+const tagBtn=document.getElementById('labels');
+tagBtn.onclick=()=>{showTags=!showTags;tagBtn.setAttribute('aria-pressed',showTags);};
+const stageAt=e=>{const x=e.offsetX/scale;return STAGES.findIndex(s=>x>=s.x0&&x<s.x1);};
+cv.addEventListener('mousemove',e=>{hover=e.offsetY/scale>78?stageAt(e):-1;cv.style.cursor=hover>=0?'pointer':'default';});
+cv.addEventListener('mouseleave',()=>hover=-1);
+cv.addEventListener('click',e=>{const i=stageAt(e);if(i>=0)select(i);});
+
+function resize(){const w=cv.clientWidth,dpr=Math.min(devicePixelRatio||1,2);scale=w/W;k=dpr*scale;cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);}
+new ResizeObserver(resize).observe(cv);resize();
+
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)setPaused(true);
+select(sel);
+let statusClock=0;
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(!paused){const sdt=dt*speed;time+=sdt;update(sdt);}
+  draw();
+  if((statusClock+=dt)>.25){statusClock=0;document.getElementById('d-now').textContent=status(sel);}
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="금속재료, 열처리_TTT_CCT.html">← 이전 자료</a><a href="index.html">전체 자료 목록</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

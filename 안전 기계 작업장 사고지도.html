@@ -1,0 +1,443 @@
+<!doctype html><html lang="ko" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body class="mm-page mm-safety">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety" aria-current="page">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#safety">산업안전</a><span>/</span>기계 작업장 사고지도</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety" aria-current="page">산업안전 <small>1</small></a></div></details>
+<title>기계 작업장 사고지도</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+
+<style>
+/* Layout: 공장 안전표지판 감각 — 상단 경고 띠, 통계 패널 2개, 작업장별 카드 그리드. 사고유형마다 고정 색 */
+:root{
+  --bg:#F1F2EF; --surface:#FFFFFF; --ink:#1A1E21; --muted:#5B636A; --line:#D7DAD5;
+  --hazard:#F2B705; --hazard-ink:#1A1E21;
+  --t-kkim:#C8322B; --t-cut:#D9692A; --t-hit:#B08A12; --t-fall:#2F6FB3; --t-slip:#4A8C6A;
+  --t-fire:#9B2D6E; --t-heat:#C2412F; --t-crush:#5C4BA8; --t-bump:#2B8A9A; --t-strain:#7A7F84; --t-elec:#3456C9;
+  --chip-bg:#EEF0EC;
+  --display:"Black Han Sans","IBM Plex Sans KR",system-ui,sans-serif;
+  --body:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141719; --surface:#1D2124; --ink:#E9EBE7; --muted:#A1A9AF; --line:#30363A;
+  --hazard:#F2B705; --hazard-ink:#141719;
+  --t-kkim:#F0625A; --t-cut:#F28C4E; --t-hit:#D9B13A; --t-fall:#5E9BE0; --t-slip:#6FBC93;
+  --t-fire:#D46AA6; --t-heat:#EC6D5A; --t-crush:#9483E0; --t-bump:#4FBACB; --t-strain:#A7ADB2; --t-elec:#7590F0;
+  --chip-bg:#262B2E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141719; --surface:#1D2124; --ink:#E9EBE7; --muted:#A1A9AF; --line:#30363A;
+  --hazard:#F2B705; --hazard-ink:#141719;
+  --t-kkim:#F0625A; --t-cut:#F28C4E; --t-hit:#D9B13A; --t-fall:#5E9BE0; --t-slip:#6FBC93;
+  --t-fire:#D46AA6; --t-heat:#EC6D5A; --t-crush:#9483E0; --t-bump:#4FBACB; --t-strain:#A7ADB2; --t-elec:#7590F0;
+  --chip-bg:#262B2E; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+.stripe{height:10px;background:repeating-linear-gradient(-45deg,var(--hazard) 0 14px,var(--hazard-ink) 14px 28px)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px;display:grid;gap:36px}
+header{display:grid;gap:10px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:400;font-size:24px;margin:0;text-wrap:balance}
+h3{font-size:18px;margin:0;font-weight:700}
+p{margin:0}
+.lead{max-width:66ch;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:2px;display:inline-block;flex:none}
+.basis{display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.badge{font-family:var(--mono);font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+.b-stat{background:var(--ink);color:var(--bg)}
+.b-death{border:1.5px solid var(--ink);color:var(--ink)}
+.b-trend{border:1.5px dashed var(--muted);color:var(--muted)}
+
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:14px;align-content:start;min-width:0}
+.panel .src{font-size:12px;color:var(--muted)}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:7.5em 1fr 4.6em;align-items:center;gap:10px;font-size:13.5px}
+.bar .lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track{height:14px;background:var(--chip-bg);border-radius:2px;overflow:hidden}
+.fill{height:100%;border-radius:2px}
+.val{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-size:13px}
+
+.sec-head{display:grid;gap:6px}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:13px;color:var(--ink);text-decoration:none;background:var(--surface);border:1px solid var(--line);padding:4px 10px;border-radius:3px}
+.jump a:hover,.jump a:focus-visible{border-color:var(--ink);outline:none}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:12px;align-content:start;min-width:0;scroll-margin-top:16px}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.card-top .sub{font-size:13px;color:var(--muted)}
+ol.rank{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ol.rank li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.num{font-family:var(--mono);font-weight:600;font-size:13px;width:28px;height:28px;display:grid;place-items:center;border-radius:3px;color:var(--surface)}
+.what{display:grid;gap:2px;min-width:0}
+.what b{font-size:14.5px}
+.what b .pct{font-family:var(--mono);font-weight:600;font-size:12.5px;color:var(--muted);margin-left:6px}
+.what small{font-size:13px;color:var(--muted);line-height:1.5}
+.sub-label{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;border-top:1px solid var(--line);padding-top:10px}
+.key{font-size:13px;background:var(--chip-bg);border-radius:4px;padding:8px 10px}
+.key b{font-weight:700}
+
+table.cmp{border-collapse:collapse;font-size:13px;min-width:520px;width:100%}
+.cmp th,.cmp td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+.cmp thead th{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.cmp tbody th{font-weight:500}
+.cmp .val{text-align:left;margin-left:4px;color:var(--muted)}
+.cmp td.val{color:var(--ink)}
+.note-line{font-size:13.5px;color:var(--muted);max-width:72ch}
+footer{display:grid;gap:8px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px}
+footer a{color:var(--muted)}
+footer ul{margin:0;padding-left:18px;display:grid;gap:4px}
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+
+<div class="stripe" aria-hidden="true"></div>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">기계 관련 작업장 · 재해 발생형태</div>
+    <h1>안전 기계 작업장 사고지도</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+    <p class="lead">제조업 전체 통계로 큰 그림을 먼저 보고, 작업장마다 자주 나는 사고를 순서대로 정리했습니다. 작업장별 순위는 근거가 다르니 카드마다 붙은 표시를 확인하세요.</p>
+    <div class="basis">
+      <span class="badge b-stat">재해자 통계</span><span style="color:var(--muted)">부상 포함 발생 건수 기준</span>
+      <span class="badge b-death">사망 통계</span><span style="color:var(--muted)">사망사고만 센 기준</span>
+      <span class="badge b-trend">현장 경향</span><span style="color:var(--muted)">공식 순위 없음, 사고사례·교재 기반 정리</span>
+    </div>
+    <div class="legend" aria-label="사고유형 색">
+      <span><i class="dot" style="background:var(--t-kkim)"></i>끼임·감김</span>
+      <span><i class="dot" style="background:var(--t-cut)"></i>절단·베임·찔림</span>
+      <span><i class="dot" style="background:var(--t-hit)"></i>물체에 맞음</span>
+      <span><i class="dot" style="background:var(--t-crush)"></i>깔림·뒤집힘</span>
+      <span><i class="dot" style="background:var(--t-bump)"></i>부딪힘</span>
+      <span><i class="dot" style="background:var(--t-fall)"></i>떨어짐</span>
+      <span><i class="dot" style="background:var(--t-slip)"></i>넘어짐</span>
+      <span><i class="dot" style="background:var(--t-heat)"></i>고온물 접촉(화상)</span>
+      <span><i class="dot" style="background:var(--t-fire)"></i>화재·폭발·질식</span>
+      <span><i class="dot" style="background:var(--t-elec)"></i>감전</span>
+      <span><i class="dot" style="background:var(--t-strain)"></i>무리한 동작</span>
+    </div>
+  </header>
+
+  <section class="panels" aria-label="제조업 전체 통계">
+    <div class="panel">
+      <div class="card-top"><h3>제조업 사고재해자, 유형별</h3><span class="badge b-stat">2025 통계</span></div>
+      <div class="bars" id="b1"></div>
+      <p class="src">2025년 · 제조업 사고재해자 23,412명 중 상위 7개 유형. 끼임이 27.6%로 둘째인 넘어짐의 두 배에 가깝습니다.</p>
+    </div>
+    <div class="panel">
+      <div class="card-top"><h3>기계기구·금속 제조업</h3><span class="badge b-stat">2025 통계</span></div>
+      <div class="bars" id="b4"></div>
+      <p class="src">2025년 · 사고재해자 10,679명으로 제조업 전체의 46%. 이 중 72.6%가 50인 미만 사업장에서 다쳤습니다.</p>
+    </div>
+    <div class="panel">
+      <div class="card-top"><h3>기계 관련 업종 비교</h3><span class="badge b-stat">2025 통계</span></div>
+      <div style="overflow-x:auto"><table class="cmp" id="cmp"></table></div>
+      <p class="src">업종별 사고재해자 상위 3개 유형과 비율. 조선소만 넘어짐이 끼임보다 많습니다.</p>
+    </div>
+  </section>
+
+  <section class="panels" aria-label="사망 통계">
+    <div class="panel">
+      <div class="card-top"><h3>제조업 사망, 유형별 비율 <span style="font-weight:400;color:var(--muted)">2020~2022</span></h3><span class="badge b-death">사망 통계</span></div>
+      <div class="bars" id="b2"></div>
+      <p class="src">제조업 주요 사망사고 점유율. 다치는 건 끼임, 목숨을 잃는 건 끼임과 떨어짐이 앞섭니다. 2025년 제조업 사고사망자는 164명이며, 업종별·유형별 사망 통계는 아직 공개 원자료가 없어 이 자료를 유지했습니다.</p>
+    </div>
+    <div class="panel">
+      <div class="card-top"><h3>무엇에 의해 죽었나 <span style="font-weight:400;color:var(--muted)">2017~2021</span></h3><span class="badge b-death">사망 통계</span></div>
+      <div class="bars" id="b3"></div>
+      <p class="src">50인 미만 제조업 사망 767명 중 기인물 상위. 지게차·크레인·컨베이어가 1~3위. 2025년 제조업 사고사망자는 164명입니다.</p>
+    </div>
+  </section>
+
+  <section style="display:grid;gap:16px">
+    <div class="sec-head">
+      <h2>작업장별 사고 순위</h2>
+      <p class="note-line">공정 단위 통계는 공개되지 않아 대부분 현장 경향으로 정리했습니다. 기계가공·연삭·프레스 공장이 주로 속하는 기계기구·금속 제조업의 2025년 통계에서도 1위는 끼임(29.5%)이라, 이 카드들의 1위와 맞아떨어집니다.</p>
+      <nav class="jump" id="jump" aria-label="작업장 바로가기"></nav>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <footer>
+    <p>현장 경향 카드의 순서는 공식 통계 순위가 아닙니다. 수업이나 영상에서 "1위"라고 말할 때는 재해자 통계·사망 통계 표시가 붙은 숫자만 쓰는 것이 안전합니다.</p>
+    <ul>
+      <li>2025 업종별 발생형태별 사고재해자: 한국산업안전보건공단 「산업중분류별 발생형태별 사고재해자수_20251231」 (<a href="https://www.data.go.kr/data/15084677/fileData.do" target="_blank" rel="noopener">공공데이터포털</a>) · 규모별 행을 업종 단위로 합산</li>
+      <li>2025 제조업 사고사망자: <a href="https://www.anjunj.com/news/articleView.html?idxno=41791" target="_blank" rel="noopener">안전저널</a></li>
+      <li>제조업 사망 형태 점유율(2020~2022): <a href="https://www.safety1stnews.com/news/articleView.html?idxno=6011" target="_blank" rel="noopener">세이프티퍼스트닷뉴스</a></li>
+      <li>50인 미만 제조업 사망 기인물(2017~2021): <a href="https://www.anjunj.com/news/articleView.html?idxno=35020" target="_blank" rel="noopener">안전저널</a></li>
+      <li>주조 재해 비율(일본 주물업 2019): 일본 후생노동성 외국인 노동자 안전교육 교재 <a href="https://www.mhlw.go.jp/content/11300000/chuzo_13_Korean_02112.pdf" target="_blank" rel="noopener">주조편</a></li>
+      <li>용접·용단 사망 72건(제조업 2008~2017): 한국안전학회지 <a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10060846" target="_blank" rel="noopener">논문 초록</a> · 용접 부상 유형: 후생노동성 <a href="https://www.mhlw.go.jp/content/11300000/yosetsu_13_Korean_210212.pdf" target="_blank" rel="noopener">용접편</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+const C = t => `var(--t-${t})`;
+function bars(id, rows, unit){
+  const max = Math.max(...rows.map(r=>r[1]));
+  document.getElementById(id).innerHTML = rows.map(([l,v,t])=>
+    `<div class="bar"><span class="lbl" title="${l}">${l}</span><span class="track"><span class="fill" style="display:block;width:${(v/max*100).toFixed(1)}%;background:${C(t)}"></span></span><span class="val">${unit==='%'?v.toFixed(1)+'%':v.toLocaleString('ko-KR')+unit}</span></div>`
+  ).join('');
+}
+bars('b1',[["끼임",6459,"kkim"],["넘어짐",3574,"slip"],["절단·베임·찔림",2600,"cut"],["부딪힘",2499,"bump"],["떨어짐",2085,"fall"],["물체에 맞음",2059,"hit"],["무리한 동작",1448,"strain"]],"명");
+bars('b4',[["끼임",3153,"kkim"],["넘어짐",1324,"slip"],["부딪힘",1266,"bump"],["물체에 맞음",1235,"hit"],["떨어짐",974,"fall"],["절단·베임·찔림",964,"cut"],["무리한 동작",598,"strain"]],"명");
+(function(){
+  const rows=[["기계기구·금속·비금속광물",10679,[["끼임",3153,"kkim"],["넘어짐",1324,"slip"],["부딪힘",1266,"bump"]]],
+              ["전기기계·정밀기구·전자",1648,[["끼임",418,"kkim"],["넘어짐",286,"slip"],["부딪힘",179,"bump"]]],
+              ["선박건조·수리",1632,[["넘어짐",294,"slip"],["부딪힘",239,"bump"],["끼임",221,"kkim"]]],
+              ["금속제련",153,[["끼임",32,"kkim"],["넘어짐",27,"slip"],["부딪힘",24,"bump"]]]];
+  const cell=([l,v,t],n)=>`<td><i class="dot" style="background:${C(t)}"></i> ${l} <span class="val">${(v/n*100).toFixed(1)}%</span></td>`;
+  document.getElementById('cmp').innerHTML='<thead><tr><th>업종</th><th>재해자</th><th>1위</th><th>2위</th><th>3위</th></tr></thead><tbody>'+
+    rows.map(([n,tot,top])=>`<tr><th scope="row">${n}</th><td class="val">${tot.toLocaleString('ko-KR')}</td>${top.map(x=>cell(x,tot)).join('')}</tr>`).join('')+'</tbody>';
+})();
+bars('b2',[["끼임",29.7,"kkim"],["떨어짐",22.3,"fall"],["맞음·깔림",19.0,"hit"],["화재·폭발",12.3,"fire"],["부딪힘",5.9,"bump"]],"%");
+bars('b3',[["지게차",61,"bump"],["크레인",37,"hit"],["컨베이어",27,"kkim"],["지붕",22,"fall"],["사다리",19,"fall"],["배합·혼합기",17,"kkim"],["산업용 로봇",11,"kkim"],["사출기",10,"kkim"]],"명");
+
+const W = [
+ {id:"machining", name:"기계가공", sub:"선반·밀링·CNC·드릴", badge:"trend",
+  items:[["kkim","끼임·감김","회전하는 척·공작물·드릴에 장갑, 소매, 머리카락이 말려 들어감"],
+         ["cut","절단·베임·찔림","칩을 맨손으로 치우거나 공구 날·버(burr)를 만지다 베임"],
+         ["hit","물체에 맞음","척 키를 꽂은 채 회전, 고정이 약한 공작물 이탈, 튀는 칩에 눈 부상"],
+         ["slip","넘어짐","바닥의 절삭유·칩에 미끄러짐"],
+         ["strain","무리한 동작","무거운 척·바이스·공작물을 혼자 들다 허리 부상"]],
+  key:"회전체 앞에서는 <b>면장갑 금지</b>, 척 키는 꽂으면 바로 뺀다."},
+ {id:"grinding", name:"연삭", sub:"탁상 연삭기·디스크 그라인더", badge:"trend",
+  items:[["hit","물체에 맞음","숫돌이 깨져 파편이 날아오거나 불티·이물이 눈에 들어감"],
+         ["cut","절단·베임","디스크 그라인더가 튀어 오르며(킥백) 손·다리를 벰"],
+         ["kkim","끼임","받침대와 숫돌 사이 틈에 공작물·손가락이 끼임"],
+         ["fire","화재","불티가 주변 가연물에 옮겨 붙음"]],
+  key:"숫돌 덮개 유지, 시운전은 정면을 피해 서서. 보안경은 필수."},
+ {id:"press", name:"프레스·전단·판금", sub:"프레스·절곡기·전단기", badge:"trend",
+  items:[["kkim","끼임·절단","금형 사이에 손이 들어간 채 슬라이드가 내려와 손가락 절단"],
+         ["cut","베임","얇은 판재 모서리·버에 손을 벰"],
+         ["hit","물체에 맞음","금형 교체 중 금형이 떨어지거나 판재가 튀어 나옴"],
+         ["strain","무리한 동작","큰 판재·금형을 무리하게 옮김"]],
+  key:"광전자식·양수조작식 방호장치를 끄고 작업하지 않는다. 금형 교체 땐 안전블록."},
+ {id:"casting", name:"주조", sub:"용해·주입·탈사·후처리", badge:"stat",
+  items:[["kkim","감김·끼임",31,"컨베이어·혼련기 정비 중 말려 들어감, 주형 사이 끼임"],
+         ["heat","고온물 접촉(화상)",13,"쇳물 튐, 식지 않은 주물을 만짐, 작업복에 불이 붙음"],
+         ["hit","낙하·비래",11,"수백 kg 주형·주물 낙하, 연마 중 금속분이 눈에"],
+         ["slip","넘어짐",10,"모래·쇳조각이 깔린 바닥"],
+         ["strain","무리한 동작",9,"무거운 주물을 들다 허리 부상"]],
+  note:"일본 주물업 2019년 사상재해 비율. 한국 공식 순위는 공개 자료에서 찾지 못함.",
+  key:"쇳물 근처는 <b>젖은 공구·수분 금지</b>(수증기 폭발). 내열 보호구 착용."},
+ {id:"welding", name:"용접·용단", sub:"아크·가스 용접, 절단", badge:"death",
+  items:[["fire","화재·폭발",87.5,"불티가 인화물·가연물에 옮겨 붙거나 탱크 안 잔류가스 폭발 (72건 중 63건)"],
+         ["fire","질식",12.5,"탱크·배관 등 밀폐공간에서 보호가스·산소결핍 (72건 중 9건)"]],
+  sub2:"자주 다치는 유형 · 현장 경향",
+  items2:[["heat","화상","스패터·고온 모재 접촉"],
+          ["hit","눈 손상","아크광, 연마 금속분이 눈에 박힘"],
+          ["elec","감전","피복 벗겨진 홀더·케이블, 젖은 장갑"],
+          ["hit","낙하","무거운 부재를 혼자 들다 발 위로 떨어짐"]],
+  note:"사망 비율은 2008~2017년 제조업 화학물질 관련 사망 중 용접·용단 72건 기준이라 감전 사망은 빠져 있음.",
+  key:"불티 비산 반경 안 가연물 치우고 화재감시자 배치. 밀폐공간은 산소농도 측정 먼저."},
+ {id:"crane", name:"크레인·인양", sub:"천장크레인·호이스트", badge:"trend",
+  rank:"50인 미만 제조업 사망 기인물 2위",
+  items:[["hit","물체에 맞음","줄걸이 풀림·와이어 파단으로 인양물 낙하"],
+         ["kkim","끼임","흔들리는 인양물과 벽·설비 사이에 끼임"],
+         ["bump","부딪힘","인양물이 회전·흔들리며 작업자를 침"],
+         ["fall","떨어짐","거더·주행로 점검 중 추락"]],
+  key:"인양물 <b>아래로 지나가지 않는다</b>. 줄걸이·훅 해지장치 매번 점검."},
+ {id:"forklift", name:"지게차·운반", sub:"지게차·운반차량", badge:"trend",
+  rank:"50인 미만 제조업 사망 기인물 1위",
+  items:[["bump","부딪힘","후진·적재물로 시야가 가린 채 보행자를 침"],
+         ["crush","깔림·뒤집힘","과적·급회전·경사로에서 지게차 전도"],
+         ["hit","물체에 맞음","높이 쌓은 화물이 떨어짐"],
+         ["kkim","끼임","마스트·차체와 구조물 사이에 끼임"]],
+  key:"보행 통로와 지게차 통로 분리, 안전벨트 착용, 포크에 사람 태우지 않기."},
+ {id:"automation", name:"컨베이어·로봇·자동화설비", sub:"컨베이어·산업용 로봇·사출기·배합기", badge:"trend",
+  rank:"사망 기인물 3위(컨베이어), 로봇·사출기·배합기도 상위",
+  items:[["kkim","끼임·감김","돌아가는 롤러·벨트의 이물질을 손으로 치우다 말려 들어감"],
+         ["kkim","재가동 끼임","정비 중 다른 사람이 스위치를 켜서 끼임"],
+         ["bump","부딪힘","로봇 작업반경 안에 들어갔다가 팔에 맞음"],
+         ["fall","떨어짐","설비 위로 올라가 점검하다 추락"]],
+  key:"정비 전 <b>전원 차단 + 잠금·표지(LOTO)</b>. 인터록 해제 금지."}
+];
+
+const badge = b => b==="stat"?'<span class="badge b-stat">재해자 통계</span>':b==="death"?'<span class="badge b-death">사망 통계</span>':'<span class="badge b-trend">현장 경향</span>';
+const li = (arr, showPct) => arr.map((r,i)=>{
+  const [t,label,a,b] = r; const pct = typeof a==="number" ? a : null; const desc = pct!==null ? b : a;
+  return `<li><span class="num" style="background:${C(t)}">${i+1}</span><span class="what"><b>${label}${pct!==null?`<span class="pct">${pct}%</span>`:''}</b><small>${desc}</small></span></li>`;
+}).join('');
+
+document.getElementById('jump').innerHTML = W.map(w=>`<a href="#${w.id}">${w.name}</a>`).join('');
+document.getElementById('cards').innerHTML = W.map(w=>`
+<article class="card" id="${w.id}">
+  <div class="card-top"><div><h3>${w.name}</h3><div class="sub">${w.sub}</div></div>${badge(w.badge)}</div>
+  ${w.rank?`<p style="font-size:13px"><span class="badge b-death">사망 통계</span> ${w.rank}</p>`:''}
+  <ol class="rank">${li(w.items)}</ol>
+  ${w.items2?`<div class="sub-label">${w.sub2}</div><ol class="rank">${li(w.items2)}</ol>`:''}
+  ${w.note?`<p style="font-size:12px;color:var(--muted)">${w.note}</p>`:''}
+  <p class="key">${w.key}</p>
+</article>`).join('');
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="index.html">전체 자료 목록</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="ko" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>[hidden]{display:none!important}body{margin:0}</style></head><body class="mm-page mm-standard">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine" aria-current="page">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#machine">기계요소</a><span>/</span>볼트 체결과 축력</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine" aria-current="page">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>볼트 체결과 축력</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+:root{
+  --font-display:'Black Han Sans','Noto Sans KR',system-ui,sans-serif;
+  --font-body:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --bg:#edf1f6; --panel:#ffffff; --panel2:#f3f6fb; --fg:#17202e; --muted:#586479; --line:#d5dce7;
+  --accent:#0a66c2; --on-accent:#ffffff; --force:#d83a22; --amber:#b8650a;
+  --good:#14804f; --good-bg:#dff3e8; --warn:#8f5200; --warn-bg:#fdecc8; --bad:#b3261e; --bad-bg:#fbdcd8;
+  --steel:#a9b6c9; --steel2:#6c7b93; --ghost:#7b8798; --tint:#0a66c222;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+    --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+    --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+    --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+  --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+  --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+  --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.65;
+  padding-block:22px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:18px}
+.kicker{font:600 12px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,5vw,46px);line-height:1.18;margin:10px 0 8px;text-wrap:balance}
+.lede{color:var(--muted);max-width:64ch;margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.grid.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:880px){.grid,.grid.even{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.card h2{font-size:16px;margin:0 0 4px;font-weight:700}
+.card .sub{margin:0 0 12px;color:var(--muted);font-size:14px}
+svg{display:block;width:100%;height:auto;max-width:100%}
+.ctl{display:grid;gap:2px;margin-bottom:12px}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:500;font-size:14px}
+.ctl output{font:600 15px var(--font-mono);color:var(--accent);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:30px;accent-color:var(--accent);margin:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.btn,.seg button{font:500 14px var(--font-body);padding:8px 13px;min-height:40px;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel);color:var(--fg);cursor:pointer}
+.btn:hover,.seg button:hover{border-color:var(--accent)}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:10px}
+.stat{background:var(--panel2);border-radius:10px;padding:10px 12px;min-width:0}
+.stat .k{font-size:12px;color:var(--muted);line-height:1.3}
+.stat .v{font:600 clamp(20px,3.2vw,26px)/1.25 var(--font-mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stat .v small{font-size:13px;color:var(--muted);font-weight:500;margin-left:3px}
+.stat.hero .v{font-size:clamp(28px,4.6vw,40px);color:var(--accent)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:700;line-height:1.6}
+.pill.ok{background:var(--good-bg);color:var(--good)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.info{background:var(--tint);color:var(--accent)}
+.formula{font:500 clamp(17px,3.2vw,26px)/1.5 var(--font-mono);margin:6px 0;overflow-wrap:anywhere}
+.hl-a{color:var(--accent);font-weight:700}.hl-f{color:var(--force);font-weight:700}.hl-m{color:var(--amber);font-weight:700}
+.calc{background:var(--panel2);border-radius:10px;padding:10px 12px;font:500 14px/1.7 var(--font-mono);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+ul.tips{margin:8px 0 0;padding-left:1.2em;display:grid;gap:6px}
+.exp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.exp button{text-align:left;display:grid;gap:2px;padding:12px;min-height:0;font:inherit;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--fg);cursor:pointer}
+.exp button:hover{border-color:var(--accent)}
+.exp .t{font-weight:700;font-size:14px}.exp .r{font:600 24px var(--font-mono);color:var(--accent)}.exp .w{font-size:13px;color:var(--muted);line-height:1.45}
+details.quiz{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:0 14px}
+details.quiz summary{cursor:pointer;padding:12px 0;font-weight:700}
+details.quiz .ans{padding:0 0 12px;color:var(--muted)}
+.s-axis{stroke:var(--muted);stroke-width:1.5;fill:none}
+.s-grid{stroke:var(--line);stroke-width:1}
+.s-txt{fill:var(--muted);font:13px var(--font-body)}
+.s-lbl{fill:var(--fg);font:700 15px var(--font-body)}
+.s-mono{font-family:var(--font-mono)}
+.s-force{stroke:var(--force);fill:var(--force)}
+.s-accent{stroke:var(--accent);fill:var(--accent)}
+.s-amber{stroke:var(--amber);fill:var(--amber)}
+.s-good{stroke:var(--good);fill:var(--good)}
+.s-ghost{stroke:var(--ghost);fill:none;stroke-dasharray:6 5;stroke-width:1.6}
+.foot{color:var(--muted);font-size:13px}
+.foot a{color:var(--accent);font-weight:700}
+.bar{height:22px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .15s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.stage{position:relative}
+canvas.cv{display:block;width:100%;height:auto;max-width:100%;border-radius:8px}
+.drag{cursor:grab;touch-action:none}.drag:active{cursor:grabbing}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.mini{font-size:13px;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl td,.tbl th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tbl td.n{font-family:var(--font-mono);text-align:right;font-variant-numeric:tabular-nums}
+.tscroll{overflow-x:auto}
+input[type=number],input[type=text]{font:600 15px var(--font-mono);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);width:100%;min-width:0}
+.exp button[aria-pressed="true"]{border-color:var(--accent);background:var(--tint);box-shadow:inset 0 0 0 1px var(--accent)}
+.stat .v.kr{font-family:var(--font-body);font-weight:700;font-size:22px;line-height:1.3}
+
+
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">기계요소 · 나사 체결</div>
+    <h1>볼트 체결과 축력</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+    <p class="lede">볼트를 조이면 볼트는 용수철처럼 늘어나고, 그 반발력(축력)이 두 판을 꽉 눌러요. 그런데 렌치로 준 토크의 약 90 %는 나사산과 머리 밑 마찰로 사라지고, 축력이 되는 건 10 % 남짓이에요. 볼트 크기, 강도 등급, 윤활을 바꿔 보고 외력이 걸렸을 때 이음이 언제 벌어지는지 확인하세요.</p>
+  </header>
+
+  <div class="grid">
+    <section class="card" aria-label="볼트 이음">
+      <h2>볼트 이음 단면</h2>
+      <p class="sub">파란 화살표는 볼트 축력, 판 속 주황 영역은 눌려 있는 부분이에요. 외력이 커지면 판 사이가 벌어져요.</p>
+      <svg id="stage" viewBox="0 0 640 400" role="img" aria-label="볼트 이음 단면"></svg>
+    </section>
+    <section class="card" aria-label="조작판">
+      <h2>조건 바꾸기</h2>
+      <div class="ctl"><label>볼트 크기</label><div class="seg" id="size"></div></div>
+      <div class="ctl"><label>강도 등급</label><div class="seg" id="grade"></div></div>
+      <div class="ctl"><label>나사면 상태 (토크 계수 K)</label><div class="seg" id="lub"><button data-v="0.25" type="button">녹·건조 0.25</button><button data-v="0.2" type="button">보통 0.20</button><button data-v="0.14" type="button">윤활 0.14</button></div></div>
+      <div class="ctl"><label for="sT">조임 토크 <output id="oT"></output></label><input id="sT" type="range" min="1" max="600" step="1"></div>
+      <div class="ctl"><label for="sP">외력 (판을 벌리는 힘) <output id="oP"></output></label><input id="sP" type="range" min="0" max="200" step="1"></div>
+      <div class="row"><button class="btn" id="rec" type="button">권장 토크로 (항복의 70 %)</button></div>
+    </section>
+  </div>
+
+  <section class="card" aria-label="결과">
+    <h2>계산 결과</h2>
+    <div class="stats" id="stats"></div>
+    <div class="calc" id="calc" style="margin-top:12px"></div>
+    <p style="margin:10px 0 0"><span class="pill info" id="judge">-</span> <span class="foot" id="judgeNote"></span></p>
+  </section>
+
+  <div class="grid even">
+    <section class="card" aria-label="체결 선도">
+      <h2>체결 선도 (조임 삼각형)</h2>
+      <p class="sub">볼트는 오른쪽으로 늘어나는 선, 판은 왼쪽으로 줄어드는 선이에요. 외력 P를 받으면 볼트는 조금만 더 늘고 대부분은 판의 압축이 풀리는 데 쓰여요.</p>
+      <svg id="joint" viewBox="0 0 520 300" role="img" aria-label="체결 선도"></svg>
+    </section>
+    <section class="card" aria-label="토크 분배">
+      <h2>토크는 어디로 가나</h2>
+      <p class="sub">나사산 마찰 약 40 %, 머리 밑 마찰 약 50 %, 실제로 볼트를 늘이는 일은 10 % 정도예요.</p>
+      <svg id="pie" viewBox="0 0 520 300" role="img" aria-label="토크 분배"></svg>
+    </section>
+  </div>
+
+  <div class="grid even">
+    <section class="card" aria-label="공식" id="mm-theory">
+      <h2>공식</h2>
+      <div class="formula">조임 토크 T = K · d · F<sub>i</sub><br>볼트 응력 σ = F / A<sub>s</sub> (A<sub>s</sub>: 유효 단면적)<br>힘 분담 계수 C = k<sub>b</sub> / (k<sub>b</sub> + k<sub>m</sub>)<br>볼트 힘 F<sub>b</sub> = F<sub>i</sub> + C·P, 판 힘 F<sub>m</sub> = F<sub>i</sub> − (1−C)·P<br>벌어지는 외력 P<sub>sep</sub> = F<sub>i</sub> / (1 − C)</div>
+      <ul class="tips"><li>강도 등급 8.8 → 인장 800 MPa, 항복 = 800 × 0.8 = 640 MPa.</li><li>판이 볼트보다 3~4배 단단해서 C는 보통 0.2~0.3이에요.</li></ul>
+    </section>
+    <section class="card" aria-label="현장 연결">
+      <h2>그래서 현장에서는</h2>
+      <ul class="tips">
+        <li>같은 토크라도 윤활하면 축력이 훨씬 커져요. 정비 지침서에 "건조" 또는 "오일 도포" 조건이 꼭 적혀 있는 이유예요.</li>
+        <li>실린더 헤드 볼트는 토크 대신 <b>각도법</b>(예: 30 N·m 후 90°)으로 조여 마찰 편차를 줄여요.</li>
+        <li>축력이 충분하면 외력이 반복돼도 볼트가 받는 변동 힘은 C·P로 작아서 피로에 강해요. 느슨한 볼트가 먼저 부러져요.</li>
+        <li>풀림 방지는 축력 유지가 핵심이에요. 와셔보다 충분한 조임이 효과적이에요.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card" aria-label="생각해보기" id="mm-inquiry">
+    <h2>생각해 보기</h2>
+    <div style="display:grid;gap:10px;margin-top:10px">
+      <details class="quiz"><summary>M10 볼트를 50 N·m로 조였어요(K=0.2). 축력은?</summary><div class="ans">F = T/(K·d) = 50 / (0.2 × 0.010) = <b>25 kN</b>이에요.</div></details>
+      <details class="quiz"><summary>같은 토크에서 녹슨 나사(K 0.25)를 윤활(K 0.14)하면 축력은?</summary><div class="ans">F ∝ 1/K라서 0.25/0.14 ≈ <b>1.8배</b>가 돼요. 같은 토크로 조이면 볼트가 끊어질 수도 있어요.</div></details>
+      <details class="quiz"><summary>C = 0.25, 축력 20 kN이면 판이 벌어지는 외력은?</summary><div class="ans">P<sub>sep</sub> = 20 / (1 − 0.25) ≈ <b>26.7 kN</b>이에요.</div></details>
+    </div>
+  </section>
+  <p class="foot"><a href="index.html" target="_blank" rel="noopener">← 기계 금속 시각화 모음으로 돌아가기</a></p>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt=(v,n=1)=>{let r=+(+v).toFixed(n);if(r===0)r=0;return r.toLocaleString('ko-KR',{minimumFractionDigits:n,maximumFractionDigits:n});};
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+const niceMax=v=>{if(!(v>0))return 1;const m=10**Math.floor(Math.log10(v));return ([1,2,2.5,5,10].find(x=>x*m>=v*0.999))*m;};
+const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+function head(x,y,dx,dy,cls,h=10){const a=Math.atan2(dy,dx);
+  const p=[[x,y],[x-h*Math.cos(a-.45),y-h*Math.sin(a-.45)],[x-h*Math.cos(a+.45),y-h*Math.sin(a+.45)]].map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
+  return `<polygon points="${p}" class="${cls}"/>`;}
+function arrow(x1,y1,x2,y2,cls,w=3,dash=''){const a=Math.atan2(y2-y1,x2-x1),L=Math.hypot(x2-x1,y2-y1);if(L<3)return '';
+  const hl=Math.min(10,L*0.6);
+  return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${(x2-hl*0.8*Math.cos(a)).toFixed(1)}" y2="${(y2-hl*0.8*Math.sin(a)).toFixed(1)}" class="${cls}" stroke-width="${w}" ${dash?`stroke-dasharray="${dash}"`:''}/>`+head(x2,y2,Math.cos(a),Math.sin(a),cls,hl+2);}
+function bind(st,key,id,fmtFn,render){const el=$(id),out=$('o'+id.slice(1));
+  const upd=()=>{el.value=st[key];out.textContent=fmtFn(st[key]);};
+  el.addEventListener('input',()=>{st[key]=+el.value;upd();render();});upd();return upd;}
+function chips(sel,st,key,render,conv=x=>x){const bs=$$(sel+' button');
+  const upd=()=>bs.forEach(b=>b.setAttribute('aria-pressed',String(conv(b.dataset.v)===st[key])));
+  bs.forEach(b=>b.onclick=()=>{st[key]=conv(b.dataset.v);upd();render();});upd();return upd;}
+function lineChart(id,o){
+  const W=o.W||520,H=o.H||280,ml=o.ml||58,mr=o.mr||16,mt=o.mt||14,mb=o.mb||44,pw=W-ml-mr,ph=H-mt-mb;
+  const X=x=>ml+(x-o.xmin)/(o.xmax-o.xmin)*pw;
+  const Y=y=>mt+ph-(clamp(y,o.ymin,o.ymax)-o.ymin)/(o.ymax-o.ymin)*ph;
+  let h='';
+  (o.yticks||[]).forEach(v=>{h+=`<line x1="${ml}" y1="${Y(v)}" x2="${W-mr}" y2="${Y(v)}" class="s-grid"/><text x="${ml-8}" y="${Y(v)+4}" text-anchor="end" class="s-txt s-mono">${o.yf?o.yf(v):fmt(v,0)}</text>`;});
+  (o.xticks||[]).forEach(v=>{h+=`<line x1="${X(v)}" y1="${mt+ph}" x2="${X(v)}" y2="${mt+ph+5}" class="s-axis"/><text x="${X(v)}" y="${mt+ph+20}" text-anchor="middle" class="s-txt s-mono">${o.xf?o.xf(v):fmt(v,0)}</text>`;});
+  h+=`<line x1="${ml}" y1="${mt+ph}" x2="${W-mr}" y2="${mt+ph}" class="s-axis"/><line x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ph}" class="s-axis"/>`;
+  if(o.xlab)h+=`<text x="${ml+pw/2}" y="${H-6}" text-anchor="middle" class="s-txt">${o.xlab}</text>`;
+  if(o.ylab)h+=`<text x="13" y="${mt+ph/2}" text-anchor="middle" class="s-txt" transform="rotate(-90 13 ${mt+ph/2})">${o.ylab}</text>`;
+  (o.hlines||[]).forEach(l=>{if(l.y<o.ymin||l.y>o.ymax)return;h+=`<line x1="${ml}" y1="${Y(l.y)}" x2="${W-mr}" y2="${Y(l.y)}" stroke="${l.color||'var(--force)'}" stroke-dasharray="6 4" stroke-width="1.6"/>`;
+    if(l.label)h+=`<text x="${l.left?ml+6:W-mr-4}" y="${Y(l.y)-6}" text-anchor="${l.left?'start':'end'}" class="s-txt" style="fill:${l.color||'var(--force)'};font-weight:700">${l.label}</text>`;});
+  (o.curves||[]).forEach(c=>{h+=`<polyline points="${pts(c.pts.map(p=>[X(p[0]),Y(p[1])]))}" fill="none" stroke="${c.color||'var(--accent)'}" stroke-width="${c.w||3}" ${c.dash?`stroke-dasharray="${c.dash}"`:''} ${c.op?`opacity="${c.op}"`:''} stroke-linejoin="round"/>`;
+    if(c.label){const q=c.pts[c.lp!==undefined?c.lp:c.pts.length-1];h+=`<text x="${Math.min(X(q[0]),W-mr-4)}" y="${Y(q[1])-8}" text-anchor="end" class="s-txt" style="fill:${c.color||'var(--accent)'};font-weight:700">${c.label}</text>`;}});
+  if(o.extra)h+=o.extra(X,Y,{ml,mt,pw,ph,W,H});
+  (o.dots||[]).forEach(d=>{const cx=X(d.x),cy=Y(d.y);
+    if(d.drop!==false)h+=`<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${mt+ph}" stroke="${d.color||'var(--force)'}" stroke-dasharray="3 3"/>`;
+    h+=`<circle cx="${cx}" cy="${cy}" r="7" fill="${d.color||'var(--force)'}" stroke="var(--panel)" stroke-width="2"/>`;
+    if(d.label){const an=cx>W-150?'end':'start';h+=`<text x="${cx+(an==='end'?-12:12)}" y="${Math.max(cy-10,mt+14)}" text-anchor="${an}" class="s-lbl s-mono">${d.label}</text>`;}});
+  $(id).innerHTML=h;return{X,Y};
+}
+// 프레임 루프 도우미: fn(dt,now)가 true를 반환하는 동안 계속 돈다
+function loop(fn){let on=false,prev=0;const step=now=>{const dt=Math.min(0.05,(now-prev)/1000);prev=now;if(fn(dt,now))requestAnimationFrame(step);else on=false;};
+  return()=>{if(on)return;on=true;prev=performance.now();requestAnimationFrame(step);};}
+// 각도 단위 rad 기준 SVG 원호 경로
+const arcPath=(cx,cy,r,a0,a1)=>{const l=Math.abs(a1-a0)>Math.PI?1:0,sw=a1>a0?1:0;return `M${(cx+r*Math.cos(a0)).toFixed(1)} ${(cy+r*Math.sin(a0)).toFixed(1)} A${r} ${r} 0 ${l} ${sw} ${(cx+r*Math.cos(a1)).toFixed(1)} ${(cy+r*Math.sin(a1)).toFixed(1)}`};
+// SVG 좌표로 포인터 위치 변환
+const svgPt=(svg,e)=>{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())};
+// 화면에 보일 때만 애니메이션
+const visible=el=>{const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight&&!document.hidden};
+
+
+(()=>{
+const SZ={M6:{d:6,As:20.1},M8:{d:8,As:36.6},M10:{d:10,As:58},M12:{d:12,As:84.3},M16:{d:16,As:157},M20:{d:20,As:245}};
+const GR={'4.8':320,'8.8':640,'10.9':900,'12.9':1080};
+const st={size:'M12',grade:'8.8',lub:0.2,T:80,P:20};
+$('size').innerHTML=Object.keys(SZ).map(k=>`<button data-v="${k}" type="button">${k}</button>`).join('');
+$('grade').innerHTML=Object.keys(GR).map(k=>`<button data-v="${k}" type="button">${k}</button>`).join('');
+function calc(){const b=SZ[st.size],sy=GR[st.grade],Fi=st.T/(st.lub*b.d/1000)/1000,Fy=sy*b.As/1000,C=0.25,P=st.P,
+  Fb=Fi+C*P,Fm=Math.max(0,Fi-(1-C)*P),Psep=Fi/(1-C),sep=P>Psep,FbR=sep?P:Fb,sig=FbR*1000/b.As,Trec=0.7*Fy*st.lub*b.d/1000*1000;
+  return{b,sy,Fi,Fy,C,P,Fb:FbR,Fm,Psep,sep,sig,Trec,yld:Fi>Fy||FbR>Fy};}
+function draw(){const c=calc(),gap=c.sep?clamp((c.P-c.Psep)/c.Psep*30,4,30):0,stretch=clamp(c.Fb/c.Fy,0,1.3),dpx=10+c.b.d*2.2;
+  const cx=320,top=110,mid=210,bot=310;let h='';
+  // 판 두 장
+  h+=`<rect x="90" y="${top}" width="460" height="${mid-top}" fill="var(--panel2)" stroke="var(--fg)"/><rect x="90" y="${mid+gap}" width="460" height="${bot-mid}" fill="var(--panel2)" stroke="var(--fg)"/>`;
+  // 압축 원뿔(30°)
+  if(!c.sep){const o=clamp(c.Fm/c.Fy,0.1,1);h+=`<path d="M${cx-dpx*1.6} ${top} L${cx-dpx*1.6-(mid-top)*0.58} ${mid} L${cx-dpx*1.6} ${bot} H${cx+dpx*1.6} L${cx+dpx*1.6+(mid-top)*0.58} ${mid} L${cx+dpx*1.6} ${top} Z" fill="var(--amber)" opacity="${0.15+o*0.45}"/>`;}
+  // 볼트 (늘어남 과장)
+  const ext=stretch*14,hy=top-28-ext/2,ny=bot+gap+ext/2;
+  const col=c.yld?'var(--force)':`hsl(${210-stretch*150},60%,55%)`;
+  h+=`<rect x="${cx-dpx/2}" y="${hy+26}" width="${dpx}" height="${ny-hy-26}" fill="${col}" stroke="var(--fg)"/>`;
+  for(let y=mid+gap+20;y<ny+18;y+=6)h+=`<line x1="${cx-dpx/2}" y1="${y}" x2="${cx+dpx/2}" y2="${y+3}" stroke="var(--fg)" opacity=".5"/>`;
+  h+=`<rect x="${cx-dpx*1.6}" y="${hy}" width="${dpx*3.2}" height="28" rx="3" fill="var(--fg)" opacity=".85"/><rect x="${cx-dpx*1.6}" y="${ny}" width="${dpx*3.2}" height="26" rx="3" fill="var(--fg)" opacity=".7"/>`;
+  h+=`<text x="${cx}" y="${hy-8}" text-anchor="middle" class="s-lbl">${st.size} × ${st.grade}</text>`;
+  // 축력 화살표
+  const aw=clamp(c.Fb/c.Fy*60,10,70);h+=arrow(cx+dpx/2+70,mid,cx+dpx/2+70,mid-aw,'s-accent')+arrow(cx+dpx/2+70,mid+gap,cx+dpx/2+70,mid+gap+aw,'s-accent');
+  h+=`<text x="${cx+dpx/2+82}" y="${mid-aw/2}" class="s-txt" style="fill:var(--accent);font-weight:700">볼트 ${fmt(c.Fb,1)} kN</text>`;
+  // 외력
+  if(c.P>0){const pw=clamp(c.P/c.Fy*60,8,70);h+=arrow(130,top,130,top-pw,'s-force')+arrow(130,bot+gap,130,bot+gap+pw,'s-force')+arrow(510,top,510,top-pw,'s-force')+arrow(510,bot+gap,510,bot+gap+pw,'s-force');
+    h+=`<text x="140" y="${top-pw-6}" class="s-txt" style="fill:var(--force);font-weight:700">외력 P = ${c.P} kN</text>`;}
+  h+=`<text x="100" y="${mid-8}" class="s-txt">판 압축력 ${fmt(c.Fm,1)} kN</text>`;
+  if(c.sep)h+=`<text x="320" y="${mid+gap/2+5}" text-anchor="middle" class="s-lbl" style="fill:var(--force)">벌어짐!</text>`;
+  $('stage').innerHTML=h;}
+function joint(){const c=calc(),kb=1,km=3,db=c.Fi/kb,dm=c.Fi/km,Fmax=niceMax(Math.max(c.Fy,c.Fb)*1.15);
+  const W=520,H=300,ml=58,mt=16,pw=440,ph=240,xmax=(db+dm)*1.5||1,X=x=>ml+x/xmax*pw,Y=y=>mt+ph-y/Fmax*ph;
+  let h=`<line x1="${ml}" y1="${mt+ph}" x2="${ml+pw}" y2="${mt+ph}" class="s-axis"/><line x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ph}" class="s-axis"/>`;
+  [0,Fmax/2,Fmax].forEach(v=>h+=`<text x="${ml-8}" y="${Y(v)+4}" text-anchor="end" class="s-txt s-mono">${fmt(v,0)}</text><line x1="${ml}" y1="${Y(v)}" x2="${ml+pw}" y2="${Y(v)}" class="s-grid"/>`);
+  h+=`<text x="13" y="${mt+ph/2}" transform="rotate(-90 13 ${mt+ph/2})" text-anchor="middle" class="s-txt">힘 (kN)</text><text x="${ml+pw/2}" y="${H-6}" text-anchor="middle" class="s-txt">늘어남 / 줄어듦 →</text>`;
+  h+=`<line x1="${X(0)}" y1="${Y(0)}" x2="${X(db*1.4)}" y2="${Y(c.Fi*1.4)}" stroke="var(--accent)" stroke-width="3"/><line x1="${X(db+dm)}" y1="${Y(0)}" x2="${X(db-dm*0.4)}" y2="${Y(c.Fi*1.4)}" stroke="var(--amber)" stroke-width="3"/>`;
+  h+=`<line x1="${ml}" y1="${Y(c.Fy)}" x2="${ml+pw}" y2="${Y(c.Fy)}" stroke="var(--force)" stroke-dasharray="6 4"/><text x="${ml+pw-4}" y="${Y(c.Fy)-6}" text-anchor="end" class="s-txt" style="fill:var(--force);font-weight:700">볼트 항복 ${fmt(c.Fy,1)} kN</text>`;
+  h+=`<circle cx="${X(db)}" cy="${Y(c.Fi)}" r="6" fill="var(--fg)"/><text x="${X(db)+10}" y="${Y(c.Fi)+18}" class="s-txt">초기 축력 F<tspan baseline-shift="sub">i</tspan> ${fmt(c.Fi,1)}</text>`;
+  if(c.P>0&&!c.sep){const d2=db+c.C*c.P/kb;h+=`<line x1="${X(d2)}" y1="${Y(c.Fb)}" x2="${X(d2)}" y2="${Y(c.Fm)}" stroke="var(--force)" stroke-width="4"/><text x="${X(d2)+8}" y="${(Y(c.Fb)+Y(c.Fm))/2}" class="s-txt" style="fill:var(--force);font-weight:700">P</text>`;}
+  h+=`<text x="${X(db*0.5)-10}" y="${Y(c.Fi*0.5)-8}" text-anchor="end" class="s-txt" style="fill:var(--accent);font-weight:700">볼트</text><text x="${X(db+dm*0.6)+8}" y="${Y(c.Fi*0.4)}" class="s-txt" style="fill:var(--amber);font-weight:700">판</text>`;
+  $('joint').innerHTML=h;}
+function pie(){const parts=[['나사산 마찰',0.4,'var(--amber)'],['머리 밑 마찰',0.5,'var(--warn)'],['볼트를 늘임 (축력)',0.1,'var(--accent)']];let a=-Math.PI/2,h='';const cx=150,cy=150,r=110;
+  parts.forEach(([n,f,col],i)=>{const a1=a+f*2*Math.PI,l=f>0.5?1:0;h+=`<path d="M${cx} ${cy} L${cx+r*Math.cos(a)} ${cy+r*Math.sin(a)} A${r} ${r} 0 ${l} 1 ${cx+r*Math.cos(a1)} ${cy+r*Math.sin(a1)} Z" fill="${col}" stroke="var(--panel)" stroke-width="2"/>`;
+    h+=`<rect x="300" y="${90+i*44}" width="18" height="18" rx="3" fill="${col}"/><text x="326" y="${104+i*44}" class="s-txt">${n} ${f*100} %</text>`;a=a1;});
+  const c=calc();h+=`<text x="300" y="250" class="s-txt">지금 ${st.T} N·m 중 축력 일 ≈ ${fmt(st.T*0.1,1)} N·m</text>`;$('pie').innerHTML=h;}
+function readout(){const c=calc(),j=$('judge'),pct=c.Fi/c.Fy*100;
+  $('stats').innerHTML=`<div class="stat hero"><div class="k">초기 축력 F<sub>i</sub></div><div class="v">${fmt(c.Fi,1)}<small>kN</small></div></div><div class="stat"><div class="k">항복 하중 대비</div><div class="v">${fmt(pct,0)}<small>%</small></div></div><div class="stat"><div class="k">볼트 응력 (외력 포함)</div><div class="v">${fmt(c.sig,0)}<small>MPa</small></div></div><div class="stat"><div class="k">벌어지는 외력</div><div class="v">${fmt(c.Psep,1)}<small>kN</small></div></div><div class="stat"><div class="k">권장 토크</div><div class="v">${fmt(c.Trec,0)}<small>N·m</small></div></div>`;
+  $('calc').innerHTML=`F<sub>i</sub> = T/(K·d) = ${st.T} / (${st.lub} × ${c.b.d/1000}) = <b>${fmt(c.Fi,2)} kN</b>, 항복 하중 = ${c.sy} MPa × ${c.b.As} mm² = ${fmt(c.Fy,1)} kN<br>${c.sep?`외력 ${c.P} kN &gt; P<sub>sep</sub> ${fmt(c.Psep,1)} kN → 판이 떨어져 볼트가 외력을 전부 받아요: F<sub>b</sub> = ${c.P} kN`:`F<sub>b</sub> = F<sub>i</sub> + C·P = ${fmt(c.Fi,1)} + 0.25 × ${c.P} = ${fmt(c.Fb,1)} kN, F<sub>m</sub> = ${fmt(c.Fi,1)} − 0.75 × ${c.P} = ${fmt(c.Fm,1)} kN`}`;
+  if(c.yld){j.className='pill bad';j.textContent='볼트 항복';$('judgeNote').textContent='볼트가 영구히 늘어나요. 토크를 줄이거나 더 굵은·높은 등급을 쓰세요.';}
+  else if(c.sep){j.className='pill bad';j.textContent='이음 벌어짐';$('judgeNote').textContent='새거나 볼트가 피로로 끊어지기 쉬워요. 축력을 더 주세요.';}
+  else if(pct<40){j.className='pill warn';j.textContent='축력 부족';$('judgeNote').textContent='진동에 풀리기 쉬워요. 항복의 60~75 %를 목표로 하세요.';}
+  else{j.className='pill ok';j.textContent='잘 조였어요';$('judgeNote').textContent='외력이 와도 판이 눌려 있어 볼트 변동 힘이 작아요.';}}
+function render(){readout();draw();joint();pie();}
+chips('#size',st,'size',render);chips('#grade',st,'grade',render);chips('#lub',st,'lub',render,Number);
+const uT=bind(st,'T','sT',v=>v+' N·m',render);bind(st,'P','sP',v=>v+' kN',render);
+$('rec').onclick=()=>{st.T=Math.round(clamp(calc().Trec,1,600));uT();render();};
+render();
+})();
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="도르래와 활차.html">← 이전 자료</a><a href="index.html">전체 자료 목록</a><a href="구름 베어링 수명.html">다음 자료 →</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

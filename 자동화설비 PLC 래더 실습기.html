@@ -1,0 +1,1368 @@
+<!doctype html><html lang="ko" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body class="mm-page mm-plc">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation" aria-current="page">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#automation">자동화·제어</a><span>/</span>PLC 래더 실습기</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation" aria-current="page">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>PLC 래더 실습기</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+
+<style>
+/* 배치: 위쪽 운전 바 → 도구 줄 → 왼쪽(래더 판·가상 설비·과제) + 오른쪽 입출력 패널 (좁으면 세로로 쌓임) */
+:root {
+  --bg: #e9ecea; --panel: #f7f8f7; --ink: #1c2220; --muted: #5d6965; --line: #c6cdca;
+  --rung: #3a4440; --live: #0b9a61; --live-soft: #d3f0e2; --lamp: #e0521a; --lamp-off: #d6dbd8;
+  --accent: #1f5ca8; --water: #3d86d8; --sel: #f2c230; --warn: #b4321f;
+  --sig-r: #e0352b; --sig-y: #f2b01e; --sig-g: #1fae5b;
+  --f-body: "IBM Plex Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --cell: 72px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #131715; --panel: #1b201e; --ink: #e2e7e4; --muted: #92a09a; --line: #2e3632;
+  --rung: #a9b4af; --live: #33d28e; --live-soft: #16382a; --lamp: #ff7b3e; --lamp-off: #2b3330;
+  --accent: #6ea6ea; --water: #4f97e6; --sel: #c99a10; --warn: #ff7a66; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #131715; --panel: #1b201e; --ink: #e2e7e4; --muted: #92a09a; --line: #2e3632;
+  --rung: #a9b4af; --live: #33d28e; --live-soft: #16382a; --lamp: #ff7b3e; --lamp-off: #2b3330;
+  --accent: #6ea6ea; --water: #4f97e6; --sel: #c99a10; --warn: #ff7a66; color-scheme: dark }
+:root.big { --cell: 104px }
+
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 14px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 12px 32px }
+button, select, input, textarea { font: inherit; color: inherit }
+button { cursor: pointer }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 10px }
+.bar h1 { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: -0.01em }
+.bar .grow { flex: 1 }
+.mode { font-family: var(--f-mono); font-weight: 700; font-size: 12px; letter-spacing: .08em;
+  padding: 3px 10px; border-radius: 4px; background: var(--lamp-off); color: var(--muted) }
+.mode.run { background: var(--live); color: var(--panel) }
+.scan { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums }
+.runbtn { border: 1px solid var(--line); background: var(--panel); padding: 6px 14px; border-radius: 6px; font-weight: 600 }
+.runbtn[aria-pressed="true"] { border-color: var(--live); color: var(--live) }
+#stopBtn[aria-pressed="true"] { border-color: var(--warn); color: var(--warn) }
+label.inline { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px }
+select, input[type="text"], input[type="number"] { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px }
+
+.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 8px; padding: 8px; margin-bottom: 10px }
+.tools .sep { width: 1px; align-self: stretch; background: var(--line) }
+.tool { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; min-width: 56px;
+  border: 1px solid transparent; background: none; border-radius: 6px; padding: 4px 6px; font-size: 12px; color: var(--muted) }
+.tool .sym { font-family: var(--f-mono); font-size: 14px; color: var(--ink); white-space: pre }
+.tool[aria-pressed="true"] { border-color: var(--accent); background: var(--bg); color: var(--ink) }
+#addr { font-family: var(--f-mono); min-width: 96px }
+#cmt { width: 110px }
+#preset { width: 76px; font-family: var(--f-mono) }
+#op { font-family: var(--f-mono) }
+
+.work { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 12px; align-items: start }
+@media (max-width: 860px) { .work { grid-template-columns: minmax(0, 1fr) } }
+.left { display: grid; gap: 12px; min-width: 0 }
+.ladder-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; padding: 8px 8px 8px 0 }
+#ladder { display: grid; width: max-content }
+.row { display: flex; align-items: stretch }
+.no { width: 32px; font-family: var(--f-mono); font-size: 11px; color: var(--muted); text-align: right;
+  padding-right: 6px; display: flex; align-items: center; justify-content: flex-end; font-variant-numeric: tabular-nums }
+.rail { width: 4px; background: var(--rung) }
+.rail.on { background: var(--live) }
+.cell { width: var(--cell); height: calc(var(--cell) * 64 / 72); position: relative; cursor: crosshair }
+.cell:hover { background: var(--bg) }
+.cell.sel { box-shadow: inset 0 0 0 2px var(--sel) }
+.cell svg { display: block; width: 100%; height: 100% }
+.w { stroke: var(--rung); stroke-width: 2; fill: none }
+.w.on { stroke: var(--live); stroke-width: 3 }
+.act { fill: var(--live-soft); stroke: none }
+.lab { font-family: var(--f-mono); font-size: 10.5px; font-weight: 700; fill: var(--ink); text-anchor: middle }
+.kv { font-family: var(--f-mono); font-size: 9.5px; font-weight: 700; fill: var(--ink); text-anchor: middle }
+.cm { font-size: 9.5px; fill: var(--muted); text-anchor: middle }
+.cm.val { font-family: var(--f-mono); fill: var(--live); font-weight: 700 }
+.hint { color: var(--muted); font-size: 12.5px; margin: 8px 0 0 }
+
+.io { display: grid; gap: 12px }
+.box { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0 }
+.box h2 { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .06em; margin: 0 0 8px }
+.head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px }
+.head h2 { margin: 0 }
+.ins { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px }
+.inp { display: grid; gap: 3px; justify-items: center }
+.push { width: 52px; height: 52px; border-radius: 50%; border: 3px solid var(--rung); background: var(--bg);
+  font-family: var(--f-mono); font-size: 11px; font-weight: 700; touch-action: none; user-select: none; -webkit-user-select: none }
+.push.on { background: var(--live); color: var(--panel); border-color: var(--live) }
+.push.tg { border-radius: 10px }
+.push.dev { border-style: dashed }
+.inp .nm, .out .nm { font-size: 11px; color: var(--muted); max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.mbtn { border: none; background: none; font-size: 10.5px; color: var(--accent); padding: 0 }
+.outs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px }
+.out { display: grid; gap: 3px; justify-items: center; font-family: var(--f-mono); font-size: 11px; font-weight: 700 }
+.lamp { width: 30px; height: 30px; border-radius: 50%; background: var(--lamp-off); border: 2px solid var(--line) }
+.lamp.on { background: var(--lamp); border-color: var(--lamp); box-shadow: 0 0 14px var(--lamp) }
+.ms { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px }
+.m { font-family: var(--f-mono); font-size: 10px; text-align: center; padding: 3px 0; border-radius: 3px; background: var(--bg); color: var(--muted) }
+.m.on { background: var(--live); color: var(--panel) }
+.tcs { display: grid; gap: 6px }
+.tc { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 2px 8px; align-items: center; font-size: 12px }
+.tc .tca { font-family: var(--f-mono); font-weight: 700; font-size: 11px; border-radius: 3px; padding: 2px 4px; background: var(--bg); text-align: center }
+.tc.on .tca { background: var(--live); color: var(--panel) }
+.tc .nm { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.tc .tcv { font-family: var(--f-mono); font-size: 11px; font-variant-numeric: tabular-nums }
+.tc .gauge { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--lamp-off); overflow: hidden }
+.tc .gauge i { display: block; height: 100%; background: var(--live) }
+.empty { font-size: 12px; color: var(--muted); margin: 0 }
+
+/* 가상 설비 */
+#plantView svg { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto }
+.pl-body { fill: var(--bg); stroke: var(--rung); stroke-width: 2 }
+.pl-off { fill: var(--lamp-off) }
+.pl-txt { font-family: var(--f-mono); font-size: 10px; fill: var(--muted); text-anchor: middle }
+.pl-big { font-family: var(--f-mono); font-size: 15px; font-weight: 700; fill: var(--ink); text-anchor: middle }
+.pl-box { fill: var(--sel); stroke: var(--rung); stroke-width: 1 }
+.pl-water { fill: var(--water); opacity: .75 }
+.pl-beam { stroke: var(--line); stroke-width: 2; stroke-dasharray: 4 3 }
+.pl-beam.on { stroke: var(--lamp) }
+.pl-on { fill: var(--live) }
+.pl-lamp { fill: var(--lamp) }
+
+/* 과제 채점 */
+#taskDesc { margin: 8px 0; line-height: 1.6; max-width: 65ch }
+#results { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 4px; font-size: 13px }
+#results li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 6px }
+#results .ok::before { content: "✔"; color: var(--live); font-weight: 700 }
+#results .bad::before { content: "✘"; color: var(--warn); font-weight: 700 }
+#results .why { grid-column: 2; color: var(--warn); font-size: 12px }
+#score { font-weight: 700; font-family: var(--f-mono) }
+#score.pass { color: var(--live) }
+#score.fail { color: var(--warn) }
+
+/* 과제 만들기 */
+#editor { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; display: grid; gap: 8px }
+.field { display: grid; gap: 4px; font-size: 13px; color: var(--muted) }
+.field input, .field textarea { color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px }
+.field textarea { min-height: 54px; resize: vertical }
+.step { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 8px 0; border-top: 1px dashed var(--line) }
+.step .sn { font-family: var(--f-mono); font-weight: 700; width: 20px }
+.step .wait { width: 64px }
+.step .note { flex: 1 1 220px; min-width: 0 }
+.chips { display: inline-flex; flex-wrap: wrap; gap: 3px; align-items: center }
+.cl { font-size: 11px; color: var(--muted); margin-right: 2px }
+.chip { font-family: var(--f-mono); font-size: 10.5px; padding: 2px 5px; border: 1px solid var(--line); background: var(--bg); border-radius: 4px; color: var(--muted) }
+.chip.on { background: var(--live); border-color: var(--live); color: var(--panel) }
+.chip.out.on { background: var(--lamp); border-color: var(--lamp) }
+.chip.off { border-color: var(--ink); color: var(--ink) }
+
+details.file { margin-top: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px }
+details.file summary { cursor: pointer; font-weight: 600 }
+details.file textarea { width: 100%; box-sizing: border-box; height: 120px; font-family: var(--f-mono); font-size: 11px;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 6px; margin: 8px 0 }
+.row-btns { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.small { border: 1px solid var(--line); background: var(--bg); border-radius: 6px; padding: 4px 10px; font-size: 13px }
+.small.danger { border-color: var(--warn); color: var(--warn) }
+.small.primary { border-color: var(--accent); color: var(--accent); font-weight: 600 }
+#msg { font-size: 12.5px; color: var(--muted) }
+@media (prefers-reduced-motion: reduce) { .lamp.on { box-shadow: none } }
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+
+<header class="bar">
+  <h1>자동화설비 PLC 래더 실습기</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+  <span id="mode" class="mode">STOP</span>
+  <button id="runBtn" class="runbtn" aria-pressed="false">▶ RUN</button>
+  <button id="stopBtn" class="runbtn" aria-pressed="true">■ STOP</button>
+  <span id="scan" class="scan">스캔 0회</span>
+  <span class="grow"></span>
+  <label class="inline">표기
+    <select id="notation">
+      <option value="mits">미쓰비시 (X·Y·M)</option>
+      <option value="ls">LS (P·M)</option>
+      <option value="iec">IEC (%IX·%QX·%MX)</option>
+    </select>
+  </label>
+  <label class="inline">예제
+    <select id="example">
+      <option value="">고르기…</option>
+      <option value="hold">자기유지 (시작·정지)</option>
+      <option value="interlock">인터록 (정·역회전)</option>
+      <option value="logic">AND · OR · NOT</option>
+      <option value="flipflop">한 버튼으로 켜고 끄기 (펄스)</option>
+      <option value="delay">지연 동작 (타이머)</option>
+      <option value="traffic">신호등 (타이머 3개)</option>
+      <option value="cmpTraffic">신호등 (타이머 1개 + 비교)</option>
+      <option value="conveyor">컨베이어 개수 세기 (카운터)</option>
+      <option value="tank">물탱크 자동 급수</option>
+    </select>
+  </label>
+  <button id="bigBtn" class="small" aria-pressed="false">크게 보기</button>
+</header>
+
+<div class="tools" role="toolbar" aria-label="래더 부품">
+  <button class="tool" data-tool="no" aria-pressed="true"><span class="sym">-| |-</span>A접점</button>
+  <button class="tool" data-tool="nc" aria-pressed="false"><span class="sym">-|/|-</span>B접점</button>
+  <button class="tool" data-tool="p" aria-pressed="false"><span class="sym">-|↑|-</span>상승펄스</button>
+  <button class="tool" data-tool="n" aria-pressed="false"><span class="sym">-|↓|-</span>하강펄스</button>
+  <button class="tool" data-tool="cmp" aria-pressed="false"><span class="sym">[≥]</span>비교</button>
+  <button class="tool" data-tool="coil" aria-pressed="false"><span class="sym">-( )-</span>코일</button>
+  <button class="tool" data-tool="ton" aria-pressed="false"><span class="sym">[TON]</span>타이머</button>
+  <button class="tool" data-tool="ctu" aria-pressed="false"><span class="sym">[CTU]</span>카운터</button>
+  <button class="tool" data-tool="rst" aria-pressed="false"><span class="sym">[RST]</span>리셋</button>
+  <button class="tool" data-tool="h" aria-pressed="false"><span class="sym">───</span>가로선</button>
+  <button class="tool" data-tool="v" aria-pressed="false"><span class="sym">  │</span>세로선</button>
+  <button class="tool" data-tool="del" aria-pressed="false"><span class="sym">  ✕</span>지우기</button>
+  <span class="sep"></span>
+  <label class="inline">주소 <select id="addr"></select></label>
+  <label class="inline" id="opBox" hidden>조건
+    <select id="op">
+      <option value=">=">≥</option><option value=">">&gt;</option><option value="=">=</option>
+      <option value="<>">≠</option><option value="<">&lt;</option><option value="<=">≤</option>
+    </select>
+  </label>
+  <label class="inline" id="presetBox" hidden>설정값 <input id="preset" type="number" min="0" max="32767" step="1" value="30"><span id="presetUnit"></span></label>
+  <label class="inline">이름 <input id="cmt" type="text" maxlength="8" placeholder="예: 시작"></label>
+  <span class="grow" style="flex:1"></span>
+  <button id="clearBtn" class="small">전체 지우기</button>
+</div>
+
+<main class="work">
+  <div class="left">
+    <section>
+      <div class="ladder-wrap"><div id="ladder"></div></div>
+      <p class="hint">칸을 누르면 고른 부품이 놓입니다. 세로선은 칸 오른쪽에서 아래 줄로 이어집니다. 놓인 부품을 고른 뒤 주소·조건·설정값을 바꾸면 그 부품에 바로 반영됩니다.
+        타이머 설정값과 비교값은 0.1초 단위입니다 (K30 = 3초). 키보드: 방향키 이동 · Enter 놓기 · Delete 지우기</p>
+    </section>
+    <section class="box">
+      <div class="head">
+        <h2>가상 설비</h2>
+        <select id="plant" aria-label="가상 설비 고르기">
+          <option value="none">없음</option>
+          <option value="traffic">신호등</option>
+          <option value="conveyor">컨베이어</option>
+          <option value="tank">물탱크</option>
+        </select>
+      </div>
+      <div id="plantView"></div>
+      <p class="hint" id="plantMap"></p>
+    </section>
+    <section class="box">
+      <div class="head">
+        <h2>과제 채점</h2>
+        <div class="row-btns">
+          <select id="task" aria-label="과제 고르기"></select>
+          <button id="gradeBtn" class="small primary">채점하기</button>
+          <span id="score"></span>
+        </div>
+      </div>
+      <p id="taskDesc"></p>
+      <ul id="results"></ul>
+      <div class="row-btns" style="margin-top:10px">
+        <button id="newTask" class="small" hidden>새 과제 만들기</button>
+        <button id="editTask" class="small" hidden>이 과제 고치기</button>
+        <button id="delTask" class="small" hidden>이 과제 삭제</button>
+        <span id="storeNote" class="hint" style="margin:0"></span>
+      </div>
+      <div id="editor" hidden>
+        <label class="field">과제 이름 <input id="edName" type="text" maxlength="40" placeholder="예: 7. 3초 뒤 정지"></label>
+        <label class="field">학생에게 보일 설명 <textarea id="edDesc" maxlength="400" placeholder="무엇을 만들어야 하는지 적어 주세요."></textarea></label>
+        <p class="hint" style="margin:0">단계마다 입력을 그 상태로 두고 정한 시간만큼 기다린 뒤, 확인할 출력이 켜짐(●)인지 꺼짐(○)인지 봅니다.
+          출력 칩을 누르면 확인 안 함 → 켜짐 → 꺼짐 순서로 바뀝니다. 모범 답안을 래더에 그려 둔 뒤 "현재 래더로 기대값 채우기"를 누르면 편합니다.</p>
+        <div id="edSteps"></div>
+        <div class="row-btns">
+          <button id="edAdd" class="small">단계 추가</button>
+          <button id="edFill" class="small">현재 래더로 기대값 채우기</button>
+          <button id="edSave" class="small primary">저장</button>
+          <button id="edCancel" class="small">취소</button>
+          <span id="edMsg" class="hint" style="margin:0"></span>
+        </div>
+      </div>
+    </section>
+  </div>
+  <aside class="io">
+    <div class="box"><h2>입력 (누르기)</h2><div id="ins" class="ins"></div></div>
+    <div class="box"><h2>출력 (램프)</h2><div id="outs" class="outs"></div></div>
+    <div class="box"><h2>타이머 · 카운터</h2><div id="tcs" class="tcs"></div></div>
+    <div class="box"><h2>보조 릴레이</h2><div id="ms" class="ms"></div></div>
+  </aside>
+</main>
+
+<details class="file">
+  <summary>파일로 저장 · 불러오기</summary>
+  <p class="hint">작업은 이 브라우저에 자동 저장됩니다. 다른 컴퓨터로 옮기거나 과제로 낼 때는 아래 내용을 복사해 두세요.</p>
+  <textarea id="json" spellcheck="false" aria-label="프로그램 JSON"></textarea>
+  <div class="row-btns">
+    <button id="copyBtn" class="small">현재 프로그램 복사</button>
+    <button id="applyBtn" class="small">붙여 넣은 내용 적용</button>
+    <label class="small">파일 열기 <input id="fileIn" type="file" accept=".json,application/json" hidden></label>
+    <span id="msg"></span>
+  </div>
+</details>
+
+<script>
+/* ENGINE — check.js가 이 구간만 잘라 시험합니다 */
+const ROWS = 14, COLS = 9;
+const range = (k, n) => [...Array(n).keys()].map(i => k + i);
+const ADDRS = [...range('I', 8), ...range('Q', 8), ...range('M', 16), ...range('T', 8), ...range('C', 8)];
+// 부품마다 쓸 수 있는 주소 종류. 가로선(h)은 주소 없음
+const ALLOW = { no: 'IQMTC', nc: 'IQMTC', p: 'IQMTC', n: 'IQMTC', cmp: 'TC', coil: 'QM', ton: 'T', ctu: 'C', rst: 'QMTC' };
+const CONTACTS = ['no', 'nc', 'p', 'n', 'cmp'], OUTPUTS = ['coil', 'ton', 'ctu', 'rst'];
+const OPS = ['>=', '>', '=', '<>', '<', '<='];
+const HAS_K = t => t === 'ton' || t === 'ctu' || t === 'cmp';
+const PLANTS = ['none', 'traffic', 'conveyor', 'tank'];
+
+function blank() {
+  return { grid: Array.from({ length: ROWS }, () => Array(COLS).fill(null)),
+           v: Array.from({ length: ROWS }, () => Array(COLS).fill(false)), comments: {} };
+}
+
+// 타이머 현재값은 0.1초 단위, 카운터는 횟수 (비교 명령이 쓰는 값)
+const current = (a, mem) => a[0] === 'T' ? Math.floor((mem[a + ':v'] || 0) / 100) : mem[a + ':v'] || 0;
+function compare(x, op, k) {
+  return op === '>=' ? x >= k : op === '>' ? x > k : op === '=' ? x === k : op === '<>' ? x !== k : op === '<' ? x < k : x <= k;
+}
+
+// 펄스 접점은 지난 스캔이 끝났을 때의 값(mem._prev)과 비교해 바뀐 스캔에서만 켜짐
+function conducts(cell, mem) {
+  if (!cell) return false;
+  const prev = mem._prev || {};
+  switch (cell.t) {
+    case 'h': return true;
+    case 'no': return !!mem[cell.a];
+    case 'nc': return !mem[cell.a];
+    case 'p': return !!mem[cell.a] && !prev[cell.a];
+    case 'n': return !mem[cell.a] && !!prev[cell.a];
+    case 'cmp': return compare(current(cell.a, mem), cell.op, cell.k);
+  }
+  return false; // 출력 명령은 전기를 넘기지 않음
+}
+
+// 출력 명령 실행. 타이머 경과(ms)·카운터 현재값은 mem['T0:v'], 카운터 이전 입력은 mem['C0:p']
+function exec(cell, on, mem, dt) {
+  const a = cell.a, v = a + ':v';
+  if (cell.t === 'coil') mem[a] = on;
+  else if (cell.t === 'ton') {
+    mem[v] = on ? Math.min((mem[v] || 0) + dt, cell.k * 100) : 0;
+    mem[a] = mem[v] >= cell.k * 100;
+  } else if (cell.t === 'ctu') {
+    if (on && !mem[a + ':p']) mem[v] = Math.min((mem[v] || 0) + 1, cell.k); // 올라가는 순간에만 셈
+    mem[a + ':p'] = on;
+    mem[a] = (mem[v] || 0) >= cell.k;
+  } else if (cell.t === 'rst' && on) { mem[a] = false; mem[v] = 0; }
+}
+
+// 세로선으로 이어진 줄끼리 한 렁. 렁은 위에서 아래 순서로 계산하고 결과는 바로 다음 렁에 반영 (실제 PLC 스캔과 같음)
+function rungs(p) {
+  const out = []; let cur = [0];
+  for (let r = 1; r < p.grid.length; r++) {
+    if (p.v[r - 1].some(Boolean)) cur.push(r); else { out.push(cur); cur = [r]; }
+  }
+  out.push(cur);
+  return out;
+}
+
+// 한 번 스캔. mem에는 입력이 이미 들어 있어야 함. dt는 지난 스캔부터 흐른 ms.
+// 돌려주는 flow[r][c]는 c번 칸 왼쪽 마디의 통전 여부
+function scan(p, mem, dt = 0) {
+  const flow = p.grid.map(row => Array(row.length + 1).fill(false));
+  for (const rows of rungs(p)) {
+    for (const r of rows) flow[r][0] = true;
+    for (let c = 0; c < COLS; c++) {
+      for (const r of rows) flow[r][c + 1] = flow[r][c] && conducts(p.grid[r][c], mem);
+      for (let i = 0; i < rows.length;) {
+        let j = i;
+        while (j < rows.length - 1 && p.v[rows[j]][c]) j++;
+        if (j > i && rows.slice(i, j + 1).some(r => flow[r][c + 1]))
+          for (let k = i; k <= j; k++) flow[rows[k]][c + 1] = true;
+        i = j + 1;
+      }
+    }
+    for (const r of rows) for (let c = 0; c < COLS; c++) {
+      const cell = p.grid[r][c];
+      if (cell && OUTPUTS.includes(cell.t)) exec(cell, flow[r][c], mem, dt);
+    }
+  }
+  mem._prev = Object.fromEntries(ADDRS.map(a => [a, !!mem[a]]));
+  return flow;
+}
+
+// 바깥에서 들어온 JSON을 믿지 않고 형식에 맞는 칸만 옮겨 담음
+function normalize(d) {
+  const p = blank();
+  if (!d || !Array.isArray(d.grid)) throw new Error('grid가 없습니다');
+  for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+    const x = d.grid[r] && d.grid[r][c];
+    if (x && x.t === 'h') p.grid[r][c] = { t: 'h' };
+    else if (x && ALLOW[x.t] && ADDRS.includes(x.a) && ALLOW[x.t].includes(x.a[0])) {
+      const cell = p.grid[r][c] = { t: x.t, a: x.a };
+      if (HAS_K(x.t)) {
+        const k = Math.round(+x.k), min = x.t === 'cmp' ? 0 : 1;
+        cell.k = Number.isFinite(k) ? Math.min(32767, Math.max(min, k)) : 10;
+      }
+      if (x.t === 'cmp') cell.op = OPS.includes(x.op) ? x.op : '>=';
+    }
+    p.v[r][c] = !!(d.v && d.v[r] && d.v[r][c]) && r < ROWS - 1;
+  }
+  if (d.comments && typeof d.comments === 'object')
+    for (const a of ADDRS) if (typeof d.comments[a] === 'string') p.comments[a] = d.comments[a].slice(0, 8);
+  return p;
+}
+
+// ---- 예제 ----
+function build(cells, vs, comments, extra = {}) {
+  const p = blank();
+  for (const [r, c, t, a, k, op] of cells) {
+    p.grid[r][c] = t === 'h' ? { t } : { t, a };
+    if (k !== undefined) p.grid[r][c].k = k;
+    if (op) p.grid[r][c].op = op;
+  }
+  for (const [r, c] of vs) p.v[r][c] = true;
+  p.comments = comments;
+  p.modes = extra.modes || Array(8).fill('push');
+  p.plant = extra.plant || 'none';
+  return p;
+}
+const wire = (r, from, to) => Array.from({ length: to - from + 1 }, (_, i) => [r, from + i, 'h']);
+const LAST = COLS - 1;
+// 한 줄: 왼쪽부터 접점들, 가로선, 맨 오른쪽 출력
+const line = (r, contacts, out) => [...contacts.map((x, c) => [r, c, ...x]), ...wire(r, contacts.length, LAST - 1), [r, LAST, ...out]];
+const toggle0 = ['toggle', 'push', 'push', 'push', 'push', 'push', 'push', 'push'];
+const EXAMPLES = {
+  hold: () => build([
+    ...line(0, [['no', 'I0'], ['nc', 'I1']], ['coil', 'Q0']), [1, 0, 'no', 'Q0'],
+    ...line(3, [['no', 'Q0']], ['coil', 'Q1']),
+  ], [[0, 0]], { I0: '시작', I1: '정지', Q0: '모터', Q1: '운전등' }),
+  interlock: () => build([
+    ...line(0, [['no', 'I0'], ['nc', 'I2'], ['nc', 'Q1']], ['coil', 'Q0']), [1, 0, 'no', 'Q0'],
+    ...line(3, [['no', 'I1'], ['nc', 'I2'], ['nc', 'Q0']], ['coil', 'Q1']), [4, 0, 'no', 'Q1'],
+  ], [[0, 0], [3, 0]], { I0: '정회전', I1: '역회전', I2: '정지', Q0: '정회전', Q1: '역회전' }),
+  logic: () => build([
+    ...line(0, [['no', 'I0'], ['no', 'I1']], ['coil', 'Q0']),
+    ...line(2, [['no', 'I0']], ['coil', 'Q1']), [3, 0, 'no', 'I1'],
+    ...line(5, [['nc', 'I0']], ['coil', 'Q2']),
+  ], [[2, 0]], { I0: '스위치A', I1: '스위치B', Q0: 'AND', Q1: 'OR', Q2: 'NOT' }),
+  // M0은 누른 순간 한 스캔만 켜짐. Q0 = (M0 AND NOT Q0) OR (NOT M0 AND Q0)
+  flipflop: () => build([
+    ...line(0, [['p', 'I0']], ['coil', 'M0']),
+    ...line(2, [['no', 'M0'], ['nc', 'Q0']], ['coil', 'Q0']), [3, 0, 'nc', 'M0'], [3, 1, 'no', 'Q0'],
+  ], [[2, 1]], { I0: '버튼', M0: '누른순간', Q0: '전등' }),
+  delay: () => build([
+    ...line(0, [['no', 'I0']], ['ton', 'T0', 30]),
+    ...line(1, [['no', 'T0']], ['coil', 'Q0']),
+  ], [], { I0: '스위치', T0: '3초', Q0: '램프' }, { modes: toggle0 }),
+  // 빨강 5초 → 초록 3초 → 노랑 2초 반복. T2가 끝나면 다음 스캔에 T0부터 줄줄이 리셋됨
+  traffic: () => build([
+    ...line(0, [['no', 'I0'], ['nc', 'T2']], ['ton', 'T0', 50]),
+    ...line(1, [['no', 'T0']], ['ton', 'T1', 30]),
+    ...line(2, [['no', 'T1']], ['ton', 'T2', 20]),
+    ...line(4, [['no', 'I0'], ['nc', 'T0']], ['coil', 'Q0']),
+    ...line(5, [['no', 'T0'], ['nc', 'T1']], ['coil', 'Q1']),
+    ...line(6, [['no', 'T1']], ['coil', 'Q2']),
+  ], [], { I0: '운전', T0: '빨강', T1: '초록', T2: '노랑', Q0: '빨강', Q1: '초록', Q2: '노랑' },
+  { modes: toggle0, plant: 'traffic' }),
+  // 10초 타이머 하나를 돌리면서 현재값 구간으로 색을 나눔
+  cmpTraffic: () => build([
+    ...line(0, [['no', 'I0'], ['nc', 'T0']], ['ton', 'T0', 100]),
+    ...line(2, [['no', 'I0'], ['cmp', 'T0', 50, '<']], ['coil', 'Q0']),
+    ...line(3, [['cmp', 'T0', 50, '>='], ['cmp', 'T0', 80, '<']], ['coil', 'Q1']),
+    ...line(4, [['cmp', 'T0', 80, '>=']], ['coil', 'Q2']),
+  ], [], { I0: '운전', T0: '주기', Q0: '빨강', Q1: '초록', Q2: '노랑' }, { modes: toggle0, plant: 'traffic' }),
+  // 물건 5개가 지나가면 컨베이어 정지·완료등. 리셋 버튼으로 다시 시작
+  conveyor: () => build([
+    ...line(0, [['no', 'I0'], ['nc', 'I1'], ['nc', 'C0']], ['coil', 'Q0']), [1, 0, 'no', 'Q0'],
+    ...line(3, [['no', 'I2'], ['no', 'Q0']], ['ctu', 'C0', 5]),
+    ...line(5, [['no', 'C0']], ['coil', 'Q1']),
+    ...line(7, [['no', 'I3']], ['rst', 'C0']),
+  ], [[0, 0]], { I0: '시작', I1: '정지', I2: '센서', I3: '리셋', Q0: '컨베이어', Q1: '완료', C0: '개수' },
+  { plant: 'conveyor' }),
+  // 하한(I1)이 마르면 펌프 켜고 상한(I2)에 닿으면 끔. Q0 = I0 · /I2 · (/I1 + Q0)
+  tank: () => build([
+    ...line(0, [['no', 'I0'], ['nc', 'I2'], ['nc', 'I1']], ['coil', 'Q0']), [1, 2, 'no', 'Q0'],
+  ], [[0, 1], [0, 2]], { I0: '운전', I1: '하한', I2: '상한', Q0: '펌프' }, { modes: toggle0, plant: 'tank' }),
+};
+
+// ---- 가상 설비: 출력(Q)을 보고 움직이고, 센서 값을 입력(I)으로 돌려줌 ----
+const BELT_SPEED = 0.2, BOX_GAP = 0.3, SENSOR_X = 0.6; // 벨트 길이 1 기준, 초당
+const TANK_IN = 15, TANK_OUT = 6, TANK_LOW = 20, TANK_HIGH = 85; // %/초, %
+function initPlant(kind) {
+  return kind === 'conveyor' ? { boxes: [], dist: BOX_GAP } : kind === 'tank' ? { level: 15 } : {};
+}
+function plantStep(kind, st, mem, dt) {
+  const s = dt / 1000;
+  if (kind === 'conveyor') {
+    if (mem.Q0) {
+      const d = BELT_SPEED * s;
+      st.boxes = st.boxes.map(x => x + d).filter(x => x < 1.05);
+      st.dist += d;
+      if (st.dist >= BOX_GAP) { st.dist -= BOX_GAP; st.boxes.push(0); }
+    }
+    return { I2: st.boxes.some(x => Math.abs(x - SENSOR_X) < 0.04) };
+  }
+  if (kind === 'tank') {
+    st.level = Math.min(100, Math.max(0, st.level + ((mem.Q0 ? TANK_IN : 0) - TANK_OUT) * s));
+    return { I1: st.level >= TANK_LOW, I2: st.level >= TANK_HIGH };
+  }
+  return {};
+}
+
+// ---- 과제: 정해 둔 입력을 넣고 기대한 출력이 나오는지 확인 ----
+// 단계 = [바꿀 입력, 기다릴 초, 확인할 출력, 설명]. {I0} 같은 글자는 화면에서 고른 표기로 바뀜
+const tap = (a, expect, note) => [[{ [a]: 1 }, 0.2], [{ [a]: 0 }, 0.2, expect, note]];
+const TASKS = {
+  hold: { name: '1. 자기유지', ref: ['hold'],
+    desc: '{I0}(시작)을 눌렀다 떼면 {Q0}(모터)이 켜진 채 유지되어야 합니다. {I1}(정지)을 누르면 꺼집니다. 두 버튼을 함께 누르면 정지가 우선입니다.',
+    steps: [
+      ...tap('I0', { Q0: 1 }, '{I0}을 눌렀다 떼면 {Q0} 켜짐'),
+      [{}, 1, { Q0: 1 }, '1초 뒤에도 {Q0} 계속 켜짐'],
+      ...tap('I1', { Q0: 0 }, '{I1}을 누르면 {Q0} 꺼짐'),
+      [{}, 0.5, { Q0: 0 }, '정지 뒤 꺼진 채 있음'],
+      [{ I0: 1, I1: 1 }, 0.2, { Q0: 0 }, '두 버튼을 함께 누르면 정지가 우선'],
+      [{ I0: 0, I1: 0 }, 0.2],
+    ] },
+  interlock: { name: '2. 인터록 (정·역회전)', ref: ['interlock'],
+    desc: '{I0}(정회전)은 {Q0}, {I1}(역회전)은 {Q1}을 켜고 유지합니다. 한쪽이 돌고 있으면 다른 쪽은 켜지면 안 됩니다. {I2}(정지)는 둘 다 끕니다.',
+    steps: [
+      ...tap('I0', { Q0: 1, Q1: 0 }, '{I0} → {Q0} 켜짐'),
+      ...tap('I1', { Q0: 1, Q1: 0 }, '정회전 중 {I1}을 눌러도 {Q1}은 안 켜짐'),
+      ...tap('I2', { Q0: 0, Q1: 0 }, '{I2} → 모두 꺼짐'),
+      ...tap('I1', { Q0: 0, Q1: 1 }, '{I1} → {Q1} 켜짐'),
+      ...tap('I0', { Q0: 0, Q1: 1 }, '역회전 중 {I0}을 눌러도 {Q0}은 안 켜짐'),
+      ...tap('I2', { Q1: 0 }, '{I2} → {Q1} 꺼짐'),
+    ] },
+  flip: { name: '3. 한 버튼으로 켜고 끄기', ref: ['flipflop'],
+    desc: '{I0}을 누를 때마다 {Q0}이 켜짐과 꺼짐을 번갈아 해야 합니다. 오래 누르고 있어도 한 번만 바뀝니다. (힌트: 상승펄스)',
+    steps: [
+      ...tap('I0', { Q0: 1 }, '한 번 누르면 {Q0} 켜짐'),
+      ...tap('I0', { Q0: 0 }, '또 누르면 {Q0} 꺼짐'),
+      [{ I0: 1 }, 1, { Q0: 1 }, '1초 동안 누르고 있어도 한 번만 바뀜 (켜짐)'],
+      [{ I0: 0 }, 0.2, { Q0: 1 }, '손을 떼도 켜진 채'],
+    ] },
+  delay: { name: '4. 지연 동작', ref: ['delay'],
+    desc: '{I0} 스위치를 켜고 3초가 지나면 {Q0}이 켜집니다. 스위치를 끄면 바로 꺼지고, 3초가 되기 전에 끄면 처음부터 다시 셉니다.',
+    steps: [
+      [{ I0: 1 }, 2.7, { Q0: 0 }, '2.7초까지는 {Q0} 꺼짐'],
+      [{}, 0.5, { Q0: 1 }, '3초가 지나면 {Q0} 켜짐'],
+      [{ I0: 0 }, 0.1, { Q0: 0 }, '스위치를 끄면 바로 꺼짐'],
+      [{ I0: 1 }, 1.5], [{ I0: 0 }, 0.1],
+      [{ I0: 1 }, 2, { Q0: 0 }, '중간에 끄면 처음부터 다시 셈'],
+    ] },
+  traffic: { name: '5. 신호등', ref: ['traffic', 'cmpTraffic'],
+    desc: '{I0}(운전)을 켜면 {Q0} 빨강 5초 → {Q1} 초록 3초 → {Q2} 노랑 2초가 반복됩니다. 한 번에 한 색만 켜지고, 운전을 끄면 모두 꺼집니다.',
+    steps: [
+      [{ I0: 1 }, 0.2, { Q0: 1, Q1: 0, Q2: 0 }, '시작하면 빨강'],
+      [{}, 4.6, { Q0: 1, Q1: 0, Q2: 0 }, '4.8초: 아직 빨강'],
+      [{}, 0.5, { Q0: 0, Q1: 1, Q2: 0 }, '5.3초: 초록'],
+      [{}, 2.4, { Q0: 0, Q1: 1, Q2: 0 }, '7.7초: 아직 초록'],
+      [{}, 0.6, { Q0: 0, Q1: 0, Q2: 1 }, '8.3초: 노랑'],
+      [{}, 1.5, { Q0: 0, Q1: 0, Q2: 1 }, '9.8초: 아직 노랑'],
+      [{}, 0.6, { Q0: 1, Q1: 0, Q2: 0 }, '10.4초: 다시 빨강'],
+      [{ I0: 0 }, 0.2, { Q0: 0, Q1: 0, Q2: 0 }, '운전을 끄면 모두 꺼짐'],
+    ] },
+  count: { name: '6. 개수 세기', ref: ['conveyor'],
+    desc: '{I0}(시작)으로 {Q0}(컨베이어)을 돌리고 {I1}(정지)로 멈춥니다. 돌고 있을 때 {I2}(센서)가 5번 켜지면 컨베이어가 멈추고 {Q1}(완료)이 켜집니다. {I3}(리셋)을 누르면 완료가 꺼지고 다시 시작할 수 있습니다.',
+    steps: [
+      ...tap('I0', { Q0: 1 }, '{I0} → {Q0} 켜짐'),
+      ...tap('I1', { Q0: 0 }, '{I1} → {Q0} 꺼짐'),
+      ...tap('I0', { Q0: 1 }, '다시 시작'),
+      ...tap('I2', {}), ...tap('I2', {}), ...tap('I2', {}),
+      ...tap('I2', { Q0: 1, Q1: 0 }, '4개까지는 계속 돎'),
+      ...tap('I2', { Q0: 0, Q1: 1 }, '5개째 → 정지하고 {Q1} 켜짐'),
+      ...tap('I0', { Q0: 0 }, '완료 상태에서는 시작해도 안 돎'),
+      ...tap('I3', { Q1: 0 }, '{I3} → {Q1} 꺼짐'),
+      ...tap('I0', { Q0: 1 }, '리셋 뒤 다시 시작됨'),
+    ] },
+};
+// 단계를 차례로 돌리며 각 단계가 끝날 때 each(mem, i) 호출
+function runSteps(p, steps, each) {
+  const mem = {}, ins = {};
+  steps.forEach(([set, wait], i) => {
+    Object.assign(ins, set);
+    for (let n = Math.max(1, Math.round(wait / 0.05)); n--;) {
+      for (let k = 0; k < 8; k++) mem['I' + k] = !!ins['I' + k];
+      scan(p, mem, 50);
+    }
+    each(mem, i);
+  });
+}
+function grade(p, task) {
+  const out = [];
+  runSteps(p, task.steps, (mem, i) => {
+    const [, , expect, note] = task.steps[i];
+    if (note) out.push({ note, bad: Object.keys(expect).filter(a => !!mem[a] !== !!expect[a]).map(a => [a, !!expect[a]]) });
+  });
+  return out;
+}
+
+// ---- 직접 만든 과제: {name, desc, created, steps: [{in: [0/1 ×8], wait, out: {Q0: 1}, note}]} ----
+const QS = range('Q', 8);
+// 공유 저장소에서 온 값은 믿지 않고 형식에 맞게 다시 만듦
+function normalizeTask(d) {
+  if (!d || typeof d.name !== 'string' || !d.name.trim() || !Array.isArray(d.steps)) return null;
+  const steps = d.steps.slice(0, 60).map(s => ({
+    in: QS.map((_, j) => Array.isArray(s?.in) && s.in[j] ? 1 : 0),
+    wait: Math.min(120, Math.max(0.05, +s?.wait || 0.2)),
+    out: Object.fromEntries(QS.filter(a => s?.out && (s.out[a] === 0 || s.out[a] === 1)).map(a => [a, s.out[a]])),
+    note: typeof s?.note === 'string' ? s.note.slice(0, 80) : '',
+  }));
+  if (!steps.length) return null;
+  return { name: d.name.trim().slice(0, 40), desc: typeof d.desc === 'string' ? d.desc.slice(0, 400) : '', steps, created: +d.created || 0 };
+}
+// 채점기가 쓰는 [입력, 초, 기대 출력, 설명] 꼴로
+function toTask(t) {
+  return { name: t.name, desc: t.desc, steps: t.steps.map((s, i) => [
+    Object.fromEntries(s.in.map((v, j) => ['I' + j, v])), s.wait, s.out,
+    Object.keys(s.out).length ? s.note || `${i + 1}단계 확인` : '']) };
+}
+// 현재 래더(모범 답안)를 돌려 확인할 단계의 기대 출력을 채움. 표시된 단계가 없으면 모든 단계를 채움
+function fillExpect(p, steps) {
+  const used = QS.filter(a => p.grid.some(row => row.some(x => x && OUTPUTS.includes(x.t) && x.a === a)));
+  const marked = steps.some(s => s.note || Object.keys(s.out).length);
+  runSteps(p, toTask({ steps }).steps, (mem, i) => {
+    const s = steps[i];
+    if (!marked || s.note || Object.keys(s.out).length)
+      s.out = Object.fromEntries((used.length ? used : QS).map(a => [a, mem[a] ? 1 : 0]));
+  });
+  return steps;
+}
+
+// ---- 표기: 내부 주소(I/Q/M/T/C + 번호)를 제조사 표기로 ----
+function fmt(a, notation) {
+  const k = a[0], n = +a.slice(1);
+  if (notation === 'ls') return { I: 'P0000' + n, Q: 'P0004' + n, M: 'M0000' + n.toString(16).toUpperCase(), T: 'T000' + n, C: 'C000' + n }[k];
+  if (notation === 'iec') return { I: '%IX0.' + n, Q: '%QX0.' + n, M: `%MX${n >> 3}.${n & 7}`, T: 'TON_' + n, C: 'CTU_' + n }[k];
+  return { I: 'X', Q: 'Y', M: 'M', T: 'T', C: 'C' }[k] + n;
+}
+// 접점 위 글자: IEC는 타이머·카운터 출력 비트(.Q), 비교는 현재값(.ET/.CV)
+function cellLabel(cell, notation) {
+  const s = fmt(cell.a, notation);
+  if (notation !== 'iec' || !'TC'.includes(cell.a[0]) || !CONTACTS.includes(cell.t)) return s;
+  return s + (cell.t === 'cmp' ? (cell.a[0] === 'T' ? '.ET' : '.CV') : '.Q');
+}
+const OP_SYM = { '>=': '≥', '>': '>', '=': '=', '<>': '≠', '<': '<', '<=': '≤' };
+// 설정값 표기: 미쓰비시 K30, LS 30, IEC PT 3s / PV 5 / T#3s
+function presetText(cell, notation) {
+  const timer = cell.a[0] === 'T';
+  if (cell.t === 'cmp') return OP_SYM[cell.op] + ' ' + (notation === 'mits' ? 'K' + cell.k : notation === 'iec' && timer ? `T#${cell.k / 10}s` : cell.k);
+  if (notation === 'mits') return 'K' + cell.k;
+  if (notation === 'ls') return String(cell.k);
+  return timer ? `PT ${cell.k / 10}s` : 'PV ' + cell.k;
+}
+/* /ENGINE */
+
+const KEY = 'plc-sim-v1';
+let prog = blank(), mem = {}, flow = null, running = false, timer = null, scans = 0, last = 0;
+let tool = 'no', addr = 'I0', preset = 30, op = '>=', sel = [0, 0], notation = 'mits', clearArm = false;
+let modes = Array(8).fill('push'), inputs = Array(8).fill(false);
+let plant = 'none', plantSt = {}, plantIn = {};
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+const fill = s => esc(s).replace(/\{([IQMTC]\d+)\}/g, (_, a) => `<b>${esc(fmt(a, notation))}</b>`);
+
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify({ ...prog, notation, modes, plant })); } catch {}
+}
+function setModes(m) {
+  if (Array.isArray(m)) modes = modes.map((_, i) => m[i] === 'toggle' ? 'toggle' : 'push');
+}
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY));
+    if (d) {
+      prog = normalize(d);
+      if (['mits', 'ls', 'iec'].includes(d.notation)) notation = d.notation;
+      if (PLANTS.includes(d.plant)) plant = d.plant;
+      setModes(d.modes);
+      return;
+    }
+  } catch {}
+  prog = EXAMPLES.hold(); delete prog.modes; delete prog.plant;
+}
+
+// ---- 래더 그리기 ----
+const cellEls = [], cache = [], railEls = [];
+function buildLadder() {
+  const lad = $('ladder');
+  for (let r = 0; r < ROWS; r++) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `<span class="no">${r}</span><span class="rail"></span>`;
+    railEls.push(row.children[1]);
+    cellEls.push([]); cache.push([]);
+    for (let c = 0; c < COLS; c++) {
+      const el = document.createElement('div');
+      el.className = 'cell';
+      el.dataset.r = r; el.dataset.c = c;
+      row.appendChild(el);
+      cellEls[r].push(el);
+    }
+    lad.appendChild(row);
+  }
+  lad.addEventListener('click', e => {
+    const el = e.target.closest('.cell');
+    if (el) place(+el.dataset.r, +el.dataset.c);
+  });
+}
+
+function cellSVG(r, c) {
+  const cell = prog.grid[r][c];
+  const L = flow ? flow[r][c] : false, R = flow ? flow[r][c + 1] : false;
+  const on = b => b ? ' on' : '';
+  let s = '';
+  if (cell && cell.t === 'h') s += `<line x1="0" y1="30" x2="72" y2="30" class="w${on(L && R)}"/>`;
+  else if (cell) {
+    const shut = flow && conducts(cell, mem);
+    s += `<text x="36" y="12" class="lab">${esc(cellLabel(cell, notation))}</text>`;
+    // 아랫줄: 실행 중인 타이머·카운터·비교는 현재값, 아니면 이름
+    if (flow && (cell.t === 'ton' || cell.t === 'ctu' || cell.t === 'cmp')) {
+      const v = current(cell.a, mem);
+      s += `<text x="36" y="58" class="cm val">${cell.a[0] === 'T' ? (v / 10).toFixed(1) + 's' : v}</text>`;
+    } else if (prog.comments[cell.a]) s += `<text x="36" y="58" class="cm">${esc(prog.comments[cell.a])}</text>`;
+    if (cell.t === 'coil') {
+      s += `<line x1="0" y1="30" x2="27" y2="30" class="w${on(L)}"/>`;
+      if (flow && L) s += `<circle cx="36" cy="30" r="9" class="act"/>`;
+      s += `<path d="M31 20 Q24 30 31 40 M41 20 Q48 30 41 40" class="w${on(L)}"/>`;
+      s += `<line x1="45" y1="30" x2="72" y2="30" class="w${on(L)}"/>`;
+    } else if (cell.t === 'cmp') {
+      s += `<line x1="0" y1="30" x2="6" y2="30" class="w${on(L)}"/>`;
+      if (shut) s += `<rect x="6" y="20" width="60" height="20" class="act"/>`;
+      s += `<path d="M11 20 H6 V40 H11 M61 20 H66 V40 H61" class="w${on(L && shut)}"/>`;
+      s += `<text x="36" y="34" class="kv">${esc(presetText(cell, notation))}</text>`;
+      s += `<line x1="66" y1="30" x2="72" y2="30" class="w${on(R)}"/>`;
+    } else if (CONTACTS.includes(cell.t)) {
+      s += `<line x1="0" y1="30" x2="27" y2="30" class="w${on(L)}"/>`;
+      if (shut) s += `<rect x="27" y="20" width="18" height="20" class="act"/>`;
+      s += `<line x1="27" y1="19" x2="27" y2="41" class="w${on(L)}"/><line x1="45" y1="19" x2="45" y2="41" class="w${on(R)}"/>`;
+      if (cell.t === 'nc') s += `<line x1="23" y1="41" x2="49" y2="19" class="w${on(L && R)}"/>`;
+      if (cell.t === 'p') s += `<path d="M36 39 V22 M31 27 L36 21 L41 27" class="w${on(L && R)}"/>`;
+      if (cell.t === 'n') s += `<path d="M36 21 V38 M31 33 L36 39 L41 33" class="w${on(L && R)}"/>`;
+      s += `<line x1="45" y1="30" x2="72" y2="30" class="w${on(R)}"/>`;
+    } else {
+      // TON·CTU·RST는 대괄호 상자: [K30] [RST]
+      s += `<line x1="0" y1="30" x2="10" y2="30" class="w${on(L)}"/>`;
+      if (flow && L) s += `<rect x="10" y="20" width="52" height="20" class="act"/>`;
+      s += `<path d="M15 20 H10 V40 H15 M57 20 H62 V40 H57" class="w${on(L)}"/>`;
+      s += `<text x="36" y="34" class="kv">${esc(cell.t === 'rst' ? 'RST' : presetText(cell, notation))}</text>`;
+    }
+  }
+  if (prog.v[r][c]) s += `<line x1="71" y1="30" x2="71" y2="64" class="w${on(R)}"/>`;
+  if (r > 0 && prog.v[r - 1][c]) s += `<line x1="71" y1="0" x2="71" y2="30" class="w${on(R)}"/>`;
+  return `<svg viewBox="0 0 72 64" aria-hidden="true">${s}</svg>`;
+}
+
+function drawLadder() {
+  for (let r = 0; r < ROWS; r++) {
+    railEls[r].classList.toggle('on', !!flow);
+    for (let c = 0; c < COLS; c++) {
+      const html = cellSVG(r, c);
+      if (cache[r][c] !== html) { cellEls[r][c].innerHTML = html; cache[r][c] = html; }
+      const cell = prog.grid[r][c];
+      cellEls[r][c].classList.toggle('sel', sel[0] === r && sel[1] === c);
+      cellEls[r][c].title = cell && cell.a ? fmt(cell.a, notation) + (prog.comments[cell.a] ? ' ' + prog.comments[cell.a] : '') : '';
+    }
+  }
+}
+
+// ---- 가상 설비 그리기 ----
+let plantCache = '';
+function drawPlant() {
+  const q = a => running && !!mem[a], sensor = a => running && !!plantIn[a];
+  const F = a => esc(fmt(a, notation));
+  let svg = '', map = '';
+  if (plant === 'traffic') {
+    const lamp = (cy, a, color) => `<circle cx="160" cy="${cy}" r="15" ${q(a) ? `style="fill:var(${color})"` : 'class="pl-off"'}/>` +
+      `<text x="205" y="${cy + 4}" class="pl-txt" style="text-anchor:start">${F(a)}</text>`;
+    svg = `<rect x="130" y="8" width="60" height="114" rx="12" class="pl-body"/>` +
+      lamp(32, 'Q0', '--sig-r') + lamp(65, 'Q2', '--sig-y') + lamp(98, 'Q1', '--sig-g');
+    map = `빨강 ${F('Q0')} · 초록 ${F('Q1')} · 노랑 ${F('Q2')}`;
+  } else if (plant === 'conveyor') {
+    const sx = 20 + SENSOR_X * 280;
+    svg = `<rect x="20" y="74" width="280" height="14" rx="7" class="pl-body"/>` +
+      `<circle cx="27" cy="81" r="5" class="${q('Q0') ? 'pl-on' : 'pl-off'}"/><circle cx="293" cy="81" r="5" class="${q('Q0') ? 'pl-on' : 'pl-off'}"/>` +
+      (plantSt.boxes || []).map(x => `<rect x="${(20 + x * 280 - 11).toFixed(1)}" y="50" width="22" height="24" rx="2" class="pl-box"/>`).join('') +
+      `<rect x="${sx - 5}" y="22" width="10" height="10" class="pl-body"/><line x1="${sx}" y1="34" x2="${sx}" y2="72" class="pl-beam${sensor('I2') ? ' on' : ''}"/>` +
+      `<text x="${sx}" y="16" class="pl-txt">센서 ${F('I2')}</text>` +
+      `<text x="60" y="112" class="pl-txt">모터 ${F('Q0')} ${q('Q0') ? '돌아감' : '멈춤'}</text>` +
+      `<circle cx="250" cy="108" r="7" class="${q('Q1') ? 'pl-lamp' : 'pl-off'}"/><text x="250" y="126" class="pl-txt">완료 ${F('Q1')}</text>`;
+    map = `모터 ${F('Q0')} · 센서 ${F('I2')} (물건이 지나가면 켜짐) · 완료등 ${F('Q1')}`;
+  } else if (plant === 'tank') {
+    const lv = plantSt.level || 0, top = 18, h = 100, y = v => top + h - v / 100 * h;
+    const mark = (v, a, label) => `<line x1="210" y1="${y(v)}" x2="222" y2="${y(v)}" class="w"/>` +
+      `<circle cx="230" cy="${y(v)}" r="5" class="${sensor(a) ? 'pl-on' : 'pl-off'}"/>` +
+      `<text x="240" y="${y(v) + 4}" class="pl-txt" style="text-anchor:start">${label} ${F(a)}</text>`;
+    svg = `<rect x="110" y="${y(lv)}" width="100" height="${(lv / 100 * h).toFixed(1)}" class="pl-water"/>` +
+      `<rect x="110" y="${top}" width="100" height="${h}" class="pl-body" style="fill:none"/>` +
+      `<text x="160" y="${top + h / 2 + 5}" class="pl-big">${lv.toFixed(0)}%</text>` +
+      `<line x1="40" y1="12" x2="140" y2="12" class="w"/><line x1="140" y1="12" x2="140" y2="22" class="w${q('Q0') ? ' on' : ''}"/>` +
+      `<circle cx="40" cy="12" r="9" class="${q('Q0') ? 'pl-on' : 'pl-off'}"/><text x="40" y="36" class="pl-txt">펌프 ${F('Q0')}</text>` +
+      `<line x1="200" y1="118" x2="200" y2="128" class="w"/><text x="160" y="134" class="pl-txt" style="font-size:9px">늘 조금씩 빠져나감</text>` +
+      mark(TANK_HIGH, 'I2', '상한') + mark(TANK_LOW, 'I1', '하한');
+    map = `펌프 ${F('Q0')} · 하한 센서 ${F('I1')} · 상한 센서 ${F('I2')} (물에 잠기면 켜짐)`;
+  }
+  const html = plant === 'none' ? '<p class="empty">설비를 고르면 출력에 따라 움직이고, 센서 값이 입력으로 들어옵니다.</p>'
+    : `<svg viewBox="0 0 320 ${plant === 'tank' ? 140 : 130}" role="img" aria-label="가상 설비">${svg}</svg>`;
+  if (html !== plantCache) { $('plantView').innerHTML = html; plantCache = html; }
+  $('plantMap').innerHTML = map ? map + (running ? '' : ' — RUN을 누르면 움직입니다.') : '';
+}
+
+// ---- 입출력 패널 ----
+function buildIO() {
+  const ins = $('ins'), outs = $('outs'), ms = $('ms');
+  for (let i = 0; i < 8; i++) {
+    const d = document.createElement('div');
+    d.className = 'inp';
+    d.innerHTML = `<button class="push" id="in${i}" aria-pressed="false"></button><span class="nm" id="inn${i}"></span><button class="mbtn" id="inm${i}"></button>`;
+    ins.appendChild(d);
+    const b = d.querySelector('.push');
+    const down = () => { inputs[i] = modes[i] === 'push' ? true : !inputs[i]; tick(); };
+    const up = () => { if (modes[i] === 'push' && inputs[i]) { inputs[i] = false; tick(); } };
+    b.addEventListener('pointerdown', e => { b.setPointerCapture(e.pointerId); down(); });
+    b.addEventListener('pointerup', up);
+    b.addEventListener('pointercancel', up);
+    b.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); down(); } });
+    b.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') up(); });
+    d.querySelector('.mbtn').addEventListener('click', () => {
+      modes[i] = modes[i] === 'push' ? 'toggle' : 'push';
+      inputs[i] = false; save(); tick();
+    });
+    const o = document.createElement('div');
+    o.className = 'out';
+    o.innerHTML = `<span class="lamp" id="lamp${i}"></span><span id="outa${i}"></span><span class="nm" id="outn${i}"></span>`;
+    outs.appendChild(o);
+  }
+  for (let i = 0; i < 16; i++) ms.insertAdjacentHTML('beforeend', `<span class="m" id="m${i}"></span>`);
+}
+
+let tcCache = '';
+function drawTC() {
+  const used = [];
+  for (const row of prog.grid) for (const x of row) if (x && (x.t === 'ton' || x.t === 'ctu') && !used.some(u => u.a === x.a)) used.push(x);
+  used.sort((a, b) => ADDRS.indexOf(a.a) - ADDRS.indexOf(b.a));
+  const html = used.length ? used.map(x => {
+    const v = running ? mem[x.a + ':v'] || 0 : 0, done = running && !!mem[x.a];
+    const pct = Math.min(100, x.t === 'ton' ? v / (x.k * 100) * 100 : v / x.k * 100);
+    const val = x.t === 'ton' ? `${(v / 1000).toFixed(1)} / ${(x.k / 10).toFixed(1)}초` : `${v} / ${x.k}회`;
+    return `<div class="tc${done ? ' on' : ''}"><span class="tca">${esc(fmt(x.a, notation))}</span>` +
+      `<span class="nm">${esc(prog.comments[x.a] || '')}</span><span class="tcv">${val}</span>` +
+      `<span class="gauge"><i style="width:${pct.toFixed(1)}%"></i></span></div>`;
+  }).join('') : '<p class="empty">프로그램에 타이머·카운터가 없습니다.</p>';
+  if (html !== tcCache) { $('tcs').innerHTML = html; tcCache = html; }
+}
+
+function drawIO() {
+  for (let i = 0; i < 8; i++) {
+    const b = $('in' + i), a = 'I' + i, dev = running && !!plantIn[a], lit = inputs[i] || dev;
+    b.textContent = fmt(a, notation);
+    b.classList.toggle('on', lit);
+    b.classList.toggle('tg', modes[i] === 'toggle');
+    b.classList.toggle('dev', plant !== 'none' && a in plantIn);
+    b.setAttribute('aria-pressed', lit);
+    b.setAttribute('aria-label', `${fmt(a, notation)} ${prog.comments[a] || ''}`);
+    $('inn' + i).textContent = prog.comments[a] || '';
+    $('inm' + i).textContent = plant !== 'none' && a in plantIn ? '설비 센서' : modes[i] === 'push' ? '누름버튼' : '스위치';
+    $('lamp' + i).classList.toggle('on', running && !!mem['Q' + i]);
+    $('outa' + i).textContent = fmt('Q' + i, notation);
+    $('outn' + i).textContent = prog.comments['Q' + i] || '';
+  }
+  for (let i = 0; i < 16; i++) {
+    const el = $('m' + i);
+    el.textContent = fmt('M' + i, notation);
+    el.classList.toggle('on', running && !!mem['M' + i]);
+  }
+  drawTC();
+  $('scan').textContent = `스캔 ${scans.toLocaleString('ko-KR')}회`;
+}
+
+function tick() {
+  if (running) {
+    const now = performance.now();
+    // ponytail: 실제 흐른 시간으로 타이머를 셈. 탭이 백그라운드면 브라우저가 늦춰서 한 번에 최대 0.5초만 반영
+    const dt = Math.min(now - last, 500);
+    last = now;
+    plantIn = plant === 'none' ? {} : plantStep(plant, plantSt, mem, dt);
+    for (let i = 0; i < 8; i++) mem['I' + i] = inputs[i] || !!plantIn['I' + i];
+    flow = scan(prog, mem, dt);
+    scans++;
+  }
+  drawLadder(); drawIO(); drawPlant();
+}
+
+function setRun(on) {
+  running = on;
+  clearInterval(timer);
+  mem = {}; flow = null; // STOP하면 출력·보조 릴레이·타이머·카운터 모두 초기화
+  plantSt = initPlant(plant); plantIn = plant === 'none' ? {} : plantStep(plant, plantSt, {}, 0);
+  if (on) { scans = 0; last = performance.now(); timer = setInterval(tick, 50); }
+  $('mode').textContent = on ? 'RUN' : 'STOP';
+  $('mode').classList.toggle('run', on);
+  $('runBtn').setAttribute('aria-pressed', on);
+  $('stopBtn').setAttribute('aria-pressed', !on);
+  tick();
+}
+
+// ---- 편집 ----
+const allowed = t => ADDRS.filter(a => (ALLOW[t] || ALLOW.no).includes(a[0]));
+const unitText = () => (tool === 'ton' || (tool === 'cmp' && addr[0] === 'T')) ? `× 0.1초 = ${(preset / 10).toFixed(1)}초` : '회';
+function fillAddr() {
+  const s = $('addr'), list = allowed(tool);
+  if (!list.includes(addr)) addr = list[0];
+  s.innerHTML = list.map(a => `<option value="${a}">${esc(fmt(a, notation))}${prog.comments[a] ? ' ' + esc(prog.comments[a]) : ''}</option>`).join('');
+  s.value = addr;
+  $('cmt').value = prog.comments[addr] || '';
+  $('presetBox').hidden = !HAS_K(tool);
+  $('opBox').hidden = tool !== 'cmp';
+  $('presetUnit').textContent = unitText();
+  $('preset').value = preset;
+}
+
+function place(r, c) {
+  sel = [r, c];
+  if (tool === 'v') { if (r < ROWS - 1) prog.v[r][c] = !prog.v[r][c]; }
+  else if (tool === 'del') { prog.grid[r][c] = null; prog.v[r][c] = false; }
+  else if (tool === 'h') prog.grid[r][c] = { t: 'h' };
+  else {
+    const cell = prog.grid[r][c] = { t: tool, a: addr };
+    if (HAS_K(tool)) cell.k = tool === 'cmp' ? preset : Math.max(1, preset);
+    if (tool === 'cmp') cell.op = op;
+  }
+  save(); tick();
+}
+
+function setTool(t) {
+  tool = t;
+  document.querySelectorAll('.tool').forEach(b => b.setAttribute('aria-pressed', b.dataset.tool === t));
+  fillAddr();
+}
+
+function setPlant(k) {
+  plant = PLANTS.includes(k) ? k : 'none';
+  $('plant').value = plant;
+  save(); setRun(running);
+}
+
+function setProgram(p) {
+  if (p.modes) { setModes(p.modes); inputs.fill(false); }
+  const pl = p.plant;
+  delete p.modes; delete p.plant;
+  prog = p; save(); fillAddr();
+  if (pl !== undefined) setPlant(pl); else setRun(running);
+}
+
+// ---- 과제: 기본 과제 + 직접 만든 과제 (공유 저장소 'tasks', 안 되면 이 브라우저) ----
+const TASK_KEY = 'plc-tasks-v1';
+let custom = {}, taskDb = null, canWrite = true, draft = null, draftId = null, delArm = false;
+const getTask = k => k.startsWith('c:') ? (custom[k.slice(2)] ? toTask(custom[k.slice(2)]) : null) : TASKS[k];
+
+function fillTaskList(keep) {
+  const s = $('task'), cur = keep || s.value;
+  const mine = Object.entries(custom).sort((a, b) => a[1].created - b[1].created);
+  s.innerHTML = `<optgroup label="기본 과제">${Object.entries(TASKS).map(([k, t]) => `<option value="${k}">${esc(t.name)}</option>`).join('')}</optgroup>` +
+    (mine.length ? `<optgroup label="직접 만든 과제">${mine.map(([id, t]) => `<option value="c:${esc(id)}">${esc(t.name)}</option>`).join('')}</optgroup>` : '');
+  s.value = cur && getTask(cur) ? cur : 'hold';
+  showTask();
+}
+function showTask() {
+  const k = $('task').value, t = getTask(k);
+  $('taskDesc').innerHTML = fill(t.desc);
+  $('results').innerHTML = '';
+  $('score').textContent = ''; $('score').className = '';
+  $('editTask').hidden = $('delTask').hidden = !(k.startsWith('c:') && canWrite);
+  delArm = false; $('delTask').textContent = '이 과제 삭제';
+}
+
+async function initTaskStore() {
+  const db = window.claude ? await window.claude.use('db').catch(() => null) : null;
+  if (!db) {
+    try {
+      const d = JSON.parse(localStorage.getItem(TASK_KEY)) || {};
+      for (const [id, t] of Object.entries(d)) { const n = normalizeTask(t); if (n) custom[id] = n; }
+    } catch {}
+    $('newTask').hidden = false;
+    $('storeNote').textContent = '공유 저장소에 연결되지 않아 만든 과제는 이 브라우저에만 저장됩니다.';
+    fillTaskList();
+    return;
+  }
+  taskDb = db;
+  const user = await window.claude.use('user').catch(() => null);
+  canWrite = user ? await user.canEdit() : true;
+  $('newTask').hidden = !canWrite;
+  $('storeNote').textContent = canWrite ? '저장한 과제는 이 실습기를 여는 학생 모두에게 보입니다.' : '';
+  db.collection('tasks').onSnapshot(snap => {
+    custom = {};
+    for (const d of snap.docs) { const n = normalizeTask(d.data()); if (n) custom[d.id] = n; }
+    fillTaskList();
+  }, () => { $('storeNote').textContent = '직접 만든 과제를 불러오지 못했습니다. 페이지를 새로 고쳐 보세요.'; });
+}
+
+const edMsg = t => { $('edMsg').textContent = t; };
+function openEditor(id) {
+  draftId = id;
+  const t = id ? custom[id] : null;
+  const blankStep = on => ({ in: QS.map((_, j) => on && j === 0 ? 1 : 0), wait: 0.2, out: {}, note: '' });
+  draft = t ? structuredClone(t.steps) : [blankStep(false), blankStep(true)];
+  $('edName').value = t ? t.name : '';
+  $('edDesc').value = t ? t.desc : '';
+  $('editor').hidden = false;
+  edMsg(''); drawSteps();
+  $('edName').focus();
+}
+function drawSteps() {
+  $('edSteps').innerHTML = draft.map((s, i) => `<div class="step" data-i="${i}"><span class="sn">${i + 1}</span>` +
+    `<span class="chips"><span class="cl">입력</span>${s.in.map((v, j) =>
+      `<button type="button" class="chip${v ? ' on' : ''}" data-k="in" data-j="${j}" aria-pressed="${!!v}">${esc(fmt('I' + j, notation))}</button>`).join('')}</span>` +
+    `<label class="inline">기다림 <input type="number" class="wait" min="0.05" max="120" step="0.1" value="${s.wait}" aria-label="${i + 1}단계 기다릴 초">초</label>` +
+    `<span class="chips"><span class="cl">확인</span>${QS.map(a => {
+      const v = s.out[a];
+      return `<button type="button" class="chip out${v === 1 ? ' on' : v === 0 ? ' off' : ''}" data-k="out" data-a="${a}">${esc(fmt(a, notation))}${v === 1 ? ' ●' : v === 0 ? ' ○' : ''}</button>`;
+    }).join('')}</span>` +
+    `<input type="text" class="note" maxlength="80" placeholder="확인 설명 (예: 시작을 누르면 모터 켜짐)" value="${esc(s.note)}" aria-label="${i + 1}단계 확인 설명">` +
+    `<button type="button" class="small" data-k="del" aria-label="${i + 1}단계 삭제">삭제</button></div>`).join('');
+}
+async function saveTask() {
+  const name = $('edName').value.trim();
+  if (!name) return edMsg('과제 이름을 적어 주세요.');
+  if (!draft.some(s => Object.keys(s.out).length)) return edMsg('확인할 출력이 있는 단계가 하나 이상 있어야 합니다. "현재 래더로 기대값 채우기"를 눌러 보세요.');
+  const id = draftId || 't' + Date.now().toString(36);
+  const body = normalizeTask({ name, desc: $('edDesc').value, steps: draft, created: draftId ? custom[draftId].created : Date.now() });
+  $('edSave').disabled = true;
+  try {
+    if (taskDb) await taskDb.collection('tasks').doc(id).set(body);
+    else localStorage.setItem(TASK_KEY, JSON.stringify({ ...custom, [id]: body }));
+  } catch (e) {
+    $('edSave').disabled = false;
+    return edMsg(e && e.code === 'quota_exceeded' ? '저장 공간이 가득 찼습니다. 안 쓰는 과제를 지워 주세요.'
+      : '저장하지 못했습니다. 이 실습기를 편집할 권한이 있는지 확인하세요.');
+  }
+  $('edSave').disabled = false;
+  custom[id] = body;
+  $('editor').hidden = true;
+  fillTaskList('c:' + id);
+}
+async function deleteTask() {
+  const id = $('task').value.slice(2);
+  if (!delArm) { delArm = true; $('delTask').textContent = '한 번 더 누르면 삭제'; return; }
+  try {
+    if (taskDb) await taskDb.collection('tasks').doc(id).delete();
+    else { const rest = { ...custom }; delete rest[id]; localStorage.setItem(TASK_KEY, JSON.stringify(rest)); }
+  } catch { $('storeNote').textContent = '삭제하지 못했습니다.'; return; }
+  delete custom[id];
+  $('editor').hidden = true;
+  fillTaskList('hold');
+}
+function bindEditor() {
+  $('newTask').addEventListener('click', () => openEditor(null));
+  $('editTask').addEventListener('click', () => openEditor($('task').value.slice(2)));
+  $('delTask').addEventListener('click', deleteTask);
+  $('edCancel').addEventListener('click', () => { $('editor').hidden = true; });
+  $('edSave').addEventListener('click', saveTask);
+  $('edAdd').addEventListener('click', () => {
+    const lastStep = draft[draft.length - 1];
+    draft.push({ in: lastStep ? [...lastStep.in] : QS.map(() => 0), wait: 0.2, out: {}, note: '' });
+    drawSteps();
+  });
+  $('edFill').addEventListener('click', () => {
+    fillExpect(prog, draft); drawSteps();
+    edMsg('현재 래더를 돌려 기대 출력을 채웠습니다. 확인 설명을 적고 저장하세요.');
+  });
+  $('edSteps').addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    const i = +b.closest('.step').dataset.i, s = draft[i];
+    if (b.dataset.k === 'in') s.in[+b.dataset.j] ^= 1;
+    else if (b.dataset.k === 'out') {
+      const a = b.dataset.a, v = s.out[a];
+      if (v === undefined) s.out[a] = 1; else if (v === 1) s.out[a] = 0; else delete s.out[a];
+    } else if (b.dataset.k === 'del' && draft.length > 1) draft.splice(i, 1);
+    drawSteps();
+  });
+  $('edSteps').addEventListener('input', e => {
+    const st = e.target.closest('.step');
+    if (!st) return;
+    const s = draft[+st.dataset.i];
+    if (e.target.classList.contains('wait')) s.wait = Math.min(120, Math.max(0.05, +e.target.value || 0.2));
+    if (e.target.classList.contains('note')) s.note = e.target.value;
+  });
+}
+
+function runGrade() {
+  const res = grade(prog, getTask($('task').value)), ok = res.filter(x => !x.bad.length).length;
+  $('results').innerHTML = res.map(x => `<li class="${x.bad.length ? 'bad' : 'ok'}"><span>${fill(x.note)}</span>` +
+    (x.bad.length ? `<span class="why">${x.bad.map(([a, v]) => `${esc(fmt(a, notation))}이(가) ${v ? '켜져' : '꺼져'} 있어야 함`).join(', ')}</span>` : '') + '</li>').join('');
+  $('score').textContent = ok === res.length ? `통과 ${ok}/${res.length}` : `${ok}/${res.length}`;
+  $('score').className = ok === res.length ? 'pass' : 'fail';
+}
+
+function init() {
+  load();
+  buildLadder(); buildIO();
+  $('notation').value = notation;
+  $('plant').value = plant;
+  fillTaskList('hold');
+  bindEditor();
+  fillAddr();
+
+  document.querySelectorAll('.tool').forEach(b => b.addEventListener('click', () => setTool(b.dataset.tool)));
+  $('addr').addEventListener('change', e => {
+    addr = e.target.value;
+    $('cmt').value = prog.comments[addr] || '';
+    $('presetUnit').textContent = unitText();
+    const cell = prog.grid[sel[0]][sel[1]];
+    if (cell && cell.a && ALLOW[cell.t].includes(addr[0])) { cell.a = addr; save(); tick(); }
+  });
+  $('op').addEventListener('change', e => {
+    op = e.target.value;
+    const cell = prog.grid[sel[0]][sel[1]];
+    if (cell && cell.t === 'cmp') { cell.op = op; save(); tick(); }
+  });
+  $('preset').addEventListener('input', e => {
+    const k = Math.round(+e.target.value);
+    if (!(k >= 0 && k <= 32767)) return;
+    preset = k;
+    $('presetUnit').textContent = unitText();
+    const cell = prog.grid[sel[0]][sel[1]];
+    if (cell && cell.t === tool && HAS_K(tool)) { cell.k = tool === 'cmp' ? k : Math.max(1, k); save(); tick(); }
+  });
+  $('cmt').addEventListener('input', e => {
+    const v = e.target.value.trim();
+    if (v) prog.comments[addr] = v; else delete prog.comments[addr];
+    save(); tick();
+    const s = $('addr'), opt = s.options[s.selectedIndex];
+    if (opt) opt.textContent = fmt(addr, notation) + (v ? ' ' + v : '');
+  });
+  $('notation').addEventListener('change', e => {
+    notation = e.target.value; save(); fillAddr(); showTask(); tick();
+    if (!$('editor').hidden) drawSteps();
+  });
+  $('runBtn').addEventListener('click', () => setRun(true));
+  $('stopBtn').addEventListener('click', () => setRun(false));
+  $('plant').addEventListener('change', e => setPlant(e.target.value));
+  $('task').addEventListener('change', showTask);
+  $('gradeBtn').addEventListener('click', runGrade);
+  $('example').addEventListener('change', e => {
+    if (EXAMPLES[e.target.value]) setProgram(EXAMPLES[e.target.value]());
+    e.target.value = '';
+  });
+  $('bigBtn').addEventListener('click', e => {
+    const big = document.documentElement.classList.toggle('big');
+    e.target.setAttribute('aria-pressed', big);
+  });
+  $('clearBtn').addEventListener('click', e => {
+    if (!clearArm) {
+      clearArm = true; e.target.textContent = '한 번 더 누르면 모두 지움'; e.target.classList.add('danger');
+      setTimeout(() => { clearArm = false; e.target.textContent = '전체 지우기'; e.target.classList.remove('danger'); }, 3000);
+      return;
+    }
+    clearArm = false; e.target.textContent = '전체 지우기'; e.target.classList.remove('danger');
+    setProgram(blank());
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input, select, textarea, .push')) return;
+    const [r, c] = sel;
+    const moves = { ArrowUp: [r - 1, c], ArrowDown: [r + 1, c], ArrowLeft: [r, c - 1], ArrowRight: [r, c + 1] };
+    if (moves[e.key]) {
+      e.preventDefault();
+      const [nr, nc] = moves[e.key];
+      if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS) { sel = [nr, nc]; tick(); }
+    } else if (e.key === 'Enter' && !e.target.closest('button')) { e.preventDefault(); place(r, c); }
+    else if (e.key === 'Delete' || e.key === 'Backspace') {
+      e.preventDefault(); prog.grid[r][c] = null; prog.v[r][c] = false; save(); tick();
+    }
+  });
+
+  const msg = t => { $('msg').textContent = t; };
+  const exportText = () => JSON.stringify({ ...prog, notation, modes, plant });
+  $('copyBtn').addEventListener('click', () => {
+    const t = exportText(), ta = $('json');
+    ta.value = t;
+    navigator.clipboard.writeText(t).then(() => msg('복사했습니다. 메모장 등에 붙여 넣어 저장하세요.'),
+      () => { ta.select(); msg('자동 복사가 막혀 있습니다. 선택된 내용을 Ctrl+C로 복사하세요.'); });
+  });
+  const importText = t => {
+    try {
+      const d = JSON.parse(t), p = normalize(d);
+      if (d.modes) p.modes = d.modes;
+      if (PLANTS.includes(d.plant)) p.plant = d.plant;
+      setProgram(p);
+      if (['mits', 'ls', 'iec'].includes(d.notation)) { notation = d.notation; $('notation').value = notation; fillAddr(); showTask(); tick(); }
+      msg('불러왔습니다.');
+    } catch (err) { msg('불러오지 못했습니다. 이 실습기에서 복사한 내용인지 확인하세요. (' + err.message + ')'); }
+  };
+  $('applyBtn').addEventListener('click', () => importText($('json').value));
+  $('fileIn').addEventListener('change', e => {
+    const f = e.target.files[0];
+    if (f) f.text().then(importText);
+    e.target.value = '';
+  });
+
+  setRun(false);
+  initTaskStore();
+}
+init();
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="index.html">전체 자료 목록</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

@@ -1,0 +1,581 @@
+<!doctype html><html lang="ko" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body class="mm-page mm-standard">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids" aria-current="page">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#solids">고체역학</a><span>/</span>인장시험 응력변형률 선도</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids" aria-current="page">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>인장시험 응력변형률 선도</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+/* Layout: 제목 → (무대 + 조작판) 2열 → 보조 카드 → 생각해보기. 폰에서는 1열. */
+:root{
+  --font-display:'Black Han Sans','Noto Sans KR',system-ui,sans-serif;
+  --font-body:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --bg:#edf1f6; --panel:#ffffff; --panel2:#f3f6fb; --fg:#17202e; --muted:#586479; --line:#d5dce7;
+  --accent:#0a66c2; --on-accent:#ffffff; --force:#d83a22; --amber:#b8650a;
+  --good:#14804f; --good-bg:#dff3e8; --warn:#8f5200; --warn-bg:#fdecc8; --bad:#b3261e; --bad-bg:#fbdcd8;
+  --steel:#a9b6c9; --steel2:#6c7b93; --ghost:#7b8798; --tint:#0a66c222;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+    --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+    --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+    --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+  --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+  --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+  --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.65;
+  padding-block:22px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:18px}
+.kicker{font:600 12px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,5vw,46px);line-height:1.18;margin:10px 0 8px;text-wrap:balance}
+.lede{color:var(--muted);max-width:64ch;margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.grid.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:880px){.grid,.grid.even{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.card h2{font-size:16px;margin:0 0 4px;font-weight:700}
+.card .sub{margin:0 0 12px;color:var(--muted);font-size:14px}
+svg{display:block;width:100%;height:auto;max-width:100%}
+.ctl{display:grid;gap:2px;margin-bottom:12px}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:500;font-size:14px}
+.ctl output{font:600 15px var(--font-mono);color:var(--accent);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:30px;accent-color:var(--accent);margin:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.btn,.seg button{font:500 14px var(--font-body);padding:8px 13px;min-height:40px;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel);color:var(--fg);cursor:pointer}
+.btn:hover,.seg button:hover{border-color:var(--accent)}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:10px}
+.stat{background:var(--panel2);border-radius:10px;padding:10px 12px;min-width:0}
+.stat .k{font-size:12px;color:var(--muted);line-height:1.3}
+.stat .v{font:600 clamp(20px,3.2vw,26px)/1.25 var(--font-mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stat .v small{font-size:13px;color:var(--muted);font-weight:500;margin-left:3px}
+.stat.hero .v{font-size:clamp(28px,4.6vw,40px);color:var(--accent)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:700;line-height:1.6}
+.pill.ok{background:var(--good-bg);color:var(--good)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.info{background:var(--tint);color:var(--accent)}
+.formula{font:500 clamp(17px,3.2vw,26px)/1.5 var(--font-mono);margin:6px 0;overflow-wrap:anywhere}
+.hl-a{color:var(--accent);font-weight:700}.hl-f{color:var(--force);font-weight:700}.hl-m{color:var(--amber);font-weight:700}
+.calc{background:var(--panel2);border-radius:10px;padding:10px 12px;font:500 14px/1.7 var(--font-mono);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+ul.tips{margin:8px 0 0;padding-left:1.2em;display:grid;gap:6px}
+.exp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.exp button{text-align:left;display:grid;gap:2px;padding:12px;min-height:0;font:inherit;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--fg);cursor:pointer}
+.exp button:hover{border-color:var(--accent)}
+.exp .t{font-weight:700;font-size:14px}.exp .r{font:600 24px var(--font-mono);color:var(--accent)}.exp .w{font-size:13px;color:var(--muted);line-height:1.45}
+details.quiz{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:0 14px}
+details.quiz summary{cursor:pointer;padding:12px 0;font-weight:700}
+details.quiz .ans{padding:0 0 12px;color:var(--muted)}
+.s-axis{stroke:var(--muted);stroke-width:1.5;fill:none}
+.s-grid{stroke:var(--line);stroke-width:1}
+.s-txt{fill:var(--muted);font:13px var(--font-body)}
+.s-lbl{fill:var(--fg);font:700 15px var(--font-body)}
+.s-mono{font-family:var(--font-mono)}
+.s-force{stroke:var(--force);fill:var(--force)}
+.s-accent{stroke:var(--accent);fill:var(--accent)}
+.s-amber{stroke:var(--amber);fill:var(--amber)}
+.s-good{stroke:var(--good);fill:var(--good)}
+.s-ghost{stroke:var(--ghost);fill:none;stroke-dasharray:6 5;stroke-width:1.6}
+.foot{color:var(--muted);font-size:13px}
+.foot a{color:var(--accent);font-weight:700}
+.bar{height:22px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .15s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.phase{display:grid;gap:6px}
+.phase .p{font-size:17px;font-weight:700}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th,.tbl td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl thead th{color:var(--muted);font-weight:500;font-size:13px}
+.tbl tr.on td{background:var(--tint);font-weight:700}
+.scroll{overflow-x:auto}
+.s-amberl{stroke:var(--amber);fill:none}
+.s-cmp{fill:none;stroke:var(--muted);stroke-width:1.6;opacity:.5}
+.msg{min-height:3em;font-size:15px;margin:8px 0 0}
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+
+<div class="wrap">
+  <header>
+    <div class="kicker">재료역학 · 인장시험</div>
+    <h1>인장시험 응력변형률 선도</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+    <p class="lede">시편을 천천히 당기면서 늘어나는 모습과 응력-변형률 선도를 같이 봐요. 곡선 위의 점이 시편의 지금 상태예요. 재생 버튼을 누르거나 슬라이더를 직접 움직여 보세요.</p>
+  </header>
+
+  <div class="grid even">
+    <section class="card" aria-label="시편">
+      <h2>인장시험기에 물린 시편</h2>
+      <p class="sub">양쪽 끝을 잡고 당겨요. 늘어난 정도는 실제 비율 그대로 그렸어요.</p>
+      <svg id="stage" viewBox="0 0 560 250" role="img" aria-label="당겨지는 시편 그림"></svg>
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="play" type="button">시험 시작</button>
+        <button class="btn" id="reset" type="button">처음으로</button>
+        <button class="btn" id="unload" type="button">하중 제거해 보기</button>
+      </div>
+      <p class="msg" id="msg" aria-live="polite"></p>
+    </section>
+
+    <section class="card" aria-label="응력-변형률 선도">
+      <h2>응력-변형률 선도</h2>
+      <p class="sub">굵은 파란 선은 지금까지 지나온 길이에요. 빨간 점이 현재 위치예요.</p>
+      <svg id="chart" viewBox="0 0 600 360" role="img" aria-label="응력-변형률 선도 그래프"></svg>
+      <div class="ctl" style="margin-top:10px"><label for="sU">시험 진행도 (끌어서 직접 움직여 보세요) <output id="oU"></output></label><input id="sU" type="range" min="0" max="1000" step="1"></div>
+      <div class="seg" id="zoomSeg" role="group" aria-label="가로축 범위">
+        <button type="button" data-z="0" aria-pressed="true">가로축 전체 (0~30%)</button>
+        <button type="button" data-z="1" aria-pressed="false">처음 부분 확대 (0~1.2%)</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="grid even">
+    <section class="card" aria-label="지금 단계">
+      <h2>지금 어떤 단계일까?</h2>
+      <div class="phase" style="margin-top:8px"><div><span class="pill info" id="phPill">-</span></div><div id="phText"></div></div>
+      <div class="stats" style="margin-top:14px">
+        <div class="stat"><div class="k">변형률 ε</div><div class="v"><span id="vE">0</span><small>%</small></div></div>
+        <div class="stat hero"><div class="k">응력 σ</div><div class="v"><span id="vS">0</span><small>MPa</small></div></div>
+        <div class="stat"><div class="k">당기는 힘 F</div><div class="v"><span id="vF">0</span><small>kN</small></div></div>
+        <div class="stat"><div class="k">늘어난 길이 ΔL</div><div class="v"><span id="vD">0</span><small>mm</small></div></div>
+      </div>
+      <div class="calc" id="calc" style="margin-top:10px"></div>
+    </section>
+
+    <section class="card" aria-label="시편 설정">
+      <h2>시편 설정</h2>
+      <p class="sub" style="margin-bottom:6px">재료</p>
+      <div class="seg" id="matSeg">
+        <button type="button" data-mat="steel" aria-pressed="true">연강</button>
+        <button type="button" data-mat="alu" aria-pressed="false">알루미늄 합금</button>
+        <button type="button" data-mat="cast" aria-pressed="false">주철</button>
+      </div>
+      <div class="ctl" style="margin-top:14px"><label for="sD">시편 지름 d₀ <output id="oD"></output></label><input id="sD" type="range" min="6" max="14" step="1"></div>
+      <div class="seg" id="cmpSeg"><button type="button" id="cmp" aria-pressed="false">다른 재료 곡선도 같이 보기</button></div>
+      <p class="foot" style="margin:12px 0 0">지름을 바꿔도 곡선은 그대로예요. 굵은 시편은 힘 F만 더 클 뿐이에요. 응력은 힘을 단면적으로 나눈 값이라서 크기와 상관없는 재료의 성질을 보여 줘요.</p>
+    </section>
+  </div>
+
+  <section class="card" aria-label="핵심 숫자">
+    <h2>세 재료의 핵심 숫자 비교</h2>
+    <p class="sub">이 그래프는 수업용으로 단순화한 모델이에요. 실제 값은 재료 종류와 열처리에 따라 달라요.</p>
+    <div class="scroll"><table class="tbl" id="tbl"></table></div>
+  </section>
+
+  <section class="card" aria-label="공식" id="mm-theory">
+    <h2>공식 정리</h2>
+    <div class="formula">σ = <span class="hl-f">F</span> / A₀ <span style="color:var(--muted)">(응력)</span></div>
+    <div class="formula">ε = <span class="hl-a">ΔL</span> / L₀ <span style="color:var(--muted)">(변형률)</span></div>
+    <div class="formula">σ = E × ε <span style="color:var(--muted)">(탄성 구간, 훅의 법칙)</span></div>
+    <ul class="tips">
+      <li><b>응력 σ</b>는 단면적 1 mm²당 걸리는 힘이에요. 1 N/mm² = 1 MPa.</li>
+      <li><b>변형률 ε</b>는 원래 길이에 대해 얼마나 늘어났는지 비율이에요. 0.01이면 1%.</li>
+      <li><b>탄성계수 E</b>는 직선 구간의 기울기로, 클수록 잘 안 늘어나요.</li>
+    </ul>
+  </section>
+
+  <section class="card" aria-label="현장 연결">
+    <h2>그래서 현장에서는</h2>
+    <ul class="tips">
+      <li>도면에 적힌 <b>인장강도</b>와 <b>항복강도</b>가 이 선도에서 나온 값이에요. 부품에 걸리는 응력은 항복강도보다 충분히 작게 설계해요.</li>
+      <li>연강처럼 <b>연성</b> 재료는 부러지기 전에 많이 늘어나고 잘록해져서 미리 알아챌 수 있어요. 주철 같은 <b>취성</b> 재료는 거의 늘어나지 않고 갑자기 부러져요.</li>
+      <li>가공 중에도 소성 변형이 일어나요. 같은 재료를 깎을 때 칩이 길게 이어지는지(연성), 잘게 부서지는지(취성)가 이 성질에서 나와요.</li>
+    </ul>
+  </section>
+
+  <section class="card" aria-label="생각해보기" id="mm-inquiry">
+    <h2>생각해 보기</h2>
+    <div style="display:grid;gap:10px;margin-top:10px">
+      <details class="quiz"><summary>항복점을 넘긴 뒤 하중을 빼면 시편 길이는 원래대로 돌아올까요?</summary><div class="ans">아니에요. 탄성 변형만 돌아오고 <b>소성 변형(영구 변형)</b>은 남아요. '하중 제거해 보기' 버튼으로 확인해 보세요. 되돌아오는 선이 처음 직선과 평행해요.</div></details>
+      <details class="quiz"><summary>지름 10 mm 연강 시편이 33 kN에서 인장강도에 도달했어요. 응력은 약 얼마일까요?</summary><div class="ans">A₀ = π × 10² / 4 ≈ 78.5 mm²이니까 σ = 33,000 / 78.5 ≈ <b>420 MPa</b>예요.</div></details>
+      <details class="quiz"><summary>네킹이 시작되면 하중(공칭응력)이 줄어드는데 왜 시편은 계속 늘어날까요?</summary><div class="ans">잘록해진 한 곳의 단면적이 급격히 줄어서 그 부분의 <b>실제 응력은 오히려 계속 커지기</b> 때문이에요. 선도의 공칭응력은 처음 단면적으로 계산한 값이에요.</div></details>
+    </div>
+  </section>
+  <p class="foot"><a href="index.html" target="_blank" rel="noopener">← 기계 금속 시각화 모음으로 돌아가기</a></p>
+</div>
+
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const L0=50, XFULL=0.30, XZOOM=0.012, YMAX=450;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MATS={
+  steel:{name:'연강',E:205000,ef:.28,eu:.18,Zn:.469,Z:55,
+    fn:e=>{const ey=270/205000;if(e<=ey)return 205000*e;if(e<=.0017)return 270-25*(e-ey)/(.0017-ey);if(e<=.022)return 245;
+      if(e<=.18){const t=(e-.022)/.158;return 245+175*(1-(1-t)**2);}const s=(e-.18)/.10;return 420-120*s*s;},
+    el:270/205000,
+    keys:[{e:270/205000,s:270,t:'항복점'},{e:.18,s:420,t:'인장강도'},{e:.28,s:300,t:'파단'}],
+    yieldTxt:'하항복 245 MPa'},
+  alu:{name:'알루미늄 합금',E:70000,ef:.14,eu:.09,Zn:.29,Z:35,
+    fn:e=>{const ep=200/70000;if(e<=ep)return 70000*e;if(e<=.09){const d=e-ep,tau=40/70000;return 200+40*(1-Math.exp(-d/tau))+780*d;}
+      const s=(e-.09)/.05;return 308-70*s*s;},
+    el:200/70000,
+    keys:[{e:null,s:null,t:'항복강도(0.2%)'},{e:.09,s:308,t:'인장강도'},{e:.14,s:238,t:'파단'}],
+    yieldTxt:'0.2% 오프셋'},
+  cast:{name:'주철',E:100000,ef:.004,eu:.004,Zn:0,Z:0,
+    fn:e=>100000*e-(100000**2)*e*e/800,
+    el:.004,
+    keys:[{e:.004,s:200,t:'인장강도 = 파단'}],
+    yieldTxt:'뚜렷하지 않음'}
+};
+// 알루미늄 0.2% 오프셋 항복
+(()=>{const m=MATS.alu;let lo=.003,hi=.02;for(let i=0;i<60;i++){const mid=(lo+hi)/2;if(m.E*(mid-.002)>m.fn(mid))hi=mid;else lo=mid;}
+  m.ys={e:lo,s:m.fn(lo)};m.keys[0].e=lo;m.keys[0].s=m.ys.s;})();
+MATS.steel.ys={e:270/205000,s:245};MATS.cast.ys=null;
+const PX=e=>e/XFULL*528, PY=s=>s/YMAX*294;
+function build(m){
+  const N=1400,tab=[];let acc=0,pv=null;
+  for(let i=0;i<=N;i++){const e=m.ef*(i/N)**2,s=m.fn(e),p=[PX(e),PY(s)];if(pv)acc+=Math.hypot(p[0]-pv[0],p[1]-pv[1]);tab.push({e,s,L:acc});pv=p;}
+  tab.forEach(p=>p.u=p.L/acc);m.tab=tab;m.len=acc;m.uts=Math.max(...tab.map(p=>p.s));
+}
+Object.values(MATS).forEach(build);
+function epsAt(m,u){const t=m.tab;if(u<=0)return 0;if(u>=1)return m.ef;let lo=0,hi=t.length-1;while(hi-lo>1){const mid=(lo+hi)>>1;if(t[mid].u<=u)lo=mid;else hi=mid;}
+  const a=t[lo],b=t[hi],r=(u-a.u)/(b.u-a.u||1);return a.e+(b.e-a.e)*r;}
+
+const st={mat:'steel',d0:10,u:0,zoom:false,cmp:false};
+let playing=false,un=null,brokeAt=0,raf=0,tPrev=0,running=false;
+const fmt=(v,n=1)=>v.toLocaleString('ko-KR',{minimumFractionDigits:n,maximumFractionDigits:n});
+const isBroken=()=>st.u>=0.9999;
+
+const PH={
+  elastic:{t:'탄성 구간',c:'info',d:'하중을 빼면 원래 길이로 돌아가요. 응력과 변형률이 비례해서 곡선이 직선이고, 그 기울기가 탄성계수 E예요. 늘어난 양이 너무 작아서 시편 그림으로는 거의 안 보여요.'},
+  yield:{t:'항복',c:'warn',d:'영구 변형이 시작됐어요. 하중이 거의 그대로인데 시편이 쭉 늘어나요. 여기서부터는 하중을 빼도 원래대로 돌아가지 않아요.'},
+  plastic:{t:'소성 변형 · 변형경화',c:'warn',d:'늘어나면서 재료가 단단해져서 더 큰 힘이 필요해요. 하중을 빼도 변형이 남는 구간이에요.'},
+  plasticAlu:{t:'소성 변형 · 변형경화',c:'warn',d:'알루미늄은 항복점이 뚜렷하지 않아서 0.2% 영구 변형이 남는 응력을 항복강도로 정해요. 이 구간에서는 하중을 빼도 변형이 남아요.'},
+  neck:{t:'네킹',c:'bad',d:'가장 약한 한 곳이 잘록해져요. 단면이 줄어 공칭응력이 떨어지고, 결국 그곳에서 끊어져요.'},
+  brk:{t:'파단',c:'bad',d:'끊어졌어요. 컵과 원뿔 모양 단면이 서로 맞물리는 연성 파괴예요.'},
+  brittle:{t:'탄성 구간 (취성)',c:'info',d:'거의 직선으로 오르다가 소성 변형 없이 갑자기 끊어져요. 늘어난 양은 0.4%뿐이라 그림으로는 안 보여요.'},
+  brittleBrk:{t:'파단 (취성 파괴)',c:'bad',d:'미리 알리는 변형 없이 깨끗하게 끊어졌어요. 그래서 취성 재료는 예고 없이 파손돼서 더 위험해요.'}
+};
+function phaseKey(m,e,brk){
+  if(brk)return st.mat==='cast'?'brittleBrk':'brk';
+  if(st.mat==='cast')return 'brittle';
+  if(st.mat==='steel')return e<=m.el+1e-9?'elastic':e<.022?'yield':e<=.18?'plastic':'neck';
+  return e<=m.el+1e-9?'elastic':e<=.09?'plasticAlu':'neck';
+}
+function curState(){
+  const m=MATS[st.mat];
+  if(un){const e=un.e0-(un.s0-un.s)/m.E;return{e,s:un.s,un:true,brk:false};}
+  const brk=isBroken(),e=epsAt(m,st.u);
+  return{e,s:brk?0:m.fn(e),sBefore:m.fn(e),un:false,brk};
+}
+function A0(){return Math.PI*st.d0*st.d0/4;}
+
+// 시편 그림
+function drawStage(cs){
+  const m=MATS[st.mat],e=cs.e,SC=4,d0px=st.d0*SC,GX=160,CY=112,HH=d0px/2+16;
+  const eu=m.eu,eU=Math.min(e,eu),dU=d0px/Math.sqrt(1+eU);
+  const s=(m.Zn>0&&e>eu)?(e-eu)/(m.ef-eu):0;
+  const GL=160;
+  const xs=xi=>GX+xi*GL*(1+eU)+(e>eu?(e-eu)*GL*0.5*(1+Math.tanh((xi-0.5)/0.09)):0);
+  const rr=xi=>dU/2*Math.sqrt(1-m.Zn*Math.pow(s,1.3)*Math.exp(-(((xi-0.5)/0.1)**2)));
+  const NS=80,xi=[];for(let i=0;i<=NS;i++)xi.push(i/NS);
+  const top=xi.map(q=>[xs(q),CY-rr(q)]),bot=xi.map(q=>[xs(q),CY+rr(q)]);
+  const P=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const xe=xs(1);
+  let h='';
+  const fill='fill="var(--steel)" stroke="var(--steel2)" stroke-width="2.5" stroke-linejoin="round"';
+  let gap=0;
+  if(cs.brk&&m.Zn>0||cs.brk){gap=reduce?22:Math.min(22,(performance.now()-brokeAt)/350*22);}
+  if(!cs.brk){
+    const pts=[[100,CY-HH],[150,CY-HH],...top,[xe+14,CY-HH],[xe+64,CY-HH],[xe+64,CY+HH],[xe+14,CY+HH],...bot.slice().reverse(),[150,CY+HH],[100,CY+HH]];
+    h+=`<polygon points="${P(pts)}" ${fill}/>`;
+  }else{
+    const half=Math.floor(NS/2),xc=xs(.5),rc=rr(.5),ap=st.mat==='cast'?0:0.6*rc;
+    const L1=[[100,CY-HH],[150,CY-HH],...top.slice(0,half+1),[xc-ap,CY],...bot.slice(0,half+1).reverse(),[150,CY+HH],[100,CY+HH]];
+    // 컵(왼쪽): 윗면 끝 -> 오목 꼭짓점 -> 아랫면 끝
+    const Lp=[[100,CY-HH],[150,CY-HH],...top.slice(0,half+1),[xc-ap,CY],...bot.slice(0,half+1).reverse(),[150,CY+HH],[100,CY+HH]];
+    const R=[...top.slice(half),[xe+14,CY-HH],[xe+64,CY-HH],[xe+64,CY+HH],[xe+14,CY+HH],...bot.slice(half).reverse(),[xc,CY]].map(p=>[p[0]+gap,p[1]]);
+    // 원뿔(오른쪽): 끝면에 돌출 꼭짓점
+    const Rp=[...top.slice(half).map(p=>[p[0]+gap,p[1]]),[xe+14+gap,CY-HH],[xe+64+gap,CY-HH],[xe+64+gap,CY+HH],[xe+14+gap,CY+HH],...bot.slice(half).reverse().map(p=>[p[0]+gap,p[1]]),[xc+gap-ap,CY]];
+    h+=`<polygon points="${P(Lp)}" ${fill}/><polygon points="${P(Rp)}" ${fill}/>`;
+  }
+  // 눈금
+  if(!cs.brk)[0,.25,.5,.75,1].forEach(q=>{const x=xs(q),y=CY-rr(q);h+=`<line x1="${x}" y1="${y-3}" x2="${x}" y2="${y-14}" stroke="var(--force)" stroke-width="2"/>`;});
+  // 표점 거리
+  if(!cs.brk){const y=CY-HH-30;h+=`<line x1="${xs(0)}" y1="${y}" x2="${xe}" y2="${y}" stroke="var(--muted)" stroke-width="1.5"/><line x1="${xs(0)}" y1="${y-5}" x2="${xs(0)}" y2="${y+5}" stroke="var(--muted)" stroke-width="1.5"/><line x1="${xe}" y1="${y-5}" x2="${xe}" y2="${y+5}" stroke="var(--muted)" stroke-width="1.5"/>`;
+    h+=`<text x="${(xs(0)+xe)/2}" y="${y-8}" text-anchor="middle" class="s-lbl s-mono">표점거리 ${fmt(L0*(1+e),1)} mm</text>`;}
+  // 힘
+  const F=cs.s*A0();
+  if(!cs.brk&&F>1){const len=Math.min(72,8+F/1000*1.6);
+    const arrow=(x1,x2)=>{const dir=Math.sign(x2-x1);return `<line x1="${x1}" y1="${CY}" x2="${x2-dir*10}" y2="${CY}" class="s-force" stroke-width="5"/><polygon points="${x2},${CY} ${x2-dir*13},${CY-8} ${x2-dir*13},${CY+8}" class="s-force"/>`;};
+    h+=arrow(96,96-len)+arrow(xe+68,xe+68+len);
+    h+=`<text x="${(xs(0)+xe)/2}" y="${CY+HH+30}" text-anchor="middle" class="s-lbl s-mono" style="fill:var(--force)">F = ${fmt(F/1000,1)} kN</text>`;}
+  if(cs.brk)h+=`<text x="${(xs(0)+xe)/2+gap/2}" y="${CY+HH+30}" text-anchor="middle" class="s-lbl" style="fill:var(--bad)">파단!</text>`;
+  if(s>0.05&&!cs.brk)h+=`<text x="${xs(.5)}" y="${CY+rr(.5)+22}" text-anchor="middle" class="s-lbl" style="fill:var(--bad)">네킹</text>`;
+  // 가장 가는 단면
+  const rmin=cs.brk?rr(.5):rr(.5),cx=500,cy=200;
+  h+=`<circle cx="${cx}" cy="${cy}" r="${d0px/2}" fill="none" stroke="var(--ghost)" stroke-dasharray="4 4"/><circle cx="${cx}" cy="${cy}" r="${rmin}" fill="var(--steel)" stroke="var(--steel2)" stroke-width="2"/>`;
+  h+=`<text x="${cx}" y="${cy+d0px/2+18}" text-anchor="middle" class="s-txt">가장 가는 단면</text>`;
+  // 확대 눈금
+  const mg=Math.min(e,0.02),ox=20,oy=228;
+  h+=`<text x="${ox}" y="${oy-16}" class="s-txt">탄성 구간 확대 눈금 (×50)</text><line x1="${ox}" y1="${oy}" x2="${ox+240}" y2="${oy}" class="s-grid"/>`;
+  h+=`<line x1="${ox+100}" y1="${oy-8}" x2="${ox+100}" y2="${oy+8}" stroke="var(--ghost)" stroke-dasharray="3 3"/><line x1="${ox}" y1="${oy-10}" x2="${ox}" y2="${oy+10}" stroke="var(--fg)" stroke-width="2.5"/><line x1="${ox+100*(1+50*mg)}" y1="${oy-10}" x2="${ox+100*(1+50*mg)}" y2="${oy+10}" stroke="var(--force)" stroke-width="2.5"/>`;
+  if(e>0.02)h+=`<text x="${ox+130}" y="${oy-16}" class="s-txt" style="fill:var(--muted)"> 범위 초과</text>`;
+  $('stage').innerHTML=h;
+}
+
+// 선도
+function drawChart(cs){
+  const W=600,H=360,ml=58,mr=16,mt=20,mb=46,pw=W-ml-mr,ph=H-mt-mb,xmax=st.zoom?XZOOM:XFULL;
+  const m=MATS[st.mat],X=e=>ml+e/xmax*pw,Y=s=>mt+ph-s/YMAX*ph;
+  let h=`<defs><clipPath id="pc"><rect x="${ml}" y="${mt}" width="${pw}" height="${ph}"/></clipPath></defs>`;
+  for(let s=0;s<=400;s+=100)h+=`<line x1="${ml}" y1="${Y(s)}" x2="${W-mr}" y2="${Y(s)}" class="s-grid"/><text x="${ml-8}" y="${Y(s)+4}" text-anchor="end" class="s-txt s-mono">${s}</text>`;
+  const xt=st.zoom?[0,.002,.004,.006,.008,.010,.012]:[0,.05,.1,.15,.2,.25,.3];
+  xt.forEach(e=>{h+=`<line x1="${X(e)}" y1="${mt+ph}" x2="${X(e)}" y2="${mt+ph+5}" class="s-axis"/><text x="${X(e)}" y="${mt+ph+20}" text-anchor="middle" class="s-txt s-mono">${fmt(e*100,st.zoom?1:0)}</text>`;});
+  h+=`<line x1="${ml}" y1="${mt+ph}" x2="${W-mr}" y2="${mt+ph}" class="s-axis"/><line x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ph}" class="s-axis"/>`;
+  h+=`<text x="${ml+pw/2}" y="${H-8}" text-anchor="middle" class="s-txt">변형률 ε (%)</text><text x="14" y="${mt+ph/2}" text-anchor="middle" class="s-txt" transform="rotate(-90 14 ${mt+ph/2})">응력 σ (MPa)</text>`;
+  const poly=(mm,upto)=>{const a=[];for(const p of mm.tab){if(p.u>upto)break;a.push(X(p.e).toFixed(1)+','+Y(p.s).toFixed(1));}return a.join(' ');};
+  if(st.cmp)Object.entries(MATS).forEach(([k,mm])=>{if(k===st.mat)return;h+=`<polyline points="${poly(mm,1)}" class="s-cmp" clip-path="url(#pc)"/>`;
+    const lx=X(mm.tab[Math.floor(mm.tab.length*0.6)].e),ly=Y(mm.tab[Math.floor(mm.tab.length*0.6)].s);if(lx<W-mr-30)h+=`<text x="${Math.min(lx+8,W-mr-4)}" y="${ly-6}" class="s-txt" clip-path="url(#pc)">${mm.name}</text>`;});
+  h+=`<polyline points="${poly(m,1)}" fill="none" stroke="var(--ghost)" stroke-width="2" stroke-dasharray="5 5" clip-path="url(#pc)"/>`;
+  // 탄성 직선, 오프셋
+  if(st.zoom){const ee=Math.min(xmax,YMAX/m.E);h+=`<line x1="${X(0)}" y1="${Y(0)}" x2="${X(ee)}" y2="${Y(m.E*ee)}" stroke="var(--amber)" stroke-dasharray="3 4" stroke-width="1.5" clip-path="url(#pc)"/>`;
+    h+=`<text x="${X(Math.min(ee,.0012))+8}" y="${Y(m.E*Math.min(ee,.0012))+18}" class="s-txt" style="fill:var(--amber);font-weight:700">기울기 = E (${fmt(m.E/1000,0)} GPa)</text>`;
+    if(st.mat==='alu'){const e1=.002,e2=Math.min(xmax,.002+YMAX/m.E);h+=`<line x1="${X(e1)}" y1="${Y(0)}" x2="${X(e2)}" y2="${Y(m.E*(e2-e1))}" stroke="var(--amber)" stroke-dasharray="3 4" stroke-width="1.5" clip-path="url(#pc)"/><text x="${X(.0062)}" y="${Y(120)}" class="s-txt" style="fill:var(--amber);font-weight:700">0.2% 오프셋선</text>`;}}
+  // 지나온 길
+  const cu=cs.un?null:(isBroken()?1:st.u);
+  const trav=poly(m,un?un.u0:cu);
+  h+=`<polyline points="${trav}" fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-linejoin="round" clip-path="url(#pc)"/>`;
+  // 핵심점
+  m.keys.forEach(k=>{if(k.e>xmax*1.0)return;const x=X(k.e),y=Y(k.s),an=x>W-130?'end':'start';
+    h+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--panel)" stroke="var(--fg)" stroke-width="2"/><text x="${x+(an==='end'?-9:9)}" y="${y-9}" text-anchor="${an}" class="s-txt" style="fill:var(--fg);font-weight:700">${k.t} ${fmt(k.s,0)}</text>`;});
+  // 하중 제거선
+  if(un){const er=un.e0-un.s0/m.E;h+=`<line x1="${X(un.e0)}" y1="${Y(un.s0)}" x2="${X(er)}" y2="${Y(0)}" stroke="var(--amber)" stroke-width="2.5" stroke-dasharray="6 4" clip-path="url(#pc)"/>`;
+    if(un.phase==='held'&&er>1e-5)h+=`<text x="${X(er)+8}" y="${Y(0)-8}" class="s-txt" style="fill:var(--amber);font-weight:700" clip-path="url(#pc)">영구 변형 ${fmt(er*100,er<.01?2:1)}%</text>`;}
+  // 현재점
+  const dx=X(Math.min(cs.e,xmax*1.5)),dy=Y(cs.brk?cs.sBefore:cs.s);
+  h+=`<line x1="${dx}" y1="${dy}" x2="${dx}" y2="${mt+ph}" stroke="var(--force)" stroke-dasharray="3 3" clip-path="url(#pc)"/><line x1="${ml}" y1="${dy}" x2="${dx}" y2="${dy}" stroke="var(--force)" stroke-dasharray="3 3" clip-path="url(#pc)"/>`;
+  h+=`<circle cx="${dx}" cy="${dy}" r="7.5" fill="var(--force)" stroke="var(--panel)" stroke-width="2.5" clip-path="url(#pc)"/>`;
+  $('chart').innerHTML=h;
+}
+function drawTable(){
+  const rows=Object.entries(MATS).map(([k,m])=>`<tr class="${k===st.mat?'on':''}"><td>${m.name}</td><td>${fmt(m.E/1000,0)}</td><td>${m.ys?fmt(m.ys.s,0):'뚜렷하지 않음'}</td><td>${fmt(m.uts,0)}</td><td>${fmt(m.ef*100,m.ef<.01?1:0)}</td><td>${m.Z?m.Z+'%':'거의 없음'}</td></tr>`).join('');
+  $('tbl').innerHTML=`<thead><tr><th>재료</th><th>탄성계수 E (GPa)</th><th>항복강도 (MPa)</th><th>인장강도 (MPa)</th><th>파단 변형률 (%)</th><th>단면 수축</th></tr></thead><tbody>${rows}</tbody>`;
+}
+function readout(cs){
+  const m=MATS[st.mat],e=cs.e,F=cs.s*A0();
+  const key=phaseKey(m,e,cs.brk),ph=PH[key];
+  $('phPill').className='pill '+ph.c;$('phPill').textContent=ph.t;
+  $('phText').textContent=ph.d+(cs.brk?` 끊어지기 직전 응력은 ${fmt(cs.sBefore,0)} MPa였어요.`:'');
+  $('vE').textContent=fmt(e*100,e<.01?2:1);$('vS').textContent=fmt(cs.s,0);$('vF').textContent=fmt(F/1000,1);$('vD').textContent=fmt(e*L0,e<.01?3:1);
+  $('calc').innerHTML=`A₀ = π×${st.d0}²/4 = ${fmt(A0(),1)} mm²<br>σ = F / A₀ = ${fmt(F,0)} N / ${fmt(A0(),1)} mm² = <b>${fmt(cs.s,0)} MPa</b><br>ε = ΔL / L₀ = ${fmt(e*L0,3)} / ${L0} = <b>${fmt(e*100,2)} %</b>`;
+  $('sU').value=Math.round((un?un.u0:st.u)*1000);$('oU').textContent=Math.round((un?un.u0:st.u)*100)+'%';
+  $('play').textContent=playing?'일시정지':(isBroken()?'다시 시험':'시험 시작');
+  const ub=$('unload');ub.disabled=isBroken()||(un&&un.phase!=='held');
+  ub.textContent=!un?'하중 제거해 보기':(un.phase==='held'?'다시 하중 걸기':'하중 제거 중…');
+  if(un&&un.phase==='held'){const er=un.e0-un.s0/m.E;$('msg').innerHTML=er<1e-5?'<span class="pill ok">원래 길이로 돌아왔어요</span> 탄성 구간에서는 하중을 빼면 변형이 모두 사라져요.':`<span class="pill warn">영구 변형이 남았어요</span> 하중을 완전히 빼도 ${fmt(er*100,er<.01?2:1)}% 늘어난 채로 남아요. 되돌아온 선이 처음 직선과 평행한 걸 보세요.`;}
+  else if(!un)$('msg').textContent=isBroken()?'시험이 끝났어요. 다른 재료로도 해 보세요.':'';
+  document.querySelectorAll('#matSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mat===st.mat));
+  document.querySelectorAll('#zoomSeg button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.z==='1')===st.zoom));
+  $('cmp').setAttribute('aria-pressed',st.cmp);$('oD').textContent=st.d0+' mm';$('sD').value=st.d0;
+}
+function render(){const cs=curState();drawStage(cs);drawChart(cs);readout(cs);drawTable();}
+function needFrame(){return playing||(un&&un.phase!=='held')||(isBroken()&&!reduce&&performance.now()-brokeAt<420);}
+function step(now){
+  const dt=Math.min(0.05,(now-tPrev)/1000);tPrev=now;
+  const m=MATS[st.mat];
+  if(playing){const sp=Math.min(90/m.len,1/3);st.u=Math.min(1,st.u+sp*dt);if(st.u>=1){playing=false;brokeAt=now;}}
+  if(un&&un.phase!=='held'){const p=Math.min(1,(now-un.t0)/1400),q=1-(1-p)*(1-p);
+    if(un.phase==='down'){un.s=un.s0*(1-q);if(p>=1){un.s=0;un.phase='held';}}
+    else{un.s=un.s0*q;if(p>=1){const u0=un.u0;un=null;st.u=u0;}}}
+  render();
+  if(needFrame())raf=requestAnimationFrame(step);else running=false;
+}
+function kick(){if(running)return;running=true;tPrev=performance.now();raf=requestAnimationFrame(step);}
+function resetAll(){playing=false;un=null;st.u=0;render();}
+$('play').onclick=()=>{if(un)return;if(playing){playing=false;render();return;}if(isBroken())st.u=0;playing=true;render();kick();};
+$('reset').onclick=resetAll;
+$('unload').onclick=()=>{
+  const m=MATS[st.mat];
+  if(!un){if(isBroken())return;playing=false;const e0=epsAt(m,st.u);if(e0<1e-6)return;un={phase:'down',t0:performance.now(),e0,s0:m.fn(e0),s:m.fn(e0),u0:st.u};render();kick();}
+  else if(un.phase==='held'){un.phase='up';un.t0=performance.now();render();kick();}
+};
+$('sU').addEventListener('input',e=>{playing=false;un=null;const was=isBroken();st.u=+e.target.value/1000;if(isBroken()&&!was)brokeAt=performance.now();render();if(needFrame())kick();});
+document.querySelectorAll('#matSeg button').forEach(b=>b.onclick=()=>{st.mat=b.dataset.mat;resetAll();});
+document.querySelectorAll('#zoomSeg button').forEach(b=>b.onclick=()=>{st.zoom=b.dataset.z==='1';render();});
+$('cmp').onclick=()=>{st.cmp=!st.cmp;render();};
+$('sD').addEventListener('input',e=>{st.d0=+e.target.value;render();});
+render();
+})();
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="전단력 굽힘모멘트 선도.html">← 이전 자료</a><a href="index.html">전체 자료 목록</a><a href="단면 2차 모멘트 비교.html">다음 자료 →</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

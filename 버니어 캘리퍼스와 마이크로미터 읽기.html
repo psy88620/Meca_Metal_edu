@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="ko" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>[hidden]{display:none!important}body{margin:0}</style></head><body class="mm-page mm-standard">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material" aria-current="page">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#material">재료·측정</a><span>/</span>버니어 캘리퍼스·마이크로미터</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material" aria-current="page">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>버니어 캘리퍼스와 마이크로미터 읽기</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+:root{
+  --font-display:'Black Han Sans','Noto Sans KR',system-ui,sans-serif;
+  --font-body:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --bg:#edf1f6; --panel:#ffffff; --panel2:#f3f6fb; --fg:#17202e; --muted:#586479; --line:#d5dce7;
+  --accent:#0a66c2; --on-accent:#ffffff; --force:#d83a22; --amber:#b8650a;
+  --good:#14804f; --good-bg:#dff3e8; --warn:#8f5200; --warn-bg:#fdecc8; --bad:#b3261e; --bad-bg:#fbdcd8;
+  --steel:#a9b6c9; --steel2:#6c7b93; --ghost:#7b8798; --tint:#0a66c222;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+    --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+    --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+    --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+  --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+  --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+  --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.65;
+  padding-block:22px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:18px}
+.kicker{font:600 12px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,5vw,46px);line-height:1.18;margin:10px 0 8px;text-wrap:balance}
+.lede{color:var(--muted);max-width:64ch;margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.grid.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:880px){.grid,.grid.even{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.card h2{font-size:16px;margin:0 0 4px;font-weight:700}
+.card .sub{margin:0 0 12px;color:var(--muted);font-size:14px}
+svg{display:block;width:100%;height:auto;max-width:100%}
+.ctl{display:grid;gap:2px;margin-bottom:12px}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:500;font-size:14px}
+.ctl output{font:600 15px var(--font-mono);color:var(--accent);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:30px;accent-color:var(--accent);margin:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.btn,.seg button{font:500 14px var(--font-body);padding:8px 13px;min-height:40px;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel);color:var(--fg);cursor:pointer}
+.btn:hover,.seg button:hover{border-color:var(--accent)}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:10px}
+.stat{background:var(--panel2);border-radius:10px;padding:10px 12px;min-width:0}
+.stat .k{font-size:12px;color:var(--muted);line-height:1.3}
+.stat .v{font:600 clamp(20px,3.2vw,26px)/1.25 var(--font-mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stat .v small{font-size:13px;color:var(--muted);font-weight:500;margin-left:3px}
+.stat.hero .v{font-size:clamp(28px,4.6vw,40px);color:var(--accent)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:700;line-height:1.6}
+.pill.ok{background:var(--good-bg);color:var(--good)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.info{background:var(--tint);color:var(--accent)}
+.formula{font:500 clamp(17px,3.2vw,26px)/1.5 var(--font-mono);margin:6px 0;overflow-wrap:anywhere}
+.hl-a{color:var(--accent);font-weight:700}.hl-f{color:var(--force);font-weight:700}.hl-m{color:var(--amber);font-weight:700}
+.calc{background:var(--panel2);border-radius:10px;padding:10px 12px;font:500 14px/1.7 var(--font-mono);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+ul.tips{margin:8px 0 0;padding-left:1.2em;display:grid;gap:6px}
+.exp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.exp button{text-align:left;display:grid;gap:2px;padding:12px;min-height:0;font:inherit;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--fg);cursor:pointer}
+.exp button:hover{border-color:var(--accent)}
+.exp .t{font-weight:700;font-size:14px}.exp .r{font:600 24px var(--font-mono);color:var(--accent)}.exp .w{font-size:13px;color:var(--muted);line-height:1.45}
+details.quiz{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:0 14px}
+details.quiz summary{cursor:pointer;padding:12px 0;font-weight:700}
+details.quiz .ans{padding:0 0 12px;color:var(--muted)}
+.s-axis{stroke:var(--muted);stroke-width:1.5;fill:none}
+.s-grid{stroke:var(--line);stroke-width:1}
+.s-txt{fill:var(--muted);font:13px var(--font-body)}
+.s-lbl{fill:var(--fg);font:700 15px var(--font-body)}
+.s-mono{font-family:var(--font-mono)}
+.s-force{stroke:var(--force);fill:var(--force)}
+.s-accent{stroke:var(--accent);fill:var(--accent)}
+.s-amber{stroke:var(--amber);fill:var(--amber)}
+.s-good{stroke:var(--good);fill:var(--good)}
+.s-ghost{stroke:var(--ghost);fill:none;stroke-dasharray:6 5;stroke-width:1.6}
+.foot{color:var(--muted);font-size:13px}
+.foot a{color:var(--accent);font-weight:700}
+.bar{height:22px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .15s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.stage{position:relative}
+canvas.cv{display:block;width:100%;height:auto;max-width:100%;border-radius:8px}
+.drag{cursor:grab;touch-action:none}.drag:active{cursor:grabbing}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.mini{font-size:13px;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl td,.tbl th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tbl td.n{font-family:var(--font-mono);text-align:right;font-variant-numeric:tabular-nums}
+.tscroll{overflow-x:auto}
+input[type=number],input[type=text]{font:600 15px var(--font-mono);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);width:100%;min-width:0}
+.exp button[aria-pressed="true"]{border-color:var(--accent);background:var(--tint);box-shadow:inset 0 0 0 1px var(--accent)}
+.stat .v.kr{font-family:var(--font-body);font-weight:700;font-size:22px;line-height:1.3}
+
+
+.readbox{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.result{font:700 16px var(--font-body);min-height:1.6em}
+.result.ok{color:var(--good)}.result.no{color:var(--bad)}
+.score{font:600 14px var(--font-mono);color:var(--muted)}
+
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">재료·측정 · 정밀 측정기</div>
+    <h1>버니어 캘리퍼스와 마이크로미터 읽기</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+    <p class="lede">어미자와 아들자 눈금이 딱 맞는 곳을 찾으면 1 mm보다 작은 값을 읽을 수 있어요. 조(jaw)나 딤블을 끌어 직접 측정하고, 돋보기로 눈금이 맞는 곳을 확인해 보세요. 연습 모드에서는 무작위 값이 나오고 내가 읽은 값을 채점해 줘요.</p>
+  </header>
+
+  <section class="card" aria-label="측정기">
+    <div class="row" style="justify-content:space-between;margin-bottom:10px">
+      <div class="seg" id="tool"><button data-v="v20" type="button">캘리퍼스 0.05 mm</button><button data-v="v50" type="button">캘리퍼스 0.02 mm</button><button data-v="mic" type="button">마이크로미터 0.01 mm</button></div>
+      <div class="seg" id="mode"><button data-v="free" type="button">자유 측정</button><button data-v="quiz" type="button">읽기 연습</button></div>
+    </div>
+    <svg id="stage" viewBox="0 0 900 400" role="img" aria-label="측정기 눈금" class="drag"></svg>
+    <p class="mini" id="hint" style="margin:6px 0 0"></p>
+  </section>
+
+  <div class="grid">
+    <section class="card" aria-label="읽는 방법">
+      <h2 id="howT">읽는 방법</h2>
+      <div class="calc" id="calc"></div>
+      <div class="stats" id="stats" style="margin-top:12px"></div>
+    </section>
+    <section class="card" aria-label="연습">
+      <h2>읽기 연습</h2>
+      <p class="sub" id="qsub">'읽기 연습'을 누르면 눈금이 무작위 값으로 바뀌어요. 읽은 값을 mm로 입력하세요.</p>
+      <div class="readbox"><input id="ans" type="number" step="0.01" inputmode="decimal" placeholder="예: 12.35"><button class="btn primary" id="check" type="button">채점</button></div>
+      <div class="result" id="result"></div>
+      <div class="row"><button class="btn" id="next" type="button">다음 문제</button><span class="score" id="score">0 / 0</span></div>
+    </section>
+  </div>
+
+  <div class="grid even">
+    <section class="card" aria-label="원리">
+      <h2>원리</h2>
+      <div class="formula">최소 읽기 = <span class="hl-a">어미자 한 눈금</span> ÷ <span class="hl-f">아들자 등분 수</span><br>0.05 mm: 39 mm를 20등분<br>0.02 mm: 49 mm를 50등분<br>마이크로미터: 피치 0.5 mm ÷ 50 = 0.01 mm</div>
+      <ul class="tips">
+        <li>아들자 0 눈금이 지난 어미자 눈금을 먼저 읽어요 (mm 단위).</li>
+        <li>그다음 <b>아들자와 어미자 눈금이 일직선으로 맞는 곳</b>을 찾아 아들자 값을 더해요.</li>
+        <li>마이크로미터는 슬리브(바깥 통)에서 mm와 0.5 mm를, 딤블(돌리는 통)에서 0.01 mm 단위를 읽어 더해요.</li>
+      </ul>
+    </section>
+    <section class="card" aria-label="주의">
+      <h2>측정할 때 주의할 점</h2>
+      <ul class="tips">
+        <li><b>영점 확인</b>: 측정 전에 조를 닫아(마이크로미터는 래칫으로) 0이 맞는지 봐요.</li>
+        <li><b>시차</b>: 눈금을 비스듬히 보면 값이 달라져요. 눈금 정면에서 봐요.</li>
+        <li><b>측정력</b>: 캘리퍼스를 너무 세게 누르면 조가 벌어지고, 마이크로미터는 래칫 스톱을 2~3번 딸깍일 때까지만 돌려요.</li>
+        <li><b>아베의 원리</b>: 측정 대상이 눈금과 일직선에 있을수록 정확해요. 마이크로미터가 캘리퍼스보다 정밀한 이유 중 하나예요.</li>
+        <li>측정 온도 20 ℃가 기준이에요. 손으로 오래 쥐면 열팽창으로 값이 커져요.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card" aria-label="생각해보기" id="mm-inquiry">
+    <h2>생각해 보기</h2>
+    <div style="display:grid;gap:10px;margin-top:10px">
+      <details class="quiz"><summary>0.05 mm 캘리퍼스에서 아들자 0이 23 mm를 조금 지났고, 아들자 7번째 눈금이 맞았어요. 측정값은?</summary><div class="ans">23 + 7 × 0.05 = <b>23.35 mm</b>예요. (아들자 숫자 '3.5' 근처 눈금이 맞아요)</div></details>
+      <details class="quiz"><summary>마이크로미터 슬리브에 7 mm와 0.5 mm 선이 보이고 딤블 28 눈금이 기준선에 맞았어요. 측정값은?</summary><div class="ans">7 + 0.5 + 0.28 = <b>7.78 mm</b>예요.</div></details>
+      <details class="quiz"><summary>어미자 1 mm, 아들자가 19 mm를 20등분했다면 최소 읽기는?</summary><div class="ans">아들자 한 눈금 = 19/20 = 0.95 mm, 차이 1 − 0.95 = <b>0.05 mm</b>예요.</div></details>
+    </div>
+  </section>
+  <p class="foot"><a href="index.html" target="_blank" rel="noopener">← 기계 금속 시각화 모음으로 돌아가기</a></p>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt=(v,n=1)=>{let r=+(+v).toFixed(n);if(r===0)r=0;return r.toLocaleString('ko-KR',{minimumFractionDigits:n,maximumFractionDigits:n});};
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+const niceMax=v=>{if(!(v>0))return 1;const m=10**Math.floor(Math.log10(v));return ([1,2,2.5,5,10].find(x=>x*m>=v*0.999))*m;};
+const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+function head(x,y,dx,dy,cls,h=10){const a=Math.atan2(dy,dx);
+  const p=[[x,y],[x-h*Math.cos(a-.45),y-h*Math.sin(a-.45)],[x-h*Math.cos(a+.45),y-h*Math.sin(a+.45)]].map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
+  return `<polygon points="${p}" class="${cls}"/>`;}
+function arrow(x1,y1,x2,y2,cls,w=3,dash=''){const a=Math.atan2(y2-y1,x2-x1),L=Math.hypot(x2-x1,y2-y1);if(L<3)return '';
+  const hl=Math.min(10,L*0.6);
+  return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${(x2-hl*0.8*Math.cos(a)).toFixed(1)}" y2="${(y2-hl*0.8*Math.sin(a)).toFixed(1)}" class="${cls}" stroke-width="${w}" ${dash?`stroke-dasharray="${dash}"`:''}/>`+head(x2,y2,Math.cos(a),Math.sin(a),cls,hl+2);}
+function bind(st,key,id,fmtFn,render){const el=$(id),out=$('o'+id.slice(1));
+  const upd=()=>{el.value=st[key];out.textContent=fmtFn(st[key]);};
+  el.addEventListener('input',()=>{st[key]=+el.value;upd();render();});upd();return upd;}
+function chips(sel,st,key,render,conv=x=>x){const bs=$$(sel+' button');
+  const upd=()=>bs.forEach(b=>b.setAttribute('aria-pressed',String(conv(b.dataset.v)===st[key])));
+  bs.forEach(b=>b.onclick=()=>{st[key]=conv(b.dataset.v);upd();render();});upd();return upd;}
+function lineChart(id,o){
+  const W=o.W||520,H=o.H||280,ml=o.ml||58,mr=o.mr||16,mt=o.mt||14,mb=o.mb||44,pw=W-ml-mr,ph=H-mt-mb;
+  const X=x=>ml+(x-o.xmin)/(o.xmax-o.xmin)*pw;
+  const Y=y=>mt+ph-(clamp(y,o.ymin,o.ymax)-o.ymin)/(o.ymax-o.ymin)*ph;
+  let h='';
+  (o.yticks||[]).forEach(v=>{h+=`<line x1="${ml}" y1="${Y(v)}" x2="${W-mr}" y2="${Y(v)}" class="s-grid"/><text x="${ml-8}" y="${Y(v)+4}" text-anchor="end" class="s-txt s-mono">${o.yf?o.yf(v):fmt(v,0)}</text>`;});
+  (o.xticks||[]).forEach(v=>{h+=`<line x1="${X(v)}" y1="${mt+ph}" x2="${X(v)}" y2="${mt+ph+5}" class="s-axis"/><text x="${X(v)}" y="${mt+ph+20}" text-anchor="middle" class="s-txt s-mono">${o.xf?o.xf(v):fmt(v,0)}</text>`;});
+  h+=`<line x1="${ml}" y1="${mt+ph}" x2="${W-mr}" y2="${mt+ph}" class="s-axis"/><line x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ph}" class="s-axis"/>`;
+  if(o.xlab)h+=`<text x="${ml+pw/2}" y="${H-6}" text-anchor="middle" class="s-txt">${o.xlab}</text>`;
+  if(o.ylab)h+=`<text x="13" y="${mt+ph/2}" text-anchor="middle" class="s-txt" transform="rotate(-90 13 ${mt+ph/2})">${o.ylab}</text>`;
+  (o.hlines||[]).forEach(l=>{if(l.y<o.ymin||l.y>o.ymax)return;h+=`<line x1="${ml}" y1="${Y(l.y)}" x2="${W-mr}" y2="${Y(l.y)}" stroke="${l.color||'var(--force)'}" stroke-dasharray="6 4" stroke-width="1.6"/>`;
+    if(l.label)h+=`<text x="${l.left?ml+6:W-mr-4}" y="${Y(l.y)-6}" text-anchor="${l.left?'start':'end'}" class="s-txt" style="fill:${l.color||'var(--force)'};font-weight:700">${l.label}</text>`;});
+  (o.curves||[]).forEach(c=>{h+=`<polyline points="${pts(c.pts.map(p=>[X(p[0]),Y(p[1])]))}" fill="none" stroke="${c.color||'var(--accent)'}" stroke-width="${c.w||3}" ${c.dash?`stroke-dasharray="${c.dash}"`:''} ${c.op?`opacity="${c.op}"`:''} stroke-linejoin="round"/>`;
+    if(c.label){const q=c.pts[c.lp!==undefined?c.lp:c.pts.length-1];h+=`<text x="${Math.min(X(q[0]),W-mr-4)}" y="${Y(q[1])-8}" text-anchor="end" class="s-txt" style="fill:${c.color||'var(--accent)'};font-weight:700">${c.label}</text>`;}});
+  if(o.extra)h+=o.extra(X,Y,{ml,mt,pw,ph,W,H});
+  (o.dots||[]).forEach(d=>{const cx=X(d.x),cy=Y(d.y);
+    if(d.drop!==false)h+=`<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${mt+ph}" stroke="${d.color||'var(--force)'}" stroke-dasharray="3 3"/>`;
+    h+=`<circle cx="${cx}" cy="${cy}" r="7" fill="${d.color||'var(--force)'}" stroke="var(--panel)" stroke-width="2"/>`;
+    if(d.label){const an=cx>W-150?'end':'start';h+=`<text x="${cx+(an==='end'?-12:12)}" y="${Math.max(cy-10,mt+14)}" text-anchor="${an}" class="s-lbl s-mono">${d.label}</text>`;}});
+  $(id).innerHTML=h;return{X,Y};
+}
+// 프레임 루프 도우미: fn(dt,now)가 true를 반환하는 동안 계속 돈다
+function loop(fn){let on=false,prev=0;const step=now=>{const dt=Math.min(0.05,(now-prev)/1000);prev=now;if(fn(dt,now))requestAnimationFrame(step);else on=false;};
+  return()=>{if(on)return;on=true;prev=performance.now();requestAnimationFrame(step);};}
+// 각도 단위 rad 기준 SVG 원호 경로
+const arcPath=(cx,cy,r,a0,a1)=>{const l=Math.abs(a1-a0)>Math.PI?1:0,sw=a1>a0?1:0;return `M${(cx+r*Math.cos(a0)).toFixed(1)} ${(cy+r*Math.sin(a0)).toFixed(1)} A${r} ${r} 0 ${l} ${sw} ${(cx+r*Math.cos(a1)).toFixed(1)} ${(cy+r*Math.sin(a1)).toFixed(1)}`};
+// SVG 좌표로 포인터 위치 변환
+const svgPt=(svg,e)=>{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())};
+// 화면에 보일 때만 애니메이션
+const visible=el=>{const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight&&!document.hidden};
+
+
+(()=>{
+const st={tool:'v20',mode:'free',val:{v20:18.35,v50:12.46,mic:7.78},quiz:false,right:0,tries:0,answered:false};
+const TOOL={v20:{n:20,L:39,res:0.05,max:40},v50:{n:50,L:49,res:0.02,max:30},mic:{res:0.01,max:25}};
+const PX=9.6,X0=70; // 캘리퍼스: mm당 픽셀, 어미자 0 위치
+function reading(){const T=TOOL[st.tool],v=st.val[st.tool];
+  if(st.tool==='mic'){const mm=Math.floor(v),half=(v-mm)>=0.5-1e-9?0.5:0,th=Math.round((v-mm-half)*100);return{main:mm+half,sub:th*0.01,k:th,txt:`슬리브 ${mm} mm${half?' + 0.5 mm':''} = ${fmt(mm+half,1)} mm, 딤블 ${th} 눈금 × 0.01 = ${fmt(th*0.01,2)} mm`};}
+  const main=Math.floor(v+1e-9),k=Math.round((v-main)/T.res);return{main,sub:k*T.res,k,txt:`어미자 ${main} mm, 아들자 ${k}번째 눈금이 일치 → ${k} × ${T.res} = ${fmt(k*T.res,2)} mm`};}
+function caliper(v,T){ // 캘리퍼스 그림 (자유 축척 g 그룹으로 만들어 두 번 그림: 본그림 + 돋보기)
+  let s='';const yb=150,vx=X0+v*PX,vstep=T.L/T.n*PX;
+  // 어미자 본체
+  s+=`<rect x="20" y="${yb-46}" width="860" height="46" rx="4" fill="var(--steel)" fill-opacity=".55" stroke="var(--steel2)"/>`;
+  for(let mm=0;mm<=82;mm++){const x=X0+mm*PX,L=mm%10===0?24:mm%5===0?17:11;s+=`<line x1="${x}" y1="${yb}" x2="${x}" y2="${yb-L}" stroke="var(--fg)" stroke-width="${mm%10===0?1.6:1}"/>`;if(mm%10===0)s+=`<text x="${x}" y="${yb-28}" text-anchor="middle" class="s-mono" style="font:600 13px var(--font-mono);fill:var(--fg)">${mm/10}</text>`;}
+  // 고정 조 (왼쪽)
+  s+=`<path d="M20 ${yb} L${X0} ${yb} L${X0} ${yb+170} L${X0-22} ${yb+170} L20 ${yb+40}Z" fill="var(--steel)" fill-opacity=".8" stroke="var(--steel2)"/>`;
+  // 아들자 (움직이는 조)
+  s+=`<g><rect x="${vx-8}" y="${yb}" width="${T.L*PX+40}" height="40" rx="4" fill="var(--panel2)" stroke="var(--accent)" stroke-width="2"/>`;
+  for(let i=0;i<=T.n;i++){const x=vx+i*vstep,big=st.tool==='v20'?i%2===0:i%5===0,match=i===reading().k;
+    s+=`<line x1="${x}" y1="${yb}" x2="${x}" y2="${yb+(big?18:11)}" stroke="${match?'var(--force)':'var(--accent)'}" stroke-width="${match?2.4:1.2}"/>`;
+    if(big)s+=`<text x="${x}" y="${yb+32}" text-anchor="middle" style="font:600 11px var(--font-mono);fill:var(--accent)">${st.tool==='v20'?i/2:i/5}</text>`;}
+  s+=`<path d="M${vx} ${yb+40} L${vx} ${yb+170} L${vx+22} ${yb+170} L${vx+40} ${yb+40}Z" fill="var(--accent)" fill-opacity=".25" stroke="var(--accent)" stroke-width="2"/></g>`;
+  return s;
+}
+function micrometer(v){
+  let s='';const y=180,x0=150,P=22,xT=x0+v*P,R=58; // P: mm당 픽셀
+  s+=`<path d="M40 ${y-90} Q20 ${y+120} 140 ${y+120} L${x0-40} ${y+120} L${x0-40} ${y+95} L140 ${y+95} Q50 ${y+95} 66 ${y-90}Z" fill="var(--steel)" fill-opacity=".6" stroke="var(--steel2)"/>`;
+  s+=`<rect x="40" y="${y-112}" width="30" height="26" fill="var(--steel2)"/>`; // 앤빌
+  s+=`<rect x="70" y="${y-108}" width="${xT-130}" height="18" fill="var(--steel)" stroke="var(--steel2)"/>`; // 스핀들
+  // 슬리브
+  s+=`<rect x="${x0-20}" y="${y-26}" width="${25*P+60}" height="52" fill="var(--steel)" fill-opacity=".45" stroke="var(--steel2)"/><line x1="${x0-20}" y1="${y}" x2="${xT}" y2="${y}" stroke="var(--fg)" stroke-width="1.5"/>`;
+  for(let mm=0;mm<=25;mm++){const x=x0+mm*P;if(x>xT+0.5)break;s+=`<line x1="${x}" y1="${y}" x2="${x}" y2="${y-(mm%5===0?16:11)}" stroke="var(--fg)" stroke-width="1.3"/>`;if(mm%5===0)s+=`<text x="${x}" y="${y-19}" text-anchor="middle" style="font:600 12px var(--font-mono);fill:var(--fg)">${mm}</text>`;
+    const xh=x+P/2;if(xh<=xT+0.5&&mm<25)s+=`<line x1="${xh}" y1="${y}" x2="${xh}" y2="${y+10}" stroke="var(--fg)" stroke-width="1.3"/>`;}
+  // 딤블 (회전 눈금)
+  const turn=(v/0.5)*50; // 딤블 눈금 위치
+  s+=`<rect x="${xT}" y="${y-R}" width="150" height="${2*R}" rx="10" fill="var(--panel2)" stroke="var(--accent)" stroke-width="2"/>`;
+  s+=`<path d="M${xT} ${y-R} L${xT-12} ${y-R+10} L${xT-12} ${y+R-10} L${xT} ${y+R}Z" fill="var(--accent)" fill-opacity=".25" stroke="var(--accent)"/>`;
+  for(let k=-14;k<=14;k++){const idx=Math.round(turn)+k,ph=(idx-turn)*2*Math.PI/50,c=Math.cos(ph);if(c<=0.05)continue;const yy=y-R*Math.sin(ph),m=((idx%50)+50)%50;
+    s+=`<line x1="${xT-12}" y1="${yy}" x2="${xT-12+(m%5===0?20:12)}" y2="${yy}" stroke="${m===reading().k&&Math.abs(ph)<0.07?'var(--force)':'var(--accent)'}" stroke-width="${m%5===0?1.8:1.1}" opacity="${0.35+0.65*c}"/>`;
+    if(m%5===0)s+=`<text x="${xT+14}" y="${yy+4}" style="font:600 12px var(--font-mono);fill:var(--accent)" opacity="${c}">${m}</text>`;}
+  s+=`<rect x="${xT+150}" y="${y-30}" width="70" height="60" rx="8" fill="var(--steel2)" opacity=".6"/><text x="${xT+185}" y="${y+5}" text-anchor="middle" class="s-txt">래칫</text>`;
+  return s;
+}
+function draw(){
+  const T=TOOL[st.tool],v=st.val[st.tool];let h='',main;
+  if(st.tool==='mic'){main=micrometer(v);h+=main;
+    // 측정 대상
+    h+=`<rect x="70" y="${180-122}" width="${v*22}" height="46" fill="var(--amber)" fill-opacity=".35" stroke="var(--amber)" stroke-width="2"/>`;
+    const lx=150+v*22,ly=180;h+=lens(lx,ly,main,2.4,Math.max(110,lx-200),ly+70);}
+  else{main=caliper(v,T);h+=main;h+=`<rect x="${X0}" y="${150+70}" width="${v*PX}" height="70" fill="var(--amber)" fill-opacity=".35" stroke="var(--amber)" stroke-width="2"/><text x="${X0+v*PX/2}" y="${150+110}" text-anchor="middle" class="s-txt">공작물</text>`;
+    const kx=X0+v*PX+reading().k*T.L/T.n*PX;h+=lens(kx,150,main,2.6,Math.min(780,Math.max(560,kx+260)),300);}
+  $('stage').innerHTML=h;$('stage').setAttribute('viewBox',st.tool==='mic'?'0 50 900 340':'0 90 900 320');
+}
+function lens(cx,cy,content,z,lx,ly){ // 돋보기: content를 z배로 키워 원 안에 보여 줌
+  const r=86;return `<defs><clipPath id="lc"><circle cx="${lx}" cy="${ly}" r="${r}"/></clipPath></defs><line x1="${cx}" y1="${cy}" x2="${lx}" y2="${ly}" stroke="var(--ghost)" stroke-dasharray="4 4"/><circle cx="${cx}" cy="${cy}" r="${r/z}" fill="none" stroke="var(--force)" stroke-width="1.5"/>
+  <circle cx="${lx}" cy="${ly}" r="${r}" fill="var(--panel)"/><g clip-path="url(#lc)"><g transform="translate(${lx} ${ly}) scale(${z}) translate(${-cx} ${-cy})">${content}</g></g><circle cx="${lx}" cy="${ly}" r="${r}" fill="none" stroke="var(--fg)" stroke-width="3"/><text x="${lx}" y="${ly+r+16}" text-anchor="middle" class="s-txt">돋보기 ×${z}</text>`;
+}
+function readout(){
+  const T=TOOL[st.tool],r=reading(),v=st.val[st.tool],hide=st.quiz&&!st.answered;
+  $('howT').textContent=st.tool==='mic'?'마이크로미터 읽는 순서':'캘리퍼스 읽는 순서';
+  $('calc').innerHTML=hide?'연습 중이에요. 직접 읽어 본 뒤 채점을 누르면 풀이가 나와요.':(st.tool==='mic'?`① 슬리브: 딤블 끝 왼쪽에 보이는 마지막 눈금 → ${fmt(r.main,1)} mm<br>② 딤블: 기준선과 맞는 눈금 ${r.k} → ${fmt(r.sub,2)} mm<br>③ 더하기: ${fmt(r.main,1)} + ${fmt(r.sub,2)} = <b>${fmt(v,2)} mm</b>`
+    :`① 어미자: 아들자 0 눈금 왼쪽의 어미자 눈금 → ${r.main} mm<br>② 아들자: 일직선으로 맞는 눈금(빨간 선) ${r.k}번째 × ${T.res} = ${fmt(r.sub,2)} mm<br>③ 더하기: ${r.main} + ${fmt(r.sub,2)} = <b>${fmt(v,2)} mm</b>`);
+  $('stats').innerHTML=`<div class="stat hero"><div class="k">측정값</div><div class="v">${hide?'?':fmt(v,2)}<small>mm</small></div></div><div class="stat"><div class="k">최소 읽기</div><div class="v">${T.res}<small>mm</small></div></div><div class="stat"><div class="k">측정 범위 (이 화면)</div><div class="v">0~${T.max}<small>mm</small></div></div>`;
+  $('hint').textContent=st.tool==='mic'?'딤블(파란 통)을 좌우로 끌면 0.01 mm씩 움직여요. 돋보기 안의 빨간 선이 기준선과 맞는 딤블 눈금이에요.':'아들자(파란 조)를 좌우로 끌어 보세요. 빨간 선이 어미자와 일직선으로 맞는 아들자 눈금이에요.';
+  $('score').textContent=`${st.right} / ${st.tries}`;$('ans').step=T.res;
+}
+function render(){readout();draw();}
+function newQ(){const T=TOOL[st.tool],steps=Math.round((T.max-2)/T.res);st.val[st.tool]=+(1+Math.floor(Math.random()*steps)*T.res).toFixed(2);st.answered=false;$('result').textContent='';$('result').className='result';$('ans').value='';render();}
+$('check').onclick=()=>{const a=parseFloat($('ans').value),v=st.val[st.tool],T=TOOL[st.tool];if(!isFinite(a)){$('result').textContent='숫자를 입력하세요 (예: 12.35).';return;}
+  if(!st.answered){st.tries++;if(Math.abs(a-v)<T.res/2)st.right++;}st.answered=true;const ok=Math.abs(a-v)<T.res/2;
+  $('result').className='result '+(ok?'ok':'no');$('result').textContent=ok?`정답이에요! ${fmt(v,2)} mm`:`아쉬워요. 정답은 ${fmt(v,2)} mm (입력 ${fmt(a,2)} mm)`;render();};
+$('next').onclick=()=>{st.quiz=true;st.mode='quiz';upMode();newQ();};
+$('ans').addEventListener('keydown',e=>{if(e.key==='Enter')$('check').click();});
+// 끌기
+const svg=$('stage');let drag=false,sx=0,sv=0;
+svg.addEventListener('pointerdown',e=>{if(st.quiz&&!st.answered)return;drag=true;sx=svgPt(svg,e).x;sv=st.val[st.tool];svg.setPointerCapture(e.pointerId);});
+svg.addEventListener('pointermove',e=>{if(!drag)return;const T=TOOL[st.tool],dx=svgPt(svg,e).x-sx,px=st.tool==='mic'?22:PX;
+  st.val[st.tool]=clamp(Math.round((sv+dx/px/(st.tool==='mic'?4:1))/T.res)*T.res,0,T.max);st.val[st.tool]=+st.val[st.tool].toFixed(2);render();});
+svg.addEventListener('pointerup',()=>drag=false);
+const upTool=chips('#tool',st,'tool',()=>{if(st.quiz)newQ();else render();});
+const upMode=chips('#mode',st,'mode',()=>{st.quiz=st.mode==='quiz';if(st.quiz)newQ();else{st.answered=false;$('result').textContent='';render();}});
+render();
+})();
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="index.html">전체 자료 목록</a><a href="공차와 끼워맞춤.html">다음 자료 →</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

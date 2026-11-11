@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="ko" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>[hidden]{display:none!important}body{margin:0}</style></head><body class="mm-page mm-standard">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids" aria-current="page">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#fluids">유체역학</a><span>/</span>펌프 운전점</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids" aria-current="page">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>펌프 운전점</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+:root{
+  --font-display:'Black Han Sans','Noto Sans KR',system-ui,sans-serif;
+  --font-body:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --bg:#edf1f6; --panel:#ffffff; --panel2:#f3f6fb; --fg:#17202e; --muted:#586479; --line:#d5dce7;
+  --accent:#0a66c2; --on-accent:#ffffff; --force:#d83a22; --amber:#b8650a;
+  --good:#14804f; --good-bg:#dff3e8; --warn:#8f5200; --warn-bg:#fdecc8; --bad:#b3261e; --bad-bg:#fbdcd8;
+  --steel:#a9b6c9; --steel2:#6c7b93; --ghost:#7b8798; --tint:#0a66c222;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+    --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+    --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+    --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d131d; --panel:#151e2c; --panel2:#1b2638; --fg:#e8edf5; --muted:#97a4b9; --line:#2a374c;
+  --accent:#6db1ff; --on-accent:#08111f; --force:#ff8a73; --amber:#ffb454;
+  --good:#56d59b; --good-bg:#12362a; --warn:#ffc15c; --warn-bg:#3a2b0c; --bad:#ff8f86; --bad-bg:#3b1815;
+  --steel:#55637a; --steel2:#8796af; --ghost:#8a97ab; --tint:#6db1ff2b; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.65;
+  padding-block:22px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:18px}
+.kicker{font:600 12px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,5vw,46px);line-height:1.18;margin:10px 0 8px;text-wrap:balance}
+.lede{color:var(--muted);max-width:64ch;margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.grid.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:880px){.grid,.grid.even{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.card h2{font-size:16px;margin:0 0 4px;font-weight:700}
+.card .sub{margin:0 0 12px;color:var(--muted);font-size:14px}
+svg{display:block;width:100%;height:auto;max-width:100%}
+.ctl{display:grid;gap:2px;margin-bottom:12px}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:500;font-size:14px}
+.ctl output{font:600 15px var(--font-mono);color:var(--accent);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:30px;accent-color:var(--accent);margin:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.btn,.seg button{font:500 14px var(--font-body);padding:8px 13px;min-height:40px;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel);color:var(--fg);cursor:pointer}
+.btn:hover,.seg button:hover{border-color:var(--accent)}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:10px}
+.stat{background:var(--panel2);border-radius:10px;padding:10px 12px;min-width:0}
+.stat .k{font-size:12px;color:var(--muted);line-height:1.3}
+.stat .v{font:600 clamp(20px,3.2vw,26px)/1.25 var(--font-mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stat .v small{font-size:13px;color:var(--muted);font-weight:500;margin-left:3px}
+.stat.hero .v{font-size:clamp(28px,4.6vw,40px);color:var(--accent)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:700;line-height:1.6}
+.pill.ok{background:var(--good-bg);color:var(--good)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.info{background:var(--tint);color:var(--accent)}
+.formula{font:500 clamp(17px,3.2vw,26px)/1.5 var(--font-mono);margin:6px 0;overflow-wrap:anywhere}
+.hl-a{color:var(--accent);font-weight:700}.hl-f{color:var(--force);font-weight:700}.hl-m{color:var(--amber);font-weight:700}
+.calc{background:var(--panel2);border-radius:10px;padding:10px 12px;font:500 14px/1.7 var(--font-mono);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+ul.tips{margin:8px 0 0;padding-left:1.2em;display:grid;gap:6px}
+.exp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.exp button{text-align:left;display:grid;gap:2px;padding:12px;min-height:0;font:inherit;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--fg);cursor:pointer}
+.exp button:hover{border-color:var(--accent)}
+.exp .t{font-weight:700;font-size:14px}.exp .r{font:600 24px var(--font-mono);color:var(--accent)}.exp .w{font-size:13px;color:var(--muted);line-height:1.45}
+details.quiz{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:0 14px}
+details.quiz summary{cursor:pointer;padding:12px 0;font-weight:700}
+details.quiz .ans{padding:0 0 12px;color:var(--muted)}
+.s-axis{stroke:var(--muted);stroke-width:1.5;fill:none}
+.s-grid{stroke:var(--line);stroke-width:1}
+.s-txt{fill:var(--muted);font:13px var(--font-body)}
+.s-lbl{fill:var(--fg);font:700 15px var(--font-body)}
+.s-mono{font-family:var(--font-mono)}
+.s-force{stroke:var(--force);fill:var(--force)}
+.s-accent{stroke:var(--accent);fill:var(--accent)}
+.s-amber{stroke:var(--amber);fill:var(--amber)}
+.s-good{stroke:var(--good);fill:var(--good)}
+.s-ghost{stroke:var(--ghost);fill:none;stroke-dasharray:6 5;stroke-width:1.6}
+.foot{color:var(--muted);font-size:13px}
+.foot a{color:var(--accent);font-weight:700}
+.bar{height:22px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .15s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.stage{position:relative}
+canvas.cv{display:block;width:100%;height:auto;max-width:100%;border-radius:8px}
+.drag{cursor:grab;touch-action:none}.drag:active{cursor:grabbing}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.mini{font-size:13px;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl td,.tbl th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tbl td.n{font-family:var(--font-mono);text-align:right;font-variant-numeric:tabular-nums}
+.tscroll{overflow-x:auto}
+input[type=number],input[type=text]{font:600 15px var(--font-mono);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);width:100%;min-width:0}
+.exp button[aria-pressed="true"]{border-color:var(--accent);background:var(--tint);box-shadow:inset 0 0 0 1px var(--accent)}
+.stat .v.kr{font-family:var(--font-body);font-weight:700;font-size:22px;line-height:1.3}
+
+
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">유체역학 · 펌프</div>
+    <h1>펌프 운전점</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+    <p class="lede">펌프는 유량이 늘수록 낼 수 있는 양정(높이)이 줄고, 배관은 유량이 늘수록 저항이 커져요. 두 곡선이 만나는 점이 실제로 운전되는 점이에요. 회전수, 밸브, 펌프 대수를 바꿔 운전점이 어떻게 움직이는지, 유량을 줄일 때 어느 방법이 전기를 덜 쓰는지 비교해 보세요.</p>
+  </header>
+
+  <div class="grid">
+    <section class="card" aria-label="펌프 장치">
+      <h2>양수 장치</h2>
+      <p class="sub">아래 수조의 물을 위 수조로 올려요. 물방울 속도가 유량, 임펠러 회전이 회전수예요.</p>
+      <svg id="stage" viewBox="0 0 620 330" role="img" aria-label="펌프와 배관"></svg>
+      <p style="margin:6px 0 0"><span class="pill info" id="judge">-</span> <span class="foot" id="judgeNote"></span></p>
+    </section>
+    <section class="card" aria-label="조작판">
+      <h2>조건 바꾸기</h2>
+      <div class="ctl"><label for="sn">회전수 (인버터) <output id="on"></output></label><input id="sn" type="range" min="800" max="2100" step="10"></div>
+      <div class="ctl"><label for="sv">토출 밸브 열림 <output id="ov"></output></label><input id="sv" type="range" min="10" max="100" step="1"></div>
+      <div class="ctl"><label for="sH">실양정 (수조 높이 차) <output id="oH"></output></label><input id="sH" type="range" min="0" max="40" step="1"></div>
+      <div class="ctl"><label>펌프 대수</label><div class="seg" id="mode"><button data-v="1" type="button">1대</button><button data-v="p" type="button">2대 병렬</button><button data-v="s" type="button">2대 직렬</button></div></div>
+    </section>
+  </div>
+
+  <section class="card" aria-label="특성 곡선">
+    <h2>펌프 특성 곡선과 배관 저항 곡선</h2>
+    <p class="sub">파란 곡선: 펌프가 낼 수 있는 양정, 주황 곡선: 배관이 요구하는 양정, 초록 점선: 효율. 빨간 점이 운전점이에요.</p>
+    <svg id="chart" viewBox="0 0 900 380" role="img" aria-label="펌프 특성 곡선"></svg>
+  </section>
+
+  <section class="card" aria-label="결과">
+    <h2>계산 결과</h2>
+    <div class="stats" id="stats"></div>
+    <div class="calc" id="calc" style="margin-top:12px"></div>
+  </section>
+
+  <div class="grid even">
+    <section class="card" aria-label="에너지 비교">
+      <h2>유량을 줄이는 두 가지 방법</h2>
+      <p class="sub">지금 유량을 얻는 데 드는 동력을 비교해요. 밸브로 조이면 펌프는 그대로 돌면서 밸브에서 에너지를 버려요.</p>
+      <div id="save" style="display:grid;gap:10px"></div>
+    </section>
+    <section class="card" aria-label="공식" id="mm-theory">
+      <h2>공식</h2>
+      <div class="formula">배관: H = H<sub>s</sub> + K·Q²<br>동력: P = ρ g Q H / η<br>상사 법칙: Q ∝ n, <span class="hl-a">H ∝ n²</span>, <span class="hl-f">P ∝ n³</span></div>
+      <ul class="tips">
+        <li>회전수를 80%로 낮추면 유량 80%, 양정 64%, 동력은 약 <b>51%</b>로 줄어요(상사 법칙).</li>
+        <li><b>병렬</b> 운전은 유량을, <b>직렬</b> 운전은 양정을 늘려요. 하지만 배관 저항 때문에 2배가 되지는 않아요.</li>
+        <li>효율이 가장 좋은 점(BEP) 근처에서 운전해야 소음·진동이 적고 오래 써요.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card" aria-label="현장 연결">
+    <h2>그래서 현장에서는</h2>
+    <ul class="tips">
+      <li><b>인버터(VFD)</b>로 펌프·팬 회전수를 조절하면 밸브나 댐퍼로 조이는 것보다 전기를 크게 아껴요. 공조 설비의 냉각수·냉수 펌프가 대표적이에요.</li>
+      <li>절삭유 펌프가 필터 막힘으로 저항이 커지면(배관 곡선이 가팔라짐) 유량이 줄어 공구가 과열돼요.</li>
+      <li>흡입 쪽 압력이 너무 낮으면 <b>캐비테이션</b>이 생겨 임펠러가 깎여요. (베르누이 관 흐름 페이지 참고)</li>
+      <li>건물 급수는 병렬 펌프 여러 대를 사용량에 따라 켜고 끄는 대수 제어를 해요.</li>
+    </ul>
+  </section>
+
+  <section class="card" aria-label="생각해보기" id="mm-inquiry">
+    <h2>생각해 보기</h2>
+    <div style="display:grid;gap:10px;margin-top:10px">
+      <details class="quiz"><summary>1,800 rpm에서 동력 10 kW인 펌프를 1,200 rpm으로 돌리면 동력은?</summary><div class="ans">(1200/1800)³ = 0.296 → 약 <b>3 kW</b>예요.</div></details>
+      <details class="quiz"><summary>유량 0.06 m³/s, 양정 30 m, 효율 75 %인 펌프의 축동력은?</summary><div class="ans">P = 1000 × 9.81 × 0.06 × 30 / 0.75 ≈ <b>23.5 kW</b>예요.</div></details>
+      <details class="quiz"><summary>같은 펌프 2대를 병렬로 연결하면 왜 유량이 2배가 안 될까요?</summary><div class="ans">유량이 늘면 배관 저항(K·Q²)이 커져 필요한 양정이 높아지고, 펌프는 높은 양정에서 유량이 줄기 때문이에요. 운전점이 저항 곡선을 따라 올라가요.</div></details>
+    </div>
+  </section>
+  <p class="foot"><a href="index.html" target="_blank" rel="noopener">← 기계 금속 시각화 모음으로 돌아가기</a></p>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt=(v,n=1)=>{let r=+(+v).toFixed(n);if(r===0)r=0;return r.toLocaleString('ko-KR',{minimumFractionDigits:n,maximumFractionDigits:n});};
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+const niceMax=v=>{if(!(v>0))return 1;const m=10**Math.floor(Math.log10(v));return ([1,2,2.5,5,10].find(x=>x*m>=v*0.999))*m;};
+const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+function head(x,y,dx,dy,cls,h=10){const a=Math.atan2(dy,dx);
+  const p=[[x,y],[x-h*Math.cos(a-.45),y-h*Math.sin(a-.45)],[x-h*Math.cos(a+.45),y-h*Math.sin(a+.45)]].map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ');
+  return `<polygon points="${p}" class="${cls}"/>`;}
+function arrow(x1,y1,x2,y2,cls,w=3,dash=''){const a=Math.atan2(y2-y1,x2-x1),L=Math.hypot(x2-x1,y2-y1);if(L<3)return '';
+  const hl=Math.min(10,L*0.6);
+  return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${(x2-hl*0.8*Math.cos(a)).toFixed(1)}" y2="${(y2-hl*0.8*Math.sin(a)).toFixed(1)}" class="${cls}" stroke-width="${w}" ${dash?`stroke-dasharray="${dash}"`:''}/>`+head(x2,y2,Math.cos(a),Math.sin(a),cls,hl+2);}
+function bind(st,key,id,fmtFn,render){const el=$(id),out=$('o'+id.slice(1));
+  const upd=()=>{el.value=st[key];out.textContent=fmtFn(st[key]);};
+  el.addEventListener('input',()=>{st[key]=+el.value;upd();render();});upd();return upd;}
+function chips(sel,st,key,render,conv=x=>x){const bs=$$(sel+' button');
+  const upd=()=>bs.forEach(b=>b.setAttribute('aria-pressed',String(conv(b.dataset.v)===st[key])));
+  bs.forEach(b=>b.onclick=()=>{st[key]=conv(b.dataset.v);upd();render();});upd();return upd;}
+function lineChart(id,o){
+  const W=o.W||520,H=o.H||280,ml=o.ml||58,mr=o.mr||16,mt=o.mt||14,mb=o.mb||44,pw=W-ml-mr,ph=H-mt-mb;
+  const X=x=>ml+(x-o.xmin)/(o.xmax-o.xmin)*pw;
+  const Y=y=>mt+ph-(clamp(y,o.ymin,o.ymax)-o.ymin)/(o.ymax-o.ymin)*ph;
+  let h='';
+  (o.yticks||[]).forEach(v=>{h+=`<line x1="${ml}" y1="${Y(v)}" x2="${W-mr}" y2="${Y(v)}" class="s-grid"/><text x="${ml-8}" y="${Y(v)+4}" text-anchor="end" class="s-txt s-mono">${o.yf?o.yf(v):fmt(v,0)}</text>`;});
+  (o.xticks||[]).forEach(v=>{h+=`<line x1="${X(v)}" y1="${mt+ph}" x2="${X(v)}" y2="${mt+ph+5}" class="s-axis"/><text x="${X(v)}" y="${mt+ph+20}" text-anchor="middle" class="s-txt s-mono">${o.xf?o.xf(v):fmt(v,0)}</text>`;});
+  h+=`<line x1="${ml}" y1="${mt+ph}" x2="${W-mr}" y2="${mt+ph}" class="s-axis"/><line x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ph}" class="s-axis"/>`;
+  if(o.xlab)h+=`<text x="${ml+pw/2}" y="${H-6}" text-anchor="middle" class="s-txt">${o.xlab}</text>`;
+  if(o.ylab)h+=`<text x="13" y="${mt+ph/2}" text-anchor="middle" class="s-txt" transform="rotate(-90 13 ${mt+ph/2})">${o.ylab}</text>`;
+  (o.hlines||[]).forEach(l=>{if(l.y<o.ymin||l.y>o.ymax)return;h+=`<line x1="${ml}" y1="${Y(l.y)}" x2="${W-mr}" y2="${Y(l.y)}" stroke="${l.color||'var(--force)'}" stroke-dasharray="6 4" stroke-width="1.6"/>`;
+    if(l.label)h+=`<text x="${l.left?ml+6:W-mr-4}" y="${Y(l.y)-6}" text-anchor="${l.left?'start':'end'}" class="s-txt" style="fill:${l.color||'var(--force)'};font-weight:700">${l.label}</text>`;});
+  (o.curves||[]).forEach(c=>{h+=`<polyline points="${pts(c.pts.map(p=>[X(p[0]),Y(p[1])]))}" fill="none" stroke="${c.color||'var(--accent)'}" stroke-width="${c.w||3}" ${c.dash?`stroke-dasharray="${c.dash}"`:''} ${c.op?`opacity="${c.op}"`:''} stroke-linejoin="round"/>`;
+    if(c.label){const q=c.pts[c.lp!==undefined?c.lp:c.pts.length-1];h+=`<text x="${Math.min(X(q[0]),W-mr-4)}" y="${Y(q[1])-8}" text-anchor="end" class="s-txt" style="fill:${c.color||'var(--accent)'};font-weight:700">${c.label}</text>`;}});
+  if(o.extra)h+=o.extra(X,Y,{ml,mt,pw,ph,W,H});
+  (o.dots||[]).forEach(d=>{const cx=X(d.x),cy=Y(d.y);
+    if(d.drop!==false)h+=`<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${mt+ph}" stroke="${d.color||'var(--force)'}" stroke-dasharray="3 3"/>`;
+    h+=`<circle cx="${cx}" cy="${cy}" r="7" fill="${d.color||'var(--force)'}" stroke="var(--panel)" stroke-width="2"/>`;
+    if(d.label){const an=cx>W-150?'end':'start';h+=`<text x="${cx+(an==='end'?-12:12)}" y="${Math.max(cy-10,mt+14)}" text-anchor="${an}" class="s-lbl s-mono">${d.label}</text>`;}});
+  $(id).innerHTML=h;return{X,Y};
+}
+// 프레임 루프 도우미: fn(dt,now)가 true를 반환하는 동안 계속 돈다
+function loop(fn){let on=false,prev=0;const step=now=>{const dt=Math.min(0.05,(now-prev)/1000);prev=now;if(fn(dt,now))requestAnimationFrame(step);else on=false;};
+  return()=>{if(on)return;on=true;prev=performance.now();requestAnimationFrame(step);};}
+// 각도 단위 rad 기준 SVG 원호 경로
+const arcPath=(cx,cy,r,a0,a1)=>{const l=Math.abs(a1-a0)>Math.PI?1:0,sw=a1>a0?1:0;return `M${(cx+r*Math.cos(a0)).toFixed(1)} ${(cy+r*Math.sin(a0)).toFixed(1)} A${r} ${r} 0 ${l} ${sw} ${(cx+r*Math.cos(a1)).toFixed(1)} ${(cy+r*Math.sin(a1)).toFixed(1)}`};
+// SVG 좌표로 포인터 위치 변환
+const svgPt=(svg,e)=>{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())};
+// 화면에 보일 때만 애니메이션
+const visible=el=>{const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight&&!document.hidden};
+
+
+(()=>{
+const N0=1750,H0=50,A=50/9,QB=1.8,ETA=0.78,KP=2.2,RHO=1000,G=9.81; // Q: m³/min, H: m
+const st={n:1750,v:100,H:15,mode:'1'};let flow=0,imp=0;
+const Kv=v=>KP*0.6*(1/(v/100)**2-1),K=()=>KP+Kv(st.v);
+const pumpH=(Q,r=st.n/N0)=>st.mode==='p'?r*r*H0-A*(Q/2)**2:st.mode==='s'?2*(r*r*H0-A*Q*Q):r*r*H0-A*Q*Q;
+const eff=(Q,r=st.n/N0)=>{const q=(st.mode==='p'?Q/2:Q)/r;return Math.max(0,ETA*(1-((q-QB)/QB)**2));};
+function op(r=st.n/N0,k=K(),Hs=st.H){const a=st.mode==='p'?A/4:st.mode==='s'?2*A:A,h0=(st.mode==='s'?2:1)*r*r*H0;const Q=Math.sqrt(Math.max(0,(h0-Hs)/(a+k)));return{Q,H:Hs+k*Q*Q};}
+function power(Q,H,e){return e>0.05?RHO*G*(Q/60)*H/e/1000:NaN;}
+function calc(){const o=op(),e=eff(o.Q),P=power(o.Q,o.H,e);return{...o,e,P,r:st.n/N0};}
+function stage(){
+  const c=calc(),y1=270,y2=270-st.H*5-20;let h=`<rect x="20" y="${y1}" width="150" height="30" fill="#5b8def" opacity=".35"/><rect x="430" y="${y2}" width="170" height="40" fill="#5b8def" opacity=".35"/><rect x="430" y="${y2-20}" width="170" height="60" fill="none" stroke="var(--steel2)" stroke-width="2"/><rect x="20" y="${y1-20}" width="150" height="50" fill="none" stroke="var(--steel2)" stroke-width="2"/>`;
+  const path=[[100,y1+10],[100,250],[200,250],[260,250],[260,y2+20],[380,y2+20],[440,y2+20]];
+  h+=`<polyline points="${pts(path)}" fill="none" stroke="var(--steel2)" stroke-width="14" stroke-linejoin="round"/><polyline points="${pts(path)}" fill="none" stroke="#5b8def" stroke-width="9" opacity=".45" stroke-linejoin="round"/>`;
+  // 물방울
+  const segs=[];let L=0;for(let i=1;i<path.length;i++){const l=Math.hypot(path[i][0]-path[i-1][0],path[i][1]-path[i-1][1]);segs.push([path[i-1],path[i],L,l]);L+=l;}
+  for(let k=0;k<18;k++){const d=((flow+k*L/18)%L+L)%L;const s=segs.find(q=>d>=q[2]&&d<=q[2]+q[3])||segs[0],f=(d-s[2])/s[3];h+=`<circle cx="${s[0][0]+(s[1][0]-s[0][0])*f}" cy="${s[0][1]+(s[1][1]-s[0][1])*f}" r="3" fill="#2f6fd6"/>`;}
+  // 펌프
+  const px=200,py=250,pr=30;h+=`<circle cx="${px}" cy="${py}" r="${pr}" fill="var(--panel)" stroke="var(--accent)" stroke-width="3"/>`;for(let k=0;k<6;k++){const a=imp+k*Math.PI/3;h+=`<path d="M${px} ${py} Q${px+pr*0.5*Math.cos(a+0.6)} ${py+pr*0.5*Math.sin(a+0.6)} ${px+pr*0.85*Math.cos(a)} ${py+pr*0.85*Math.sin(a)}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>`;}
+  if(st.mode!=='1')h+=`<circle cx="${px}" cy="${py-70}" r="22" fill="var(--panel)" stroke="var(--accent)" stroke-width="2.5"/><text x="${px+28}" y="${py-66}" class="s-txt">${st.mode==='p'?'병렬':'직렬'} 2호기</text>`;
+  h+=`<text x="${px}" y="${py+48}" text-anchor="middle" class="s-lbl">펌프 ${st.n} rpm</text>`;
+  // 밸브
+  const vx=320,vy=y2+20,op=st.v/100;h+=`<polygon points="${vx-14},${vy-14} ${vx+14},${vy+14} ${vx+14},${vy-14} ${vx-14},${vy+14}" fill="var(--amber)" opacity=".7"/><line x1="${vx}" y1="${vy}" x2="${vx}" y2="${vy-30}" stroke="var(--fg)" stroke-width="3"/><rect x="${vx-16}" y="${vy-34}" width="32" height="6" fill="var(--fg)"/><text x="${vx}" y="${vy-42}" text-anchor="middle" class="s-txt">밸브 ${st.v}%</text>`;
+  // 높이 표시
+  h+=`<line x1="610" y1="${y1+10}" x2="610" y2="${y2+20}" class="s-axis"/><text x="604" y="${(y1+y2)/2+20}" text-anchor="end" class="s-txt s-mono">실양정 ${st.H} m</text>`;
+  h+=`<text x="95" y="${y1+48}" text-anchor="middle" class="s-txt">흡입 수조</text><text x="515" y="${y2-26}" text-anchor="middle" class="s-txt">토출 수조</text>`;
+  h+=`<text x="20" y="36" style="font:700 22px var(--font-mono);fill:var(--accent)">Q ${fmt(c.Q,2)} m³/min</text><text x="20" y="62" class="s-txt s-mono">양정 ${fmt(c.H,1)} m · 축동력 ${isFinite(c.P)?fmt(c.P,1):'-'} kW · 효율 ${fmt(c.e*100,0)} %</text>`;
+  $('stage').innerHTML=h;
+}
+function chart(){
+  const c=calc(),W=900,Hh=380,ml=60,mr=60,mt=16,mb=46,pw=W-ml-mr,ph=Hh-mt-mb,qm=st.mode==='p'?5:3.2,hm=st.mode==='s'?120:70,X=q=>ml+q/qm*pw,Y=h=>mt+ph-clamp(h,0,hm)/hm*ph,YE=e=>mt+ph-e*ph;
+  let h='';for(let q=0;q<=qm;q+=0.5)h+=`<line x1="${X(q)}" y1="${mt}" x2="${X(q)}" y2="${mt+ph}" class="s-grid"/><text x="${X(q)}" y="${mt+ph+18}" text-anchor="middle" class="s-txt s-mono">${q}</text>`;
+  for(let v=0;v<=hm;v+=hm/7)h+=`<text x="${ml-8}" y="${Y(v)+4}" text-anchor="end" class="s-txt s-mono">${fmt(v,0)}</text>`;
+  [0,0.25,0.5,0.75].forEach(e=>h+=`<text x="${W-mr+8}" y="${YE(e)+4}" class="s-txt s-mono" style="fill:var(--good)">${e*100}%</text>`);
+  h+=`<line x1="${ml}" y1="${mt+ph}" x2="${W-mr}" y2="${mt+ph}" class="s-axis"/><line x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ph}" class="s-axis"/><text x="${ml+pw/2}" y="${Hh-6}" text-anchor="middle" class="s-txt">유량 Q (m³/min)</text><text x="16" y="${mt+ph/2}" text-anchor="middle" class="s-txt" transform="rotate(-90 16 ${mt+ph/2})">양정 H (m)</text>`;
+  const qs=[];for(let q=0;q<=qm;q+=qm/120)qs.push(q);
+  // 정격 회전수 곡선 (흐리게) + 지금 회전수
+  h+=`<polyline points="${pts(qs.map(q=>[X(q),Y(pumpH(q,1))]).filter(p=>p[1]<mt+ph))}" fill="none" stroke="var(--ghost)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  h+=`<polyline points="${pts(qs.map(q=>[X(q),Y(pumpH(q))]).filter((p,i)=>pumpH(qs[i])>=0))}" fill="none" stroke="var(--accent)" stroke-width="3.5"/>`;
+  h+=`<polyline points="${pts(qs.map(q=>[X(q),Y(st.H+K()*q*q)]))}" fill="none" stroke="var(--amber)" stroke-width="3.5"/>`;
+  if(st.v<100)h+=`<polyline points="${pts(qs.map(q=>[X(q),Y(st.H+KP*q*q)]))}" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-dasharray="5 4" opacity=".6"/>`;
+  h+=`<polyline points="${pts(qs.map(q=>[X(q),YE(eff(q))]).filter((p,i)=>eff(qs[i])>0.01))}" fill="none" stroke="var(--good)" stroke-width="2" stroke-dasharray="7 4"/>`;
+  h+=`<line x1="${X(c.Q)}" y1="${Y(c.H)}" x2="${X(c.Q)}" y2="${mt+ph}" stroke="var(--force)" stroke-dasharray="3 3"/><line x1="${ml}" y1="${Y(c.H)}" x2="${X(c.Q)}" y2="${Y(c.H)}" stroke="var(--force)" stroke-dasharray="3 3"/>`;
+  h+=`<circle cx="${X(c.Q)}" cy="${Y(c.H)}" r="9" fill="var(--force)" stroke="var(--panel)" stroke-width="3"/><text x="${X(c.Q)+14}" y="${Y(c.H)-12}" class="s-lbl s-mono">운전점 ${fmt(c.Q,2)} m³/min · ${fmt(c.H,1)} m</text>`;
+  h+=`<text x="${X(0.1)}" y="${Y(pumpH(0.1))-8}" class="s-txt" style="fill:var(--accent);font-weight:700">펌프 곡선 ${st.n} rpm</text><text x="${X(qm*0.72)}" y="${Y(st.H+K()*(qm*0.72)**2)-8}" class="s-txt" style="fill:var(--amber);font-weight:700">배관 저항 곡선</text>`;
+  $('chart').innerHTML=h;
+}
+function save(){
+  const c=calc(),full=op(1,KP),target=c.Q;
+  // 같은 유량을 (1) 정격 회전수 + 밸브 조임, (2) 밸브 전개 + 회전수 낮춤 으로 얻는 동력
+  const a=st.mode==='p'?A/4:st.mode==='s'?2*A:A,f=st.mode==='s'?2:1;
+  const Hv=f*H0-a*target*target,Pv=power(target,Hv,eff(target,1));
+  const Hn=st.H+KP*target*target,rr=Math.sqrt((Hn+a*target*target)/(f*H0)),Pn=power(target,Hn,eff(target,rr));
+  const mx=Math.max(Pv||0,Pn||0,0.1);
+  const b=(l,v,col,note)=>`<div><div class="row" style="justify-content:space-between"><span>${l}</span><b style="font-family:var(--font-mono)">${isFinite(v)?fmt(v,2)+' kW':'-'}</b></div><div class="bar"><i style="width:${(isFinite(v)?v/mx*100:0).toFixed(1)}%;background:${col}"></i></div><span class="mini">${note}</span></div>`;
+  $('save').innerHTML=`<p class="mini" style="margin:0">목표 유량: ${fmt(target,2)} m³/min (밸브 전개·정격 회전수일 때 ${fmt(full.Q,2)} m³/min)</p>`+b('밸브로 조임 (1,750 rpm)',Pv,'var(--amber)',`펌프 양정 ${fmt(Hv,1)} m 중 ${fmt(Hv-Hn,1)} m를 밸브에서 버려요`)+b('인버터로 회전수 낮춤 ('+fmt(rr*N0,0)+' rpm)',Pn,'var(--good)',isFinite(Pv)&&isFinite(Pn)?`${fmt((1-Pn/Pv)*100,0)} % 절약`:'');
+}
+function readout(){
+  const c=calc(),j=$('judge'),bepQ=QB*c.r*(st.mode==='p'?2:1);
+  $('stats').innerHTML=`<div class="stat hero"><div class="k">유량 Q</div><div class="v">${fmt(c.Q,2)}<small>m³/min</small></div></div><div class="stat"><div class="k">양정 H</div><div class="v">${fmt(c.H,1)}<small>m</small></div></div><div class="stat"><div class="k">효율 η</div><div class="v">${fmt(c.e*100,0)}<small>%</small></div></div><div class="stat"><div class="k">축동력 P</div><div class="v">${isFinite(c.P)?fmt(c.P,1):'-'}<small>kW</small></div></div><div class="stat"><div class="k">수동력 ρgQH</div><div class="v">${fmt(RHO*G*c.Q/60*c.H/1000,1)}<small>kW</small></div></div>`;
+  $('calc').innerHTML=`운전점: 펌프 양정 = 배관 요구 양정 → ${fmt(c.r*c.r*H0,1)} − ${fmt(A,2)}Q² = ${st.H} + ${fmt(K(),2)}Q²${st.mode==='1'?'':' (2대 운전 반영)'} → Q = <b>${fmt(c.Q,3)} m³/min</b><br>P = ρgQH/η = 1000 × 9.81 × ${fmt(c.Q/60,4)} × ${fmt(c.H,2)} / ${fmt(c.e,2)} = <b>${isFinite(c.P)?fmt(c.P,2):'-'} kW</b><br>상사 법칙: 회전수비 ${fmt(c.r,3)} → 양정 ×${fmt(c.r*c.r,3)}, 동력 ×${fmt(c.r**3,3)}`;
+  if(c.Q<0.05){j.className='pill bad';j.textContent='물이 안 올라감';$('judgeNote').textContent='펌프가 낼 수 있는 양정이 실양정보다 작아요. 회전수를 올리거나 직렬로 연결하세요.';}
+  else if(Math.abs(c.Q-bepQ)/bepQ>0.35){j.className='pill warn';j.textContent='효율 낮음';$('judgeNote').textContent='최고 효율점(BEP)에서 멀리 떨어진 운전이에요.';}
+  else{j.className='pill ok';j.textContent='좋은 운전점';$('judgeNote').textContent='최고 효율점 근처에서 돌고 있어요.';}
+}
+function render(){readout();stage();chart();save();}
+const run=loop(dt=>{const c=calc();flow+=dt*c.Q*90;imp+=dt*st.n/150;if(visible($('stage')))stage();return !reduce;});
+bind(st,'n','sn',v=>v+' rpm',render);bind(st,'v','sv',v=>v+' %',render);bind(st,'H','sH',v=>v+' m',render);chips('#mode',st,'mode',render);
+render();run();
+})();
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="층류와 난류.html">← 이전 자료</a><a href="index.html">전체 자료 목록</a><a href="토리첼리 유출.html">다음 자료 →</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>

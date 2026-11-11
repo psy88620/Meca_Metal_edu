@@ -1,0 +1,1683 @@
+<!doctype html><html lang="ko" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body class="mm-page mm-weld">
+<div class="mm-chrome" role="banner"><a class="mm-brand" href="index.html"><span class="mm-mark" aria-hidden="true">M</span><span>MECH · METAL LAB<small>기계·금속 교수학습자료</small></span></a><div class="mm-chrome-right"><span class="mm-author">만든이 : 기계금속 교사 박승엽</span><span class="mm-offline">오프라인</span></div></div><div class="mm-rail" role="navigation" aria-label="학습 분야"><div class="mm-rail-title">학습 분야</div><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process" aria-current="page">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a><div class="mm-rail-foot">만든이 : 기계금속 교사 박승엽<br>조건을 바꾸고 원리를 발견하세요.</div></div><div class="mm-breadcrumb"><a href="index.html">학습 자료</a><span>/</span><a href="index.html#process">가공·용접</a><span>/</span>용접 시뮬레이터</div><details class="mm-menu"><summary>다른 분야 찾아보기</summary><div class="mm-menu-links"><a href="index.html#all" data-mm-topic="all">전체 자료 <small>62</small></a><a href="index.html#statics" data-mm-topic="statics">정역학 <small>6</small></a><a href="index.html#solids" data-mm-topic="solids">고체역학 <small>9</small></a><a href="index.html#dynamics" data-mm-topic="dynamics">동역학 <small>8</small></a><a href="index.html#fluids" data-mm-topic="fluids">유체역학 <small>7</small></a><a href="index.html#thermo" data-mm-topic="thermo">열역학 <small>6</small></a><a href="index.html#hvac" data-mm-topic="hvac">공조냉동 <small>2</small></a><a href="index.html#machine" data-mm-topic="machine">기계요소 <small>7</small></a><a href="index.html#automation" data-mm-topic="automation">자동화·제어 <small>1</small></a><a href="index.html#material" data-mm-topic="material">재료·측정 <small>11</small></a><a href="index.html#process" data-mm-topic="process" aria-current="page">가공·용접 <small>4</small></a><a href="index.html#safety" data-mm-topic="safety">산업안전 <small>1</small></a></div></details>
+<title>용접 시뮬레이터</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+
+<style>
+/* 레이아웃: 탭 5개. 시뮬레이터는 [단면·외관 캔버스 + 결함 진단 | 조건 패널], 좁으면 한 줄로 쌓임 */
+:root{
+  --bg:#eceff2; --surface:#ffffff; --sunk:#f4f6f8; --ink:#1a2027; --muted:#5b6670; --rule:#d2d8de; --grid:#e1e6eb;
+  --accent:#d9480f; --accent-ink:#ffffff; --info:#1f63a8;
+  --ok:#2b8a3e; --warn:#d07a00; --bad:#c92a4b;
+  --steel:#a3abb3; --haz3:#8f98a1; --haz2:#7b848e; --haz1:#66707b; --weld:#d3d7db; --weldline:#9aa2aa; --air:#ffffff;
+  --plate:#aab2ba; --bead:#cfd4d9; --ripple:#8e969e; --tint1:#d8b25a; --tint2:#6a83c4; --glow:#ffb347;
+  --c-fus:#d9480f; --c-pre:#1f63a8; --c-brz:#b08900;
+  --display:"Black Han Sans","IBM Plex Sans KR","Malgun Gothic",sans-serif;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1215; --surface:#171b20; --sunk:#12161a; --ink:#e5e9ed; --muted:#97a1ab; --rule:#2b333b; --grid:#20272e;
+  --accent:#ff8a3d; --accent-ink:#1a0d03; --info:#6cb0f0;
+  --ok:#5cc46f; --warn:#f0a63a; --bad:#ff6b8a;
+  --steel:#5d666f; --haz3:#525a63; --haz2:#474e56; --haz1:#3b4148; --weld:#8e969e; --weldline:#6f777f; --air:#171b20;
+  --plate:#4d555d; --bead:#9ba2a9; --ripple:#646c74; --tint1:#a88a3e; --tint2:#4c64a0; --glow:#ffb347; --c-fus:#ff8a3d; --c-pre:#6cb0f0; --c-brz:#e3bd3a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1215; --surface:#171b20; --sunk:#12161a; --ink:#e5e9ed; --muted:#97a1ab; --rule:#2b333b; --grid:#20272e;
+  --accent:#ff8a3d; --accent-ink:#1a0d03; --info:#6cb0f0;
+  --ok:#5cc46f; --warn:#f0a63a; --bad:#ff6b8a;
+  --steel:#5d666f; --haz3:#525a63; --haz2:#474e56; --haz1:#3b4148; --weld:#8e969e; --weldline:#6f777f; --air:#171b20;
+  --plate:#4d555d; --bead:#9ba2a9; --ripple:#646c74; --tint1:#a88a3e; --tint2:#4c64a0; --glow:#ffb347; --c-fus:#ff8a3d; --c-pre:#6cb0f0; --c-brz:#e3bd3a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+.wrap{max-width:1380px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 48px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:14px}
+h1{font:400 1.9rem/1.1 var(--display);margin:0;letter-spacing:.01em}
+h1 small{display:block;font:500 .8rem var(--sans);color:var(--muted);letter-spacing:.03em;margin-bottom:4px}
+h1 b{color:var(--accent);font-weight:400}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:4px}
+.tabs button{font:600 .9rem var(--sans);border:0;background:none;color:var(--muted);padding:8px 13px;border-radius:7px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.work{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;align-items:start}
+@media (max-width:1000px){.work{grid-template-columns:minmax(0,1fr)}}
+.col{display:grid;gap:14px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;overflow:hidden;min-width:0}
+.cardhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;padding:8px 12px;border-bottom:1px solid var(--rule);background:var(--sunk)}
+.cardhead h2{margin:0;font-size:.95rem}
+.cardhead .sub{font-size:.8rem;color:var(--muted)}
+.zoom{display:flex;gap:4px}
+.zoom button{font:600 .95rem var(--mono);min-width:32px;height:30px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:7px;cursor:pointer;padding:0 8px}
+.zoom button.t{font:500 .82rem var(--sans)}
+canvas{display:block;width:100%;touch-action:none;background:var(--surface)}
+.cv-static{touch-action:auto}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.8rem;color:var(--muted);padding:6px 12px;border-top:1px solid var(--rule)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:1px solid var(--rule)}
+.box{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;min-width:0}
+.box h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:0 0 8px;font-weight:600}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.f{display:grid;gap:2px;font-size:.8rem;color:var(--muted);min-width:0}
+.f input,.f select{font:500 .92rem var(--mono);color:var(--ink);background:var(--sunk);border:1px solid var(--rule);border-radius:7px;padding:6px 8px;width:100%;min-width:0}
+.f select{font-family:var(--sans)}
+.seg{display:flex;gap:4px;flex-wrap:wrap}
+.seg button,.btn{font:600 .86rem var(--sans);border:1px solid var(--rule);background:var(--sunk);color:var(--ink);padding:7px 11px;border-radius:7px;cursor:pointer}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.btn:hover,.seg button:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.sl{display:grid;grid-template-columns:7.2em 1fr 4.6em;align-items:center;gap:8px;font-size:.84rem;padding:3px 0}
+.sl label{color:var(--muted);line-height:1.25}
+.sl output{font:600 .92rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.sl input[type=range]{width:100%;accent-color:var(--accent)}
+.chk{display:flex;gap:6px;align-items:center;font-size:.86rem;margin-top:6px}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.kpi{background:var(--sunk);border:1px solid var(--grid);border-radius:9px;padding:6px 10px;min-width:0}
+.kpi span{font-size:.76rem;color:var(--muted);display:block}
+.kpi b{font:600 1.15rem var(--mono);font-variant-numeric:tabular-nums}
+.kpi small{font-size:.74rem;color:var(--muted)}
+.defects{display:grid;gap:8px;padding:12px}
+.def{border:1px solid var(--rule);border-left:5px solid var(--warn);border-radius:9px;padding:8px 12px;background:var(--sunk)}
+.def.bad{border-left-color:var(--bad)}
+.def.ok{border-left-color:var(--ok)}
+.def h3{margin:0;font-size:.98rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{font:600 .72rem var(--sans);padding:1px 8px;border-radius:99px;background:var(--warn);color:var(--surface)}
+.def.bad .pill{background:var(--bad)}
+.def.ok .pill{background:var(--ok)}
+.def ul{margin:4px 0 2px;padding-left:1.2em;font-size:.86rem}
+.def p{margin:2px 0;font-size:.84rem;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+td,th{padding:4px 6px;border-bottom:1px solid var(--grid);text-align:right;vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.78rem}
+td:first-child,th:first-child{text-align:left}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tscroll{overflow-x:auto}
+.unit{color:var(--muted);font-size:.76rem}
+.verdict{font-weight:600;padding:6px 10px;border-radius:8px;background:var(--sunk);border:1px solid var(--rule);margin-top:8px}
+.verdict.bad{color:var(--bad)} .verdict.ok{color:var(--ok)} .verdict.warn{color:var(--warn)}
+.notes{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px}
+.notes section{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 18px;min-width:0}
+.notes h3{margin:0 0 6px;font-size:1.05rem;text-wrap:balance}
+.notes p,.notes li{max-width:70ch}
+.notes ul,.notes ol{padding-left:1.2em;margin:.3em 0}
+.eq{display:block;font-family:var(--mono);font-size:.86em;background:var(--sunk);border:1px solid var(--grid);border-radius:6px;padding:5px 10px;margin:6px 0}
+.src{font-size:.8rem;color:var(--muted)}
+.hint{font-size:.8rem;color:var(--muted);padding:6px 12px;border-top:1px solid var(--rule)}
+.speed{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--rule);font-size:.86rem}
+.speed b{font:600 1.3rem var(--mono);font-variant-numeric:tabular-nums}
+.quizopts{display:grid;gap:8px}
+.quizopts button{text-align:left;font:500 .92rem var(--sans);padding:10px 12px;border:1px solid var(--rule);border-radius:9px;background:var(--sunk);color:var(--ink);cursor:pointer}
+.quizopts button:hover:not(:disabled){border-color:var(--accent)}
+.quizopts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--surface))}
+.quizopts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.quizopts button:disabled{cursor:default}
+.atlas{display:grid;grid-template-columns:250px minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.atlas{grid-template-columns:minmax(0,1fr)}}
+.tree{display:grid;gap:10px;min-width:0}
+.tg{background:var(--surface);border:1px solid var(--rule);border-top:4px solid var(--c);border-radius:12px;padding:10px 12px;min-width:0}
+.tg.fus{--c:var(--c-fus)} .tg.pre{--c:var(--c-pre)} .tg.brz{--c:var(--c-brz)}
+.tg h3{margin:0;font:400 1.25rem var(--display);color:var(--c)}
+.tg p{margin:6px 0 4px;font-size:.76rem;color:var(--muted);letter-spacing:.04em}
+.tb{display:flex;flex-wrap:wrap;gap:4px}
+.tb button{font:500 .84rem var(--sans);border:1px solid var(--rule);background:var(--sunk);color:var(--ink);padding:4px 9px;border-radius:7px;cursor:pointer}
+.tb button:hover{border-color:var(--c)}
+.tb button[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:var(--surface)}
+b.fus,span.fus{color:var(--c-fus)} b.pre,span.pre{color:var(--c-pre)} b.brz,span.brz{color:var(--c-brz)}
+.atctl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:10px 12px;border-top:1px solid var(--rule)}
+@media (max-width:640px){.atctl{grid-template-columns:minmax(0,1fr)}}
+.atparams{display:grid;gap:6px;align-content:start}
+.atparams .sl{grid-template-columns:8.5em 1fr 3.6em}
+.pc{margin:0;padding-left:1.2em;font-size:.9rem}
+.atfacts>div{background:var(--sunk);border:1px solid var(--grid);border-radius:8px;padding:6px 10px;font-size:.88rem}
+#cv-density{background:transparent}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style id="mm-design-system">/* MECH · METAL LAB — 오프라인 공통 디자인 */
+:root[data-theme="light"]{
+ --mm-bg:#f2f5fa;--mm-surface:#fff;--mm-ink:#172b49;--mm-muted:#53657c;--mm-line:#dce4ef;--mm-blue:#1764d7;--mm-soft:#eaf2ff;
+ --bg:var(--mm-bg)!important;--panel:var(--mm-surface)!important;--panel2:#f5f8fc!important;--surface:var(--mm-surface)!important;--sunk:#f5f8fc!important;
+ --fg:var(--mm-ink)!important;--ink:var(--mm-ink)!important;--muted:var(--mm-muted)!important;--line:var(--mm-line)!important;--rule:var(--mm-line)!important;
+ --accent:var(--mm-blue)!important;--on-accent:#fff!important;--accent-ink:#fff!important;--accent-soft:var(--mm-soft)!important;--tint:#eaf2ff!important;
+ --paper:#fff!important;--teal:var(--mm-blue)!important;
+ --font-body:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;--font-display:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif!important;
+ --font-mono:Consolas,"SFMono-Regular",monospace!important;--sans:var(--font-body)!important;--display:var(--font-body)!important;--mono:var(--font-mono)!important;
+ --f-body:var(--font-body)!important;--f-display:var(--font-body)!important;--f-mono:var(--font-mono)!important;--font-ui:var(--font-body)!important;
+ color-scheme:light!important;
+}
+html{scroll-behavior:smooth}
+body.mm-page{margin:0;padding:0 24px 24px;background:var(--mm-bg);color:var(--mm-ink);font-family:var(--font-body);font-size:15px;line-height:1.7}
+.mm-page *{box-sizing:border-box}
+.mm-page [hidden]{display:none!important}
+.mm-page .wrap{max-width:1420px;margin-left:auto;margin-right:auto}
+.mm-page h1{font-family:var(--font-body);font-weight:800;font-size:clamp(25px,3.2vw,37px);line-height:1.3;letter-spacing:-1.4px;text-wrap:balance}
+.mm-page h1 small{display:block;font-size:12px;line-height:1.6;font-weight:600;letter-spacing:.02em;color:var(--mm-blue);margin-bottom:8px}
+.mm-page h2{font-family:var(--font-body);font-weight:750;letter-spacing:-.45px}
+.mm-page h3{font-family:var(--font-body);letter-spacing:-.2px}
+.mm-page :is(button,input,select,textarea){font-family:var(--font-body)}
+.mm-page :is(button,a,input,select,textarea):focus-visible{outline:3px solid #1764d7;outline-offset:3px}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline){border-radius:8px;font-weight:650;transition:background .15s,border-color .15s,box-shadow .15s}
+.mm-page :is(.btn,.seg button,.tabs button,.runbtn,.outline):hover{box-shadow:0 2px 8px #172b4910}
+.mm-page button:disabled{opacity:.5;box-shadow:none}
+.mm-page input[type="range"]{accent-color:var(--mm-blue);min-width:0;cursor:ew-resize}
+.mm-page :is(input[type="number"],input[type="text"],select,textarea){border-radius:8px;border-color:var(--mm-line)}
+.mm-page .card{border-radius:15px;border-color:var(--mm-line);box-shadow:0 3px 14px #172b4906}
+.mm-page .card:not(.mm-tile){padding:20px}
+.mm-page .card h2{font-size:17px}
+.mm-page :is(.box,.chartcard,.chart-panel,.ladder-wrap){border-radius:13px;border-color:var(--mm-line)}
+.mm-page :is(.stat,.metrics>div){border-radius:10px}
+.mm-page .stat{padding:14px;background:#f3f7fc}
+.mm-page .stat .k{color:var(--mm-muted);font-size:12px;margin-bottom:5px}
+.mm-page .stat .v{font-weight:650}
+.mm-page .kicker,.mm-page .eyebrow{font-family:var(--font-body);font-size:12px;font-weight:750;color:var(--mm-blue);letter-spacing:.08em}
+.mm-page .sub,.mm-page .lede{line-height:1.7}
+.mm-page .ctl{padding:10px 0;border-bottom:1px solid #edf1f7;margin-bottom:8px}
+.mm-page .ctl:last-child{border-bottom:0}
+.mm-page .ctl label{font-weight:650}
+.mm-page .ctl output{font-size:15px}
+.mm-page .grid{gap:20px}
+.mm-page .exp button{border-radius:11px}
+.mm-page details.quiz{border-radius:11px}
+.mm-page .ctypes button{border-radius:12px}
+.mm-page .ctypes button.now{border-color:#e97816;box-shadow:0 0 0 3px #e978161a}
+.mm-page .tbl th,.mm-page .tbl td{padding:9px}
+.mm-page .mm-credit{font:500 12px/1.6 var(--font-body);color:var(--mm-muted);margin:8px 0 12px;letter-spacing:0}
+.mm-page .mm-chrome{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;margin:0 -24px 24px;padding:12px 30px;border-bottom:1px solid var(--mm-line);background:var(--mm-surface);color:var(--mm-ink);position:relative;z-index:15}
+.mm-page .mm-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--mm-ink);font:800 17px/1.2 var(--font-body);letter-spacing:-.5px}
+.mm-page .mm-mark{display:grid;place-items:center;flex:none;width:34px;height:34px;background:var(--mm-blue);color:#fff;font:800 20px/1 var(--font-body);border-radius:9px}
+.mm-page .mm-brand small{display:block;font:500 10px/1.7 var(--font-body);color:var(--mm-muted);letter-spacing:.5px}
+.mm-page .mm-chrome-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+.mm-page .mm-author{font:500 12px/1.5 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-offline{font:650 11px/1.5 var(--font-body);padding:5px 9px;background:#f0f5fb;border:1px solid var(--mm-line);border-radius:20px;color:#355279;white-space:nowrap}
+.mm-page .mm-breadcrumb{max-width:1420px;margin:0 auto 18px;font:500 12px/1.7 var(--font-body);color:var(--mm-muted)}
+.mm-page .mm-breadcrumb a{color:var(--mm-blue);text-decoration:none}
+.mm-page .mm-breadcrumb span{margin:0 7px;color:#8b9ab0}
+.mm-page .mm-menu{position:relative;max-width:1420px;margin:0 auto 16px;font:500 13px/1.5 var(--font-body)}
+.mm-page .mm-menu>summary{display:inline-block;list-style:none;cursor:pointer;color:var(--mm-blue);border:1px solid var(--mm-line);border-radius:8px;padding:7px 12px;background:#fff}
+.mm-page .mm-menu>summary::after{content:" ▾"}
+.mm-page .mm-menu>summary::-webkit-details-marker{display:none}
+.mm-page .mm-menu[open]>summary{background:var(--mm-soft)}
+.mm-page .mm-menu-links{position:absolute;z-index:30;left:0;top:43px;width:min(340px,calc(100vw - 48px));display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;border:1px solid var(--mm-line);border-radius:12px;padding:12px;box-shadow:0 14px 40px #172b491c}
+.mm-page .mm-menu-links a{padding:8px;text-decoration:none;color:var(--mm-muted);border-radius:6px}
+.mm-page .mm-menu-links a:hover,.mm-page .mm-menu-links a[aria-current="page"]{color:var(--mm-blue);background:var(--mm-soft)}
+.mm-page .mm-footer{max-width:1420px;margin:38px auto 0;padding:22px 0 5px;border-top:1px solid var(--mm-line);color:var(--mm-muted);font:500 12px/1.8 var(--font-body)}
+.mm-page .mm-footer-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mm-page .mm-footer strong{font-weight:750;color:var(--mm-ink)}
+.mm-page .mm-pager{display:flex;gap:8px;flex-wrap:wrap}
+.mm-page .mm-pager a{padding:7px 11px;border:1px solid var(--mm-line);background:#fff;border-radius:8px;text-decoration:none;color:var(--mm-blue)}
+.mm-page .mm-footer-note{margin:9px 0 0;color:var(--mm-muted);font-size:11px}
+.mm-page .mm-rail{display:none}
+.mm-thermo>header,.mm-metal>header{display:none!important}
+.mm-thermo>main,.mm-metal>main{max-width:1420px;width:100%;margin:0 auto;padding:0}
+.mm-thermo :is(.brand,.chart-header h2,.panel-head),.mm-metal .head{color:var(--mm-ink)}
+.mm-thermo nav:not(.mm-any),.mm-metal nav:not(.mm-any){background:#fff;border:1px solid var(--mm-line);border-radius:11px;padding:4px;margin-bottom:18px}
+.mm-thermo nav button,.mm-metal nav button{border-radius:8px}
+.mm-thermo nav button.active,.mm-metal nav button.active{background:var(--mm-soft);color:var(--mm-blue);border-color:var(--mm-blue)}
+.mm-thermo .intro,.mm-metal .intro{margin-bottom:20px}
+.mm-thermo aside{padding:20px}
+.mm-metal .panel{border-radius:14px}
+.mm-thermo .chart-panel{background:#fff}
+.mm-v1 .wrap,.mm-weld .wrap{padding:0}
+.mm-page .tabs{border-radius:11px}
+.mm-cnc .panel,.mm-plc .box,.mm-safety .panel{border-radius:14px}
+.mm-plc .bar{height:auto;min-height:0;overflow:visible;padding:0;background:transparent;border:0}
+.mm-plc .bar h1{font-size:28px}
+.mm-plc .bar .mm-credit{margin-bottom:0}
+.mm-steel .plant{border-radius:14px;overflow:auto}
+.mm-steel .detail{background:#fff;border-color:var(--mm-line);border-radius:14px}
+.mm-safety .stripe{display:none}
+.mm-page :is(.chart-panel,.panel,.col,.side,.workspace,.layout,.work,.intro){min-width:0}
+@media(min-width:1500px){
+ .mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:105px;width:184px;max-height:calc(100vh - 125px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:880px){
+ .mm-page .grid,.mm-page .grid.even{grid-template-columns:minmax(0,1fr)}
+ .mm-page .mm-chrome{padding:12px 20px}
+ .mm-page .mm-author{display:none}
+ .mm-page .mm-chrome-right{gap:8px}
+}
+@media(max-width:600px){
+ body.mm-page{padding:0 12px 20px;font-size:14px}
+ .mm-page .mm-chrome{margin:0 -12px 20px;padding:12px;min-height:66px}
+ .mm-page .mm-brand{font-size:14px;gap:8px}
+ .mm-page .mm-brand small{font-size:9px}
+ .mm-page .mm-mark{width:30px;height:30px;font-size:18px}
+ .mm-page .mm-offline{font-size:10px;padding:4px 7px}
+ .mm-page h1{font-size:26px;letter-spacing:-1px}
+ .mm-page .card:not(.mm-tile){padding:14px}
+ .mm-page .ctl label{font-size:13px}
+ .mm-page :is(input[type="number"],input[type="text"],select,textarea){font-size:16px;max-width:100%}
+ .mm-page .mm-footer-top{align-items:flex-start;flex-direction:column}
+ .mm-page .mm-pager a{min-height:40px;display:inline-flex;align-items:center}
+ .mm-page .mm-menu-links{width:calc(100vw - 24px)}
+ .mm-page .mm-credits-long{display:block}
+ .mm-page .toolbar,.mm-page .controls{flex-wrap:wrap}
+ .mm-thermo .workspace,.mm-metal .layout{display:flex;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mm-page *{transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body.mm-page{padding:0!important;background:#fff!important;color:#172b49}
+ .mm-page .mm-chrome,.mm-page .mm-rail,.mm-page .mm-menu,.mm-page .mm-breadcrumb,.mm-page .mm-pager{display:none!important}
+ .mm-page .mm-footer{font-size:10pt;margin-top:15mm}
+ .mm-page .mm-author,.mm-page .mm-credit{display:block!important}
+ .mm-page .mm-footer-note{display:none}
+ .mm-page .card{box-shadow:none;break-inside:avoid}
+ .mm-page .wrap{max-width:none}
+}
+</style>
+
+
+<div class="wrap">
+<header>
+  <h1><small>융접 · 압접 · 납땜 — 용접 교육용 공학 모형</small>용접 시뮬레이터</h1><p class="mm-credit">만든이 : 기계금속 교사 박승엽</p>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-atlas" aria-selected="true">용접법 도감</button>
+    <button role="tab" id="tab-sim" aria-selected="false">용접 조건</button>
+    <button role="tab" id="tab-torch" aria-selected="false">토치 연습</button>
+    <button role="tab" id="tab-met" aria-selected="false">예열·균열</button>
+    <button role="tab" id="tab-qty" aria-selected="false">용착량·적산</button>
+    <button role="tab" id="tab-quiz" aria-selected="false">결함 진단 퀴즈</button>
+  </div>
+</header>
+
+<!-- ======================= 0. 용접법 도감 ======================= -->
+<section id="view-atlas" role="tabpanel">
+  <div class="atlas">
+    <nav class="tree" id="atlas-tree" aria-label="용접법 분류"></nav>
+    <div class="col">
+      <div class="card">
+        <div class="cardhead"><div><h2 id="at-name"></h2><span class="sub" id="at-path"></span></div>
+          <div class="zoom"><button class="t" id="at-play">일시정지</button><button class="t" id="at-speed">속도 ×1</button><button class="t" id="at-lab">이름표 끄기</button><button id="at-zin" title="확대">+</button><button id="at-zout" title="축소">−</button><button class="t" id="at-zr">맞춤</button></div></div>
+        <canvas id="cv-atlas" aria-label="용접 원리 애니메이션"></canvas>
+        <div class="atctl"><div id="at-params" class="atparams"></div><div class="tscroll"><table id="at-calc"></table></div></div>
+      </div>
+      <div class="box" id="at-info"></div>
+    </div>
+  </div>
+  <div class="notes">
+    <section>
+      <h3>용접법의 3대 분류</h3>
+      <ul>
+        <li><b class="fus">융접 (Fusion welding)</b>: 접합부를 녹여 붙입니다. 압력을 가하지 않고, 대부분 용가재를 더합니다. 아크·가스 불꽃·화학 반응·고에너지 빔이 열원입니다.</li>
+        <li><b class="pre">압접 (Pressure welding)</b>: 접합부를 가열하거나 가열하지 않은 상태에서 <b>기계적 압력</b>을 가해 붙입니다. 저항 용접처럼 접합면이 일부 녹는 것도 있고, 마찰·초음파·폭발 용접처럼 녹지 않는 <b>고상 접합</b>도 있습니다.</li>
+        <li><b class="brz">납땜 (Brazing·Soldering)</b>: <b>모재는 녹이지 않고</b> 모재보다 융점이 낮은 용가재(납)만 녹여 모세관 현상으로 틈에 스며들게 합니다. 용가재 융점 450℃를 기준으로 연납땜과 경납땜으로 나눕니다.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>열원의 에너지 밀도</h3>
+      <canvas id="cv-density" class="cv-static" aria-label="열원별 에너지 밀도 비교"></canvas>
+      <p class="src">대략적인 범위입니다. 에너지 밀도가 높을수록 깊고 좁게 녹고, 열영향부와 변형이 작으며, 빨리 용접할 수 있습니다.</p>
+    </section>
+    <section style="grid-column:1/-1">
+      <h3>한눈에 비교</h3>
+      <div class="tscroll"><table id="at-compare"></table></div>
+    </section>
+  </div>
+</section>
+
+<!-- ======================= 1. 용접 조건 시뮬레이터 ======================= -->
+<section id="view-sim" role="tabpanel" hidden>
+  <div class="work">
+    <div class="col">
+      <div class="card">
+        <div class="cardhead"><div><h2>단면 (매크로 조직)</h2><span class="sub" id="sec-sub"></span></div>
+          <div class="zoom"><button id="sec-zin" title="확대">+</button><button id="sec-zout" title="축소">−</button><button class="t" id="sec-zr">맞춤</button></div></div>
+        <canvas id="cv-sec" aria-label="용접부 단면도"></canvas>
+        <div class="legend"><span><i style="background:var(--weld)"></i>용접금속</span><span><i style="background:var(--haz1)"></i>조립역 (1100℃↑)</span><span><i style="background:var(--haz2)"></i>세립역 (900~1100℃)</span><span><i style="background:var(--haz3)"></i>부분변태역 (720~900℃)</span><span><i style="background:var(--steel)"></i>모재</span></div>
+      </div>
+      <div class="card">
+        <div class="cardhead"><div><h2>비드 외관 (위에서 본 모습)</h2><span class="sub">교육용 표현 · 휠/핀치로 확대</span></div>
+          <div class="zoom"><button id="top-zin">+</button><button id="top-zout">−</button><button class="t" id="top-zr">맞춤</button></div></div>
+        <canvas id="cv-top" aria-label="비드 외관"></canvas>
+      </div>
+      <div class="card">
+        <div class="cardhead"><h2>결함 진단</h2><span class="sub">현재 조건에서 생기기 쉬운 결함과 그 이유</span></div>
+        <div class="defects" id="defects"></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="box">
+        <h2>용접법 · 이음</h2>
+        <div class="seg" id="procSeg" style="margin-bottom:10px">
+          <button data-p="gmaw" aria-pressed="true">CO₂ 용접</button>
+          <button data-p="smaw" aria-pressed="false">피복아크</button>
+          <button data-p="gtaw" aria-pressed="false">TIG</button>
+        </div>
+        <div class="g2">
+          <label class="f"><span>이음 형태</span><select id="i-joint" data-k="joint"><option value="bead">비드 온 플레이트</option><option value="butt">V형 맞대기 초층</option><option value="fillet">T형 필릿</option></select></label>
+          <label class="f"><span>용접 자세</span><select id="i-pos" data-k="pos"><option value="F">아래보기 (1G·PA)</option><option value="H">수평 (2G·PC)</option><option value="V">수직 상진 (3G·PF)</option><option value="O">위보기 (4G·PE)</option></select></label>
+          <label class="f"><span>판 두께 t [mm]</span><input id="i-t" data-k="t" type="number" step="0.5" min="1" max="60"></label>
+          <label class="f"><span>예열 온도 [℃]</span><input id="i-T0" data-k="T0" type="number" step="10" min="0" max="400"></label>
+        </div>
+        <div class="g3 only-butt" style="margin-top:8px">
+          <label class="f"><span>개선각 [°]</span><input id="i-groove" data-k="groove" type="number" step="5" min="30" max="90"></label>
+          <label class="f"><span>루트 간격 [mm]</span><input id="i-g" data-k="g" type="number" step="0.5" min="0" max="6"></label>
+          <label class="f"><span>루트 면 [mm]</span><input id="i-f" data-k="f" type="number" step="0.5" min="0" max="5"></label>
+        </div>
+        <div class="g2" style="margin-top:8px">
+          <label class="f"><span>모재 표면</span><select id="i-surf" data-k="surf"><option value="clean">깨끗함 (연삭)</option><option value="rust">녹·기름·수분</option></select></label>
+          <label class="f"><span>모재 강종</span><select id="i-steel" data-k="steel"></select></label>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>용접 조건</h2>
+        <div class="g3 only-gmaw" style="margin-bottom:6px">
+          <label class="f"><span>와이어 지름</span><select id="i-d_g" data-k="d_g" data-num><option>0.9</option><option>1.2</option><option>1.4</option><option>1.6</option></select></label>
+          <label class="f" style="grid-column:span 2"><span>보호 가스</span><select id="i-gas" data-k="gas"><option value="co2">CO₂ 100%</option><option value="mix">Ar 80% + CO₂ 20% (MAG)</option></select></label>
+        </div>
+        <div class="g3 only-smaw" style="margin-bottom:6px">
+          <label class="f"><span>봉 지름</span><select id="i-d_s" data-k="d_s" data-num><option>2.6</option><option>3.2</option><option value="4">4.0</option><option value="5">5.0</option></select></label>
+          <label class="f"><span>용접봉</span><select id="i-elec" data-k="elec"></select></label>
+          <label class="f"><span>극성</span><select id="i-pol_s" data-k="pol_s"><option value="AC">교류 AC</option><option value="DCEP">직류 역극성</option><option value="DCEN">직류 정극성</option></select></label>
+        </div>
+        <label class="chk only-smaw"><input type="checkbox" id="i-dried" data-k="dried">용접봉을 규정대로 건조함</label>
+        <div class="g2 only-gtaw" style="margin-bottom:6px">
+          <label class="f"><span>텅스텐 지름</span><select id="i-d_t" data-k="d_t" data-num><option>1.6</option><option>2.4</option><option>3.2</option></select></label>
+          <label class="f"><span>극성</span><select id="i-pol_t" data-k="pol_t"><option value="DCEN">직류 정극성 (DCEN)</option><option value="AC">교류 (AC)</option><option value="DCEP">직류 역극성 (DCEP)</option></select></label>
+        </div>
+        <div class="sl"><label for="i-I">전류 I [A]</label><input type="range" id="i-I" data-k="I" min="30" max="500" step="5"><output data-o="I"></output></div>
+        <div class="sl only-gmaw"><label for="i-V">전압 E [V]</label><input type="range" id="i-V" data-k="V" min="14" max="42" step="0.5"><output data-o="V"></output></div>
+        <div class="sl only-smaw"><label for="i-La_s">아크 길이 [mm]</label><input type="range" id="i-La_s" data-k="La_s" min="1" max="10" step="0.5"><output data-o="La_s"></output></div>
+        <div class="sl only-gtaw"><label for="i-La_t">아크 길이 [mm]</label><input type="range" id="i-La_t" data-k="La_t" min="0.5" max="6" step="0.5"><output data-o="La_t"></output></div>
+        <div class="sl"><label for="i-v">용접 속도 [cm/min]</label><input type="range" id="i-v" data-k="v" min="3" max="120" step="1"><output data-o="v"></output></div>
+        <div class="sl"><label for="i-ang">진행각 [°] <span class="unit">−전진 / +후진</span></label><input type="range" id="i-ang" data-k="ang" min="-30" max="30" step="1"><output data-o="ang"></output></div>
+        <div class="sl only-fillet"><label for="i-work">작업각 [°]</label><input type="range" id="i-work" data-k="work" min="20" max="70" step="1"><output data-o="work"></output></div>
+        <div class="sl only-gmaw"><label for="i-ctwd">돌출 길이 [mm]</label><input type="range" id="i-ctwd" data-k="ctwd" min="5" max="35" step="1"><output data-o="ctwd"></output></div>
+        <div class="sl only-gtaw"><label for="i-filler">용가재 [g/min]</label><input type="range" id="i-filler" data-k="filler" min="0" max="30" step="1"><output data-o="filler"></output></div>
+        <div class="sl only-gas"><label for="i-flow">가스 유량 [L/min]</label><input type="range" id="i-flow" data-k="flow" min="0" max="40" step="1"><output data-o="flow"></output></div>
+        <div class="sl"><label for="i-wind">풍속 [m/s]</label><input type="range" id="i-wind" data-k="wind" min="0" max="10" step="0.5"><output data-o="wind"></output></div>
+        <div class="seg" style="margin-top:8px">
+          <button class="btn only-gmaw" id="btn-vopt">전압을 적정값으로</button>
+          <button class="btn" id="btn-good">권장 조건으로</button>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>계산 결과</h2>
+        <div class="kpis" id="kpis"></div>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h2>전류–전압 작업 범위</h2><span class="sub" id="range-sub"></span></div>
+        <canvas id="cv-range" class="cv-static" aria-label="전류 전압 작업 범위 도표"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <section>
+      <h3>입열량과 용입</h3>
+      <span class="eq">아크 입열 H = 60·E·I / v  [J/cm]   (E: V, I: A, v: cm/min)</span>
+      <span class="eq">순입열 Q = η·E·I / v  [kJ/mm]   η: 피복아크·CO₂ 0.8, TIG 0.6</span>
+      <span class="eq">용융 면적 A<sub>m</sub> = η<sub>m</sub>·Q / (모재 1 mm³를 녹이는 열 ≈ 10.5 J)</span>
+      <p>전류를 올리면 아크 힘과 열이 커져 <b>용입이 깊어지고</b>, 전압(아크 길이)을 올리면 아크가 퍼져 <b>비드가 넓고 납작해집니다</b>. 속도를 올리면 입열이 줄어 비드가 좁아지고, 너무 빠르면 언더컷, 너무 느리면 오버랩이 생깁니다. 후진법(끌기)은 용입이 깊고 비드가 높으며, 전진법(밀기)은 용입이 얕고 비드가 넓고 평탄합니다.</p>
+    </section>
+    <section>
+      <h3>극성의 효과</h3>
+      <ul>
+        <li><b>직류 정극성 (DCEN, 모재 +)</b>: 열의 약 70%가 모재 쪽. 용입이 깊고 비드 폭이 좁음. 용접봉 녹음이 느림. TIG 강·스테인리스 용접의 기본.</li>
+        <li><b>직류 역극성 (DCEP, 모재 −)</b>: 열의 약 70%가 용접봉 쪽. 용입이 얕고 비드 폭이 넓음. 박판·주철·비철, 피복아크 저수소계. TIG에서는 <b>청정작용</b>(산화막 제거)이 있지만 전극이 쉽게 녹습니다.</li>
+        <li><b>교류 (AC)</b>: 정극성과 역극성의 중간. 아크 쏠림이 적음. TIG 알루미늄·마그네슘 용접(청정작용 + 전극 보호).</li>
+      </ul>
+      <p>직류 피복아크용접에서 아크가 한쪽으로 휘는 <b>아크 쏠림(자기 불림)</b>은 교류로 바꾸거나, 접지를 용접부에서 멀리 두고, 짧은 아크와 후퇴법으로 줄입니다.</p>
+    </section>
+    <section>
+      <h3>CO₂ 용접의 적정 전압과 용적이행</h3>
+      <span class="eq">I ≤ 300 A : E = 0.04·I + 15.5 ± 1.5  [V]</span>
+      <span class="eq">I &gt; 300 A : E = 0.04·I + 20 ± 2  [V]</span>
+      <ul>
+        <li><b>단락 이행</b>: 저전류·저전압. 용적이 용융지에 닿으며 옮겨감. 박판·전자세에 적합, 스패터 적음.</li>
+        <li><b>입상(글로뷸러) 이행</b>: CO₂ 100%에서 중·대전류. 큰 용적이 불규칙하게 떨어져 스패터가 많음.</li>
+        <li><b>스프레이 이행</b>: Ar 80% 이상 혼합가스에서 천이 전류(1.2 mm 약 250 A) 이상. 미세한 용적, 스패터가 거의 없고 용입이 깊은 손가락 모양. 아래보기·수평 필릿용.</li>
+      </ul>
+      <p>와이어 돌출 길이는 보통 와이어 지름의 10~15배(저전류 10~15 mm, 대전류 15~25 mm)입니다. 길어지면 저항열로 와이어가 빨리 녹아 전류가 떨어지고, 가스 보호가 약해져 기공이 생깁니다. 풍속 2 m/s 이상이면 방풍막이 필요합니다.</p>
+    </section>
+    <section>
+      <h3>피복아크 용접봉 (KS D 7004)</h3>
+      <div class="tscroll"><table id="elec-table"></table></div>
+      <p class="src">E43□□: E = 피복아크 용접봉, 43 = 용착금속 최소 인장강도 430 MPa, 끝 두 자리 = 피복제 계통. 일반 용접봉은 70~100℃에서 1시간, 저수소계는 300~350℃에서 1~2시간 건조합니다.</p>
+    </section>
+    <section>
+      <h3>결함의 원인과 대책</h3>
+      <div class="tscroll"><table id="def-table"></table></div>
+    </section>
+    <section>
+      <h3>이 모형의 한계</h3>
+      <p>용입·비드 폭은 실험식으로 계산하는 <b>경향 모형</b>입니다. 조건을 바꿨을 때 어느 쪽으로 얼마나 변하는지는 실제와 같은 방향이지만, 절댓값은 장비·재료·숙련도에 따라 달라집니다. 실제 시공 조건은 용접 절차 사양서(WPS)와 절차 시험(PQR)으로 정합니다.</p>
+      <p class="src">사용한 식: 아크 입열(KS·AWS 정의), EN 1011-1 열효율, CO₂ 적정 전압 경험식, IEC 60974 규약 부하 전압, Rosenthal 이동 열원 해석(HAZ 경계), Lesnewich 와이어 용융속도 형식.</p>
+    </section>
+  </div>
+</section>
+
+<!-- ======================= 2. 토치 연습 ======================= -->
+<section id="view-torch" role="tabpanel" hidden>
+  <div class="card">
+    <div class="speed">
+      <span>목표 속도 <b id="tr-target">—</b> <span class="unit">cm/min</span></span>
+      <span>현재 속도 <b id="tr-now">—</b> <span class="unit">cm/min</span></span>
+      <span id="tr-state" class="unit">왼쪽 시작점(▶)을 누른 채 오른쪽 끝까지 일정한 속도로 끌어 보세요.</span>
+      <label class="f" style="margin-left:auto;min-width:9em"><span>시간 배율</span><select id="tr-tempo"><option value="1">×1 (실제 속도)</option><option value="2" selected>×2 (두 배 빠르게)</option><option value="4">×4</option></select></label>
+      <button class="btn" id="tr-reset">다시 하기</button>
+    </div>
+    <canvas id="cv-torch" aria-label="토치 연습 판"></canvas>
+    <div class="hint">조건(용접법·전류·전압)은 '용접 조건' 탭의 값을 그대로 씁니다. 속도가 빨라진 곳은 비드가 좁아지고(언더컷 위험), 느려진 곳은 넓고 두꺼워집니다(오버랩 위험).</div>
+  </div>
+  <div class="work" style="margin-top:14px">
+    <div class="card"><div class="cardhead"><h2>속도 기록</h2><span class="sub">초록 띠 = 목표 ±15%</span></div><canvas id="cv-trace" class="cv-static" aria-label="속도 기록 그래프"></canvas></div>
+    <div class="box"><h2>채점</h2><div id="tr-score"><p class="src">한 번 끝까지 용접하면 점수가 나옵니다.</p></div></div>
+  </div>
+</section>
+
+<!-- ======================= 3. 예열·균열 ======================= -->
+<section id="view-met" role="tabpanel" hidden>
+  <div class="work">
+    <div class="col">
+      <div class="card">
+        <div class="cardhead"><h2>예열 온도와 냉각시간 t₈/₅</h2><span class="sub">현재 입열·판 두께 기준</span></div>
+        <canvas id="cv-t85" class="cv-static" aria-label="예열 온도에 따른 냉각시간 그래프"></canvas>
+      </div>
+      <div class="box"><h2>판정</h2><div id="met-verdict"></div><div class="tscroll" style="margin-top:8px"><table id="met-table"></table></div></div>
+    </div>
+    <div class="col">
+      <div class="box">
+        <h2>모재 화학 성분 [%]</h2>
+        <label class="f" style="margin-bottom:8px"><span>강종 (대표 성분값)</span><select id="m-steel" data-k="steel"></select></label>
+        <div class="g3" id="comp"></div>
+      </div>
+      <div class="box">
+        <h2>시공 조건</h2>
+        <div class="g2">
+          <label class="f"><span>판 두께 t [mm]</span><input id="m-t" data-k="t" type="number" step="0.5" min="1" max="100"></label>
+          <label class="f"><span>예열 온도 [℃]</span><input id="m-T0" data-k="T0" type="number" step="10" min="0" max="400"></label>
+          <label class="f"><span>이음 형태</span><select id="m-joint" data-k="joint"><option value="bead">비드 온 플레이트</option><option value="butt">맞대기</option><option value="fillet">T형 필릿</option></select></label>
+          <label class="f"><span>확산성 수소 [ml/100g]</span><input id="m-H" type="number" step="0.5" min="0" max="60"></label>
+        </div>
+        <p class="src" style="margin:6px 0 0">수소량은 용접법·용접봉·건조·표면 상태로 자동 추정합니다(<span id="m-Hauto"></span>). 직접 바꿀 수 있고 <button class="btn" id="m-Hreset" style="padding:2px 8px">자동으로</button>를 누르면 되돌아갑니다. 입열은 '용접 조건' 탭 값: <b id="m-Q"></b></p>
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <section>
+      <h3>탄소당량과 균열 감수성</h3>
+      <span class="eq">Ceq(IIW) = C + Mn/6 + (Cr+Mo+V)/5 + (Ni+Cu)/15</span>
+      <span class="eq">Ceq(WES·JIS) = C + Mn/6 + Si/24 + Ni/40 + Cr/5 + Mo/4 + V/14</span>
+      <span class="eq">P<sub>CM</sub> = C + Si/30 + (Mn+Cu+Cr)/20 + Ni/60 + Mo/15 + V/10 + 5B</span>
+      <span class="eq">P<sub>C</sub> = P<sub>CM</sub> + H/60 + t/600   →   예열 온도 T₀ = 1440·P<sub>C</sub> − 392 [℃]</span>
+      <span class="eq">HAZ 최고 경도 H<sub>max</sub> ≈ 666·Ceq(WES) + 40 [HV] (±40)</span>
+      <p>P<sub>CM</sub> 식(이토·베쓰요)은 C 0.22% 이하의 저탄소 고장력강에 맞춘 식입니다. 탄소가 많은 강(S45C, SCM440 등)은 Ceq(IIW)로 판단합니다: 0.40 이하 대체로 불필요, 0.40~0.50 → 50~150℃, 0.50~0.60 → 150~250℃, 0.60 초과 → 250~350℃ 예열과 후열.</p>
+    </section>
+    <section>
+      <h3>저온 균열 (수소 균열)의 3요소</h3>
+      <ol>
+        <li><b>경화 조직</b>: 탄소당량이 크고 빨리 식으면 HAZ에 마르텐사이트가 생깁니다 (H<sub>max</sub> 350 HV 초과 주의).</li>
+        <li><b>확산성 수소</b>: 습기 먹은 용접봉, 녹·기름·수분. 저수소계 용접봉을 건조해 쓰면 크게 줄어듭니다.</li>
+        <li><b>구속 응력</b>: 두꺼운 판, 구속이 큰 이음.</li>
+      </ol>
+      <p>대책은 예열(냉각 지연·수소 방출), 직후열(용접 직후 200~350℃로 유지해 수소 방출), 입열 증가, 저수소 용접 재료입니다. 용접 후 응력 제거 풀림(PWHT)은 탄소강 기준 약 600~650℃에서 두께 25 mm당 1시간 유지합니다.</p>
+    </section>
+    <section>
+      <h3>냉각시간 t₈/₅ (EN 1011-2)</h3>
+      <span class="eq">후판(3차원): t₈/₅ = (6700 − 5T₀)·Q·[1/(500−T₀) − 1/(800−T₀)]·F₃</span>
+      <span class="eq">박판(2차원): t₈/₅ = (4300 − 4.3T₀)·10⁵·(Q²/d²)·[1/(500−T₀)² − 1/(800−T₀)²]·F₂</span>
+      <p>800℃에서 500℃까지 식는 시간입니다. 두 식 중 큰 값이 실제에 가깝습니다. t₈/₅가 짧으면(대략 5초 미만) 경화·균열 위험이, 너무 길면(약 25초 초과) 결정립이 커져 인성이 떨어집니다. 형상계수 F는 비드 온 플레이트 1, 맞대기 0.9, T 필릿 0.67을 썼습니다.</p>
+    </section>
+    <section>
+      <h3>열영향부(HAZ)의 조직</h3>
+      <ul>
+        <li><b>조립역</b> (약 1100℃ 이상~용융선): 결정립이 커져 경화·취화가 가장 심한 곳. 균열이 잘 시작됩니다.</li>
+        <li><b>세립역</b> (약 900~1100℃): 재결정으로 결정립이 미세해져 인성이 좋음.</li>
+        <li><b>부분 변태역</b> (약 720~900℃): 일부만 오스테나이트화.</li>
+        <li>그 바깥: 취화역·모재.</li>
+      </ul>
+      <p>단면도의 HAZ 경계는 Rosenthal 이동 열원 해석으로 그렸습니다. 후판에서 최고 온도 T<sub>p</sub>가 되는 거리는 √((T<sub>m</sub>−T₀)/(T<sub>p</sub>−T₀))배이므로, 예열 온도를 올리면 HAZ가 넓어집니다.</p>
+    </section>
+  </div>
+</section>
+
+<!-- ======================= 4. 용착량·적산 ======================= -->
+<section id="view-qty" role="tabpanel" hidden>
+  <div class="work">
+    <div class="col">
+      <div class="card">
+        <div class="cardhead"><h2>개선 단면과 적층 (패스 나누기)</h2>
+          <div class="zoom"><button id="qty-zin">+</button><button id="qty-zout">−</button><button class="t" id="qty-zr">맞춤</button></div></div>
+        <canvas id="cv-qty" aria-label="개선 단면과 적층"></canvas>
+      </div>
+      <div class="box"><h2>산출 결과</h2><div class="tscroll"><table id="qty-table"></table></div></div>
+    </div>
+    <div class="col">
+      <div class="box">
+        <h2>이음 형상</h2>
+        <div class="seg" id="qtySeg" style="margin-bottom:8px"><button data-q="butt" aria-pressed="true">V형 맞대기</button><button data-q="fillet" aria-pressed="false">필릿</button></div>
+        <div class="g2 qty-butt">
+          <label class="f"><span>판 두께 t [mm]</span><input id="q-t" data-q-k="t" type="number" step="1" min="3" max="60"></label>
+          <label class="f"><span>개선각 [°]</span><input id="q-ang" data-q-k="ang" type="number" step="5" min="30" max="90"></label>
+          <label class="f"><span>루트 간격 [mm]</span><input id="q-g" data-q-k="g" type="number" step="0.5" min="0" max="8"></label>
+          <label class="f"><span>루트 면 [mm]</span><input id="q-f" data-q-k="f" type="number" step="0.5" min="0" max="5"></label>
+          <label class="f"><span>덧살 높이 [mm]</span><input id="q-rh" data-q-k="rh" type="number" step="0.5" min="0" max="5"></label>
+        </div>
+        <div class="g2 qty-fillet" hidden>
+          <label class="f"><span>각장 S [mm]</span><input id="q-S" data-q-k="S" type="number" step="0.5" min="2" max="30"></label>
+          <label class="f"><span>볼록량 [mm]</span><input id="q-cv" data-q-k="cv" type="number" step="0.5" min="0" max="4"></label>
+        </div>
+        <div class="g2" style="margin-top:8px">
+          <label class="f"><span>용접 길이 [m]</span><input id="q-L" data-q-k="L" type="number" step="0.5" min="0.1"></label>
+          <label class="f"><span>용착 효율 [%]</span><input id="q-eff" data-q-k="eff" type="number" step="1" min="30" max="100"></label>
+          <label class="f"><span>아크 타임률 [%]</span><input id="q-atr" data-q-k="atr" type="number" step="1" min="5" max="100"></label>
+          <label class="f"><span>1패스 용착 단면적 [mm²]</span><input id="q-Ad" type="number" disabled></label>
+        </div>
+        <p class="src" style="margin:6px 0 0">1패스 용착량, 용접 속도, 용접법은 '용접 조건' 탭 값을 씁니다. 용착 효율 기본값: 피복아크 60%(봉 잔량·슬래그·스패터 손실), CO₂ 솔리드 와이어 92%, TIG 98%.</p>
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <section>
+      <h3>용착 금속량 계산</h3>
+      <span class="eq">V형 맞대기 A = (t−f)²·tan(θ/2) + g·t + ⅔·b·h + ⅔·(g+3)·1.5</span>
+      <span class="eq">필릿 A = S²/2 + ⅔·(√2·S)·c</span>
+      <span class="eq">용착 금속 중량 W = A[mm²] × L[m] × 0.00785  [kg]  (강의 밀도 7.85 g/cm³)</span>
+      <span class="eq">용접 재료 소요량 = W / 용착 효율</span>
+      <span class="eq">아크 시간 = 패스 수 × L / v,  작업 시간 = 아크 시간 / 아크 타임률</span>
+      <p>b는 표면 비드 폭(개선 상부 폭 + 양쪽 2 mm), h는 덧살 높이, 마지막 항은 이면 비드입니다. 필릿의 이론 목두께는 a = 0.707·S입니다.</p>
+    </section>
+    <section>
+      <h3>적산할 때 기억할 것</h3>
+      <ul>
+        <li>개선각이 커지면 용착량이 크게 늘어 재료비·시간·변형이 모두 커집니다. 후판은 X형(양면) 개선이나 좁은 개선으로 줄입니다.</li>
+        <li>피복아크는 봉 끝 잔량(약 50 mm)과 슬래그·스패터 손실 때문에 용착 효율이 낮습니다. 철분계 용접봉은 용착 효율이 높습니다.</li>
+        <li>아크 타임률은 전체 작업 시간 중 실제 아크가 켜진 시간의 비율입니다. 슬래그 제거·봉 교체가 많은 피복아크는 낮고(약 30~40%), 반자동 CO₂는 높습니다(약 40~60%).</li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<!-- ======================= 5. 결함 진단 퀴즈 ======================= -->
+<section id="view-quiz" role="tabpanel" hidden>
+  <div class="work">
+    <div class="col">
+      <div class="card"><div class="cardhead"><h2 id="qz-title">문제</h2><span class="sub" id="qz-proc"></span></div><canvas id="cv-qsec" class="cv-static" aria-label="문제 단면"></canvas></div>
+      <div class="card"><canvas id="cv-qtop" class="cv-static" aria-label="문제 외관"></canvas></div>
+    </div>
+    <div class="col">
+      <div class="box">
+        <h2>단면과 외관을 보고 결함과 원인을 고르세요</h2>
+        <div class="quizopts" id="qz-opts"></div>
+        <div id="qz-exp" style="margin-top:10px"></div>
+        <div class="seg" style="margin-top:10px;align-items:center"><button class="btn primary" id="qz-next">다음 문제</button><span class="unit" id="qz-score"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<p class="src" style="margin-top:22px">교육용 공학 모형입니다. 실제 시공 조건을 보증하지 않으며, 강종 성분은 대표값입니다.</p>
+</div>
+
+<script>
+"use strict";
+/* ======================= 공통 ======================= */
+const $ = id => document.getElementById(id);
+const fmt = (v, d = 1) => v == null || !isFinite(v) ? '—' : (+v).toFixed(d);
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const RHO = 7.85e-3, DHM = 10.5; // 강 밀도 g/mm³, 강 1 mm³를 녹이는 열 J
+
+/* ======================= 데이터 ======================= */
+const PROC = { gmaw: { name: 'CO₂ 용접 (GMAW)', eta: .8, Iref: 200, vR: [20, 60] }, smaw: { name: '피복아크용접 (SMAW)', eta: .8, Iref: 140, vR: [10, 30] }, gtaw: { name: 'TIG 용접 (GTAW)', eta: .6, Iref: 150, vR: [5, 25] } };
+const ELEC = {
+  E4301: { name: '일미나이트계', r: .38, iron: 1, H: 12, pos: '전자세', note: '작업성이 좋고 기계적 성질이 양호. 국내에서 가장 널리 씀.' },
+  E4303: { name: '라임티타니아계', r: .34, iron: 1, H: 12, pos: '전자세', note: '슬래그 박리가 쉽고 비드가 고움. 일반 구조물.' },
+  E4311: { name: '고셀룰로오스계', r: .46, iron: 1, H: 20, pos: '전자세', note: '가스 실드형. 용입이 깊고 슬래그가 적음. 스패터가 많고 비드가 거침. 수직하진·배관.' },
+  E4313: { name: '고산화티탄계', r: .26, iron: 1, H: 15, pos: '전자세', note: '아크가 안정되고 비드가 매끈. 용입이 얕아 박판용. 내균열성은 낮음.' },
+  E4316: { name: '저수소계', r: .36, iron: 1, H: 2, lowH: true, pos: '전자세', note: '내균열성이 가장 우수. 고장력강·후판·고구속. 300~350℃ 건조, 아크 시작부 기공 주의(후퇴법).' },
+  E4324: { name: '철분 산화티탄계', r: .30, iron: 1.45, H: 12, pos: '아래보기·수평필릿', note: '철분으로 용착속도가 빠름.' },
+  E4327: { name: '철분 산화철계', r: .32, iron: 1.45, H: 12, pos: '아래보기·수평필릿', note: '용착속도가 빠르고 비드가 평탄.' },
+};
+const TUNG = { DCEN: { 1.6: [60, 150], 2.4: [130, 250], 3.2: [220, 400] }, AC: { 1.6: [50, 100], 2.4: [80, 160], 3.2: [130, 240] }, DCEP: { 1.6: [10, 20], 2.4: [15, 30], 3.2: [25, 40] } };
+const STEELS = {
+  SS400: { name: 'SS400 일반구조용 압연강', C: .15, Si: .20, Mn: .60, Cu: 0, Ni: 0, Cr: 0, Mo: 0, V: 0, B: 0 },
+  SM490A: { name: 'SM490A 용접구조용 압연강', C: .16, Si: .35, Mn: 1.30, Cu: 0, Ni: 0, Cr: 0, Mo: 0, V: 0, B: 0 },
+  SM570: { name: 'SM570 (HT60급) 고장력강', C: .14, Si: .30, Mn: 1.40, Cu: .20, Ni: .20, Cr: .20, Mo: .15, V: .04, B: .001 },
+  S45C: { name: 'S45C 기계구조용 탄소강', C: .45, Si: .25, Mn: .75, Cu: 0, Ni: 0, Cr: 0, Mo: 0, V: 0, B: 0 },
+  SCM440: { name: 'SCM440 크롬몰리브덴강', C: .40, Si: .25, Mn: .75, Cu: 0, Ni: 0, Cr: 1.05, Mo: .22, V: 0, B: 0 },
+};
+const ELEMS = ['C', 'Si', 'Mn', 'Cu', 'Ni', 'Cr', 'Mo', 'V', 'B'];
+const DEF = {
+  undercut: { name: '언더컷', desc: '모재가 녹아 파였는데 용착금속이 채우지 못해 비드 가장자리에 홈이 남은 결함', cause: '전류 과대, 전압(아크 길이) 과대, 이동속도 과대, 토치 각도 부적당', fix: '전류를 낮추고 아크를 짧게, 속도를 줄이고 각도를 바로잡는다' },
+  overlap: { name: '오버랩', desc: '녹은 금속이 모재와 융합되지 않고 비드 끝에 겹쳐 흘러넘친 결함', cause: '전류 과소, 전압 과소, 이동속도 과소', fix: '전류를 높이고 속도를 올리며 적정 전압으로 맞춘다' },
+  lof: { name: '용입 불량·융합 불량', desc: '루트까지 녹지 않았거나 모재와 용착금속이 융합되지 않은 결함', cause: '전류 과소, 이동속도 과대, 루트 면 과대·간격 과소, 용융지가 아크보다 앞섬', fix: '전류를 높이고 속도를 줄이며 개선 형상(루트 면·간격)을 맞춘다' },
+  burn: { name: '용락·과대 용입', desc: '용입이 판 두께를 넘어 녹아내리거나 이면 비드가 지나치게 처진 결함', cause: '박판에 입열 과대(전류 과대·속도 과소), 루트 간격 과대', fix: '전류를 낮추고 속도를 높이며 뒷댐재(받침판)를 쓴다' },
+  porosity: { name: '기공', desc: '가스가 빠져나가지 못하고 용착금속 속에 갇힌 구멍', cause: '보호가스 부족·과다, 바람, 습기 먹은 용접봉, 녹·기름·수분, 긴 아크', fix: '가스 유량을 적정하게, 방풍막, 용접봉 건조, 모재 청소' },
+  spatter: { name: '스패터 과다', desc: '용접 중 튄 금속 입자가 비드 주위에 많이 붙은 것', cause: '입상 이행(CO₂ 대전류), 전압 부적정, 긴 아크, 전류 과대', fix: '단락 이행 범위로 맞추거나 Ar 혼합가스, 적정 전압, 짧은 아크' },
+  hotcrack: { name: '고온 균열 (응고 균열)', desc: '응고 직후 비드 중앙을 따라 생기는 균열', cause: '깊고 좁은 비드(용입/폭 비 큼), 고속 용접(눈물방울형 용융지), S·P 불순물', fix: '전압을 올리고 전류를 낮춰 비드 폭을 넓히고 속도를 줄인다' },
+  coldcrack: { name: '저온 균열 (지연 균열)', desc: '용접 후 수 시간~수일 뒤 HAZ나 비드 밑에 생기는 수소 균열', cause: '탄소당량이 큰 강재, 확산성 수소, 예열 부족, 빠른 냉각', fix: '예열·직후열, 저수소계 용접봉 건조 사용, 입열을 키워 냉각을 늦춘다' },
+  slag: { name: '슬래그 혼입', desc: '슬래그가 떠오르지 못하고 용착금속 속에 갇힌 결함', cause: '전류 과소, 전진각이 커서 슬래그가 용융지보다 앞섬, 층간 청소 불량', fix: '전류를 높이고 운봉 각도를 바로 하며 층간 슬래그를 제거한다' },
+  tungsten: { name: '텅스텐 혼입', desc: '녹은 텅스텐 전극이 용착금속에 들어간 결함', cause: '전극 지름에 비해 전류 과대, 역극성 사용, 전극이 용융지에 닿음', fix: '전류에 맞는 전극 지름, 정극성 사용, 아크 길이 유지' },
+  sag: { name: '비드 처짐', desc: '중력 때문에 용융 금속이 흘러내려 비드가 처진 결함', cause: '수직·위보기 자세에서 전류·용착량 과대, 느린 운봉', fix: '아래보기보다 10~20% 낮은 전류, 빠른 운봉과 위빙' },
+};
+
+/* ======================= 용접 모형 ======================= */
+function hydrogen(s) {
+  let h = s.proc === 'gmaw' ? 1.5 : s.proc === 'gtaw' ? 1 : (ELEC[s.elec].lowH ? (s.dried ? 2 : 8) : ELEC[s.elec].H);
+  return h + (s.surf === 'rust' ? 4 : 0); // 글리세린법 기준 대략값
+}
+function metal(comp, T0, Q, t, joint, H) {
+  const { C, Si, Mn, Cu, Ni, Cr, Mo, V, B } = comp;
+  const ceqIIW = C + Mn / 6 + (Cr + Mo + V) / 5 + (Ni + Cu) / 15, ceqWES = C + Mn / 6 + Si / 24 + Ni / 40 + Cr / 5 + Mo / 4 + V / 14;
+  const pcm = C + Si / 30 + (Mn + Cu + Cr) / 20 + Ni / 60 + Mo / 15 + V / 10 + 5 * B, pc = pcm + H / 60 + t / 600;
+  const lowC = C <= .22;
+  const TreqPc = 1440 * pc - 392, TreqCeq = ceqIIW <= .4 ? 0 : ceqIIW <= .5 ? 50 : ceqIIW <= .6 ? 150 : 250;
+  const Treq = lowC ? TreqPc : TreqCeq;
+  const [F3, F2] = { bead: [1, 1], butt: [.9, .9], fillet: [.67, .67] }[joint];
+  const t85at = T => { const t3 = (6700 - 5 * T) * Q * (1 / (500 - T) - 1 / (800 - T)) * F3;
+    const t2 = (4300 - 4.3 * T) * 1e5 * Q * Q / (t * t) * ((1 / (500 - T)) ** 2 - (1 / (800 - T)) ** 2) * F2; return { t3, t2, t85: Math.max(t3, t2) } };
+  const k = Tp => Math.sqrt((1500 - T0) / (Tp - T0)); // Rosenthal 후판: 최고온도 Tp 등온선까지의 거리 비
+  return { ceqIIW, ceqWES, pcm, pc, lowC, Treq, TreqPc, TreqCeq, ...t85at(T0), t85at, hmax: 666 * ceqWES + 40, k1100: k(1100), k900: k(900), k720: k(720) };
+}
+function weld(s) {
+  const P = PROC[s.proc], posF = { F: 1, H: .9, V: .85, O: .85 }[s.pos];
+  let V, Vopt, Vtol, range, dep, r, mode = null, effDep, extra = {};
+  if (s.proc === 'gmaw') {
+    Vopt = (s.I <= 300 ? .04 * s.I + 15.5 : .04 * s.I + 20) - (s.gas === 'mix' ? 2 : 0); Vtol = s.I <= 300 ? 1.5 : 2; V = s.V;
+    const d = s.d_g, wfs = .02088 * s.I / d ** 2 + 6.22e-6 * s.ctwd * s.I ** 2 / d ** 4; // m/min (Lesnewich 형식)
+    const Is = { 0.9: 150, 1.2: 200, 1.4: 230, 1.6: 260 }[d], Isp = { 0.9: 170, 1.2: 250, 1.4: 280, 1.6: 310 }[d];
+    mode = s.gas === 'mix' && s.I >= Isp && V >= Vopt - Vtol ? 'spray' : (s.I < Is && V <= Vopt + Vtol ? 'short' : 'globular');
+    effDep = { short: .93, globular: .88, spray: .97 }[mode];
+    dep = wfs * 1000 * Math.PI * d * d / 4 * RHO * effDep; // g/min
+    range = { 0.9: [50, 180], 1.2: [80, 350], 1.4: [120, 400], 1.6: [150, 500] }[d];
+    r = { short: .28, globular: .34, spray: .55 }[mode]; extra = { wfs, Is, Isp };
+  } else if (s.proc === 'smaw') {
+    const E = ELEC[s.elec], d = s.d_s; Vopt = 20 + .04 * s.I; V = Vopt + 1.2 * (s.La_s - d); Vtol = 2;
+    dep = .155 * s.I * E.iron; effDep = E.iron > 1 ? .75 : .6;
+    range = { 2.6: [55, 90], 3.2: [80, 130], 4: [120, 180], 5: [170, 240] }[d].map(x => Math.round(x * (E.iron > 1 ? 1.1 : 1)));
+    r = E.r * { AC: 1, DCEP: 1.1, DCEN: .85 }[s.pol_s];
+  } else {
+    Vopt = 10 + .04 * s.I; V = Vopt + (s.La_t - 2.5); Vtol = 1.5;
+    dep = s.filler; effDep = .98; range = TUNG[s.pol_t][s.d_t]; r = { DCEN: .38, AC: .25, DCEP: .12 }[s.pol_t];
+  }
+  const vmm = s.v / 6, pw = P.eta * V * s.I, Qnet = pw / vmm, H = 60 * V * s.I / s.v, Q = Qnet / 1000;
+  const etaM = .45 * Math.tanh(Math.sqrt(pw * vmm) / 110);
+  const Am = etaM * Qnet / DHM, Ad = dep / (RHO * s.v * 10);
+  r *= (s.I / P.Iref) ** .4 * (Vopt / V) ** .8 * (s.ang >= 0 ? 1 + .008 * s.ang : 1 + .012 * s.ang);
+  r = clamp(r, .08, 1.3);
+  const W = Math.sqrt(4 * Am / (Math.PI * r)), Pd = r * W;
+  const Wb = Math.max(W * clamp(1 + .05 * (V - Vopt), .75, 1.5), Ad > 0 ? 0 : W);
+  const hr = Ad > 0 ? 1.5 * Ad / Wb * { F: 1, H: 1.05, V: 1.2, O: 1.1 }[s.pos] : 0;
+  const Dil = Am / (Am + Ad);
+  // 필릿: 각장, 목두께
+  const S = Math.sqrt(2 * Ad), kk = (1 + .02 * (s.work - 45)) * (s.pos === 'H' ? 1.12 : 1);
+  const legH = S * Math.sqrt(kk), legV = S / Math.sqrt(kk), throat = legH * legV / Math.hypot(legH, legV);
+  const cv = clamp(-.3 * (V - Vopt), -1.2, 1.2) + (s.pos === 'V' ? .4 : 0);
+  // 맞대기 초층
+  const ta = Math.tan(s.groove / 2 * Math.PI / 180), hfill = Ad > 0 ? (-s.g + Math.sqrt(s.g * s.g + 4 * ta * Ad)) / (2 * ta) : 0;
+  const effRoot = Math.max(.3, s.f - .4 * s.g);
+  const comp = s.comp || STEELS[s.steel], Hd = s.Hd ?? hydrogen(s), m = metal(comp, s.T0, Q, s.t, s.joint, Hd);
+
+  /* 결함 판정: 각 원인이 점수를 더한다 (0.25 이상 주의, 0.5 이상 발생) */
+  const D = {}, add = (k, v, why) => { if (!(v > 0)) return; (D[k] ||= { score: 0, why: [] }); D[k].score += v; D[k].why.push(why) };
+  const Imax = range[1] * posF, Imin = range[0], dv = (V - Vopt) / Vtol, gas = s.proc !== 'smaw', ratio = Pd / W;
+  add('undercut', .45 * (dv - 1), `전압(아크 길이)이 적정값보다 ${fmt(V - Vopt)} V 높음`);
+  add('undercut', 2 * (s.I / Imax - 1), `전류가 상한 ${Math.round(Imax)} A를 넘음`);
+  add('undercut', 1.2 * (s.v / P.vR[1] - 1), `이동속도가 너무 빠름 (권장 ${P.vR[0]}~${P.vR[1]} cm/min)`);
+  if (s.proc !== 'gtaw' && Ad > 0) add('undercut', 3 * (Dil - .72), `녹은 모재에 비해 용착량이 부족 (희석률 ${fmt(Dil * 100, 0)}%)`);
+  if (s.proc === 'smaw') add('undercut', .8 * (s.La_s / s.d_s - 1.3), '아크 길이가 봉 지름보다 너무 김');
+  if (s.joint === 'fillet') add('undercut', .03 * (Math.abs(s.work - 45) - 8), `작업각 ${s.work}°가 45°에서 벗어남`);
+  if (s.pos === 'V' || s.pos === 'O' || (s.joint === 'fillet' && s.pos === 'H')) add('undercut', .12, '자세상 언더컷이 생기기 쉬움');
+  add('overlap', .45 * (-dv - 1), `전압이 적정값보다 ${fmt(Vopt - V)} V 낮음`);
+  add('overlap', 1.5 * (Imin / s.I - 1), `전류가 하한 ${Imin} A보다 낮음`);
+  add('overlap', 1.2 * (P.vR[0] / s.v - 1), `이동속도가 너무 느림 (권장 ${P.vR[0]}~${P.vR[1]} cm/min)`);
+  if (Ad > 0) add('overlap', 3 * (.3 - Dil), `용착량에 비해 용입이 얕음 (희석률 ${fmt(Dil * 100, 0)}%)`);
+  if (s.joint !== 'fillet') add('overlap', 3 * (hr / Wb - .4), '덧살이 높고 볼록한 비드');
+  const req = s.joint === 'butt' ? effRoot : s.joint === 'fillet' ? 1 : .8;
+  add('lof', 1.5 * (req - Pd) / req, `용입 ${fmt(Pd)} mm로 필요 깊이 ${fmt(req)} mm에 못 미침`);
+  add('lof', 1.2 * (Imin / s.I - 1), '전류 과소');
+  if (Ad > 0) add('lof', .03 * (-s.ang - 15), '전진각이 커서 용융지가 아크보다 앞섬');
+  if (mode === 'short' && s.t >= 12 && s.I < 150) add('lof', .4, '후판에 저전류 단락 이행 (콜드 랩)');
+  if (s.joint === 'butt') { add('burn', .45 * (Pd - (s.f + 1.5 + .5 * s.g)), `용입 ${fmt(Pd)} mm가 루트 면을 크게 넘어 이면 비드 과다`); add('burn', .3 * (s.g - 3.5), '루트 간격 과대') }
+  else add('burn', 5 * (Pd / s.t - .85), `용입 ${fmt(Pd)} mm가 판 두께 ${s.t} mm에 근접`);
+  if (gas) {
+    const fl = s.proc === 'gmaw' ? [12, 25] : [6, 18], wl = s.proc === 'gmaw' ? 2 : 1;
+    add('porosity', .12 * (fl[0] - s.flow), `가스 유량 부족 (권장 ${fl[0]}~${fl[1]} L/min)`);
+    add('porosity', .06 * (s.flow - fl[1]), '가스 유량 과다 (난류로 공기 혼입)');
+    add('porosity', .5 * (s.wind - wl), `풍속 ${s.wind} m/s (한계 약 ${wl} m/s, 방풍막 필요)`);
+    if (s.proc === 'gmaw') add('porosity', .06 * (s.ctwd - 25), '와이어 돌출 길이가 길어 가스 보호가 약함');
+  } else {
+    const E = ELEC[s.elec];
+    if (E.lowH && !s.dried) add('porosity', .8, '저수소계 용접봉을 건조하지 않음 (흡습)');
+    add('porosity', (E.lowH ? .6 : .3) * (s.La_s / s.d_s - (E.lowH ? 1.1 : 1.5)), E.lowH ? '저수소계에서 아크가 김' : '아크가 김');
+    add('porosity', .15 * (s.wind - 8), '강풍');
+  }
+  if (s.surf === 'rust') add('porosity', s.proc === 'gtaw' ? .9 : .6, '모재에 녹·기름·수분');
+  if (s.proc === 'gmaw') {
+    if (mode === 'globular') add('spatter', s.gas === 'co2' ? .65 : .45, 'CO₂ 중·대전류의 입상(글로뷸러) 이행');
+    add('spatter', .3 * (Math.abs(dv) - 1), '전압이 적정 범위를 벗어남');
+  } else if (s.proc === 'smaw') {
+    add('spatter', .6 * (s.La_s / s.d_s - 1.3), '아크가 김'); add('spatter', 1.2 * (s.I / Imax - 1), '전류 과대');
+    if (s.elec === 'E4311') add('spatter', .3, '고셀룰로오스계 용접봉 특성');
+  }
+  add('hotcrack', 5 * (ratio - .65), `용입/폭 비 ${fmt(ratio, 2)} (깊고 좁은 비드)`);
+  add('hotcrack', .5 * (s.v / P.vR[1] - 1.2) * 2, '고속 용접 (눈물방울형 용융지)');
+  const ccRisk = m.ceqIIW > .4 || s.t >= 25; // 저탄소 박판은 실무상 예열 불요 → 경화성·두께가 있을 때만 판정
+  if (ccRisk && s.T0 < m.Treq - 10) add('coldcrack', .45 + (m.Treq - s.T0) / 150, `예열 부족 (필요 약 ${Math.round(m.Treq)}℃, 현재 ${s.T0}℃)`);
+  if (ccRisk && m.hmax > 350) add('coldcrack', .004 * (m.hmax - 350), `HAZ 최고 경도 약 ${Math.round(m.hmax)} HV (350 초과)`);
+  if (Hd >= 8 && m.ceqIIW > .4) add('coldcrack', .2, `확산성 수소가 많음 (${Hd} ml/100g)`);
+  if (s.proc === 'smaw') { add('slag', 1.5 * (Imin / s.I - 1), `전류가 하한 ${Imin} A보다 낮아 슬래그가 잘 떠오르지 못함`); add('slag', .04 * (-s.ang - 10), '전진각이 커서 슬래그가 용융지 앞으로 흐름') }
+  if (s.proc === 'gtaw') { add('tungsten', .6 + 1.5 * (s.I / range[1] - 1), `전극 ${s.d_t} mm의 허용 전류 ${range[1]} A 초과`); if (s.I > range[1] && s.pol_t === 'DCEP') add('tungsten', .3, '역극성은 전극이 쉽게 녹음') }
+  if (s.pos === 'V' || s.pos === 'O') { add('sag', 1.6 * (s.I / Imax - 1), `${s.pos === 'V' ? '수직' : '위보기'} 자세에 비해 전류 과대 (상한 약 ${Math.round(Imax)} A)`); add('sag', .8 * (Ad / (s.pos === 'V' ? 18 : 14) - 1), '1패스 용착량 과다'); if (s.proc === 'smaw' && ELEC[s.elec].iron > 1) add('sag', .6, '아래보기·수평필릿 전용 철분계 용접봉을 사용') }
+  for (const k in D) { if (k === 'tungsten' && s.I <= range[1]) delete D[k] }
+  const defects = Object.entries(D).map(([k, d]) => ({ key: k, ...DEF[k], score: d.score, why: d.why })).filter(d => d.score >= .25).sort((a, b) => b.score - a.score);
+  const sev = Object.fromEntries(defects.map(d => [d.key, d.score]));
+  return { s, V, Vopt, Vtol, range, Imax, Imin, mode, dep, effDep, depKg: dep * .06, H, Q, pw, etaM, Am, Ad, r, W, Pd, Wb, hr, Dil, S, legH, legV, throat, cv, ta, hfill, effRoot, m, Hd, defects, sev, extra };
+}
+
+/* ======================= 상태 ======================= */
+const DEFAULTS = {
+  proc: 'gmaw', pos: 'F', joint: 'bead', t: 9, T0: 20, surf: 'clean', steel: 'SM490A', groove: 60, g: 2, f: 1.5,
+  I: 180, V: 22.5, v: 35, ang: 10, work: 45, ctwd: 15, flow: 20, wind: 0, d_g: 1.2, gas: 'co2',
+  d_s: 4, elec: 'E4316', pol_s: 'DCEP', La_s: 4, dried: true, d_t: 2.4, pol_t: 'DCEN', La_t: 2.5, filler: 6,
+};
+const GOOD = { gmaw: { I: 180, V: 22.5, v: 35, ang: 10, ctwd: 15, flow: 20, wind: 0 }, smaw: { I: 150, v: 15, ang: 15, La_s: 4, d_s: 4, wind: 0 }, gtaw: { I: 120, v: 12, ang: -15, La_t: 2.5, filler: 6, flow: 10, wind: 0, d_t: 2.4, pol_t: 'DCEN' } };
+const S = { ...DEFAULTS, Hd: null };
+let R = weld(S);
+
+/* ======================= 확대·축소 뷰어 ======================= */
+class Viewer {
+  constructor(cv, o) {
+    Object.assign(this, { cv, o, ctx: cv.getContext('2d'), auto: true, ptrs: new Map() });
+    if (o.interactive !== false) {
+      cv.addEventListener('wheel', e => { e.preventDefault(); const [x, y] = this.pos(e); this.zoomAt(x, y, e.deltaY < 0 ? 1.2 : 1 / 1.2) }, { passive: false });
+      cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); this.ptrs.set(e.pointerId, this.pos(e)); this.pinch = null });
+      cv.addEventListener('pointermove', e => {
+        if (!this.ptrs.has(e.pointerId)) return; const p = this.pos(e), q = this.ptrs.get(e.pointerId);
+        if (this.ptrs.size === 2) { this.ptrs.set(e.pointerId, p); const [a, b] = [...this.ptrs.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+          if (this.pinch) this.zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, d / this.pinch); this.pinch = d; return }
+        this.ox += p[0] - q[0]; this.oy += p[1] - q[1]; this.auto = false; this.ptrs.set(e.pointerId, p); this.draw();
+      });
+      const up = e => { this.ptrs.delete(e.pointerId); this.pinch = null }; cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    }
+    new ResizeObserver(() => this.resize()).observe(cv.parentElement);
+  }
+  pos(e) { const r = this.cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top] }
+  resize() { const w = this.cv.parentElement.clientWidth; if (!w) return; const h = Math.round(clamp(w * (this.o.ratio || .55), this.o.minH || 240, this.o.maxH || 520)), d = Math.max(1, devicePixelRatio || 1);
+    this.cv.width = w * d; this.cv.height = h * d; this.cv.style.height = h + 'px'; this.W = w; this.H = h; this.ctx.setTransform(d, 0, 0, d, 0, 0); this.render() }
+  fit() { const b = this.o.bounds(), m = this.o.margin ?? 30; this.s = Math.min((this.W - 2 * m) / (b.x1 - b.x0), (this.H - 2 * m) / (b.y1 - b.y0)); this.ox = this.W / 2 - this.s * (b.x0 + b.x1) / 2; this.oy = this.H / 2 - this.s * (b.y0 + b.y1) / 2; this.s0 = this.s }
+  X(x) { return this.ox + this.s * x } Y(y) { return this.oy + this.s * y }
+  zoomAt(px, py, f) { if (!this.s) return; const ns = clamp(this.s * f, this.s0 * .4, this.s0 * 25), k = ns / this.s; this.ox = px - (px - this.ox) * k; this.oy = py - (py - this.oy) * k; this.s = ns; this.auto = false; this.draw() }
+  zoom(f) { this.zoomAt(this.W / 2, this.H / 2, f) }
+  reset() { this.auto = true; this.draw() }
+  render() { if (!this.W) return; if (this.auto) this.fit(); const c = this.ctx; c.setLineDash([]); c.clearRect(0, 0, this.W, this.H); this.o.draw(c, this) }
+  draw() { if (this.raf) return; this.raf = requestAnimationFrame(() => { this.raf = 0; this.render() }) }
+}
+let TK = {};
+function readTokens() { const cs = getComputedStyle(document.documentElement); for (const k of ['surface', 'sunk', 'ink', 'muted', 'rule', 'grid', 'accent', 'info', 'ok', 'warn', 'bad', 'steel', 'haz1', 'haz2', 'haz3', 'weld', 'weldline', 'air', 'plate', 'bead', 'ripple', 'tint1', 'tint2', 'glow']) TK[k] = cs.getPropertyValue('--' + k).trim() }
+readTokens();
+const MONO = '"IBM Plex Mono", ui-monospace, monospace', SANS = '"IBM Plex Sans KR", "Malgun Gothic", sans-serif';
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296 } }
+function text(c, s, x, y, color = TK.ink, align = 'center', font = '600 11px ' + MONO, base = 'middle') {
+  c.font = font; c.textAlign = align; c.textBaseline = base; c.lineJoin = 'round'; c.strokeStyle = TK.surface; c.lineWidth = 3.5; c.strokeText(s, x, y); c.fillStyle = color; c.fillText(s, x, y) }
+function poly(c, v, pts, close = true) { c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(v.X(x), v.Y(y)) : c.moveTo(v.X(x), v.Y(y))); if (close) c.closePath() }
+const ell = (cx, cy, rx, ry, a0, a1, n = 48, rot = 0) => Array.from({ length: n + 1 }, (_, i) => { const a = a0 + (a1 - a0) * i / n, x = rx * Math.cos(a), y = ry * Math.sin(a); return [cx + x * Math.cos(rot) - y * Math.sin(rot), cy + x * Math.sin(rot) + y * Math.cos(rot)] });
+function dimV(c, v, x, y0, y1, label, color = TK.ink) { const X = v.X(x), A = v.Y(y0), B = v.Y(y1); c.strokeStyle = color; c.lineWidth = 1; c.beginPath(); c.moveTo(X, A); c.lineTo(X, B); c.moveTo(X - 4, A); c.lineTo(X + 4, A); c.moveTo(X - 4, B); c.lineTo(X + 4, B); c.stroke(); text(c, label, X + 6, (A + B) / 2, color, 'left') }
+function dimH(c, v, x0, x1, y, label, color = TK.ink) { const Y = v.Y(y), A = v.X(x0), B = v.X(x1); c.strokeStyle = color; c.lineWidth = 1; c.beginPath(); c.moveTo(A, Y); c.lineTo(B, Y); c.moveTo(A, Y - 4); c.lineTo(A, Y + 4); c.moveTo(B, Y - 4); c.lineTo(B, Y + 4); c.stroke(); text(c, label, (A + B) / 2, Y - 9, color) }
+const jag = (x0, y0, x1, y1, n, amp, rnd) => Array.from({ length: n + 1 }, (_, i) => { const f = i / n, nx = -(y1 - y0), ny = x1 - x0, L = Math.hypot(nx, ny) || 1, o = (i % 2 ? 1 : -1) * amp * (.5 + rnd()) * (i && i < n ? 1 : 0); return [x0 + (x1 - x0) * f + nx / L * o, y0 + (y1 - y0) * f + ny / L * o] });
+
+/* ======================= 단면도 ======================= */
+function sectionBounds(R) {
+  const s = R.s;
+  if (s.joint === 'fillet') return { x0: -s.t - 6, x1: Math.max(R.legH, 4) + 12, y0: -(R.legV + 10), y1: s.t + 3 };
+  if (s.joint === 'butt') { const hw = s.g / 2 + (s.t - s.f) * R.ta; return { x0: -hw - 8, x1: hw + 8, y0: -4, y1: s.t + 4 } }
+  const hw = Math.max(10, R.Wb * 1.3, R.W * R.m.k720 * .75 + 3); return { x0: -hw, x1: hw, y0: -Math.max(R.hr, 1) - 4, y1: Math.max(s.t, R.Pd * R.m.k720 * .6) + 2 };
+}
+function drawSection(c, v, R, opt = {}) {
+  const s = R.s, sev = R.sev, rnd = rng(Math.round(s.I * 7 + s.v * 13 + s.t * 31 + (s.V || 0) * 3));
+  const plateFill = (pts) => { poly(c, v, pts); c.fillStyle = TK.steel; c.fill(); c.strokeStyle = TK.weldline; c.lineWidth = 1; c.stroke() };
+  const clipTo = (shapes) => { c.save(); c.beginPath(); shapes.forEach(pts => { pts.forEach(([x, y], i) => i ? c.lineTo(v.X(x), v.Y(y)) : c.moveTo(v.X(x), v.Y(y))); c.closePath() }); c.clip() };
+  const fillShapes = (shapes, col) => { c.fillStyle = col; shapes.forEach(pts => { poly(c, v, pts); c.fill() }) };
+  const hazOf = (fn) => [[R.m.k720, TK.haz3], [R.m.k900, TK.haz2], [R.m.k1100, TK.haz1]].forEach(([k, col]) => fillShapes(fn(k), col));
+  const pores = (cx, cy, rx, ry) => { const n = Math.round((sev.porosity || 0) * 10); c.fillStyle = TK.air; c.strokeStyle = TK.weldline;
+    for (let i = 0; i < n; i++) { const a = rnd() * Math.PI * 2, q = Math.sqrt(rnd()) * .75; c.beginPath(); c.arc(v.X(cx + rx * q * Math.cos(a)), v.Y(cy + ry * q * Math.sin(a)), Math.max(1.5, v.s * (.12 + rnd() * .25)), 0, 7); c.fill(); c.stroke() } };
+  const extras = (cx, cy, rx, ry) => {
+    pores(cx, cy, rx, ry);
+    if (sev.slag) { c.fillStyle = TK.ink; c.globalAlpha = .75; poly(c, v, ell(cx - rx * .55, cy + ry * .35, rx * .18, ry * .12, 0, 7, 10)); c.fill(); c.globalAlpha = 1 }
+    if (sev.tungsten) { c.fillStyle = TK.surface; c.strokeStyle = TK.ink; for (let i = 0; i < 3; i++) { const x = v.X(cx + (rnd() - .5) * rx), y = v.Y(cy + (rnd() - .2) * ry * .6); c.fillRect(x - 2, y - 2, 4, 4); c.strokeRect(x - 2, y - 2, 4, 4) } }
+    if (sev.hotcrack) { c.strokeStyle = TK.ink; c.lineWidth = 1.6; poly(c, v, jag(cx, cy - ry * .1, cx, cy + ry * .75, 8, .15 + .1 * sev.hotcrack, rnd), false); c.stroke() }
+  };
+  if (s.joint === 'bead') {
+    const W2 = R.W / 2, P = R.Pd, Wb2 = R.Wb / 2, t = s.t, burn = P >= t;
+    const plate = [[-200, 0], [200, 0], [200, t], [-200, t]];
+    plateFill(plate);
+    clipTo([plate]); hazOf(k => [[[0, 0], ...ell(0, 0, W2 * k, P * k, 0, Math.PI)]]); c.restore();
+    // 용접금속: 아래 용융부 + 위 덧살
+    const fus = ell(0, 0, W2, P, 0, Math.PI), cap = Array.from({ length: 31 }, (_, i) => { const x = -Wb2 + R.Wb * i / 30; return [x, -R.hr * (1 - (x / Wb2) ** 2)] });
+    c.save(); clipTo([[[-200, -50], [200, -50], [200, t], [-200, t]]]); poly(c, v, [...fus, ...cap]); c.fillStyle = TK.weld; c.fill(); c.restore();
+    if (burn) { const rb = W2 * Math.sqrt(Math.max(.05, 1 - (t / P) ** 2)); poly(c, v, ell(0, t, rb, Math.min(2.5, (P - t) + .6), 0, Math.PI)); c.fillStyle = TK.weld; c.fill();
+      if ((sev.burn || 0) > 1) { poly(c, v, [[-rb * .5, -R.hr - 1], [rb * .5, -R.hr - 1], [rb * .4, t + 3], [-rb * .4, t + 3]]); c.fillStyle = TK.air; c.fill() } }
+    // 주상정
+    c.strokeStyle = TK.weldline; c.lineWidth = .8; for (let i = 2; i < 47; i += 3) { const [x, y] = fus[i]; if (y > t) continue; c.beginPath(); c.moveTo(v.X(x), v.Y(y)); c.lineTo(v.X(x * .6), v.Y(y * .55 - R.hr * .2)); c.stroke() }
+    poly(c, v, [...fus], false); c.strokeStyle = TK.ink; c.lineWidth = 1.2; c.stroke();
+    if (Wb2 > W2 * 1.02 && R.hr > 0) { c.strokeStyle = TK.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(v.X(W2), v.Y(0)); c.lineTo(v.X(Wb2), v.Y(0)); c.moveTo(v.X(-W2), v.Y(0)); c.lineTo(v.X(-Wb2), v.Y(0)); c.stroke() }
+    if (sev.undercut) { const d = clamp(.25 + .5 * sev.undercut, .2, 1.4), x0 = Math.max(W2, Wb2); c.fillStyle = TK.air; [1, -1].forEach(sg => { poly(c, v, [[sg * (x0 - .3), -.01], [sg * (x0 + .2), d], [sg * (x0 + .9 + d), -.01]]); c.fill() }) }
+    if (sev.overlap) { c.fillStyle = TK.weld; c.strokeStyle = TK.ink; [1, -1].forEach(sg => { const L = .8 + sev.overlap; poly(c, v, [[sg * Wb2 * .9, -R.hr * .3], [sg * (Wb2 + L), -.05], [sg * Wb2 * .95, -.05]]); c.fill(); c.lineWidth = 2; c.beginPath(); c.moveTo(v.X(sg * Wb2 * .95), v.Y(0)); c.lineTo(v.X(sg * (Wb2 + L)), v.Y(0)); c.stroke() }) }
+    if (sev.lof) { c.strokeStyle = TK.ink; c.lineWidth = 2.5; poly(c, v, fus.slice(16, 33), false); c.stroke() }
+    if (sev.coldcrack) { c.strokeStyle = TK.bad; c.lineWidth = 1.6; poly(c, v, jag(Math.max(W2, Wb2), 0, W2 * 1.15, P * .6, 6, .12, rnd), false); c.stroke(); poly(c, v, jag(-W2 * .5, P * 1.08, W2 * .4, P * 1.12, 8, .08, rnd), false); c.stroke() }
+    extras(0, Math.min(P, t) * .35, W2 * .8, Math.min(P, t) * .6 + R.hr * .3);
+    if (sev.spatter) { c.fillStyle = TK.weldline; for (let i = 0; i < 6; i++) { const x = (Wb2 + 1 + rnd() * 6) * (rnd() < .5 ? -1 : 1); c.beginPath(); c.arc(v.X(x), v.Y(-.2), Math.max(1.5, v.s * .2), 0, 7); c.fill() } }
+    if (!opt.bare) {
+      dimH(c, v, -Wb2, Wb2, -R.hr - 1.6, `비드 폭 ${fmt(R.Wb)} mm`, TK.accent);
+      dimV(c, v, Math.max(W2, Wb2) + 2.5, 0, Math.min(P, t), `용입 ${fmt(P)} mm`, TK.accent);
+      if (R.hr > 0) dimV(c, v, -Wb2 - 2.5, 0, -R.hr, `덧살 ${fmt(R.hr)}`, TK.info);
+    }
+  } else if (s.joint === 'fillet') {
+    const t = s.t, H = R.legV + 10, flange = [[-t - 6, 0], [200, 0], [200, t], [-t - 6, t]], web = [[-t, -H], [0, -H], [0, 0], [-t, 0]];
+    plateFill(flange); plateFill(web);
+    const P = R.Pd, lh = R.legH, lv = R.legV;
+    const fz = k => [ [[lh * .5, 0], ...ell(lh * .5, 0, (lh * .5 + .4) * k, P * .55 * k, 0, Math.PI)], [[0, -lv * .5], ...ell(0, -lv * .5, P * .55 * k, (lv * .5 + .4) * k, Math.PI / 2, Math.PI * 1.5)], ell(0, 0, P * .75 * k, P * .75 * k, 0, Math.PI * 2) ];
+    clipTo([flange, web]); hazOf(fz); fillShapes(fz(1), TK.weld); c.restore();
+    // 용착부: 삼각형 + 볼록/오목 면
+    const mx = lh / 2 + R.cv * .7, my = -lv / 2 - R.cv * .7, face = Array.from({ length: 21 }, (_, i) => { const u = i / 20; return [(1 - u) ** 2 * lh + 2 * u * (1 - u) * mx, 2 * u * (1 - u) * my + u * u * (-lv)] });
+    poly(c, v, [[0, 0], ...face]); c.fillStyle = TK.weld; c.fill(); c.strokeStyle = TK.ink; c.lineWidth = 1.2; c.stroke();
+    c.strokeStyle = TK.weldline; c.lineWidth = .8; for (let i = 2; i < 20; i += 2) { const [x, y] = face[i]; c.beginPath(); c.moveTo(v.X(x), v.Y(y)); c.lineTo(v.X(x * .55), v.Y(y * .55)); c.stroke() }
+    if (sev.undercut) { const d = clamp(.25 + .5 * sev.undercut, .2, 1.4); poly(c, v, [[0, -lv - .1], [-d, -lv - .5 - d * .5], [0, -lv - 1.2 - d]]); c.fillStyle = TK.air; c.fill() }
+    if (sev.overlap) { const L = .8 + sev.overlap; poly(c, v, [[lh * .85, -lv * .1], [lh + L, -.05], [lh, -.05]]); c.fillStyle = TK.weld; c.fill(); c.strokeStyle = TK.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(v.X(lh), v.Y(0)); c.lineTo(v.X(lh + L), v.Y(0)); c.stroke() }
+    if (sev.lof) { c.strokeStyle = TK.ink; c.lineWidth = 2.5; c.beginPath(); c.moveTo(v.X(-Math.min(t, 3)), v.Y(0)); c.lineTo(v.X(0), v.Y(0)); c.stroke() }
+    if (sev.coldcrack) { c.strokeStyle = TK.bad; c.lineWidth = 1.6; poly(c, v, jag(lh, 0, lh + .4, P * .8 + 1, 6, .12, rnd), false); c.stroke() }
+    extras(lh * .3, -lv * .3, lh * .25, lv * .25);
+    if (!opt.bare) {
+      dimH(c, v, 0, lh, Math.max(t, P) + 1.5, `각장 ${fmt(lh)} mm`, TK.accent);
+      dimV(c, v, lh + 3, 0, -lv, `각장 ${fmt(lv)} mm`, TK.accent);
+      const n = Math.hypot(lv, lh), ax = R.throat * lv / n, ay = -R.throat * lh / n;
+      c.strokeStyle = TK.info; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(v.X(0), v.Y(0)); c.lineTo(v.X(ax), v.Y(ay)); c.stroke(); c.setLineDash([]);
+      text(c, `목두께 ${fmt(R.throat)}`, v.X(ax) + 6, v.Y(ay) - 8, TK.info, 'left');
+      text(c, `용입 ${fmt(P)} mm`, v.X(-t / 2), v.Y(P * .75) + 14, TK.accent);
+    }
+  } else {
+    const t = s.t, g2 = s.g / 2, f = s.f, ta = R.ta, top = g2 + (t - f) * ta, P = R.Pd;
+    const L = [[-200, 0], [-top, 0], [-g2, t - f], [-g2, t], [-200, t]], Rt = L.map(([x, y]) => [-x, y]);
+    plateFill(L); plateFill(Rt);
+    const yb = t - f, fz = k => [[[0, yb], ...ell(0, yb, Math.max(R.W / 2, g2 + .8) * k, P * k, 0, Math.PI)]];
+    clipTo([L, Rt]); hazOf(fz); fillShapes(fz(1), TK.weld); c.restore();
+    // 루트 간격 속 용착 (용입이 루트 면을 지나면 이면 비드)
+    const through = Math.min(P, f + 3), gapFill = [[-g2, yb], [g2, yb], [g2, yb + Math.min(through, f)], [-g2, yb + Math.min(through, f)]];
+    poly(c, v, gapFill); c.fillStyle = TK.weld; c.fill();
+    if (P > R.effRoot) { const hb = clamp((P - f) * .6 + .5, .4, 3.5); poly(c, v, ell(0, t, g2 + .8 + .25 * Math.max(0, P - f), hb, 0, Math.PI)); c.fillStyle = TK.weld; c.fill(); c.strokeStyle = TK.ink; c.lineWidth = 1; c.stroke() }
+    if ((sev.burn || 0) > 1) { poly(c, v, [[-g2 * .8, yb - R.hfill], [g2 * .8, yb - R.hfill], [g2 * .6, t + 4], [-g2 * .6, t + 4]]); c.fillStyle = TK.air; c.fill() }
+    const h = R.hfill, dep = [[-g2, yb], [g2, yb], [g2 + h * ta, yb - h], [0, yb - h - .3 * Math.min(h, 2)], [-(g2 + h * ta), yb - h]];
+    poly(c, v, dep); c.fillStyle = TK.weld; c.fill(); c.strokeStyle = TK.ink; c.lineWidth = 1.2; c.stroke();
+    if (P < R.effRoot) { c.strokeStyle = TK.ink; c.lineWidth = 2.5; c.beginPath(); c.moveTo(v.X(-g2), v.Y(yb + P)); c.lineTo(v.X(-g2), v.Y(t)); c.moveTo(v.X(g2), v.Y(yb + P)); c.lineTo(v.X(g2), v.Y(t)); c.stroke() }
+    extras(0, yb - h * .4, Math.max(g2, 1) + h * ta * .5, h * .5 + .3);
+    if (!opt.bare) {
+      dimH(c, v, -top, top, -1.8, `개선각 ${s.groove}° · 간격 ${s.g} mm`, TK.muted);
+      dimV(c, v, top + 3, yb, yb + P, `용입 ${fmt(P)} mm`, TK.accent);
+      dimV(c, v, -top - 3, yb, t, `루트 면 ${f}`, TK.muted);
+      text(c, P >= R.effRoot ? '이면 비드 형성' : '루트 미용융', v.X(0), v.Y(t) + 26, P >= R.effRoot ? TK.ok : TK.bad, 'center', '600 12px ' + SANS);
+    }
+  }
+}
+
+/* ======================= 비드 외관 ======================= */
+function topBounds(R) { const h = Math.max(14, R.s.joint === 'fillet' ? R.legH + 8 : R.Wb * 1.6); return { x0: 0, x1: 60, y0: -h, y1: h } }
+function drawTop(c, v, R) {
+  const s = R.s, sev = R.sev, rnd = rng(Math.round(s.I * 11 + s.v * 17 + (s.V || 0) * 5)), L = 60;
+  const Wb = s.joint === 'fillet' ? Math.hypot(R.legH, R.legV) : R.Wb, half = Wb / 2, b = topBounds(R);
+  poly(c, v, [[b.x0, b.y0], [b.x1, b.y0], [b.x1, b.y1], [b.x0, b.y1]]); c.fillStyle = TK.plate; c.fill();
+  // 템퍼 색 (열변색)
+  const tw = half * R.m.k720 * 1.25;
+  [[tw, TK.tint2, .35], [tw * .8, TK.tint1, .45]].forEach(([w, col, a]) => { c.globalAlpha = a; poly(c, v, [[2, -w], [L - 4, -w], [L - 4, w], [2, w]]); c.fillStyle = col; c.fill() }); c.globalAlpha = 1;
+  const wob = (sev.spatter || 0) * .12 + (s.proc === 'smaw' ? .05 : 0) + (sev.undercut || 0) * .04, edge = x => half * (1 + wob * Math.sin(x * 1.7 + rnd() * .3));
+  const xs = Array.from({ length: 121 }, (_, i) => 3 + (L - 10) * i / 120), sagY = (s.pos === 'V' || s.pos === 'O') ? (sev.sag || 0) * .6 : 0;
+  poly(c, v, [...xs.map(x => [x, -edge(x)]), ...xs.slice().reverse().map(x => [x, edge(x) + sagY])]);
+  c.fillStyle = TK.bead; c.fill(); c.strokeStyle = TK.ripple; c.lineWidth = 1; c.stroke();
+  // 물결 무늬 (진행 방향으로 볼록)
+  const sp = clamp(.6 + s.v / 6 * .22, .5, 4); c.strokeStyle = TK.ripple; c.lineWidth = s.proc === 'gtaw' ? .7 : 1;
+  for (let x = 4; x < L - 8; x += sp) { c.beginPath(); c.moveTo(v.X(x), v.Y(-half * .95)); c.quadraticCurveTo(v.X(x + half * .7), v.Y(0), v.X(x), v.Y(half * .95 + sagY)); c.stroke() }
+  // 크레이터
+  poly(c, v, ell(L - 7, 0, half * .55, half * .8, 0, 7, 24)); c.fillStyle = TK.ripple; c.globalAlpha = .45; c.fill(); c.globalAlpha = 1;
+  if (sev.undercut) { c.strokeStyle = TK.ink; c.lineWidth = clamp(1 + sev.undercut * 2, 1, 4); [-1, 1].forEach(sg => { c.beginPath(); for (let x = 5; x < L - 9; x += 2.2) { const len = 1 + rnd() * 1.6; c.moveTo(v.X(x), v.Y(sg * (half + .35))); c.lineTo(v.X(x + len), v.Y(sg * (half + .35))) } c.stroke() }) }
+  if (sev.overlap) { c.strokeStyle = TK.weldline; c.lineWidth = clamp(2 + sev.overlap * 3, 2, 6); [-1, 1].forEach(sg => { c.beginPath(); c.moveTo(v.X(4), v.Y(sg * (half + .5))); for (let x = 4; x < L - 8; x += 1) c.lineTo(v.X(x), v.Y(sg * (half + .5 + .4 * Math.sin(x * 1.3)))); c.stroke() }) }
+  if (sev.spatter) { c.fillStyle = TK.ripple; const n = Math.round(sev.spatter * 70); for (let i = 0; i < n; i++) { const x = 3 + rnd() * (L - 8), y = (half + .8 + rnd() ** 2 * 9) * (rnd() < .5 ? -1 : 1); c.beginPath(); c.arc(v.X(x), v.Y(y), Math.max(1, v.s * (.12 + rnd() * .3)), 0, 7); c.fill() } }
+  if (sev.porosity && sev.porosity > .4) { const n = Math.round(sev.porosity * 6); for (let i = 0; i < n; i++) { const x = 6 + rnd() * (L - 16), y = (rnd() - .5) * half; c.beginPath(); c.arc(v.X(x), v.Y(y), Math.max(1.5, v.s * .35), 0, 7); c.fillStyle = TK.ink; c.fill() } }
+  if (sev.hotcrack) { c.strokeStyle = TK.ink; c.lineWidth = 1.4; poly(c, v, jag(8, 0, L - 10, 0, 40, .25, rnd), false); c.stroke() }
+  if (sev.coldcrack) { c.strokeStyle = TK.bad; c.lineWidth = 1.4; poly(c, v, jag(20, half + .3, 34, half + .5, 10, .2, rnd), false); c.stroke() }
+  if ((sev.burn || 0) > .8 && s.joint !== 'fillet') { for (let x = 12; x < L - 12; x += 14) { poly(c, v, ell(x + rnd() * 4, 0, half * .35, half * .45, 0, 7, 16)); c.fillStyle = TK.ink; c.fill() } }
+  if (sev.sag) { c.fillStyle = TK.bead; c.strokeStyle = TK.ripple; for (let x = 8; x < L - 10; x += 9) { poly(c, v, ell(x, half + sagY + .8, 1.2, 1.4, 0, 7, 12)); c.fill(); c.stroke() } }
+  // 축척 막대와 진행 방향
+  const y0 = b.y1 - 2; c.strokeStyle = TK.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(v.X(2), v.Y(y0)); c.lineTo(v.X(12), v.Y(y0)); c.stroke(); text(c, '10 mm', v.X(7), v.Y(y0) - 10);
+  text(c, '진행 방향 →', v.X(L - 2), v.Y(b.y0 + 2), TK.ink, 'right', '600 12px ' + SANS);
+  if (s.joint === 'fillet') text(c, '필릿 용접면을 펼쳐 본 모습', v.X(2), v.Y(b.y0 + 2), TK.muted, 'left', '500 11px ' + SANS);
+}
+
+/* ======================= 작은 차트 공통 ======================= */
+function chart(c, W, H, xr, yr, opt) {
+  const m = { l: 48, r: 14, t: 12, b: 36 }, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const X = x => m.l + (x - xr[0]) / (xr[1] - xr[0]) * pw, Y = y => m.t + ph - (y - yr[0]) / (yr[1] - yr[0]) * ph;
+  c.strokeStyle = TK.grid; c.lineWidth = 1;
+  for (let x = Math.ceil(xr[0] / opt.xs) * opt.xs; x <= xr[1]; x += opt.xs) { c.beginPath(); c.moveTo(X(x), m.t); c.lineTo(X(x), m.t + ph); c.stroke(); text(c, String(x), X(x), m.t + ph + 12, TK.muted, 'center', '10px ' + MONO) }
+  for (let y = Math.ceil(yr[0] / opt.ys) * opt.ys; y <= yr[1]; y += opt.ys) { c.beginPath(); c.moveTo(m.l, Y(y)); c.lineTo(m.l + pw, Y(y)); c.stroke(); text(c, String(y), m.l - 6, Y(y), TK.muted, 'right', '10px ' + MONO) }
+  c.strokeStyle = TK.muted; c.strokeRect(m.l + .5, m.t + .5, pw, ph);
+  text(c, opt.xl, m.l + pw / 2, H - 9, TK.ink, 'center', '600 11px ' + SANS);
+  c.save(); c.translate(12, m.t + ph / 2); c.rotate(-Math.PI / 2); text(c, opt.yl, 0, 0, TK.ink, 'center', '600 11px ' + SANS); c.restore();
+  return { X, Y, m, pw, ph };
+}
+function staticCanvas(cv, ratio, minH, maxH, draw) {
+  const fn = () => { const w = cv.parentElement.clientWidth; if (!w) return; const h = Math.round(clamp(w * ratio, minH, maxH)), d = Math.max(1, devicePixelRatio || 1);
+    cv.width = w * d; cv.height = h * d; cv.style.height = h + 'px'; const c = cv.getContext('2d'); c.setTransform(d, 0, 0, d, 0, 0); c.clearRect(0, 0, w, h); draw(c, w, h) };
+  new ResizeObserver(fn).observe(cv.parentElement); return fn;
+}
+
+/* ======================= 1. 시뮬레이터 화면 ======================= */
+const secV = new Viewer($('cv-sec'), { ratio: .5, minH: 260, maxH: 480, bounds: () => sectionBounds(R), draw: (c, v) => drawSection(c, v, R) });
+const topV = new Viewer($('cv-top'), { ratio: .32, minH: 180, maxH: 300, margin: 12, bounds: () => topBounds(R), draw: (c, v) => drawTop(c, v, R) });
+const rangeDraw = staticCanvas($('cv-range'), .62, 220, 300, (c, w, h) => {
+  const s = S, xr = [0, Math.max(300, Math.ceil(R.range[1] * 1.35 / 50) * 50)], yr = [5, 45];
+  const g = chart(c, w, h, xr, yr, { xs: xr[1] > 300 ? 100 : 50, ys: 5, xl: '전류 I [A]', yl: '아크 전압 E [V]' });
+  c.fillStyle = TK.ok; c.globalAlpha = .1; c.fillRect(g.X(R.range[0]), g.m.t, g.X(R.range[1]) - g.X(R.range[0]), g.ph); c.globalAlpha = 1;
+  const vo = I => s.proc === 'gmaw' ? (I <= 300 ? .04 * I + 15.5 : .04 * I + 20) - (s.gas === 'mix' ? 2 : 0) : s.proc === 'smaw' ? 20 + .04 * I : 10 + .04 * I;
+  const band = [], tol = I => s.proc === 'gmaw' ? (I <= 300 ? 1.5 : 2) : s.proc === 'smaw' ? 2 : 1.5;
+  for (let I = xr[0]; I <= xr[1]; I += 5) band.push([I, vo(I)]);
+  c.beginPath(); band.forEach(([I, V], i) => i ? c.lineTo(g.X(I), g.Y(V + tol(I))) : c.moveTo(g.X(I), g.Y(V + tol(I)))); band.slice().reverse().forEach(([I, V]) => c.lineTo(g.X(I), g.Y(V - tol(I)))); c.closePath();
+  c.fillStyle = TK.accent; c.globalAlpha = .16; c.fill(); c.globalAlpha = 1;
+  c.beginPath(); band.forEach(([I, V], i) => i ? c.lineTo(g.X(I), g.Y(V)) : c.moveTo(g.X(I), g.Y(V))); c.strokeStyle = TK.accent; c.lineWidth = 1.5; c.stroke();
+  if (s.proc === 'gmaw') { const { Is, Isp } = R.extra; c.setLineDash([4, 3]); c.strokeStyle = TK.muted;
+    [[Is, '단락 | 입상'], ...(s.gas === 'mix' ? [[Isp, '입상 | 스프레이']] : [])].forEach(([I, l]) => { c.beginPath(); c.moveTo(g.X(I), g.m.t); c.lineTo(g.X(I), g.m.t + g.ph); c.stroke(); text(c, l, g.X(I), g.m.t + 10, TK.muted, 'center', '10px ' + SANS) }); c.setLineDash([]) }
+  text(c, '권장 전류 범위', g.X((R.range[0] + R.range[1]) / 2), g.m.t + g.ph - 10, TK.ok, 'center', '600 10px ' + SANS);
+  c.beginPath(); c.arc(g.X(s.I), g.Y(R.V), 6, 0, 7); c.fillStyle = TK.bad; c.fill(); c.strokeStyle = TK.surface; c.lineWidth = 2; c.stroke();
+  text(c, `${s.I} A · ${fmt(R.V)} V`, g.X(s.I) + 9, g.Y(R.V) - 10, TK.ink, 'left');
+});
+
+function bindInputs() {
+  document.querySelectorAll('[data-k]').forEach(el => {
+    el.addEventListener(el.type === 'checkbox' || el.tagName === 'SELECT' ? 'change' : 'input', () => {
+      const k = el.dataset.k; let val = el.type === 'checkbox' ? el.checked : el.value;
+      if (el.type === 'range' || el.type === 'number' || 'num' in el.dataset) { val = parseFloat(val); if (!isFinite(val)) return }
+      S[k] = val; if (k === 'steel') { Object.assign(COMP, STEELS[val]) } update();
+    });
+  });
+}
+function syncInputs() {
+  document.querySelectorAll('[data-k]').forEach(el => { const v = S[el.dataset.k]; if (el.type === 'checkbox') el.checked = !!v; else if (document.activeElement !== el) el.value = v });
+  document.querySelectorAll('[data-o]').forEach(o => { const k = o.dataset.o; o.textContent = k === 'ang' ? (S.ang > 0 ? '+' : '') + S.ang + '°' : k === 'work' ? S.work + '°' : S[k] });
+  document.querySelectorAll('#procSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.p === S.proc));
+  for (const p of ['gmaw', 'smaw', 'gtaw']) document.querySelectorAll('.only-' + p).forEach(e => e.hidden = S.proc !== p);
+  document.querySelectorAll('.only-gas').forEach(e => e.hidden = S.proc === 'smaw');
+  document.querySelectorAll('.only-butt').forEach(e => e.hidden = S.joint !== 'butt');
+  document.querySelectorAll('.only-fillet').forEach(e => e.hidden = S.joint !== 'fillet');
+  const iI = $('i-I'); iI.min = Math.max(5, Math.round(R.range[0] * .4 / 5) * 5); iI.max = Math.round(R.range[1] * 1.5 / 5) * 5;
+}
+function shade(proc, I) { const T = proc === 'smaw' ? [[30, '6'], [75, '8'], [200, '10~11'], [400, '12~13'], [1e9, '14']] : proc === 'gmaw' ? [[100, '10'], [300, '11~12'], [500, '13~14'], [1e9, '14']] : [[50, '10'], [150, '11'], [250, '12'], [1e9, '13']]; return T.find(x => I <= x[0])[1] }
+function renderSim() {
+  const s = S, k = (label, val, sub = '') => `<div class="kpi"><span>${label}</span><b>${val}</b> <small>${sub}</small></div>`;
+  const geo = s.joint === 'fillet' ? k('각장 (수평 / 수직)', `${fmt(R.legH)} / ${fmt(R.legV)}`, `mm · 목두께 ${fmt(R.throat)}`) : k('비드 폭 · 덧살', `${fmt(R.Wb)} · ${fmt(R.hr)}`, 'mm');
+  $('kpis').innerHTML = [
+    k('아크 입열 H = 60EI/v', fmt(R.H, 0), 'J/cm'), k('순입열 Q = ηEI/v', fmt(R.Q, 2), `kJ/mm (η ${PROC[s.proc].eta})`),
+    k('용입 깊이', fmt(R.Pd), `mm · 용입/폭 ${fmt(R.Pd / R.W, 2)}`), geo,
+    k('희석률 (모재 비율)', fmt(R.Dil * 100, 0), '%'), k('용착 속도', fmt(R.depKg, 2), 'kg/h'),
+    k('냉각시간 t₈/₅', fmt(R.m.t85, 1), 's'), s.proc === 'gmaw' ? k('용적 이행', { short: '단락', globular: '입상', spray: '스프레이' }[R.mode], `와이어 ${fmt(R.extra.wfs, 1)} m/min`) : k('아크 전압', fmt(R.V), `V (적정 ${fmt(R.Vopt)})`),
+    k('차광 번호 (참고)', shade(s.proc, s.I), '번'), k('확산성 수소', fmt(R.Hd, 0), 'ml/100g'),
+  ].join('');
+  $('sec-sub').textContent = `${PROC[s.proc].name} · ${{ bead: '비드 온 플레이트', butt: 'V형 맞대기 초층', fillet: 'T형 필릿' }[s.joint]} · t ${s.t} mm`;
+  $('range-sub').textContent = `${PROC[s.proc].name} · 권장 ${R.range[0]}~${R.range[1]} A${s.pos !== 'F' ? ` (자세 고려 상한 ${Math.round(R.Imax)} A)` : ''}`;
+  $('defects').innerHTML = R.defects.length ? R.defects.map(d => `<div class="def ${d.score >= .5 ? 'bad' : ''}"><h3>${d.name}<span class="pill">${d.score >= .5 ? '발생' : '주의'}</span></h3><p>${d.desc}</p><ul>${d.why.map(w => `<li>${w}</li>`).join('')}</ul><p><b>대책</b> ${d.fix}</p></div>`).join('')
+    : `<div class="def ok"><h3>결함 위험 낮음<span class="pill">적정</span></h3><p>전류·전압·속도가 권장 범위 안에 있습니다. 조건을 하나씩 바꿔 가며 비드와 결함이 어떻게 변하는지 비교해 보세요.</p></div>`;
+  secV.draw(); topV.draw(); rangeDraw();
+}
+
+/* ======================= 2. 토치 연습 ======================= */
+const TR = { pts: [], dep: [], on: false, done: false, last: null };
+const torchCv = $('cv-torch'); let torchGeom = null;
+const torchDraw = staticCanvas(torchCv, .36, 220, 380, (c, w, h) => {
+  const L = 160, Hh = 60, sc = Math.min((w - 40) / L, (h - 30) / Hh), ox = (w - L * sc) / 2, oy = h / 2; torchGeom = { sc, ox, oy, L };
+  const X = x => ox + x * sc, Y = y => oy + y * sc;
+  c.fillStyle = TK.plate; c.fillRect(X(0), Y(-Hh / 2), L * sc, Hh * sc);
+  c.setLineDash([6, 5]); c.strokeStyle = TK.ink; c.globalAlpha = .4; c.beginPath(); c.moveTo(X(0), Y(0)); c.lineTo(X(L), Y(0)); c.stroke(); c.setLineDash([]); c.globalAlpha = 1;
+  c.fillStyle = TK.ok; c.beginPath(); c.moveTo(X(2), Y(-5)); c.lineTo(X(12), Y(0)); c.lineTo(X(2), Y(5)); c.fill(); text(c, '시작', X(7), Y(-9), TK.ok, 'center', '600 11px ' + SANS);
+  c.fillStyle = TK.bad; c.fillRect(X(L - 3), Y(-8), 3 * sc, 16 * sc); text(c, '끝', X(L - 1.5), Y(-11), TK.bad, 'center', '600 11px ' + SANS);
+  const now = performance.now();
+  for (const d of TR.dep) { const age = (now - d.t) / 1000, hot = TR.on ? clamp(1 - age / 1.5, 0, 1) : 0;
+    c.beginPath(); c.ellipse(X(d.x), Y(d.y), d.w / 2 * sc * .55, d.w / 2 * sc, 0, 0, 7); c.fillStyle = TK.bead; c.fill(); c.strokeStyle = TK.ripple; c.lineWidth = 1; c.stroke();
+    if (hot > 0) { c.globalAlpha = hot; c.fillStyle = TK.glow; c.fill(); c.globalAlpha = 1 }
+    if (d.bad) { c.strokeStyle = d.bad === 'fast' ? TK.bad : TK.warn; c.lineWidth = 2; c.beginPath(); c.moveTo(X(d.x), Y(d.y - d.w / 2 - .6)); c.lineTo(X(d.x + .6), Y(d.y - d.w / 2 - .6)); c.moveTo(X(d.x), Y(d.y + d.w / 2 + .6)); c.lineTo(X(d.x + .6), Y(d.y + d.w / 2 + .6)); c.stroke() } }
+  if (TR.on && TR.last) { const g = c.createRadialGradient(X(TR.last.x), Y(TR.last.y), 0, X(TR.last.x), Y(TR.last.y), 30); g.addColorStop(0, '#ffffff'); g.addColorStop(.3, TK.glow); g.addColorStop(1, 'rgba(255,179,71,0)'); c.fillStyle = g; c.beginPath(); c.arc(X(TR.last.x), Y(TR.last.y), 30, 0, 7); c.fill() }
+  text(c, '160 mm 시험편 · 빨간 표시 = 너무 빠름(언더컷 위험), 주황 = 너무 느림(오버랩 위험)', X(0), Y(Hh / 2) + 12, TK.muted, 'left', '500 11px ' + SANS);
+});
+const traceDraw = staticCanvas($('cv-trace'), .42, 200, 300, (c, w, h) => {
+  const tgt = S.v, ymax = Math.max(tgt * 2.2, ...TR.dep.map(d => d.v)) || 80;
+  const g = chart(c, w, h, [0, 160], [0, Math.ceil(ymax / 10) * 10], { xs: 20, ys: ymax > 100 ? 20 : 10, xl: '거리 [mm]', yl: '속도 [cm/min]' });
+  c.fillStyle = TK.ok; c.globalAlpha = .15; c.fillRect(g.m.l, g.Y(tgt * 1.15), g.pw, g.Y(tgt * .85) - g.Y(tgt * 1.15)); c.globalAlpha = 1;
+  c.beginPath(); TR.dep.forEach((d, i) => i ? c.lineTo(g.X(d.x), g.Y(d.v)) : c.moveTo(g.X(d.x), g.Y(d.v))); c.strokeStyle = TK.accent; c.lineWidth = 2; c.stroke();
+});
+const tPos = e => { const r = torchCv.getBoundingClientRect(), G = torchGeom; return { x: (e.clientX - r.left - G.ox) / G.sc, y: (e.clientY - r.top - G.oy) / G.sc } };
+let torchAnim = 0;
+function torchLoop() { torchDraw(); if (TR.on) torchAnim = requestAnimationFrame(torchLoop) }
+torchCv.addEventListener('pointerdown', e => { if (!torchGeom || TR.on) return; const p = tPos(e); if (p.x > 16 || Math.abs(p.y) > 15) { $('tr-state').textContent = '왼쪽 시작점(▶) 근처를 눌러 아크를 켜세요.'; return }
+  torchCv.setPointerCapture(e.pointerId); Object.assign(TR, { pts: [{ ...p, t: performance.now() }], dep: [], on: true, done: false, last: p }); $('tr-state').textContent = '용접 중… 일정한 속도로!'; torchLoop() });
+torchCv.addEventListener('pointermove', e => { if (!TR.on) return; const p = tPos(e), t = performance.now(); TR.pts.push({ ...p, t }); TR.last = p;
+  let j = TR.pts.length - 1; while (j > 0 && t - TR.pts[j - 1].t < 250) j--; const a = TR.pts[j], dist = Math.hypot(p.x - a.x, p.y - a.y), dt = (t - a.t) / 1000;
+  const tempo = +$('tr-tempo').value, vcm = dt > .03 ? dist / dt * 6 / tempo : null; if (vcm != null) $('tr-now').textContent = fmt(vcm, 0);
+  const lastDep = TR.dep.at(-1); if (vcm && (!lastDep || p.x - lastDep.x >= .6)) {
+    const rr = weld({ ...S, v: clamp(vcm, 2, 300) }), w = S.joint === 'fillet' ? Math.hypot(rr.legH, rr.legV) : rr.Wb;
+    TR.dep.push({ x: p.x, y: p.y, w, v: vcm, t, bad: vcm > S.v * 1.3 ? 'fast' : vcm < S.v * .7 ? 'slow' : null }) }
+  if (p.x >= torchGeom.L - 3) finishTorch() });
+torchCv.addEventListener('pointerup', () => TR.on && finishTorch());
+function finishTorch() {
+  TR.on = false; cancelAnimationFrame(torchAnim); torchDraw(); traceDraw(); const d = TR.dep.filter(x => x.x > 10);
+  if (d.length < 20) { $('tr-state').textContent = '너무 짧습니다. 시작점부터 끝까지 이어서 끌어 보세요.'; $('tr-score').innerHTML = ''; return }
+  const mean = a => a.reduce((p, q) => p + q, 0) / a.length, sd = a => { const m = mean(a); return Math.sqrt(mean(a.map(x => (x - m) ** 2))) };
+  const vs = d.map(x => x.v), ws = d.map(x => x.w), mv = mean(vs), cv = sd(vs) / mv, wcv = sd(ws) / mean(ws), dev = mean(d.map(x => Math.abs(x.y))), done = d.at(-1).x / (torchGeom.L - 3);
+  const fast = d.filter(x => x.bad === 'fast').length / d.length, slow = d.filter(x => x.bad === 'slow').length / d.length;
+  const score = Math.round(clamp(100 - 60 * Math.abs(mv / S.v - 1) - 80 * cv - 6 * dev - 40 * (fast + slow) - 50 * (1 - clamp(done, 0, 1)), 0, 100));
+  $('tr-state').textContent = done >= .98 ? '완료! 아래 점수를 확인하세요.' : '중간에 멈췄습니다.';
+  const row = (n, v, u, ok) => `<tr><td>${n}</td><td class="n" style="color:var(--${ok ? 'ok' : 'bad'})">${v} <span class="unit">${u}</span></td></tr>`;
+  $('tr-score').innerHTML = `<div class="kpi" style="margin-bottom:8px"><span>종합 점수</span><b style="font-size:2rem;color:var(--${score >= 80 ? 'ok' : score >= 60 ? 'warn' : 'bad'})">${score}</b> <small>/ 100</small></div><table>
+    ${row('평균 속도 (목표 ' + S.v + ')', fmt(mv, 0), 'cm/min', Math.abs(mv / S.v - 1) < .15)}${row('속도 변동계수', fmt(cv * 100, 0), '%', cv < .15)}${row('비드 폭 변동계수', fmt(wcv * 100, 0), '%', wcv < .08)}
+    ${row('중심선 이탈 평균', fmt(dev, 1), 'mm', dev < 2)}${row('너무 빠른 구간 (언더컷 위험)', fmt(fast * 100, 0), '%', fast < .1)}${row('너무 느린 구간 (오버랩 위험)', fmt(slow * 100, 0), '%', slow < .1)}</table>
+    <p class="src">일정한 속도가 일정한 비드 폭을 만듭니다. 실제로는 아크 길이(토치 높이)와 각도도 일정해야 합니다.</p>`;
+}
+$('tr-reset').addEventListener('click', () => { Object.assign(TR, { pts: [], dep: [], on: false, last: null }); $('tr-score').innerHTML = '<p class="src">한 번 끝까지 용접하면 점수가 나옵니다.</p>'; $('tr-state').textContent = '왼쪽 시작점(▶)을 누른 채 오른쪽 끝까지 일정한 속도로 끌어 보세요.'; $('tr-now').textContent = '—'; torchDraw(); traceDraw() });
+
+/* ======================= 3. 예열·균열 ======================= */
+const COMP = { ...STEELS[S.steel] }; S.comp = COMP;
+const t85Draw = staticCanvas($('cv-t85'), .5, 240, 380, (c, w, h) => {
+  const m = R.m, pts = []; for (let T = 0; T <= 300; T += 5) pts.push([T, m.t85at(T).t85]);
+  const ymax = Math.ceil(Math.max(30, ...pts.map(p => p[1])) / 10) * 10, g = chart(c, w, h, [0, 300], [0, ymax], { xs: 50, ys: ymax > 60 ? 20 : 10, xl: '예열 온도 T₀ [℃]', yl: '냉각시간 t₈/₅ [s]' });
+  c.fillStyle = TK.bad; c.globalAlpha = .1; c.fillRect(g.m.l, g.Y(Math.min(5, ymax)), g.pw, g.Y(0) - g.Y(Math.min(5, ymax))); c.fillStyle = TK.warn; c.fillRect(g.m.l, g.m.t, g.pw, g.Y(Math.min(25, ymax)) - g.m.t); c.globalAlpha = 1;
+  text(c, '경화·균열 위험 (5 s 미만)', g.m.l + 6, g.Y(2.5), TK.bad, 'left', '600 10px ' + SANS); if (ymax > 28) text(c, '결정립 조대화·인성 저하 (25 s 초과)', g.m.l + 6, g.Y(Math.min(ymax - 2, 28)), TK.warn, 'left', '600 10px ' + SANS);
+  c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(g.X(x), g.Y(Math.min(y, ymax))) : c.moveTo(g.X(x), g.Y(Math.min(y, ymax)))); c.strokeStyle = TK.accent; c.lineWidth = 2.2; c.stroke();
+  if (m.Treq > 0 && m.Treq < 300) { c.setLineDash([5, 4]); c.strokeStyle = TK.info; c.beginPath(); c.moveTo(g.X(m.Treq), g.m.t); c.lineTo(g.X(m.Treq), g.m.t + g.ph); c.stroke(); c.setLineDash([]); text(c, `필요 예열 ${Math.round(m.Treq)}℃`, g.X(m.Treq) + 4, g.m.t + 12, TK.info, 'left', '600 10px ' + SANS) }
+  c.beginPath(); c.arc(g.X(clamp(S.T0, 0, 300)), g.Y(Math.min(m.t85, ymax)), 6, 0, 7); c.fillStyle = TK.bad; c.fill(); c.strokeStyle = TK.surface; c.lineWidth = 2; c.stroke();
+  text(c, `현재 ${S.T0}℃ → ${fmt(m.t85, 1)} s`, g.X(clamp(S.T0, 0, 300)) + 9, g.Y(Math.min(m.t85, ymax)) - 10, TK.ink, 'left');
+});
+$('comp').innerHTML = ELEMS.map(e => `<label class="f"><span>${e}</span><input id="c-${e}" type="number" step="${e === 'B' ? .0005 : .01}" min="0"></label>`).join('');
+ELEMS.forEach(e => $('c-' + e).addEventListener('input', ev => { const v = parseFloat(ev.target.value); if (v >= 0) { COMP[e] = v; update() } }));
+$('m-H').addEventListener('input', e => { const v = parseFloat(e.target.value); if (v >= 0) { S.Hd = v; update() } });
+$('m-Hreset').addEventListener('click', () => { S.Hd = null; update() });
+function renderMet() {
+  const m = R.m, ok = S.T0 >= m.Treq - 10;
+  ELEMS.forEach(e => { if (document.activeElement !== $('c-' + e)) $('c-' + e).value = COMP[e] });
+  if (document.activeElement !== $('m-H')) $('m-H').value = R.Hd; $('m-Hauto').textContent = `자동 추정 ${hydrogen(S)} ml/100g`;
+  $('m-Q').textContent = `${fmt(R.Q, 2)} kJ/mm (${fmt(R.H, 0)} J/cm)`;
+  const rows = [['Ceq (IIW)', fmt(m.ceqIIW, 3), ''], ['Ceq (WES·JIS)', fmt(m.ceqWES, 3), ''], ['P<sub>CM</sub> 용접 균열 감수성', fmt(m.pcm, 3), m.lowC ? '' : 'C 0.22% 초과: 참고값'], ['P<sub>C</sub> = P<sub>CM</sub> + H/60 + t/600', fmt(m.pc, 3), ''],
+    ['필요 예열 온도', m.Treq <= 0 ? '불필요' : `${Math.round(m.Treq)} ℃`, m.lowC ? '1440·P<sub>C</sub> − 392' : 'Ceq(IIW) 기준표 하한'], ['HAZ 최고 경도 H<sub>max</sub>', `${Math.round(m.hmax)} HV`, '666·Ceq + 40, 350 HV 초과 주의'],
+    ['t₈/₅ 후판식 / 박판식', `${fmt(m.t3, 1)} / ${fmt(m.t2, 1)} s`, '큰 값 적용'], ['HAZ 폭 비 (1100 / 900 / 720℃)', `${fmt(m.k1100, 2)} / ${fmt(m.k900, 2)} / ${fmt(m.k720, 2)}`, '용융선 거리의 배수']];
+  $('met-table').innerHTML = '<tr><th>항목</th><th>값</th><th>비고</th></tr>' + rows.map(r => `<tr><td>${r[0]}</td><td class="n">${r[1]}</td><td class="unit" style="text-align:right">${r[2]}</td></tr>`).join('');
+  const cls = !ok || m.hmax > 350 ? 'bad' : m.t85 < 5 ? 'warn' : 'ok';
+  $('met-verdict').innerHTML = `<div class="verdict ${cls}">${!ok ? `예열 부족: 약 ${Math.round(m.Treq)}℃ 이상으로 예열하세요 (현재 ${S.T0}℃). 저온 균열 위험.` : m.hmax > 350 ? `예열은 충족하지만 HAZ 최고 경도가 ${Math.round(m.hmax)} HV로 높습니다. 저수소 재료·후열을 함께 쓰세요.` : m.t85 < 5 ? `냉각이 빠릅니다 (t₈/₅ ${fmt(m.t85, 1)} s). 입열을 늘리거나 예열하세요.` : '예열 조건 충족. 저온 균열 위험이 낮습니다.'}</div>`;
+  t85Draw();
+}
+
+/* ======================= 4. 용착량·적산 ======================= */
+const Q = { type: 'butt', t: 12, ang: 60, g: 2, f: 1.5, rh: 2, S: 6, cv: 1, L: 10, eff: null, atr: null };
+const qtyGeom = () => { const ta = Math.tan(Q.ang / 2 * Math.PI / 180), top = Q.g / 2 + (Q.t - Q.f) * ta, b = 2 * top + 4;
+  const Ag = (Q.t - Q.f) ** 2 * ta + Q.g * Q.t, Acap = 2 / 3 * b * Q.rh, Aback = 2 / 3 * (Q.g + 3) * 1.5;
+  const Af = Q.S ** 2 / 2 + 2 / 3 * Math.SQRT2 * Q.S * Q.cv; return { ta, top, b, Ag, Acap, Aback, A: Q.type === 'butt' ? Ag + Acap + Aback : Af } };
+const qtyV = new Viewer($('cv-qty'), { ratio: .55, minH: 260, maxH: 480, bounds: () => { const g = qtyGeom(); return Q.type === 'butt' ? { x0: -g.top - 8, x1: g.top + 8, y0: -Q.rh - 4, y1: Q.t + 4 } : { x0: -8, x1: Q.S + 10, y0: -Q.S - 8, y1: 8 } },
+  draw: (c, v) => { const g = qtyGeom(), Ad = Math.max(R.Ad, 1), n = Math.max(1, Math.ceil(g.A / Ad)), cols = [TK.weld, TK.weldline];
+    if (Q.type === 'butt') { const t = Q.t, g2 = Q.g / 2, yb = t - Q.f, L = [[-200, 0], [-g.top, 0], [-g2, yb], [-g2, t], [-200, t]];
+      poly(c, v, L); c.fillStyle = TK.steel; c.fill(); poly(c, v, L.map(([x, y]) => [-x, y])); c.fill();
+      // 패스를 아래부터 같은 면적으로 쌓기
+      const areaAt = h => Q.g * (Q.f + h) + h * h * g.ta, Htot = yb + Q.rh; let prev = 0;
+      for (let i = 1; i <= n; i++) { const target = g.A * i / n; let lo = 0, hi = Htot + 2; for (let k = 0; k < 40; k++) { const mid = (lo + hi) / 2; (areaAt(mid) < target ? lo = mid : hi = mid) } const h = Math.min(lo, yb + Q.rh * .9);
+        const wAt = hh => Math.min(g2 + hh * g.ta, g.b / 2), yy = hh => yb - hh;
+        poly(c, v, [[-wAt(prev), yy(prev)], [wAt(prev), yy(prev)], [wAt(h), yy(h)], [-wAt(h), yy(h)]]); c.fillStyle = cols[i % 2]; c.fill(); c.strokeStyle = TK.ink; c.lineWidth = .6; c.stroke(); prev = h; if (h >= yb + Q.rh * .9 - 1e-6) break }
+      poly(c, v, [[-g2, yb], [g2, yb], [g2, t], [-g2, t]]); c.fillStyle = TK.weld; c.fill();
+      poly(c, v, ell(0, t, g2 + 1.5, 1.5, 0, Math.PI)); c.fill();
+      dimH(c, v, -g.top, g.top, -Q.rh - 2, `개선각 ${Q.ang}° · 상부 폭 ${fmt(g.top * 2)} mm`, TK.muted); dimV(c, v, g.top + 3, 0, t, `t ${t}`, TK.muted);
+    } else { const S2 = Q.S; poly(c, v, [[-8, 0], [S2 + 10, 0], [S2 + 10, 6], [-8, 6]]); c.fillStyle = TK.steel; c.fill(); poly(c, v, [[-6, -S2 - 8], [0, -S2 - 8], [0, 0], [-6, 0]]); c.fill();
+      for (let i = n; i >= 1; i--) { const k = Math.sqrt(i / n), s2 = S2 * k; poly(c, v, [[0, 0], [s2, 0], [s2 / 2 + Q.cv * k * .7, -s2 / 2 - Q.cv * k * .7], [0, -s2]]); c.fillStyle = cols[i % 2]; c.fill(); c.strokeStyle = TK.ink; c.lineWidth = .6; c.stroke() }
+      dimH(c, v, 0, S2, 3, `각장 ${S2} mm`, TK.muted) }
+    text(c, `${n}패스 (1패스 ${fmt(Ad)} mm²)`, 12, 16, TK.accent, 'left', '600 12px ' + SANS) } });
+document.querySelectorAll('[data-q-k]').forEach(el => el.addEventListener('input', () => { const v = parseFloat(el.value); if (isFinite(v)) { Q[el.dataset.qK] = v; renderQty() } }));
+$('qtySeg').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; Q.type = b.dataset.q; renderQty(); qtyV.reset() });
+function renderQty() {
+  document.querySelectorAll('#qtySeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.q === Q.type));
+  document.querySelector('.qty-butt').hidden = Q.type !== 'butt'; document.querySelector('.qty-fillet').hidden = Q.type !== 'fillet';
+  const effDef = { gmaw: 92, smaw: 60, gtaw: 98 }[S.proc], atrDef = { gmaw: 50, smaw: 35, gtaw: 40 }[S.proc], eff = Q.eff ?? effDef, atr = Q.atr ?? atrDef;
+  document.querySelectorAll('[data-q-k]').forEach(el => { if (document.activeElement !== el) el.value = el.dataset.qK === 'eff' ? eff : el.dataset.qK === 'atr' ? atr : Q[el.dataset.qK] });
+  $('q-Ad').value = fmt(R.Ad, 1);
+  const g = qtyGeom(), W = g.A * Q.L * .00785, need = W / (eff / 100), n = Math.max(1, Math.ceil(g.A / Math.max(R.Ad, 1))), arc = n * Q.L * 100 / S.v, work = arc / (atr / 100), kwh = R.V * S.I * arc / 60 / 1000;
+  const rows = [['용착 단면적 A', fmt(g.A, 1), 'mm²'], ...(Q.type === 'butt' ? [['　개선부 / 덧살 / 이면', `${fmt(g.Ag, 1)} / ${fmt(g.Acap, 1)} / ${fmt(g.Aback, 1)}`, 'mm²']] : [['　이론 목두께 0.707S', fmt(.707 * Q.S, 2), 'mm']]),
+    ['용착 금속 중량', fmt(W, 2), 'kg'], ['용접 재료 소요량', fmt(need, 2), `kg (효율 ${eff}%)`], ['필요 패스 수', n, `패스 (${PROC[S.proc].name})`], ['아크 시간', fmt(arc, 0), `분 (속도 ${S.v} cm/min)`], ['총 작업 시간', fmt(work / 60, 1), `시간 (아크 타임률 ${atr}%)`], ['아크 전력량', fmt(kwh, 1), 'kWh']];
+  if (S.proc === 'smaw') { const d = S.d_s, len = { 2.6: 300, 3.2: 350, 4: 400, 5: 450 }[d], core = Math.PI * d * d / 4 * (len - 50) * RHO * ELEC[S.elec].iron; rows.push(['용접봉 개수 (봉 지름 ' + d + ' mm)', Math.ceil(W * 1000 / core), `개 (1개 용착 약 ${fmt(core, 0)} g)`]) }
+  $('qty-table').innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="n">${r[1]}</td><td class="unit" style="text-align:right">${r[2]}</td></tr>`).join('');
+  qtyV.draw();
+}
+
+/* ======================= 5. 결함 진단 퀴즈 ======================= */
+const SCEN = [
+  { ans: 'undercut', set: { proc: 'smaw', elec: 'E4313', d_s: 3.2, I: 150, La_s: 5, v: 35 } },
+  { ans: 'overlap', set: { proc: 'gmaw', I: 120, V: 17, v: 15 } },
+  { ans: 'lof', set: { proc: 'gmaw', joint: 'butt', t: 9, f: 3, g: 1, I: 110, V: 19.5, v: 40 } },
+  { ans: 'burn', set: { proc: 'gmaw', t: 2.3, I: 220, V: 24.5, v: 25 } },
+  { ans: 'porosity', set: { proc: 'gmaw', wind: 5 } },
+  { ans: 'porosity', set: { proc: 'smaw', elec: 'E4316', dried: false, d_s: 4, I: 150, v: 15, La_s: 6 } },
+  { ans: 'spatter', set: { proc: 'gmaw', I: 260, V: 26, v: 40 } },
+  { ans: 'hotcrack', set: { proc: 'gmaw', gas: 'mix', I: 360, V: 32.5, v: 45, ang: 25, t: 20 } },
+  { ans: 'coldcrack', set: { proc: 'smaw', elec: 'E4301', steel: 'SCM440', t: 30, T0: 20, I: 160, d_s: 4, v: 15 } },
+  { ans: 'tungsten', set: { proc: 'gtaw', pol_t: 'DCEN', d_t: 1.6, I: 220, v: 15, filler: 8 } },
+  { ans: 'slag', set: { proc: 'smaw', elec: 'E4301', d_s: 4, I: 105, v: 14, ang: -22, t: 12 } },
+  { ans: 'sag', set: { proc: 'smaw', elec: 'E4324', d_s: 4, I: 170, v: 15, pos: 'V', t: 12 } },
+];
+const QZ = { order: [], i: 0, right: 0, n: 0, R: null, answered: false };
+const qsecV = new Viewer($('cv-qsec'), { interactive: false, ratio: .5, minH: 240, maxH: 420, bounds: () => sectionBounds(QZ.R || R), draw: (c, v) => QZ.R && drawSection(c, v, QZ.R, { bare: true }) });
+const qtopV = new Viewer($('cv-qtop'), { interactive: false, ratio: .3, minH: 160, maxH: 260, margin: 10, bounds: () => topBounds(QZ.R || R), draw: (c, v) => QZ.R && drawTop(c, v, QZ.R) });
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]] } return a };
+function scenR(sc) { const s = { ...DEFAULTS, Hd: null, ...sc.set }; return weld(s) }
+function nextQuiz() {
+  if (!QZ.order.length || QZ.i >= QZ.order.length) { QZ.order = shuffle(SCEN.map((_, i) => i)); QZ.i = 0 }
+  const sc = SCEN[QZ.order[QZ.i++]]; QZ.R = scenR(sc); QZ.sc = sc; QZ.answered = false;
+  const opts = shuffle([sc.ans, ...shuffle(Object.keys(DEF).filter(k => k !== sc.ans)).slice(0, 3)]);
+  $('qz-title').textContent = `문제 ${QZ.n + 1}`; $('qz-proc').textContent = `${PROC[QZ.R.s.proc].name} · ${{ bead: '비드 온 플레이트', butt: 'V형 맞대기 초층', fillet: 'T형 필릿' }[QZ.R.s.joint]} · t ${QZ.R.s.t} mm${{ F: '', H: ' · 수평 자세', V: ' · 수직 자세', O: ' · 위보기 자세' }[QZ.R.s.pos]}`;
+  $('qz-opts').innerHTML = opts.map(k => `<button data-a="${k}"><b>${DEF[k].name}</b> — ${DEF[k].cause}</button>`).join('');
+  $('qz-exp').innerHTML = ''; qsecV.draw(); qtopV.draw();
+}
+$('qz-opts').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || QZ.answered) return; QZ.answered = true; QZ.n++;
+  const ok = b.dataset.a === QZ.sc.ans; if (ok) QZ.right++;
+  document.querySelectorAll('#qz-opts button').forEach(x => { x.disabled = true; if (x.dataset.a === QZ.sc.ans) x.classList.add('right'); else if (x === b) x.classList.add('wrong') });
+  const s = QZ.R.s, d = QZ.R.defects.find(x => x.key === QZ.sc.ans), cond = s.proc === 'gmaw' ? `${s.I} A · ${s.V} V · ${s.v} cm/min · ${s.gas === 'mix' ? 'Ar+CO₂' : 'CO₂'} · 풍속 ${s.wind} m/s` : s.proc === 'smaw' ? `${s.elec} ${s.d_s} mm · ${s.I} A · 아크 ${s.La_s} mm · ${s.v} cm/min${s.dried ? '' : ' · 미건조'}` : `${s.pol_t} · 텅스텐 ${s.d_t} mm · ${s.I} A · ${s.v} cm/min`;
+  $('qz-exp').innerHTML = `<div class="def ${ok ? 'ok' : 'bad'}"><h3>${ok ? '정답' : '오답'} — ${DEF[QZ.sc.ans].name}<span class="pill">${ok ? '맞음' : '틀림'}</span></h3><p>${DEF[QZ.sc.ans].desc}</p><p><b>실제 조건</b> ${cond}${s.steel !== 'SM490A' ? ` · ${STEELS[s.steel].name} · 예열 ${s.T0}℃` : ''}</p>${d ? `<ul>${d.why.map(w => `<li>${w}</li>`).join('')}</ul>` : ''}<p><b>대책</b> ${DEF[QZ.sc.ans].fix}</p></div>`;
+  $('qz-score').textContent = `${QZ.n}문제 중 ${QZ.right}개 정답`;
+});
+$('qz-next').addEventListener('click', nextQuiz);
+
+/* ======================= 연결 ======================= */
+function update() { R = weld(S); syncInputs(); renderSim(); renderMet(); renderQty(); if (!TR.on) { torchDraw(); traceDraw() } $('tr-target').textContent = S.v }
+const steelOpts = Object.entries(STEELS).map(([k, v]) => `<option value="${k}">${v.name}</option>`).join(''); $('i-steel').innerHTML = steelOpts; $('m-steel').innerHTML = steelOpts;
+$('i-elec').innerHTML = Object.entries(ELEC).map(([k, v]) => `<option value="${k}">${k} ${v.name}</option>`).join('');
+$('elec-table').innerHTML = '<tr><th>규격</th><th>계통</th><th>특징</th></tr>' + Object.entries(ELEC).map(([k, v]) => `<tr><td class="n">${k}</td><td style="text-align:left;white-space:nowrap">${v.name}</td><td style="text-align:left">${v.note} <span class="unit">(${v.pos})</span></td></tr>`).join('');
+$('def-table').innerHTML = '<tr><th>결함</th><th>주요 원인</th><th>대책</th></tr>' + Object.values(DEF).map(d => `<tr><td style="white-space:nowrap"><b>${d.name}</b></td><td style="text-align:left">${d.cause}</td><td style="text-align:left">${d.fix}</td></tr>`).join('');
+$('procSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S.proc = b.dataset.p; Object.assign(S, GOOD[S.proc]); if (S.proc === 'gmaw') S.V = Math.round(weld(S).Vopt * 2) / 2; update(); secV.reset(); topV.reset() });
+$('btn-vopt').addEventListener('click', () => { S.V = Math.round(weld(S).Vopt * 2) / 2; update() });
+$('btn-good').addEventListener('click', () => { Object.assign(S, GOOD[S.proc], { surf: 'clean', dried: true }); if (S.proc === 'gmaw') S.V = Math.round(weld(S).Vopt * 2) / 2; const m = weld(S).m; if (S.T0 < m.Treq) S.T0 = Math.ceil(m.Treq / 10) * 10; update() });
+[['sec', secV], ['top', topV], ['qty', qtyV]].forEach(([p, V]) => { $(p + '-zin').addEventListener('click', () => V.zoom(1.4)); $(p + '-zout').addEventListener('click', () => V.zoom(1 / 1.4)); $(p + '-zr').addEventListener('click', () => V.reset()) });
+['i-joint', 'i-t', 'm-t', 'm-joint'].forEach(id => $(id).addEventListener('change', () => { secV.reset(); topV.reset() }));
+const views = { 'tab-atlas': 'view-atlas', 'tab-sim': 'view-sim', 'tab-torch': 'view-torch', 'tab-met': 'view-met', 'tab-qty': 'view-qty', 'tab-quiz': 'view-quiz' };
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+  for (const [t, v] of Object.entries(views)) $(v).hidden = t !== b.id;
+  if (b.id === 'tab-quiz' && !QZ.R) nextQuiz();
+  try { localStorage.setItem('weld-tab', b.id) } catch (e) {}
+}));
+bindInputs();
+const redraw = () => { readTokens(); update(); qsecV.draw(); qtopV.draw() };
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', redraw);
+new MutationObserver(redraw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+document.fonts?.ready.then(redraw);
+update();
+try { const t = localStorage.getItem('weld-tab'); if (t && views[t]) $(t).click() } catch (e) {}
+</script>
+<script>
+/* ======================= 용접법 도감: 원리 애니메이션 ======================= */
+"use strict";
+const MAT = { cu: '#c27a45', cuD: '#8a4f24', slag: '#6e4a2c', flux: '#cdb98d', cer: '#e4dccb', tung: '#b9c1c9', dark: '#2b3036', wire: '#c8894f',
+  ar: 'rgba(80,150,255,.22)', co2: 'rgba(150,150,150,.28)', mix: 'rgba(110,140,220,.24)', hot: 'rgba(255,150,60,.75)', pool: '#ffb35c', expl: '#d9a441', pcb: '#2f7d4f', solder: '#c3c9d1', water: 'rgba(60,140,255,.6)' };
+const hsh = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x) };
+let LABELS = true;
+function K(c, v) {
+  const X = x => v.X(x), Y = y => v.Y(y), S = d => d * v.s;
+  const k = {
+    c, X, Y, S,
+    rect(x, y, w, h, fill, stroke) { c.beginPath(); c.rect(X(x), Y(y), S(w), S(h)); if (fill) { c.fillStyle = fill; c.fill() } if (stroke) { c.strokeStyle = stroke; c.lineWidth = 1; c.stroke() } },
+    poly(pts, fill, stroke, lw = 1) { c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(X(x), Y(y)) : c.moveTo(X(x), Y(y))); c.closePath(); if (fill) { c.fillStyle = fill; c.fill() } if (stroke) { c.strokeStyle = stroke; c.lineWidth = lw; c.stroke() } },
+    path(pts, col, lw = 1, dash, off = 0) { c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(X(x), Y(y)) : c.moveTo(X(x), Y(y))); c.strokeStyle = col; c.lineWidth = lw; c.setLineDash(dash || []); c.lineDashOffset = off; c.stroke(); c.setLineDash([]); c.lineDashOffset = 0 },
+    circ(x, y, r, fill, stroke, lw = 1) { c.beginPath(); c.arc(X(x), Y(y), Math.max(.6, S(r)), 0, 7); if (fill) { c.fillStyle = fill; c.fill() } if (stroke) { c.strokeStyle = stroke; c.lineWidth = lw; c.stroke() } },
+    ell(x, y, rx, ry, fill, stroke, a0 = 0, a1 = 2 * Math.PI) { c.beginPath(); c.ellipse(X(x), Y(y), Math.max(.6, S(rx)), Math.max(.6, S(ry)), 0, a0, a1); if (a1 - a0 < 6) c.closePath(); if (fill) { c.fillStyle = fill; c.fill() } if (stroke) { c.strokeStyle = stroke; c.lineWidth = 1; c.stroke() } },
+    glow(x, y, r, a = 1) { const g = c.createRadialGradient(X(x), Y(y), 0, X(x), Y(y), Math.max(1, S(r))); g.addColorStop(0, '#ffffff'); g.addColorStop(.25, '#ffe9a8'); g.addColorStop(.55, 'rgba(255,154,60,.75)'); g.addColorStop(1, 'rgba(255,120,40,0)'); c.globalAlpha = a; c.fillStyle = g; c.beginPath(); c.arc(X(x), Y(y), Math.max(1, S(r)), 0, 7); c.fill(); c.globalAlpha = 1 },
+    lab(txt, x, y, tx, ty, col = TK.ink) { if (!LABELS) return; c.strokeStyle = TK.muted; c.lineWidth = 1; c.beginPath(); c.moveTo(X(x), Y(y)); c.lineTo(X(tx), Y(ty)); c.stroke(); c.beginPath(); c.arc(X(x), Y(y), 2.2, 0, 7); c.fillStyle = TK.muted; c.fill(); text(c, txt, X(tx) + (tx >= x ? 4 : -4), Y(ty), col, tx >= x ? 'left' : 'right', '600 12px ' + SANS) },
+    txt(s, x, y, col = TK.ink, al = 'center', size = 12) { text(c, s, X(x), Y(y), col, al, `600 ${size}px ` + SANS) },
+    arrow(x0, y0, x1, y1, col = TK.accent, lw = 2) { k.path([[x0, y0], [x1, y1]], col, lw); const a = Math.atan2(Y(y1) - Y(y0), X(x1) - X(x0)); c.beginPath(); c.moveTo(X(x1), Y(y1)); c.lineTo(X(x1) - 9 * Math.cos(a - .45), Y(y1) - 9 * Math.sin(a - .45)); c.lineTo(X(x1) - 9 * Math.cos(a + .45), Y(y1) - 9 * Math.sin(a + .45)); c.closePath(); c.fillStyle = col; c.fill() },
+    stick(x0, y0, x1, y1, w, fill, stroke) { const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy) || 1, nx = -dy / L * w / 2, ny = dx / L * w / 2; k.poly([[x0 + nx, y0 + ny], [x1 + nx, y1 + ny], [x1 - nx, y1 - ny], [x0 - nx, y0 - ny]], fill, stroke) },
+  };
+  return k;
+}
+// 모재 측면 + 뒤쪽 비드·용입 + 용융지
+function plateSide(k, xt, o = {}) {
+  const top = o.top ?? 42, bot = o.bot ?? 54, x0 = 15, pen = Math.min(o.pen ?? 2.5, bot - top), h = o.h ?? 1.6;
+  k.rect(4, top, 92, bot - top, TK.steel, TK.weldline);
+  if (xt > x0) k.poly([[x0, top], [xt, top], [xt, top + pen * .92], [x0 + 1, top + pen * .92]], TK.weld);
+  k.ell(xt, top, 3.2, pen, MAT.hot, null, 0, Math.PI);
+  if (xt > x0 + 2) { const pts = [[x0, top]]; for (let x = x0; x <= xt - 2; x += .5) pts.push([x, top - h * (.85 + .15 * Math.sin(x * 2.4))]); pts.push([xt, top]); k.poly(pts, TK.weld, TK.weldline);
+    if (o.slag && xt - 6 > x0) { const s = []; for (let x = x0; x <= xt - 5; x += .5) s.push([x, top - h - 1.2 + .2 * Math.sin(x)]); k.poly([...s, [xt - 3, top - .6], [x0, top - .2]], o.slagCol || MAT.slag) } }
+  k.ell(xt, top - .2, 3.2, 1.1, MAT.pool);
+}
+const travel = (t, L = 8) => 18 + 62 * ((t % L) / L);
+function circuit(k, x, y, pts, label) { k.rect(x - 5, y - 3, 10, 6, TK.sunk, TK.muted); k.txt(label || '전원', x, y, TK.ink, 'center', 10); pts.forEach(([px, py, s]) => { k.path([[x + (s === '+' ? 5 : -5), y], [px, y], [px, py]], TK.muted, 1, [3, 3]); k.txt(s, x + (s === '+' ? 6.5 : -6.5), y - 3, s === '+' ? TK.bad : TK.info, 'center', 11) }) }
+
+function gmawRig(k, t, mode, gasCol, gasName) {
+  const xt = travel(t);
+  plateSide(k, xt, { pen: mode === 'spray' ? 4.2 : mode === 'globular' ? 3 : 2.2, h: 1.8 });
+  k.ell(xt, 36.5, 6.5, 5.5, gasCol);
+  k.poly([[xt - 4.2, 16], [xt + 4.2, 16], [xt + 3.2, 31], [xt - 3.2, 31]], MAT.cu, MAT.cuD);
+  k.rect(xt - 1, 29, 2, 3.2, '#d79a5a', MAT.cuD);
+  let tipY = 36.3, arcOn = 1;
+  if (mode === 'short') { const f = (t * 3.5) % 1; tipY = 36 + 5.2 * Math.sin(Math.PI * f) ** 2; arcOn = tipY > 40.3 ? .15 : 1 }
+  k.stick(xt, 8, xt, tipY, .9, MAT.wire);
+  for (let s of [-2.2, -1, 1, 2.2]) k.path([[xt + s, 31], [xt + s * 1.6, 40.5]], 'rgba(120,170,255,.8)', 1, [3, 4], -t * 25);
+  if (arcOn > .5) k.glow(xt, tipY + 2.2, mode === 'spray' ? 5.5 : 4.5 + .6 * Math.sin(t * 41), .95);
+  if (mode === 'spray') { for (let i = 0; i < 9; i++) { const f = (t * 7 + i / 9) % 1; k.circ(xt + .25 * Math.sin(i * 2), tipY + .4 + f * 4.8, .3, '#ffe08a') } }
+  else if (mode === 'globular') { const f = (t * 2.2) % 1, r = .7 + .9 * Math.min(f / .7, 1), sw = gasName.includes('CO₂ 100') ? .7 * Math.sin(t * 9) : 0;
+    if (f < .7) k.circ(xt + sw, tipY + r * .9, r, '#ffd27a'); else { k.circ(xt + sw * 2, tipY + r + (f - .7) / .3 * 4.5, r * .9, '#ffd27a');
+      for (let j = 0; j < 5; j++) { const a = Math.PI * (.15 + .7 * hsh(j + Math.floor(t * 2.2))), d = (f - .7) / .3 * 10; k.circ(xt + Math.cos(a) * d * (j % 2 ? 1 : -1), 40.5 - Math.sin(a) * d * .7, .25, '#ffb347') } } }
+  else { const f = (t * 3.5) % 1; k.circ(xt, tipY + .5, .75, '#ffd27a'); if (tipY > 40.3) k.txt('단락!', xt + 6, 44.5, TK.bad, 'left', 11) }
+  k.lab('와이어 (소모 전극)', xt, 12, xt + 9, 9); k.lab('콘택트 팁', xt + 1, 30.5, xt + 12, 26); k.lab('노즐', xt - 3.8, 22, xt - 12, 20);
+  k.lab(gasName, xt - 5, 37, xt - 16, 31); k.lab('용융지', xt + 2.5, 42.2, xt + 13, 48); k.lab('용착 금속', xt - 12, 41, xt - 20, 48);
+}
+
+/* ---------------- 공정 데이터 ---------------- */
+const GROUPS = [
+  { cls: '융접', key: 'fus', subs: [['아크 용접', ['smaw', 'saw', 'tig', 'mig', 'mag', 'plasma', 'esw', 'stud']], ['가스·화학 반응', ['gas', 'thermit']], ['고에너지 빔', ['laser', 'ebw']]] },
+  { cls: '압접', key: 'pre', subs: [['저항 용접', ['spot', 'seam', 'proj', 'flash']], ['고상 압접', ['friction', 'fsw', 'ultra', 'explo']]] },
+  { cls: '납땜', key: 'brz', subs: [['연납땜 (450℃ 미만)', ['solder']], ['경납땜 (450℃ 이상)', ['braze']]] },
+];
+const PX = {
+  smaw: { name: '피복아크 용접', en: 'SMAW', sim: 'smaw', heat: '아크 (약 5,000~6,000℃)', shield: '피복제가 분해된 가스 + 슬래그', melt: '모재·용접봉 용융',
+    prin: '피복제를 바른 용접봉과 모재 사이에 아크를 일으켜 그 열로 용접봉과 모재를 함께 녹입니다. 피복제가 타면서 나온 가스가 공기를 막고, 녹은 피복제가 슬래그가 되어 비드를 덮어 천천히 식게 합니다.',
+    pros: ['장비가 간단하고 값이 싸다', '전자세 용접, 옥외 작업 가능', '거의 모든 강재에 사용'], cons: ['용접봉 교체·슬래그 제거로 능률이 낮다', '숙련도에 따라 품질 차이가 크다'], use: '철골·교량·선박·배관 현장, 보수 용접',
+    pts: ['피복제의 역할: 아크 안정, 가스 발생으로 산화·질화 방지, 슬래그로 급랭 방지, 탈산·정련, 합금 원소 첨가', '교류 아크 용접기: 가동 철심형·가동 코일형·탭 전환형·가포화 리액터형', '전격 방지기: 무부하 전압을 25 V 이하로 낮춤', '아크 길이 ≈ 심선 지름. 아크 전압 ≈ 20 + 0.04I (V)'],
+    params: [], calc: () => [], L: 8,
+    draw(k, t) { const u = (t % 8) / 8, xt = travel(t), len = 30 - 15 * u, a = 20 * Math.PI / 180, tip = [xt - .6, 39.3], top = [tip[0] - len * Math.sin(a), tip[1] - len * Math.cos(a)];
+      plateSide(k, xt, { slag: true, pen: 3, h: 1.8 }); k.ell(xt, 37.5, 6.5, 4.8, MAT.ar);
+      k.stick(top[0] - 7 * Math.sin(a), top[1] - 7 * Math.cos(a), top[0] + 1.5 * Math.sin(a), top[1] + 1.5 * Math.cos(a), 4, MAT.dark);
+      k.stick(top[0], top[1], tip[0], tip[1], 2.8, MAT.flux, TK.weldline); k.stick(top[0], top[1], tip[0], tip[1] - .4, .9, MAT.tung);
+      k.glow(tip[0] + .3, tip[1] + 1.4, 4.6 + .6 * Math.sin(t * 37));
+      const m = [(top[0] + tip[0]) / 2, (top[1] + tip[1]) / 2];
+      k.lab('피복제', m[0] + 1.2, m[1], m[0] + 12, m[1] - 4); k.lab('심선', top[0] + .3, top[1] + 3, top[0] - 12, top[1] + 4); k.lab('홀더', top[0] - 4 * Math.sin(a), top[1] - 4 * Math.cos(a), top[0] + 8, top[1] - 6);
+      k.lab('아크', tip[0] + 1, tip[1] + 1.5, tip[0] + 14, 33); k.lab('가스 실드', xt + 5, 36, xt + 16, 28); k.lab('슬래그', xt - 14, 39, xt - 20, 32); k.lab('용착 금속', xt - 10, 42.5, xt - 16, 58); k.lab('용융지', xt + 2, 42.5, xt + 12, 58) } },
+  saw: { name: '서브머지드 아크 용접', en: 'SAW (잠호·유니언 멜트)', heat: '용제 속에 묻힌 아크', shield: '입상 용제(플럭스)가 아크를 덮음', melt: '모재·와이어 용융',
+    prin: '용접선 앞에 입상 용제를 미리 뿌려 두고, 그 속에 와이어를 넣어 아크를 일으킵니다. 아크가 용제에 묻혀 보이지 않아 "잠호 용접"이라고도 합니다. 녹은 용제는 슬래그가 되고 남은 용제는 회수해 다시 씁니다.',
+    pros: ['대전류(수백~2,000 A)로 용입이 깊고 능률이 매우 높다', '아크 빛·흄·스패터가 거의 없다', '비드 외관이 매끈하고 품질이 고르다'], cons: ['아래보기·수평 필릿 자세만 가능', '개선 정밀도가 필요 (루트 간격 0.8 mm 초과 시 받침판)', '장비가 크고 짧거나 복잡한 용접선에 불리'], use: '조선·교량·압력 용기·대구경 강관의 긴 직선 용접',
+    pts: ['용입 깊이 경험칙: 전류 100 A당 약 1 mm', '용제: 용융형(유리 모양, 흡습 적음, 고속에 유리), 소결형(합금 첨가 쉬움, 흡습 주의, 사용 전 건조), 혼성형', '다전극 방식: 탠덤식·횡병렬식·횡직렬식', '와이어 표준 지름 2.4·3.2·4.0·4.8·6.4 mm, 용제 살포 높이 약 25~40 mm'],
+    params: [{ k: 'I', label: '전류 I [A]', min: 300, max: 1500, step: 50, val: 700 }],
+    calc: p => [['용입 깊이 (100 A당 1 mm)', `약 ${fmt(p.I / 100, 1)} mm`], ['용착 속도 (4.0 mm 와이어 기준)', `약 ${fmt(p.I * .013, 1)} kg/h`]], L: 8,
+    draw(k, t, p) { const xt = travel(t), pen = clamp(p.I / 100, 2, 13);
+      plateSide(k, xt, { top: 40, bot: 54, pen, slag: true, h: 2.2 });
+      const m = []; for (let x = xt - 9; x <= xt + 11; x += .5) { const f = 1 - ((x - (xt + 1)) / 10) ** 2; m.push([x, 40 - 5.5 * Math.max(0, f)]) }
+      k.poly([...m, [xt + 11, 40], [xt - 9, 40]], MAT.flux, TK.weldline);
+      for (let i = 0; i < 70; i++) { const x = xt - 8 + hsh(i) * 18, f = 1 - ((x - (xt + 1)) / 10) ** 2, y = 40 - hsh(i + 99) * 5.3 * Math.max(0, f); k.circ(x, y, .22, TK.weldline) }
+      k.glow(xt, 38.6, 3.6, .35); k.ell(xt, 38.6, 2.4, 1.6, null, TK.bad);
+      k.rect(xt - 1.3, 19, 2.6, 10, MAT.cu, MAT.cuD); k.stick(xt, 6, xt, 38, .9, MAT.wire);
+      k.stick(xt + 10, 10, xt + 10, 33, 3, TK.muted); for (let j = 0; j < 9; j++) k.circ(xt + 10 + (hsh(j) - .5), 33 + ((t * 9 + j * .7) % 4.5), .3, MAT.flux);
+      k.stick(xt - 12, 16, xt - 12, 35.5, 3, TK.muted); k.arrow(xt - 12, 20, xt - 12, 13, TK.info, 1.5);
+      k.lab('와이어', xt, 10, xt + 4, 4); k.lab('용제 호퍼', xt + 10, 20, xt + 20, 16); k.lab('용제 회수', xt - 12, 25, xt - 24, 22); k.lab('아크 (용제 속, 안 보임)', xt + 2, 38.6, xt + 18, 30);
+      k.lab('슬래그', xt - 15, 37.2, xt - 22, 31); k.lab(`용입 약 ${fmt(p.I / 100, 1)} mm`, xt - 4, 40 + pen * .6, xt - 20, 58) } },
+  tig: { name: 'TIG 용접', en: 'GTAW', sim: 'gtaw', heat: '텅스텐 전극과 모재 사이의 아크', shield: '불활성 가스 (Ar, He)', melt: '모재 용융 + 용가재(선택)',
+    prin: '녹지 않는 텅스텐 전극과 모재 사이에 아크를 만들고 아르곤 같은 불활성 가스로 감쌉니다. 필요하면 용가재 봉을 손으로 넣습니다. 전극이 소모되지 않아 아크가 매우 안정되고 깨끗합니다.',
+    pros: ['품질·외관이 가장 우수, 스패터 없음', '박판·전자세, 거의 모든 금속(스테인리스·Al·Ti·Cu)', '입열 조절이 쉽다'], cons: ['용착 속도가 느려 능률이 낮다', '바람에 약하고 가스비가 든다', '숙련이 필요'], use: '배관 초층(이면 비드), 스테인리스·알루미늄·티타늄, 항공·반도체 설비',
+    pts: ['직류 정극성(DCEN): 모재 쪽 열 약 70%, 용입 깊고 전극 가늘게 사용', '직류 역극성(DCEP): 청정 작용(산화막 제거) 있으나 전극 과열 → 정극성보다 약 4배 굵은 전극', '교류(AC) + 고주파: 알루미늄·마그네슘. 청정 작용 + 전극 보호', '토륨 텅스텐(ThO₂ 1~2%): 전자 방사가 좋아 아크 시작 쉬움. 세륨·란탄 텅스텐도 사용'],
+    params: [{ k: 'pol', label: '극성', type: 'seg', options: [['DCEN', '직류 정극성'], ['AC', '교류'], ['DCEP', '직류 역극성']], val: 'DCEN' }],
+    calc: p => { const d = { DCEN: ['70% / 30%', '깊고 좁음', '없음'], AC: ['50% / 50%', '중간', '있음 (역극성 반주기)'], DCEP: ['30% / 70%', '얕고 넓음', '강함'] }[p.pol]; return [['열 분배 (모재 / 전극)', d[0]], ['용입', d[1]], ['청정 작용', d[2]]] }, L: 8,
+    draw(k, t, p) { const xt = travel(t), pen = { DCEN: 3.6, AC: 2.4, DCEP: 1.3 }[p.pol];
+      plateSide(k, xt, { pen, h: 1.1 });
+      if (p.pol !== 'DCEN') { for (let i = 0; i < 46; i++) { const x = 4 + i * 2 + hsh(i) * 1.5; if (x > 13 && x < xt + 3) continue; k.circ(x, 42.1, .35, TK.ink) } k.lab('산화막 제거 (청정 작용)', xt - 6, 41.6, xt - 24, 36) }
+      k.rect(xt - 4, 8, 8, 15, MAT.dark); k.poly([[xt - 3.6, 23], [xt + 3.6, 23], [xt + 2.6, 33], [xt - 2.6, 33]], MAT.cer, TK.weldline);
+      const tipY = 36.2; k.stick(xt, 18, xt, tipY - .8, 1.1, MAT.tung, TK.weldline);
+      if (p.pol === 'DCEN') k.poly([[xt - .55, tipY - .8], [xt + .55, tipY - .8], [xt, tipY]], MAT.tung); else k.circ(xt, tipY - .5, p.pol === 'AC' ? .75 : 1.1, MAT.tung);
+      if (p.pol === 'DCEP') k.glow(xt, tipY - 1.5, 2.2, .7);
+      for (let s of [-2, -1, 1, 2]) k.path([[xt + s * .9, 33], [xt + s * 2.2, 40.8]], 'rgba(120,170,255,.85)', 1, [3, 4], -t * 22);
+      k.poly([[xt - .4, tipY], [xt + .4, tipY], [xt + 2.4, 41], [xt - 2.4, 41]], 'rgba(185,210,255,.85)'); k.glow(xt, 39.5, 3.4, .8);
+      const fy = 39.6 + .5 * Math.sin(t * 4); k.stick(xt - 17, 29, xt - 3.4 + .7 * Math.sin(t * 4), fy, 1, TK.weldline);
+      k.lab('텅스텐 전극 (비소모)', xt + .6, 30, xt + 10, 25); k.lab('세라믹 노즐', xt + 3, 28, xt + 12, 31.5); k.lab('아르곤 가스', xt + 2.6, 38, xt + 14, 37.5); k.lab('용가재 봉', xt - 12, 32, xt - 20, 26); k.lab('용융지', xt + 2.5, 42.4, xt + 12, 50) } },
+  mig: { name: 'MIG 용접', en: 'GMAW (불활성 가스)', sim: 'gmaw', heat: '와이어와 모재 사이의 아크', shield: '불활성 가스 (Ar, Ar+He)', melt: '모재·와이어 용융',
+    prin: '와이어를 연속으로 보내면서 와이어 자체를 전극으로 써서 아크를 만듭니다. 아르곤 등 불활성 가스로 보호하므로 반응성이 큰 알루미늄·구리·스테인리스에 적합합니다. 보통 직류 역극성으로 청정 작용을 얻고 스프레이 이행으로 용접합니다.',
+    pros: ['TIG보다 용착 속도가 훨씬 빠름', '비철금속 고품질 용접', '반자동·자동화 쉬움'], cons: ['바람에 약함', 'Ar 가스가 비싸 강재에는 MAG/CO₂를 주로 씀', '장비가 피복아크보다 복잡'], use: '알루미늄 차체·선박, 스테인리스·구리 구조물',
+    pts: ['직류 역극성(DCEP) + 정전압 특성 전원 → 아크 길이 자기 제어', '스프레이 이행 천이 전류: 강 1.2 mm 와이어 약 220~250 A', '와이어 송급 방식: 푸시식·풀식·푸시–풀식 (연한 Al 와이어는 풀·푸시–풀)', 'He 혼합 시 아크 전압·열이 높아 두꺼운 Al·Cu에 유리'],
+    params: [{ k: 'gas', label: '보호 가스', type: 'seg', options: [['ar', 'Ar'], ['arhe', 'Ar + He']], val: 'ar' }, { k: 'I', label: '전류 I [A]', min: 80, max: 350, step: 10, val: 250 }],
+    mode: p => p.I < 130 ? 'short' : p.I < 210 ? 'globular' : 'spray',
+    calc(p) { const m = this.mode(p); return [['용적 이행', { short: '단락 이행', globular: '입상 이행', spray: '스프레이 이행' }[m]], ['특징', { short: '저입열, 박판·전자세', globular: '큰 용적, 불규칙', spray: '미세 용적, 스패터 거의 없음' }[m]]] }, L: 8,
+    draw(k, t, p) { gmawRig(k, t, this.mode(p), MAT.ar, p.gas === 'ar' ? 'Ar 가스' : 'Ar + He 가스') } },
+  mag: { name: 'MAG · CO₂ 용접', en: 'GMAW (활성 가스) · FCAW', sim: 'gmaw', heat: '와이어와 모재 사이의 아크', shield: 'Ar + CO₂ 혼합 또는 CO₂ 100%', melt: '모재·와이어 용융',
+    prin: 'MIG와 장치는 같지만 보호 가스에 CO₂나 O₂ 같은 활성 가스를 섞습니다. CO₂ 100%를 쓰는 것이 CO₂ 용접입니다. 가스가 싸고 용입이 깊어 강 구조물에서 가장 많이 쓰는 반자동 용접입니다. 와이어 속에 용제를 넣은 플럭스 코어드 와이어(FCAW)도 같은 장치를 씁니다.',
+    pros: ['가스비가 싸고 능률이 높다', '용입이 깊고 강도가 좋다', '전자세 가능 (단락 이행)'], cons: ['CO₂ 100%는 스패터가 많다 (혼합 가스로 개선)', '바람 2 m/s 이상이면 방풍 필요', '탈산제(Mn·Si)가 든 와이어 필수'], use: '철골·조선·자동차·일반 강 구조물',
+    pts: ['적정 전압: E = 0.04I + 15.5 ± 1.5 V (300 A 이하)', 'CO₂는 고온에서 CO + O로 분해 → 산화성 → Mn·Si 탈산제 와이어(YGW 계열)', 'CO₂ 가스 순도 99.8% 이상, 수분 주의. 유량 약 15~25 L/min', '돌출 길이: 와이어 지름의 약 10~15배'],
+    params: [{ k: 'gas', label: '보호 가스', type: 'seg', options: [['mix', 'Ar 80% + CO₂ 20%'], ['co2', 'CO₂ 100%']], val: 'co2' }, { k: 'I', label: '전류 I [A]', min: 80, max: 400, step: 10, val: 240 }],
+    mode: p => p.gas === 'co2' ? (p.I < 200 ? 'short' : 'globular') : (p.I < 170 ? 'short' : p.I < 250 ? 'globular' : 'spray'),
+    calc(p) { const m = this.mode(p), V = .04 * p.I + 15.5 - (p.gas === 'mix' ? 2 : 0); return [['용적 이행', { short: '단락 이행', globular: '입상(글로뷸러) 이행', spray: '스프레이 이행' }[m]], ['적정 전압', `약 ${fmt(V, 1)} V`], ['스패터', m === 'globular' && p.gas === 'co2' ? '많음' : m === 'spray' ? '거의 없음' : '보통']] }, L: 8,
+    draw(k, t, p) { gmawRig(k, t, this.mode(p), p.gas === 'co2' ? MAT.co2 : MAT.mix, p.gas === 'co2' ? 'CO₂ 100% 가스' : 'Ar + CO₂ 가스') } },
+  plasma: { name: '플라즈마 아크 용접', en: 'PAW', heat: '수랭 노즐로 좁힌 플라즈마 아크 (약 10,000~30,000℃)', shield: '플라즈마 가스 + 보호 가스 (Ar 등)', melt: '모재 용융 (키홀)',
+    prin: '텅스텐 전극을 노즐 안쪽에 넣고, 수랭 구리 노즐의 작은 구멍으로 아크를 강제로 좁힙니다(열적 핀치·자기적 핀치 효과). 에너지가 집중된 플라즈마 제트가 모재를 꿰뚫는 키홀을 만들며 용접합니다.',
+    pros: ['에너지 밀도가 높아 깊고 좁은 용입 (키홀 용접)', '아크 길이가 변해도 영향이 적다', 'TIG보다 빠르고 변형이 적다'], cons: ['토치 구조가 복잡하고 노즐이 소모된다', '설비비가 비싸다', '조건 범위가 좁다'], use: '스테인리스·티타늄 관, 정밀 박판, 플라즈마 절단·용사',
+    pts: ['이행형 아크: 전극(−)–모재(+). 모재가 도체여야 하며 용접·절단에 사용', '비이행형 아크: 전극–노즐 사이 아크, 플라즈마 제트만 나감. 비도전체 가능, 용사·절단', '파일럿 아크로 아크를 시작', '핀치 효과: 아크가 좁아질수록 온도·밀도 상승'],
+    params: [{ k: 'mode', label: '아크 방식', type: 'seg', options: [['t', '이행형'], ['n', '비이행형']], val: 't' }], calc: p => [['전기 회로', p.mode === 't' ? '전극(−) → 모재(+)' : '전극(−) → 노즐(+)'], ['용도', p.mode === 't' ? '키홀 용접, 절단' : '용사, 비금속 가열·절단']], L: 8,
+    draw(k, t, p) { const xt = travel(t), tr = p.mode === 't';
+      k.rect(4, 40, 92, 14, tr ? TK.steel : '#d8d2c4', TK.weldline);
+      if (tr) { if (xt > 15) k.rect(15, 40, xt - 15, 14, TK.weld); k.ell(xt, 47, 2.6, 7, MAT.hot); k.rect(xt - .6, 40, 1.2, 14, TK.surface); }
+      k.rect(xt - 6, 6, 12, 14, MAT.dark); k.poly([[xt - 6, 20], [xt + 6, 20], [xt + 4.2, 31], [xt - 4.2, 31]], MAT.cer, TK.weldline);
+      k.poly([[xt - 4, 18], [xt + 4, 18], [xt + 1.3, 29.5], [xt - 1.3, 29.5]], MAT.cu, MAT.cuD); k.rect(xt - 3, 20, 1, 5, MAT.water); k.rect(xt + 2, 20, 1, 5, MAT.water);
+      k.stick(xt, 8, xt, 25.5, 1.1, MAT.tung);
+      if (tr) { k.poly([[xt - .5, 26], [xt + .5, 26], [xt + .9, 54], [xt - .9, 54]], 'rgba(190,215,255,.95)'); k.glow(xt, 32, 3, .9); k.glow(xt, 41, 3, .8) }
+      else { k.glow(xt - 1, 26.5, 2.4, .9); k.poly([[xt - .7, 29.5], [xt + .7, 29.5], [xt, 39.5]], 'rgba(255,190,120,.9)'); k.glow(xt, 33, 3.5, .7) }
+      circuit(k, xt + 20, 12, tr ? [[xt + 6, 54, '+']] : [[xt + 4.5, 22, '+']], '전원'); k.path([[xt + 15, 12], [xt + 2, 12], [xt + 2, 9]], TK.muted, 1, [3, 3]); k.txt('−', xt + 13.5, 9, TK.info, 'center', 11);
+      k.lab('텅스텐 (후퇴 배치)', xt, 14, xt - 12, 10); k.lab('수랭 구리 노즐 (수축)', xt - 3.5, 22, xt - 14, 26); k.lab(tr ? '플라즈마 아크 기둥' : '플라즈마 제트', xt + .8, 34, xt + 12, 34);
+      if (tr) k.lab('키홀', xt + .6, 47, xt + 12, 58); else k.txt('비도전체(세라믹)도 가열 가능', 50, 58, TK.muted) } },
+  esw: { name: '일렉트로 슬래그 용접', en: 'ESW', heat: '용융 슬래그의 전기 저항열 (아크 없음)', shield: '용융 슬래그 욕', melt: '모재·와이어 용융',
+    prin: '수직으로 세운 두 판 사이를 수랭 구리판으로 막고, 그 안에 녹은 슬래그 욕을 만듭니다. 와이어를 슬래그 속에 넣어 전류를 흘리면 슬래그의 전기 저항열로 와이어와 모재가 녹고, 구리판이 위로 올라가며 한 번에 용접합니다. 처음 시작할 때만 아크가 생깁니다.',
+    pros: ['극후판(수십~수백 mm)을 1패스로 용접', '개선 가공이 거의 필요 없다 (I형)', '각 변형이 적다'], cons: ['입열이 매우 커 HAZ 결정립이 커지고 인성이 떨어진다 → 용접 후 열처리', '수직 상진 자세만 가능', '중단하면 결함'], use: '조선 선측 외판, 교량 기둥, 압력 용기, 대형 주단조품',
+    pts: ['아크 용접이 아니라 저항 발열(줄열) 용접', '수랭 동판(슈)이 용융 금속을 막고 함께 상승', '비슷한 방식: 일렉트로 가스 용접(EGW) — 슬래그 대신 CO₂ 가스와 아크 사용', '예열 효과가 커 균열은 적지만 조립 HAZ 주의'],
+    params: [], calc: () => [], L: 9,
+    draw(k, t) { const u = (t % 9) / 9, lv = 54 - 40 * u;
+      k.rect(18, 6, 22, 52, TK.steel, TK.weldline); k.rect(60, 6, 22, 52, TK.steel, TK.weldline);
+      k.rect(40, lv, 20, 58 - lv, TK.weld); for (let y = lv + 2; y < 58; y += 2.2) { k.path([[40.5, y], [48, y - 1.4]], TK.weldline, .8); k.path([[59.5, y], [52, y - 1.4]], TK.weldline, .8) }
+      k.ell(50, lv, 11, 1.6, MAT.hot); k.rect(39, lv - 3.2, 22, 3.2, MAT.pool); k.rect(39, lv - 9, 22, 5.8, 'rgba(214,120,40,.85)'); k.glow(50, lv - 6, 8, .35);
+      for (const x of [45, 55]) k.stick(x, 0, x, lv - 5, .9, MAT.wire);
+      k.rect(36, lv - 12, 28, 18, null, MAT.cuD); k.rect(36, lv - 12, 28, 18, 'rgba(194,122,69,.18)');
+      k.arrow(30, lv + 4, 30, lv - 8, TK.accent, 2);
+      k.lab('와이어', 55, 4, 66, 2); k.lab('슬래그 욕 (저항열)', 58, lv - 6, 88, lv - 10); k.lab('용융 금속', 56, lv - 1.6, 88, lv); k.lab('용접 금속', 45, lv + 10, 10, lv + 14); k.lab('수랭 동판 (앞·뒤, 함께 상승)', 63, lv + 4, 88, lv + 10); k.lab('모재 (후판)', 22, 20, 8, 12) } },
+  stud: { name: '스터드 용접', en: 'Arc stud welding', heat: '스터드와 모재 사이의 짧은 아크', shield: '세라믹 페룰', melt: '스터드 끝·모재 표면 용융 후 압입',
+    prin: '볼트나 핀(스터드)을 모재에 대고 건(gun)으로 살짝 들어 올려 아크를 만든 뒤, 끝과 모재가 녹으면 그대로 눌러 붙입니다. 세라믹 링(페룰)이 아크를 모으고 녹은 금속이 흘러나가지 않게 막습니다.',
+    pros: ['볼트·핀을 한 번에 빠르게(1초 이내) 부착', '구멍 뚫기·나사 가공이 필요 없다', '한쪽 면에서만 작업'], cons: ['스터드 지름·모재 두께에 제약', '페룰 등 소모품 필요'], use: '철골·합성보의 시어 커넥터, 선박 내장재, 자동차 패널',
+    pts: ['과정: 접촉 → 들어올림(아크) → 압입 → 냉각', '페룰의 역할: 아크 집중, 용융 금속 유출 방지, 산화 방지, 아크 빛 차단', '아크 시간 약 0.1~1 s', '콘덴서 방전식 스터드 용접은 박판·소경용'],
+    params: [], calc: () => [], L: 3,
+    draw(k, t) { const f = (t % 3) / 3, lift = f < .15 ? 0 : f < .55 ? 2.2 : f < .68 ? 2.2 * (1 - (f - .55) / .13) : 0, x = 50;
+      k.rect(4, 42, 92, 12, TK.steel, TK.weldline);
+      const yb = 42 - lift - (f >= .68 ? -.6 : 0);
+      if (f >= .55) k.ell(x, 42, 5, 1.2, f < .8 ? MAT.pool : TK.weld);
+      k.rect(x - 2.5, yb - 20, 5, 20, TK.weldline, TK.ink); for (let y = yb - 19; y < yb - 6; y += 1.2) k.path([[x - 2.5, y], [x + 2.5, y + .6]], TK.ink, .6);
+      k.rect(x - 7, yb - 34, 14, 14, MAT.dark); k.poly([[x - 5, 42], [x - 3, 42], [x - 3, 37], [x - 5, 37]], MAT.cer, TK.weldline); k.poly([[x + 3, 42], [x + 5, 42], [x + 5, 37], [x + 3, 37]], MAT.cer, TK.weldline);
+      if (f >= .15 && f < .55) k.glow(x, 41, 4.5 + .5 * Math.sin(t * 40));
+      if (f >= .68) { k.poly([[x - 2.5, 42], [x - 4, 42], [x - 2.5, 39.5]], TK.weld); k.poly([[x + 2.5, 42], [x + 4, 42], [x + 2.5, 39.5]], TK.weld) }
+      k.txt(['① 접촉', '② 들어올림 · 아크', '③ 압입', '④ 냉각 · 완료'][f < .15 ? 0 : f < .55 ? 1 : f < .68 ? 2 : 3], 50, 4, TK.accent, 'center', 15);
+      k.lab('스터드 건', x + 7, yb - 28, x + 18, yb - 30); k.lab('스터드', x + 2.5, yb - 10, x + 18, yb - 12); k.lab('세라믹 페룰', x + 5, 39, x + 18, 36); k.lab('모재', 80, 48, 88, 58) } },
+  gas: { name: '가스 용접 (산소–아세틸렌)', en: 'OAW', heat: '산소–아세틸렌 불꽃 (최고 약 3,200~3,500℃)', shield: '불꽃의 겉불꽃(환원성)', melt: '모재·용가재 용융',
+    prin: '산소와 아세틸렌을 토치에서 섞어 태운 불꽃으로 모재를 녹이고 용가재 봉을 넣어 용접합니다. 전기가 필요 없고 가열 범위를 손으로 조절하기 쉬워 박판·비철·배관 보수에 씁니다. 산소와 아세틸렌의 비율로 불꽃의 성질이 달라집니다.',
+    pros: ['전원이 필요 없고 장비가 싸고 이동이 쉽다', '박판·비철금속, 가열·굽힘·납땜에도 사용', '가열 정도를 조절하기 쉽다'], cons: ['열 집중이 낮아 변형·HAZ가 크다', '능률이 낮다', '역화·폭발 위험'], use: '박판·배관 보수, 비철금속, 가열 가공, 경납땜',
+    pts: ['탄화 불꽃(아세틸렌 과잉, 환원성): 스테인리스·스텔라이트·모넬', '중성 불꽃(1 : 1~1.1, 표준): 연강·구리·알루미늄', '산화 불꽃(산소 과잉): 황동·청동 (아연 증발 억제)', '최고 온도는 백심 끝에서 2~3 mm 앞', '용기 색: 산소 녹색, 아세틸렌 황색. 아세틸렌은 아세톤에 녹여 충전', '아세틸렌 용접 장치는 게이지 압력 127 kPa 초과 사용 금지, 구리 62% 이상 합금 배관 금지 (아세틸라이드 폭발)', '전진법(좌진법): 박판, 비드가 고움 / 후진법(우진법): 후판, 속도 빠르고 변형·산화 적음'],
+    params: [{ k: 'r', label: '산소 : 아세틸렌 비', min: .7, max: 1.6, step: .05, val: 1.05 }],
+    kind: p => p.r < .95 ? 'carb' : p.r <= 1.15 ? 'neut' : 'oxid',
+    calc(p) { const kd = this.kind(p); return [['불꽃 종류', { carb: '탄화 불꽃 (환원성)', neut: '중성 불꽃 (표준)', oxid: '산화 불꽃' }[kd]], ['알맞은 재료', { carb: '스테인리스·스텔라이트·모넬', neut: '연강·구리·알루미늄', oxid: '황동·청동' }[kd]], ['백심 모양', { carb: '길고 아세틸렌 페더가 보임', neut: '선명한 둥근 원뿔', oxid: '짧고 뾰족, 쉬익 소리' }[kd]]] }, L: 8,
+    draw(k, t, p) { const xt = travel(t), kd = this.kind(p), c = k.c;
+      plateSide(k, xt, { pen: 2, h: 1.3 });
+      k.rect(4, 6, 4, 14, '#2f9e44', TK.ink); k.rect(9.5, 8, 4, 12, '#f2c94c', TK.ink); k.txt('산소', 6, 22.5, TK.ink, 'center', 10); k.txt('아세틸렌', 11.5, 25, TK.ink, 'center', 10);
+      const ang = 55 * Math.PI / 180, tip = [xt - 6.5, 33], back = [tip[0] - 20 * Math.cos(ang), tip[1] - 20 * Math.sin(ang)];
+      k.path([[6, 6], [6, 3], back], '#2f9e44', 1.4); k.path([[11.5, 8], [11.5, 4], [back[0] + .5, back[1] + .5]], '#d9a400', 1.4);
+      k.stick(back[0], back[1], tip[0], tip[1], 1.6, MAT.cu, MAT.cuD); k.stick(back[0] - 3 * Math.cos(ang), back[1] - 3 * Math.sin(ang), back[0] + 6 * Math.cos(ang), back[1] + 6 * Math.sin(ang), 3.2, MAT.dark);
+      c.save(); c.translate(k.X(tip[0]), k.Y(tip[1])); c.rotate(ang);
+      const S = k.S, fl = (len, w, col) => { c.beginPath(); c.moveTo(0, -S(w)); c.quadraticCurveTo(S(len * .6), -S(w * 1.2), S(len), 0); c.quadraticCurveTo(S(len * .6), S(w * 1.2), 0, S(w)); c.closePath(); c.fillStyle = col; c.fill() };
+      const flick = 1 + .05 * Math.sin(t * 30);
+      fl({ carb: 13, neut: 11, oxid: 8 }[kd] * flick, { carb: 1.6, neut: 1.4, oxid: 1.2 }[kd], 'rgba(90,140,255,.35)');
+      if (kd === 'carb') fl(6.5 + 2 * (1.0 - p.r) * 6, .95, 'rgba(235,240,255,.75)');
+      fl({ carb: 2.6, neut: 2.8, oxid: 1.8 }[kd], { carb: .6, neut: .65, oxid: .5 }[kd], '#ffffff'); c.restore();
+      const hot = [tip[0] + ({ carb: 3.2, neut: 3.6, oxid: 2.6 }[kd]) * Math.cos(ang), tip[1] + ({ carb: 3.2, neut: 3.6, oxid: 2.6 }[kd]) * Math.sin(ang)]; k.glow(hot[0], hot[1], 2.5, .6);
+      k.stick(xt + 16, 30, xt + 3 - .5 * Math.sin(t * 3), 40.8, 1, TK.weldline);
+      k.lab('백심 (최고 온도 부근)', tip[0] + 1.4, tip[1] + 2, tip[0] - 14, tip[1] + 6); k.lab(kd === 'carb' ? '아세틸렌 페더' : '겉불꽃', tip[0] + 5 * Math.cos(ang), tip[1] + 5 * Math.sin(ang) + .6, xt + 8, 27);
+      k.lab('토치', back[0] + 5, back[1] + 7, back[0] + 14, back[1]); k.lab('용가재 봉', xt + 12, 33, xt + 20, 28) } },
+  thermit: { name: '테르밋 용접', en: 'Thermit welding', heat: '알루미늄과 산화철의 반응열 (약 2,800℃)', shield: '반응 생성 슬래그(Al₂O₃)', melt: '반응으로 생긴 용융 철을 부어 넣음',
+    prin: '알루미늄 분말과 산화철 분말을 섞은 테르밋제에 점화하면 격렬한 산화·환원 반응이 일어나 녹은 철과 슬래그가 생깁니다. 이 녹은 철을 이음부 주위의 주형에 부어 모재를 녹여 붙입니다. 일종의 "주조 용접"입니다.',
+    pros: ['전력이 필요 없어 현장에서 쓰기 좋다', '큰 단면을 한 번에 용접', '장비가 간단'], cons: ['주형 제작·예열이 필요', '용접 시간이 길고 품질 관리가 어렵다'], use: '철도 레일 현장 접합, 차축·선박 프레임 등 대형 부품 보수',
+    pts: ['반응식: 8Al + 3Fe₃O₄ → 4Al₂O₃ + 9Fe + 열, 또는 2Al + Fe₂O₃ → Al₂O₃ + 2Fe + 열', 'Al 분말 : 산화철 분말 ≈ 1 : 3 (무게비)', '점화제: 과산화바륨 + 마그네슘(알루미늄) 분말', '모재는 미리 예열 (약 800~900℃)'],
+    params: [], calc: () => [], L: 7,
+    draw(k, t) { const f = (t % 7) / 7;
+      k.rect(4, 38, 40, 12, TK.steel, TK.weldline); k.rect(56, 38, 40, 12, TK.steel, TK.weldline);
+      k.rect(38, 32, 24, 24, '#a07850', TK.ink); k.rect(44, 36, 12, 18, f > .55 ? (f > .85 ? TK.weld : MAT.pool) : TK.surface);
+      if (f > .55 && f < .85) k.glow(50, 44, 7, .6);
+      k.poly([[40, 8], [60, 8], [55, 24], [45, 24]], '#7a7f86', TK.ink); k.stick(50, 24, 50, 32, 2, '#7a7f86');
+      if (f < .55) k.poly([[42, 12], [58, 12], [55, 22], [45, 22]], f < .2 ? '#8d8d8d' : MAT.pool);
+      if (f >= .2 && f < .55) { k.glow(50, 16, 9, .8); for (let i = 0; i < 12; i++) { const a = hsh(i + Math.floor(t * 6)) * Math.PI, d = 4 + ((t * 9 + i) % 6); k.circ(50 + Math.cos(a) * d * 1.4, 10 - Math.sin(a) * d, .35, '#ffd27a') } }
+      if (f >= .55 && f < .7) k.rect(49.3, 24, 1.4, 12, '#ffcc66');
+      k.txt(f < .2 ? '① 점화' : f < .55 ? '② 반응 (약 2,800℃)' : f < .85 ? '③ 녹은 철을 주형에 주입' : '④ 응고 · 접합', 50, 3, TK.accent, 'center', 15);
+      k.lab('도가니 (테르밋제)', 58, 14, 72, 12); k.lab('주형 (모래)', 61, 34, 74, 28); k.lab('레일 (모재)', 20, 44, 14, 58); k.lab('레일 (모재)', 80, 44, 86, 58) } },
+  laser: { name: '레이저 빔 용접', en: 'LBW', heat: '집속한 레이저 빛 (10⁶ W/cm² 이상이면 키홀)', shield: '보호 가스 (Ar, He, N₂) 분사', melt: '모재 용융 (키홀 또는 열전도형)',
+    prin: '레이저 빛을 렌즈로 아주 작은 점에 모아 에너지 밀도를 높입니다. 밀도가 낮으면 표면만 녹는 열전도형, 약 10⁶ W/cm²를 넘으면 금속이 증발하며 가는 구멍(키홀)이 생겨 깊고 좁게 녹는 키홀형 용접이 됩니다.',
+    pros: ['대기 중·비접촉·고속, 자동화·로봇 용접', 'HAZ와 변형이 매우 작다', '정밀·미세 용접, 이종금속'], cons: ['설비비가 비싸다', '이음 정밀도 필요 (간격 판 두께의 약 10% 이하)', '반사율 높은 Cu·Al은 어렵다'], use: '자동차 차체·배터리, 전자 부품, 의료기기, 조선 박판',
+    pts: ['종류: CO₂ 레이저(파장 10.6 µm), Nd:YAG(1.06 µm), 파이버·디스크(약 1.07 µm)', '전자빔과 달리 진공이 필요 없다', '키홀 위 금속 증기(플룸)는 레이저를 가리므로 보호 가스로 날려 보냄', '입열 = 출력 / 속도'],
+    params: [{ k: 'P', label: '출력 [kW]', min: .5, max: 12, step: .5, val: 4 }, { k: 'v', label: '속도 [m/min]', min: .5, max: 10, step: .5, val: 2 }, { k: 'd', label: '스폿 지름 [mm]', min: .1, max: 1.5, step: .05, val: .4 }],
+    model(p) { const dens = p.P * 1000 / (Math.PI * (p.d / 20) ** 2), key = dens >= 1e6, depth = key ? clamp(1.9 * p.P / Math.sqrt(p.v), .5, 30) : clamp(.35 * p.P / Math.sqrt(p.v) + .2, .2, 3); return { dens, key, depth } },
+    calc(p) { const m = this.model(p); return [['출력 밀도', `${(m.dens / 10 ** Math.floor(Math.log10(m.dens))).toFixed(1)} × 10^${Math.floor(Math.log10(m.dens))} W/cm²`], ['용접 방식', m.key ? '키홀형 (깊고 좁음)' : '열전도형 (얕고 넓음)'], ['용입 깊이 (대략)', `${fmt(m.depth, 1)} mm`], ['입열', `${fmt(p.P * 1000 / (p.v * 1000 / 60), 0)} J/mm`]] }, L: 6,
+    draw(k, t, p) { const m = this.model(p), xt = travel(t, 6), top = 30, th = 22, D = Math.min(m.depth, th);
+      k.rect(4, top, 92, th, TK.steel, TK.weldline);
+      if (m.key) { if (xt > 15) k.rect(15, top, xt - 15, D, TK.weld); k.ell(xt - 1.6, top + D / 2, 3, D / 2 + .6, MAT.hot); k.poly([[xt - .45, top], [xt + .45, top], [xt + .1, top + D], [xt - .25, top + D]], TK.surface) }
+      else { if (xt > 15) k.rect(15, top, xt - 15, D, TK.weld); k.ell(xt, top, 3.2, D, MAT.hot, null, 0, Math.PI) }
+      k.ell(xt, 10, 7, 1.4, 'rgba(160,220,255,.6)', TK.info);
+      const sp = clamp(p.d, .1, 1.5) * .6; k.poly([[xt - 5, 4], [xt + 5, 4], [xt + 5, 10], [xt + sp, top], [xt - sp, top], [xt - 5, 10]], 'rgba(255,60,90,.28)'); k.path([[xt - 5, 10], [xt - sp, top]], 'rgba(255,60,90,.9)', 1.2); k.path([[xt + 5, 10], [xt + sp, top]], 'rgba(255,60,90,.9)', 1.2);
+      if (m.key) for (let i = 0; i < 5; i++) { const f = (t * 1.5 + i / 5) % 1; k.circ(xt - 1 + f * 2 * Math.sin(i), top - 1 - f * 7, .8 + f * 1.6, `rgba(170,120,255,${.45 * (1 - f)})`) }
+      k.stick(xt + 14, 18, xt + 3, 27, 1.6, TK.muted); for (let i = 0; i < 3; i++) k.path([[xt + 11 - i * .8, 21], [xt + 3 - i * .6, 27.5]], 'rgba(120,170,255,.8)', 1, [2, 3], -t * 20);
+      k.lab('집광 렌즈', xt + 7, 10, xt + 16, 6); k.lab('레이저 빔', xt + 3, 18, xt - 14, 16); k.lab('보호 가스', xt + 12, 20, xt + 22, 22);
+      if (m.key) { k.lab('금속 증기 (플룸)', xt, top - 4, xt - 16, top - 6); k.lab('키홀', xt, top + D * .6, xt + 12, top + D * .7) } else k.lab('열전도형 용융', xt + 2, top + D * .5, xt + 12, top + 6);
+      k.lab(D >= th ? '완전 용입' : `용입 약 ${fmt(m.depth, 1)} mm`, xt - 8, top + D * .8, xt - 22, top + th + 4) } },
+  ebw: { name: '전자 빔 용접', en: 'EBW', heat: '고속 전자의 충돌 에너지', shield: '진공 (약 10⁻²~10⁻⁴ Pa)', melt: '모재 용융 (매우 깊은 키홀)',
+    prin: '진공 속에서 음극(필라멘트)에서 나온 전자를 높은 전압으로 가속하고 전자 렌즈로 모아 모재에 충돌시킵니다. 전자의 운동 에너지가 열로 바뀌어 폭은 좁고 깊이는 매우 깊은 용접부를 만듭니다.',
+    pros: ['깊이 : 폭 = 10~50 : 1의 깊고 좁은 용입', '진공이라 산화·질화가 없다 → Ti·Zr 등 활성 금속, W·Mo 고융점 금속', '변형·HAZ 최소, 이종금속'], cons: ['진공실 크기로 부품 크기 제한', '설비비가 매우 비싸다', 'X선 차폐 필요, 자기장에 빔이 휜다'], use: '항공 엔진·원자력 부품, 기어, 정밀 계측기',
+    pts: ['가속 전압: 저전압형 약 30~60 kV, 고전압형 약 100~150 kV', '빔 출력 = 가속 전압 × 빔 전류', '고진공·저진공·대기압(비진공)형', '이음 간격이 매우 정밀해야 한다'],
+    params: [{ k: 'kV', label: '가속 전압 [kV]', min: 30, max: 150, step: 5, val: 60 }, { k: 'mA', label: '빔 전류 [mA]', min: 10, max: 500, step: 10, val: 150 }, { k: 'v', label: '속도 [m/min]', min: .2, max: 5, step: .1, val: 1 }],
+    model(p) { const P = p.kV * p.mA / 1000; return { P, depth: clamp(5.5 * P / Math.sqrt(p.v), .5, 200) } },
+    calc(p) { const m = this.model(p); return [['빔 출력 P = V × I', `${fmt(m.P, 1)} kW`], ['용입 깊이 (대략)', `${fmt(m.depth, 0)} mm`], ['X선', p.kV >= 100 ? '강함 — 납 차폐 필요' : '발생 — 차폐 필요']] }, L: 6,
+    draw(k, t, p) { const m = this.model(p), xt = travel(t, 6), top = 40, th = 18, D = Math.min(m.depth, th);
+      k.rect(2, 2, 96, 58, null, TK.muted); k.c.setLineDash([5, 4]); k.rect(2, 2, 96, 58, null, TK.muted); k.c.setLineDash([]); k.txt('진공 챔버', 88, 6, TK.muted, 'center', 11);
+      k.rect(4, top, 92, th, TK.steel, TK.weldline); if (xt > 15) k.rect(15, top, xt - 15, D, TK.weld); k.ell(xt - 1, top + D / 2, 1.6, D / 2 + .5, MAT.hot); k.rect(xt - .3, top, .6, D, TK.surface);
+      const gx = 22; k.rect(gx - 5, 6, 10, 4, MAT.dark); k.path([[gx - 2, 11], [gx, 12.5], [gx + 2, 11]], '#ff9a3c', 1.5); k.rect(gx - 4, 14, 3, 2, TK.muted); k.rect(gx + 1, 14, 3, 2, TK.muted);
+      k.rect(gx - 6, 20, 3.5, 5, MAT.cu); k.rect(gx + 2.5, 20, 3.5, 5, MAT.cu); k.rect(gx - 5, 29, 3, 3.5, TK.info); k.rect(gx + 2, 29, 3, 3.5, TK.info);
+      k.path([[gx, 12.5], [gx, 30], [xt, top]], 'rgba(120,200,255,.9)', 1.6); for (let i = 0; i < 10; i++) { const f = (t * 3 + i / 10) % 1, x = f < .45 ? gx : gx + (xt - gx) * (f - .45) / .55, y = f < .45 ? 12.5 + f / .45 * 17.5 : 30 + (top - 30) * (f - .45) / .55; k.circ(x, y, .35, '#7fd0ff') }
+      k.glow(xt, top, 2.2, .9);
+      k.lab('음극 (필라멘트)', gx + 2, 12, gx + 12, 8); k.lab('그리드 · 양극 (가속)', gx + 3, 15, gx + 14, 14); k.lab('전자 렌즈 (집속)', gx + 5, 22.5, gx + 16, 21); k.lab('편향 코일', gx + 4, 31, gx + 14, 29);
+      k.lab(D >= th ? '완전 용입 (깊고 좁음)' : `용입 약 ${fmt(m.depth, 0)} mm`, xt - .3, top + D * .7, xt - 18, top + th + 1.5);
+      if (m.depth > th) k.txt(`실제 용입 약 ${fmt(m.depth, 0)} mm — 판 두께보다 깊음`, 50, 36, TK.accent, 'center', 11) } },
+  spot: { name: '점 용접', en: 'Resistance spot welding', heat: '접촉 저항의 줄열 Q = I²Rt', shield: '필요 없음 (판 사이에서 녹음)', melt: '판 사이 접촉면만 녹아 너겟 형성',
+    prin: '겹친 두 판을 구리 합금 전극으로 세게 누르고 큰 전류를 짧게 흘립니다. 판과 판이 맞닿은 부분의 접촉 저항이 가장 커서 그곳만 녹아 바둑돌 모양의 용융부(너겟)가 생기고, 누른 채로 식혀 붙입니다.',
+    pros: ['1점당 1초 이내로 매우 빠르고 자동화 쉬움', '용가재·가스 불필요, 변형이 적다', '숙련이 거의 필요 없다'], cons: ['겹치기 이음만 가능', '내부 너겟을 눈으로 검사하기 어렵다', '대전류 설비·전원 용량 필요'], use: '자동차 차체(대당 수천 점), 가전 외판, 철도 차량',
+    pts: ['저항 용접의 3대 요소: 용접 전류, 통전 시간, 가압력', '발열량 Q = 0.24 I²Rt [cal] = I²Rt [J]', '적정 너겟 지름 ≈ 5√t (t: 판 두께 mm)', '분류(션트): 이웃 점이 너무 가까우면 전류가 새어 너겟이 작아짐 → 최소 피치 유지', '전극: 크롬동 등 도전율·경도가 높은 구리 합금, 수랭'],
+    params: [{ k: 'I', label: '용접 전류 [kA]', min: 4, max: 16, step: .5, val: 9 }, { k: 'cyc', label: '통전 시간 [사이클, 60 Hz]', min: 3, max: 25, step: 1, val: 10 }, { k: 'F', label: '가압력 [kN]', min: 1, max: 6, step: .5, val: 3 }, { k: 't', label: '판 두께 [mm]', min: .6, max: 2.5, step: .1, val: 1 }],
+    model(p) { const R = 100e-6 * Math.sqrt(3 / p.F) * Math.sqrt(p.t), tm = p.cyc / 60, Q = (p.I * 1000) ** 2 * R * tm, Qopt = 1500 * p.t ** 1.5, d0 = 5 * Math.sqrt(p.t), d = Q < Qopt * .35 ? 0 : clamp(d0 * Math.sqrt(Q / Qopt), 0, d0 * 1.8), exp = Q > Qopt * 2.1 * Math.sqrt(p.F / 3);
+      return { R, Q, d, d0, exp, verdict: exp ? '날림(expulsion) — 전류·시간 과대 또는 가압력 부족' : d === 0 ? '너겟 없음 — 접합 안 됨' : d < d0 * .8 ? '너겟 작음 — 강도 부족' : '적정 너겟' } },
+    calc(p) { const m = this.model(p); return [['저항 R (접촉+고유)', `${fmt(m.R * 1e6, 0)} µΩ`], ['발열량 Q = I²Rt', `${fmt(m.Q, 0)} J (${fmt(m.Q * .24, 0)} cal)`], ['너겟 지름', `${fmt(m.d, 1)} mm (목표 5√t = ${fmt(m.d0, 1)})`], ['판정', m.verdict]] }, L: 3,
+    draw(k, t, p) { const m = this.model(p), f = (t % 3) / 3, sc = 5, T = p.t * sc, y0 = 36 - T, gap = f < .12 ? 6 * (1 - f / .12) : f > .88 ? 6 * (f - .88) / .12 : 0;
+      k.rect(10, y0, 80, T, TK.steel, TK.weldline); k.rect(10, 36, 80, T, TK.steel, TK.weldline);
+      const grow = f < .2 ? 0 : f < .6 ? (f - .2) / .4 : 1, rx = m.d / 2 * sc * grow, ry = Math.min(T * .85, rx * .45);
+      if (rx > .2) k.ell(50, 36, rx, ry, f < .65 ? MAT.pool : TK.weld, TK.ink);
+      if (f >= .2 && f < .6) { k.glow(50, 36, Math.max(2, rx * 1.4), .7); for (let x of [46, 50, 54]) k.arrow(x, y0 - 9, x, 36 + T + 8, 'rgba(255,90,90,.75)', 1.5) }
+      if (m.exp && f > .45 && f < .65) for (let i = 0; i < 10; i++) { const d = ((f - .45) / .2) * 20, a = hsh(i) * Math.PI * 2; k.circ(50 + Math.cos(a) * (rx + d) * (i % 2 ? 1 : -1), 36 + Math.sin(a) * 1.5, .4, '#ffb347') }
+      k.poly([[44, y0 - gap - 22], [56, y0 - gap - 22], [56, y0 - gap - 6], [53, y0 - gap], [47, y0 - gap], [44, y0 - gap - 6]], MAT.cu, MAT.cuD);
+      k.poly([[44, 36 + T + gap + 22], [56, 36 + T + gap + 22], [56, 36 + T + gap + 6], [53, 36 + T + gap], [47, 36 + T + gap], [44, 36 + T + gap + 6]], MAT.cu, MAT.cuD);
+      k.rect(48.5, y0 - gap - 22, 3, 12, MAT.water);
+      if (f >= .1 && f < .88) { k.arrow(62, y0 - 20, 62, y0 - 6, TK.info, 2); k.arrow(62, 36 + T + 20, 62, 36 + T + 6, TK.info, 2); k.txt(`가압 ${p.F} kN`, 64, y0 - 14, TK.info, 'left', 11) }
+      k.txt(['① 가압 (스퀴즈)', '② 통전 (용접)', '③ 유지 (홀드)', '④ 해제'][f < .2 ? 0 : f < .6 ? 1 : f < .88 ? 2 : 3], 50, 3, TK.accent, 'center', 15);
+      k.lab('구리 합금 전극 (수랭)', 44, y0 - gap - 14, 28, y0 - 18); k.lab('너겟', 50 + rx * .7, 36, 74, 40); k.lab('겹친 판', 15, 36 - T / 2, 12, 24); if (f >= .2 && f < .6) k.lab('전류', 54, y0 - 6, 70, y0 - 2) } },
+  seam: { name: '심 용접', en: 'Resistance seam welding', heat: '접촉 저항의 줄열', shield: '필요 없음', melt: '연속으로 겹친 너겟',
+    prin: '원판 모양의 롤러 전극 사이로 겹친 판을 보내면서 전류를 흘려 점용접을 연속으로 이어 가는 방법입니다. 너겟이 서로 겹치면 물·기름·가스가 새지 않는 기밀·수밀 용접이 됩니다.',
+    pros: ['기밀·수밀성이 좋다', '연속 고속 용접', '용가재 불필요'], cons: ['박판(약 3 mm 이하)에 한정', '곡선이 심한 이음은 어렵다', '분류 전류가 커서 점용접보다 전류가 큼'], use: '연료 탱크, 드럼통, 머플러, 전봉관',
+    pts: ['통전 방법: 단속 통전(가장 많이 씀), 연속 통전, 맥동 통전', '종류: 겹치기 심, 매시 심, 포일 심, 맞대기 심', '너겟 피치 = 이송 속도 / 통전 횟수 → 피치 < 너겟 지름이면 기밀'],
+    params: [{ k: 'v', label: '이송 속도 [m/min]', min: .5, max: 4, step: .1, val: 1.5 }, { k: 'n', label: '초당 통전 횟수', min: 5, max: 30, step: 1, val: 12 }],
+    calc: p => { const pitch = p.v * 1000 / 60 / p.n; return [['너겟 피치', `${fmt(pitch, 2)} mm`], ['너겟 지름 (1 mm 판)', '약 5 mm'], ['결과', pitch < 4 ? '너겟이 겹침 → 기밀 심' : '너겟이 떨어짐 → 롤 스폿 (기밀 아님)']] }, L: 8,
+    draw(k, t, p) { const pitch = p.v * 1000 / 60 / p.n, sc = 2.2, sh = (t * p.v * 1000 / 60 * sc / 6) % (pitch * sc);
+      k.rect(4, 37, 92, 3, TK.steel, TK.weldline); k.rect(4, 40, 92, 3, TK.steel, TK.weldline);
+      for (let x = 50 - sh; x > 4; x -= pitch * sc) k.ell(x, 40, 2.5 * sc / 2.2 * 1.1, 1.2, x > 47 ? MAT.pool : TK.weld, TK.weldline);
+      const ang = t * p.v * 2; for (const [cy, s] of [[26, 1], [54, -1]]) { k.circ(50, cy, 11, MAT.cu, MAT.cuD); for (let i = 0; i < 4; i++) { const a = ang * s + i * Math.PI / 2; k.path([[50, cy], [50 + 9 * Math.cos(a), cy + 9 * Math.sin(a)]], MAT.cuD, 1.5) } k.circ(50, cy, 2, MAT.dark) }
+      k.glow(50, 40, 2.5, .8); k.arrow(80, 33, 70, 33, TK.info, 2); k.txt('판 이송', 84, 31, TK.info, 'left', 11);
+      k.lab('롤러 전극', 58, 20, 70, 14); k.lab('겹친 너겟', 30, 40, 20, 50); k.lab('겹친 판', 88, 38.5, 92, 48) } },
+  proj: { name: '프로젝션 용접', en: 'Projection welding', heat: '돌기에 집중된 전류의 줄열', shield: '필요 없음', melt: '돌기 위치마다 너겟',
+    prin: '한쪽 판에 미리 작은 돌기(프로젝션)를 만들어 두고 넓은 평판 전극으로 누르며 전류를 흘립니다. 전류가 돌기에 몰려 그 부분이 녹으며 눌려 들어가, 여러 점을 한 번에 용접합니다.',
+    pros: ['여러 점을 동시에 용접 → 능률적', '평판 전극이라 전극 수명이 길다', '두께·재질이 다른 판, 너트·볼트 부착에 유리'], cons: ['돌기를 가공해야 한다', '돌기 높이가 고르지 않으면 품질이 달라진다'], use: '용접 너트·볼트, 자동차 부품, 가전 브래킷',
+    pts: ['두께가 다른 판은 두꺼운 쪽에 돌기를 만든다', '열전도가 큰 쪽(또는 두꺼운 쪽)에 돌기를 둔다', '돌기 형상: 원형·고리형·긴 돌기'], params: [], calc: () => [], L: 3.2,
+    draw(k, t) { const f = (t % 3.2) / 3.2, col = f < .25 ? 0 : f < .6 ? (f - .25) / .35 : 1, h = 3 * (1 - col);
+      k.rect(8, 40, 84, 4, TK.steel, TK.weldline);
+      const up = 40 - h; k.rect(8, up - 4, 84, 4, TK.steel, TK.weldline);
+      for (const x of [25, 50, 75]) { if (h > .1) k.ell(x, up, 3, h, TK.steel, TK.weldline, 0, Math.PI); if (col > .1) { k.ell(x, 40, 3.5 * col + .5, 1.2 * col + .2, f < .7 ? MAT.pool : TK.weld, TK.ink); if (f < .6) k.glow(x, 40, 4, .6) } }
+      k.rect(8, up - 14, 84, 10, MAT.cu, MAT.cuD); k.rect(8, 44, 84, 10, MAT.cu, MAT.cuD);
+      k.txt(f < .25 ? '① 가압' : f < .6 ? '② 통전 — 돌기가 녹으며 눌림' : '③ 유지 · 완료', 50, 4, TK.accent, 'center', 15);
+      k.lab('평판 전극', 85, up - 9, 92, up - 18); k.lab('돌기 (프로젝션)', 75, up + h * .5, 88, 32); k.lab('너겟 (동시에 3점)', 50, 40, 58, 58) } },
+  flash: { name: '업셋 · 플래시 맞대기 용접', en: 'Upset / Flash butt welding', heat: '맞댄 면의 저항열 (+ 플래시 아크)', shield: '필요 없음 (불순물을 밀어냄)', melt: '접합면 가열·일부 용융 후 업셋',
+    prin: '두 봉이나 판의 끝을 구리 클램프로 잡고 맞대어 전류를 흘려 가열한 뒤 강하게 밀어 붙입니다(업셋). 업셋 용접은 처음부터 맞대고 가열하고, 플래시 용접은 약간 띄운 채 접근시키며 불꽃(플래시)을 튀겨 접합면을 녹이고 불순물을 날려 보낸 뒤 업셋합니다.',
+    pros: ['큰 단면을 짧은 시간에 접합 (플래시)', '용가재 불필요', '이종금속 접합 가능'], cons: ['업셋 후 덧살(플래시)을 제거해야 한다', '설비가 크다', '업셋 용접은 접합면 청정·정밀 가공 필요'], use: '레일, 체인, 차축, 공구 자루, 링, 선재 연결',
+    pts: ['업셋 용접: 단면이 작은 봉·선재, 산화물이 끼기 쉬움', '플래시 용접: 불꽃이 산화물·불순물을 배출 → 품질 우수, 큰 단면', '과정(플래시): 플래싱 → 업셋 → 업셋 전류 차단 → 냉각', '퍼커션 용접: 콘덴서 방전으로 극히 짧은 시간에 접합'],
+    params: [{ k: 'm', label: '방식', type: 'seg', options: [['upset', '업셋 용접'], ['flash', '플래시 용접']], val: 'flash' }], calc: p => [['접합면 처리', p.m === 'flash' ? '불꽃이 불순물을 날려 보냄' : '처음부터 맞대고 가압'], ['접합부 모양', p.m === 'flash' ? '얇은 날개 모양 플래시' : '둥근 덧살(불룩함)']], L: 5,
+    draw(k, t, p) { const f = (t % 5) / 5, fl = p.m === 'flash';
+      const gapX = fl ? (f < .55 ? 4 * (1 - f / .55) : 0) : (f < .1 ? 4 * (1 - f / .1) : 0), ups = f < (fl ? .6 : .55) ? 0 : Math.min(1, (f - (fl ? .6 : .55)) / .15) * 3;
+      const lx = 50 - gapX / 2 + ups / 2, rx = 50 + gapX / 2 - ups / 2;
+      k.rect(4, 26, lx - 4, 10, TK.steel, TK.weldline); k.rect(rx, 26, 96 - rx, 10, TK.steel, TK.weldline);
+      const heat = fl ? (f > .2 ? Math.min(1, (f - .2) / .4) : 0) : (f > .15 && f < .7 ? Math.min(1, (f - .15) / .35) : f >= .7 ? 1 : 0);
+      if (heat > 0) { k.ell(lx, 31, 3 * heat, 5, 'rgba(255,140,50,.6)'); k.ell(rx, 31, 3 * heat, 5, 'rgba(255,140,50,.6)') }
+      if (ups > 0) { if (fl) { k.poly([[lx, 26], [lx - .3, 26 - ups * 1.6], [lx + .6, 26 - ups * 1.6], [rx, 26]], TK.weldline); k.poly([[lx, 36], [lx - .3, 36 + ups * 1.6], [lx + .6, 36 + ups * 1.6], [rx, 36]], TK.weldline) } else { k.ell(50, 26, 3 + ups, ups * .9, TK.weld, TK.weldline, Math.PI, 2 * Math.PI); k.ell(50, 36, 3 + ups, ups * .9, TK.weld, TK.weldline, 0, Math.PI) } }
+      if (fl && f > .05 && f < .6) for (let i = 0; i < 16; i++) { const a = hsh(i + Math.floor(t * 12)) * Math.PI * 2, d = 2 + ((t * 30 + i * 3) % 14); k.circ(50 + Math.cos(a) * d, 31 + Math.sin(a) * d * .8, .35, '#ffc65c') }
+      for (const [x, s] of [[lx - 22, 1], [rx + 8, -1]]) { k.rect(x, 20, 14, 6, MAT.cu, MAT.cuD); k.rect(x, 36, 14, 6, MAT.cu, MAT.cuD) }
+      if (f > (fl ? .58 : .5)) { k.arrow(12, 31, 22, 31, TK.info, 2.5); k.arrow(88, 31, 78, 31, TK.info, 2.5) }
+      k.txt(fl ? (f < .6 ? '① 플래싱 — 불꽃으로 가열·불순물 배출' : '② 업셋 — 강하게 밀어 붙임') : (f < .55 ? '① 맞대고 통전 가열' : '② 업셋 가압'), 50, 6, TK.accent, 'center', 14);
+      k.lab('구리 클램프 (전극)', lx - 15, 20, lx - 22, 12); k.lab(fl ? '플래시 (덧살)' : '업셋 덧살', 50, 25, 66, 14) } },
+  friction: { name: '마찰 용접', en: 'Friction welding', heat: '회전 마찰열 (모재 녹지 않음)', shield: '필요 없음', melt: '고상 접합 (녹이지 않음)',
+    prin: '한쪽 부품을 빠르게 회전시키며 다른 부품에 눌러 마찰열로 접합면을 붉게 달굽니다. 충분히 연해지면 회전을 멈추고 더 세게 눌러(업셋) 붙입니다. 금속을 녹이지 않는 고상 접합이라 녹이기 어려운 이종금속도 붙일 수 있습니다.',
+    pros: ['이종금속(Al–Cu, 강–Al 등) 접합', '시간이 짧고 품질 재현성이 높다', '흄·스패터·아크 빛이 없다, 용가재 불필요'], cons: ['한쪽이 회전 대칭(원형) 단면이어야 한다', '버(플래시)를 깎아야 한다', '설비비가 비싸다'], use: '자동차 축·밸브, 드릴·공구, 터보차저 축, 유압 피스톤 로드',
+    pts: ['과정: 마찰 가열 → 회전 정지(브레이크) → 업셋 가압', '종류: 브레이크식(연속 구동식), 관성식(플라이휠)', '조건: 회전 속도, 마찰 압력, 마찰 시간, 업셋 압력', '접합면의 산화물은 버와 함께 밖으로 밀려남'],
+    params: [{ k: 'rpm', label: '회전 속도 [rpm]', min: 500, max: 3000, step: 100, val: 1500 }], calc: p => [['원주 속도 (지름 20 mm)', `${fmt(Math.PI * .02 * p.rpm / 60, 2)} m/s`], ['과정', '마찰 → 정지 → 업셋']], L: 6,
+    draw(k, t, p) { const f = (t % 6) / 6, spin = f < .62, gapX = f < .1 ? 5 * (1 - f / .1) : 0, short = f < .1 ? 0 : f < .62 ? (f - .1) / .52 * 2 : 2 + Math.min(1, (f - .65) / .15) * 2.5, heat = f < .1 ? 0 : Math.min(1, (f - .1) / .3) * (f > .85 ? 1 - (f - .85) / .15 * .5 : 1);
+      const lx = 50 - gapX / 2 + short / 2, rx = 50 + gapX / 2 - short / 2, burr = Math.max(0, short - .3);
+      k.rect(4, 24, lx - 4, 14, TK.steel, TK.weldline); if (spin) for (let i = 0; i < 6; i++) { const y = 24 + ((i * 2.4 + t * p.rpm / 60 * 3) % 14); k.path([[6, y], [lx - 1, y]], TK.weldline, 1) }
+      k.rect(rx, 24, 96 - rx, 14, TK.steel, TK.weldline);
+      if (heat > 0) { k.ell(lx, 31, 4 * heat, 7, `rgba(255,${120 + 40 * (1 - heat)},50,.65)`); k.ell(rx, 31, 4 * heat, 7, `rgba(255,${120 + 40 * (1 - heat)},50,.65)`) }
+      if (burr > 0) for (const [y, s] of [[24, -1], [38, 1]]) { k.ell(lx - burr * .4, y + s * burr * .5, burr * .6, burr * .6, TK.weldline, TK.ink); k.ell(rx + burr * .4, y + s * burr * .5, burr * .6, burr * .6, TK.weldline, TK.ink) }
+      if (spin) { k.ell(14, 31, 3, 9, null, TK.accent); k.arrow(14.5, 22, 17, 22.5, TK.accent, 2) }
+      if (f > .1) { k.arrow(88, 31, 80 - (f > .65 ? 2 : 0), 31, TK.info, f > .65 ? 3.5 : 2) }
+      k.txt(f < .1 ? '① 접근' : f < .62 ? '② 회전 마찰 가열' : f < .66 ? '③ 회전 정지' : '④ 업셋 가압 → 버 형성', 50, 6, TK.accent, 'center', 15);
+      k.lab('회전 쪽', 20, 26, 14, 14); k.lab('고정 쪽', 76, 26, 82, 14); k.lab('버 (플래시)', rx + burr * .4, 38 + burr * .5, rx + 10, 52) } },
+  fsw: { name: '마찰 교반 용접', en: 'FSW', heat: '회전 공구의 마찰열·소성 변형열', shield: '필요 없음', melt: '고상 접합 (녹이지 않고 섞음)',
+    prin: '어깨(숄더)와 핀이 달린 회전 공구를 맞댄 두 판의 경계에 꽂아 넣고 이동시킵니다. 마찰열로 물렁해진 금속을 핀이 휘저어(교반) 섞어 붙입니다. 1991년 영국 TWI에서 개발했으며 알루미늄에 특히 많이 씁니다.',
+    pros: ['녹이지 않아 기공·응고 균열이 거의 없다', '변형이 적고 기계적 성질이 좋다', '용가재·보호 가스·흄이 없다'], cons: ['판을 아주 단단히 고정해야 한다', '끝에 공구 구멍(키홀)이 남는다', '강·티타늄은 공구 마모가 심하다'], use: '알루미늄 선박·철도 차량·항공기 패널, 배터리 케이스',
+    pts: ['진행측(advancing side): 공구 회전 방향과 이송 방향이 같은 쪽', '후퇴측(retreating side): 반대쪽', '뒤에 반원형 무늬(어니언 링)가 남는다', '이송 피치 = 이송 속도 / 회전 속도 [mm/rev]'],
+    params: [{ k: 'rpm', label: '회전 속도 [rpm]', min: 300, max: 2500, step: 50, val: 1000 }, { k: 'v', label: '이송 속도 [mm/min]', min: 50, max: 1500, step: 50, val: 400 }],
+    calc: p => [['이송 피치', `${fmt(p.v / p.rpm, 2)} mm/rev`], ['판정 (대략)', p.v / p.rpm > 1 ? '열 부족 — 터널 결함 위험' : p.v / p.rpm < .15 ? '과열 — 플래시 과다' : '적정 범위']], L: 8,
+    draw(k, t, p) { const u = (t % 8) / 8, xt = 14 + 70 * u, pitch = clamp(p.v / p.rpm, .1, 2) * 2.2;
+      k.rect(4, 8, 92, 21, TK.steel, TK.weldline); k.rect(4, 29, 92, 21, TK.steel, TK.weldline);
+      if (xt > 14) { k.rect(14, 23.5, xt - 14, 11, TK.weld); for (let x = xt - 2; x > 14; x -= pitch) k.ell(x, 29, 2.6, 5.4, null, TK.weldline, Math.PI / 2, Math.PI * 1.5) }
+      k.circ(xt, 29, 5.6, MAT.dark, TK.ink); const a = t * p.rpm / 60 * .6; for (let i = 0; i < 3; i++) { const b = a + i * 2.09; k.path([[xt + 1.2 * Math.cos(b), 29 + 1.2 * Math.sin(b)], [xt + 5 * Math.cos(b + .5), 29 + 5 * Math.sin(b + .5)]], '#9aa3ab', 1.5) } k.circ(xt, 29, 1.2, '#9aa3ab');
+      k.ell(xt, 29, 8, 8, null, TK.accent); k.arrow(xt + 7.6, 26, xt + 6.5, 23, TK.accent, 1.5);
+      k.arrow(xt + 10, 54, xt + 20, 54, TK.info, 2); k.txt('이송', xt + 22, 54, TK.info, 'left', 11);
+      k.txt('후퇴측 (retreating)', 60, 12, TK.muted, 'center', 11); k.txt('진행측 (advancing)', 60, 46, TK.muted, 'center', 11);
+      k.lab('회전 공구 (숄더 + 핀)', xt, 24, xt + 12, 18); k.lab('어니언 링 무늬', xt - 8, 29, xt - 18, 38); k.lab('맞댐선', 92, 29, 95, 58);
+      k.txt('위에서 본 모습', 6, 4, TK.muted, 'left', 11) } },
+  ultra: { name: '초음파 용접', en: 'Ultrasonic welding', heat: '고주파 진동 마찰 (녹이지 않음)', shield: '필요 없음', melt: '고상 접합 (금속) / 용융 (플라스틱)',
+    prin: '겹친 얇은 판을 가압하면서 혼(소노트로드)으로 초음파(약 20~40 kHz) 진동을 줍니다. 금속은 접합면이 수평으로 미세하게 비벼지며 산화막이 깨지고 깨끗한 금속끼리 붙습니다. 플라스틱은 수직 진동의 마찰열로 녹여 붙입니다.',
+    pros: ['녹이지 않아 열 영향이 거의 없다', '얇은 박·전선·이종금속(Cu–Al) 접합', '0.1~1초로 빠르고 용가재·가스가 없다'], cons: ['얇은 판에 한정 (얇은 쪽 대략 수 mm 이하)', '소음, 공구 마모'], use: '2차 전지 탭·전극, 전선 하네스, 반도체 와이어 본딩, 플라스틱 부품',
+    pts: ['금속: 접합면에 평행한 진동(전단) / 플라스틱: 수직 진동', '구성: 발진기 → 변환기(트랜스듀서, 전기→기계 진동) → 부스터(진폭 증폭) → 혼 → 앤빌', '진폭은 수십 µm 정도'],
+    params: [{ k: 'f', label: '주파수 [kHz]', type: 'seg', options: [['20', '20'], ['35', '35'], ['40', '40']], val: '20' }, { k: 'amp', label: '진폭 [µm]', min: 10, max: 60, step: 5, val: 30 }],
+    calc: p => [['진동 주기', `${fmt(1000 / +p.f, 1)} µs`], ['1초당 비비는 횟수', `${(+p.f * 1000).toLocaleString()} 회`], ['최대 진동 속도', `${fmt(2 * Math.PI * +p.f * 1000 * p.amp * 1e-6, 2)} m/s`]], L: 4,
+    draw(k, t, p) { const f = (t % 4) / 4, on = f > .15 && f < .75, dx = on ? p.amp / 60 * 1.6 * Math.sin(t * 90) : 0, bond = clamp((f - .15) / .55, 0, 1);
+      k.rect(20, 42, 60, 12, '#7c848c', TK.ink); for (let x = 22; x < 78; x += 2) k.path([[x, 42], [x + 1, 41.3], [x + 2, 42]], TK.ink, .8);
+      k.rect(20, 38, 60, 3.6, TK.steel, TK.weldline); k.rect(20 + dx * .5, 34.2, 60, 3.6, TK.steel, TK.weldline);
+      for (let i = 0; i < 26; i++) { if (hsh(i) < bond) continue; k.circ(24 + i * 2.1, 37.9, .35, TK.ink) }
+      if (bond > .3) k.path([[22, 37.9], [22 + 56 * bond, 37.9]], TK.ok, 2);
+      k.poly([[38 + dx, 34], [62 + dx, 34], [58 + dx, 24], [42 + dx, 24]], '#9aa3ab', TK.ink); k.rect(45 + dx, 14, 10, 10, '#7c848c', TK.ink); k.rect(43, 4, 14, 10, MAT.dark);
+      if (on) { k.arrow(50 + dx, 30, 56 + dx, 30, TK.accent, 2); k.arrow(50 + dx, 30, 44 + dx, 30, TK.accent, 2) }
+      k.arrow(66, 14, 66, 22, TK.info, 2); k.txt('가압', 68, 16, TK.info, 'left', 11);
+      k.lab('변환기 (트랜스듀서)', 57, 8, 70, 6); k.lab('부스터', 55, 18, 70, 12); k.lab('혼 (소노트로드)', 60, 28, 76, 26); k.lab('앤빌', 22, 50, 12, 58); k.lab(bond > .5 ? '산화막 파괴 → 금속 결합' : '접합면 산화막', 30, 37.9, 10, 32) } },
+  explo: { name: '폭발 용접', en: 'Explosive welding', heat: '폭약의 폭발 에너지 (충돌)', shield: '필요 없음', melt: '고상 접합 (파형 계면)',
+    prin: '모재 위에 간격을 두고 다른 금속판(플라이어 판)을 놓고 그 위에 폭약을 깝니다. 한쪽 끝에서 폭발시키면 폭굉이 진행하며 플라이어 판이 비스듬히 초고속(수백 m/s)으로 충돌합니다. 충돌점에서 튀어나가는 금속 제트가 표면 산화막을 벗겨 내 두 금속이 물결 모양 계면으로 붙습니다.',
+    pros: ['녹여서는 붙이기 어려운 이종금속을 넓은 면적으로 접합', '접합 강도가 높다'], cons: ['폭약 취급 — 안전·소음·장소 제한', '단순한 판·관 형상만 가능'], use: '클래드 강판 (티타늄–강, 스테인리스–강, 구리–알루미늄), 열교환기 관판',
+    pts: ['플라이어 판과 모재 사이 간격(스탠드오프)이 필요', '충돌점의 금속 제트가 표면을 청정', '계면이 물결(파형) 모양이 되는 것이 특징'], params: [], calc: () => [], L: 5,
+    draw(k, t) { const f = (t % 5) / 5, xd = 8 + 84 * Math.min(1, f / .8), xc = xd - 5;
+      k.rect(4, 42, 92, 12, TK.steel, TK.weldline);
+      if (xc > 6) { const w = []; for (let x = 6; x <= xc; x += .5) w.push([x, 42 + .5 * Math.sin(x * 1.6)]); k.path(w, TK.ink, 1.4) }
+      const fly = []; for (let x = 4; x <= 96; x += 1) { const y = x < xc ? 39.4 : x < xd ? 39.4 - (x - xc) / (xd - xc) * 4 : 35.4; fly.push([x, y]) }
+      k.poly([...fly, ...fly.slice().reverse().map(([x, y]) => [x, y + 2.6])], '#c9a16a', TK.ink);
+      if (xd < 96) k.rect(xd, 30, 96 - xd, 5.4, MAT.expl, TK.ink);
+      if (f < .82) { k.glow(xd, 30, 6, .9); for (let i = 0; i < 8; i++) k.circ(xd - 6 - i * 1.5 * hsh(i), 27 - hsh(i + 5) * 10, 1.2 + hsh(i + 2) * 1.5, 'rgba(120,120,120,.35)'); for (let i = 0; i < 5; i++) k.circ(xc + 1 + i * 1.2, 40.5 - i * .5, .3, '#ffd27a') }
+      k.lab('폭약', Math.min(xd + 10, 92), 32, 92, 22); k.lab('플라이어 판', 90, 36.6, 94, 44); k.lab('모재', 80, 50, 90, 58); if (xc > 20) k.lab('파형 계면', xc - 10, 42, xc - 18, 58); if (f < .82) k.lab('충돌점 · 금속 제트', xc + 2, 40, xc + 6, 50);
+      k.txt('폭굉 진행 방향 →', 50, 22, TK.accent, 'center', 13) } },
+  solder: { name: '연납땜', en: 'Soldering', heat: '인두·토치·리플로 등 (용가재 450℃ 미만)', shield: '플럭스 (산화막 제거·재산화 방지)', melt: '모재 녹지 않음, 납만 녹음',
+    prin: '모재는 녹이지 않고, 융점이 450℃보다 낮은 땜납만 녹여 모재 표면을 적시고(젖음) 틈으로 스며들게 해 붙입니다. 플럭스가 산화막을 녹여 없애 땜납이 잘 퍼지게 합니다.',
+    pros: ['낮은 온도라 부품 손상·변형이 적다', '작업이 간단하고 다시 떼기 쉽다', '전기 전도성 접합'], cons: ['강도가 낮다', '고온에서 쓸 수 없다', '납 함유 땜납은 환경 규제(RoHS)'], use: '전자 기판, 전선 연결, 판금 이음, 소형 배관',
+    pts: ['Sn63–Pb37 공정 땜납: 183℃에서 한 번에 녹음', '무연 땜납 Sn–3Ag–0.5Cu(SAC305): 약 217~220℃', '플럭스: 송진(로진, 전자용), 염화아연, 염화암모늄, 염산(부식성 → 반드시 세척)', '인두 온도는 땜납 융점보다 약 100℃ 높게 (보통 300~350℃)'],
+    params: [{ k: 'alloy', label: '땜납', type: 'seg', options: [['snpb', 'Sn63–Pb37'], ['sac', '무연 SAC305'], ['sncu', 'Sn–0.7Cu']], val: 'snpb' }],
+    calc: p => { const d = { snpb: [183, '공정 조성, 작업성 우수', '납 규제'], sac: [218, '전자 업계 표준 무연', '융점이 높아 인두 온도↑'], sncu: [227, '값이 쌈, 웨이브 솔더링', '젖음성이 다소 낮음'] }[p.alloy]; return [['녹는 온도', `약 ${d[0]}℃`], ['권장 인두 온도', `약 ${d[0] + 120}℃`], ['특징', d[1]], ['주의', d[2]]] }, L: 5,
+    draw(k, t) { const f = (t % 5) / 5, fill = clamp((f - .2) / .5, 0, 1);
+      k.rect(10, 44, 80, 5, MAT.pcb, TK.ink); k.rect(40, 42.8, 20, 1.4, MAT.cu); k.rect(40, 49, 20, 1.2, MAT.cu); k.rect(49, 30, 2, 24, TK.weldline, TK.ink);
+      if (fill > 0) { const h = 6 * fill; k.poly([[41, 42.8], [49, 42.8 - h], [51, 42.8 - h], [59, 42.8]], MAT.solder, TK.ink) }
+      const it = [53 + 1.5 * (f < .8 ? 0 : 1), 41]; k.stick(it[0], it[1], it[0] + 22, it[1] - 20, 2.2, '#8e959c', TK.ink); k.stick(it[0] + 18, it[1] - 16.5, it[0] + 32, it[1] - 29, 4.5, MAT.dark); k.glow(it[0] + .5, it[1] - .5, 3, .45);
+      if (f < .75) { const len = 26 - 10 * fill; k.stick(47 - len * .8, 40 - len * .6, 47.5, 41.2, 1.1, MAT.solder, TK.ink) }
+      if (f > .15 && f < .8) for (let i = 0; i < 4; i++) { const g = (t * .8 + i / 4) % 1; k.circ(50 + 3 * Math.sin(t * 2 + i), 38 - g * 14, 1 + g * 2.5, `rgba(180,180,180,${.35 * (1 - g)})`) }
+      k.lab('인두', it[0] + 12, it[1] - 10, it[0] + 20, it[1] - 2); k.lab('실납 (플럭스 내장)', 36, 32, 18, 26); k.lab('필릿 (땜납)', 44, 41.5, 30, 38); k.lab('부품 리드', 50, 32, 62, 28); k.lab('기판 (동박 패드)', 20, 46.5, 14, 56); k.lab('플럭스 연기', 51, 30, 66, 22) } },
+  braze: { name: '경납땜', en: 'Brazing', heat: '토치·노(爐)·고주파 유도 등 (용가재 450℃ 이상)', shield: '플럭스 또는 보호 분위기 (노내)', melt: '모재 녹지 않음, 납이 모세관으로 스며듦',
+    prin: '모재보다 융점이 낮고 450℃보다 높은 경납을 녹여, 좁은 틈에 모세관 현상으로 빨아들여 붙입니다. 틈이 너무 좁으면 납이 들어가지 못하고, 너무 넓으면 모세관 힘이 약해 다 채우지 못합니다.',
+    pros: ['연납보다 훨씬 강하다', '이종금속(구리–강, 초경–강) 접합', '모재를 녹이지 않아 변형이 적다'], cons: ['틈 간격 관리가 중요', '플럭스 잔류물 세척 필요', '고온에서는 강도가 떨어진다'], use: '냉동·공조 동관 배관, 초경 공구 팁, 열교환기, 자전거 프레임',
+    pts: ['은납(BAg): 저온·고강도, 이종금속', '인동납(BCuP): 구리–구리는 플럭스 없이 가능 (P가 탈산) → 냉매 동관에 주로 사용', '황동납(BCuZn), 알루미늄납(BAlSi), 니켈납(BNi, 내열)', '플럭스: 붕사, 붕산, 불화물·염화물', '적정 틈: 약 0.025~0.125 mm (은납 기준)', '모세관 높이 h = 2γcosθ / (ρ g w): 틈 w가 좁을수록 높이 올라감'],
+    params: [{ k: 'gap', label: '틈 간격 [mm]', min: .01, max: .5, step: .01, val: .08 }, { k: 'fil', label: '경납', type: 'seg', options: [['bag', '은납'], ['bcup', '인동납'], ['bcuzn', '황동납']], val: 'bcup' }],
+    model(p) { const h = 2 * .9 * Math.cos(15 * Math.PI / 180) / (8500 * 9.81 * p.gap / 1000) * 1000, ok = p.gap >= .025 && p.gap <= .125, fill = p.gap < .02 ? .15 : p.gap < .025 ? .5 : ok ? 1 : p.gap <= .2 ? .7 : .35; return { h, ok, fill } },
+    calc(p) { const m = this.model(p), fl = { bag: ['약 620~800℃', '필요'], bcup: ['약 710~820℃', '구리–구리는 불필요'], bcuzn: ['약 870~980℃', '필요 (붕사)'] }[p.fil]; return [['작업 온도', fl[0]], ['플럭스', fl[1]], ['모세관 상승 높이 (이론)', `약 ${fmt(m.h, 0)} mm`], ['판정', m.ok ? '적정 — 틈을 끝까지 채움' : p.gap < .025 ? '너무 좁음 — 납이 들어가지 못함' : '너무 넓음 — 모세관 힘 부족, 공극']] }, L: 5,
+    draw(k, t, p) { const m = this.model(p), f = (t % 5) / 5, g = clamp(p.gap * 12, .25, 5), fillx = 70 - 52 * clamp((f - .25) / .5, 0, 1) * m.fill;
+      k.rect(18, 22 - g - 4, 64, 4, MAT.cu, MAT.cuD); k.rect(18, 40 + g, 64, 4, MAT.cu, MAT.cuD);
+      k.rect(4, 22, 74, 3, MAT.cu, MAT.cuD); k.rect(4, 37, 74, 3, MAT.cu, MAT.cuD); k.rect(4, 25, 74, 12, TK.surface);
+      if (f > .25) { k.rect(fillx, 22 - g, 70 - fillx, g, '#e0c060'); k.rect(fillx, 40, 70 - fillx, g, '#e0c060'); if (!m.ok && f > .7) for (let i = 0; i < 5; i++) k.circ(fillx + 4 + i * 7 * hsh(i), 22 - g / 2, Math.min(.8, g * .35), TK.surface) }
+      k.ell(80, 31, 9, 14, 'rgba(255,130,40,.18)'); for (let i = 0; i < 3; i++) k.poly([[96, 14 + i * 2], [84 + i, 18 + i * 2], [96, 16 + i * 2]], 'rgba(90,140,255,.45)');
+      if (f > .2 && f < .85) { k.stick(92, 6, 82.5, 20 - g, 1.2, '#e0c060', TK.ink); k.circ(82.5, 20.5 - g, 1.1, '#e0c060') }
+      k.arrow(68, 50, 30, 50, TK.accent, 1.5); k.txt('모세관 현상으로 스며듦', 49, 54, TK.accent, 'center', 11);
+      k.lab('소켓 (바깥 관)', 30, 18 - g, 22, 10); k.lab('삽입 관', 20, 23.5, 8, 14); k.lab(`틈 ${p.gap} mm (확대)`, 40, 22 - g / 2, 48, 8); k.lab('경납 봉', 88, 12, 94, 4); k.lab('토치 가열', 90, 18, 96, 28) } },
+};
+
+/* ---------------- 화면 ---------------- */
+const AT = { id: 'smaw', play: true, speed: 1, t: 0, last: 0, P: {} };
+for (const [id, d] of Object.entries(PX)) AT.P[id] = Object.fromEntries(d.params.map(q => [q.k, q.val]));
+const groupOf = id => { for (const g of GROUPS) for (const [s, ids] of g.subs) if (ids.includes(id)) return [g, s] };
+$('atlas-tree').innerHTML = GROUPS.map(g => `<div class="tg ${g.key}"><h3>${g.cls}</h3>${g.subs.map(([s, ids]) => `<p>${s}</p><div class="tb">${ids.map(id => `<button data-id="${id}">${PX[id].name}</button>`).join('')}</div>`).join('')}</div>`).join('');
+const atV = new Viewer($('cv-atlas'), { ratio: .58, minH: 280, maxH: 560, margin: 6, bounds: () => ({ x0: 0, x1: 100, y0: 0, y1: 62 }), draw: (c, v) => { const d = PX[AT.id]; d.draw.call(d, K(c, v), AT.t, AT.P[AT.id]) } });
+function renderAtlasPanel() {
+  const d = PX[AT.id], [g, s] = groupOf(AT.id), p = AT.P[AT.id];
+  document.querySelectorAll('#atlas-tree button').forEach(b => b.setAttribute('aria-pressed', b.dataset.id === AT.id));
+  $('at-name').textContent = `${d.name} · ${d.en}`; $('at-path').textContent = `${g.cls} › ${s}`;
+  $('at-params').innerHTML = d.params.length ? d.params.map(q => q.type === 'seg'
+    ? `<div class="f"><span>${q.label}</span><div class="seg" data-p="${q.k}">${q.options.map(([v, l]) => `<button aria-pressed="${p[q.k] === v}" data-v="${v}">${l}</button>`).join('')}</div></div>`
+    : `<div class="sl"><label for="ap-${q.k}">${q.label}</label><input type="range" id="ap-${q.k}" data-p="${q.k}" min="${q.min}" max="${q.max}" step="${q.step}" value="${p[q.k]}"><output>${p[q.k]}</output></div>`).join('')
+    : '<p class="src" style="margin:0">이 공정은 정해진 순서대로 진행되는 모습을 보여 줍니다.</p>';
+  renderAtlasCalc();
+  $('at-info').innerHTML = `<h2>원리</h2><p style="margin-top:0">${d.prin}</p>
+    <div class="g2 atfacts"><div><span class="unit">열원</span><br>${d.heat}</div><div><span class="unit">보호 방법</span><br>${d.shield}</div><div><span class="unit">모재</span><br>${d.melt}</div><div><span class="unit">주요 용도</span><br>${d.use}</div></div>
+    <div class="g2" style="margin-top:10px"><div><h2>장점</h2><ul class="pc">${d.pros.map(x => `<li>${x}</li>`).join('')}</ul></div><div><h2>단점</h2><ul class="pc">${d.cons.map(x => `<li>${x}</li>`).join('')}</ul></div></div>
+    <h2 style="margin-top:10px">핵심 포인트</h2><ul class="pc">${d.pts.map(x => `<li>${x}</li>`).join('')}</ul>
+    ${d.sim ? `<button class="btn primary" id="at-go">'용접 조건' 탭에서 직접 조건 바꿔 보기 →</button>` : ''}`;
+  $('at-go')?.addEventListener('click', () => { S.proc = d.sim; Object.assign(S, GOOD[d.sim]); if (d.sim === 'gmaw') { S.gas = AT.id === 'mig' ? 'mix' : AT.P.mag.gas; S.V = Math.round(weld(S).Vopt * 2) / 2 } update(); $('tab-sim').click(); secV.reset(); topV.reset() });
+  atV.reset();
+}
+function renderAtlasCalc() { const d = PX[AT.id], rows = d.calc.call(d, AT.P[AT.id]); $('at-calc').innerHTML = rows.map(([a, b]) => `<tr><td>${a}</td><td style="text-align:right;font-weight:600">${b}</td></tr>`).join('') }
+$('atlas-tree').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; AT.id = b.dataset.id; AT.t = 0; renderAtlasPanel() });
+$('at-params').addEventListener('input', e => { const el = e.target; if (!el.dataset.p) return; AT.P[AT.id][el.dataset.p] = parseFloat(el.value); el.nextElementSibling.textContent = el.value; renderAtlasCalc(); atV.draw() });
+$('at-params').addEventListener('click', e => { const b = e.target.closest('.seg button'); if (!b) return; const k = b.parentElement.dataset.p; AT.P[AT.id][k] = b.dataset.v; b.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); renderAtlasCalc(); atV.draw() });
+$('at-play').addEventListener('click', () => { AT.play = !AT.play; $('at-play').textContent = AT.play ? '일시정지' : '재생' });
+$('at-speed').addEventListener('click', () => { AT.speed = AT.speed === 1 ? .5 : AT.speed === .5 ? 2 : 1; $('at-speed').textContent = `속도 ×${AT.speed}` });
+$('at-lab').addEventListener('click', () => { LABELS = !LABELS; $('at-lab').textContent = LABELS ? '이름표 끄기' : '이름표 켜기'; atV.draw() });
+$('at-zin').addEventListener('click', () => atV.zoom(1.4)); $('at-zout').addEventListener('click', () => atV.zoom(1 / 1.4)); $('at-zr').addEventListener('click', () => atV.reset());
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) { AT.play = false; $('at-play').textContent = '재생' }
+(function loop(now) { const dt = Math.min(.1, (now - (AT.last || now)) / 1000); AT.last = now; if (!$('view-atlas').hidden) { if (AT.play) AT.t += dt * AT.speed; atV.render() } requestAnimationFrame(loop) })(performance.now());
+
+const DENS = [['가스 불꽃', 2, 3, 'fus'], ['아크 (피복아크·MIG·TIG)', 3, 5, 'fus'], ['플라즈마 아크', 5, 6, 'fus'], ['레이저 빔', 6, 8, 'fus'], ['전자 빔', 6, 8, 'fus']];
+const densDraw = staticCanvas($('cv-density'), .5, 200, 260, (c, w, h) => {
+  const m = { l: 150, r: 16, t: 10, b: 34 }, pw = w - m.l - m.r, row = (h - m.t - m.b) / DENS.length, X = e => m.l + (e - 1) / 8 * pw;
+  for (let e = 1; e <= 9; e++) { c.strokeStyle = TK.grid; c.beginPath(); c.moveTo(X(e), m.t); c.lineTo(X(e), h - m.b); c.stroke(); text(c, `10${'⁰¹²³⁴⁵⁶⁷⁸⁹'[e]}`, X(e), h - m.b + 12, TK.muted, 'center', '10px ' + MONO) }
+  text(c, '에너지 밀도 [W/cm²]', m.l + pw / 2, h - 8, TK.ink, 'center', '600 11px ' + SANS);
+  DENS.forEach(([n, a, b], i) => { const y = m.t + row * i + row * .2; c.fillStyle = TK.accent; c.globalAlpha = .25 + .15 * i; c.fillRect(X(a), y, X(b) - X(a), row * .6); c.globalAlpha = 1; text(c, n, m.l - 8, y + row * .3, TK.ink, 'right', '600 11px ' + SANS) });
+});
+$('at-compare').innerHTML = '<tr><th>공정</th><th>분류</th><th>열원</th><th>보호</th><th>모재</th><th>주요 용도</th></tr>' + GROUPS.flatMap(g => g.subs.flatMap(([s, ids]) => ids.map(id => { const d = PX[id]; return `<tr><td style="white-space:nowrap"><b>${d.name}</b></td><td style="text-align:left;white-space:nowrap"><span class="${g.key}">${g.cls}</span> · ${s}</td><td style="text-align:left">${d.heat}</td><td style="text-align:left">${d.shield}</td><td style="text-align:left">${d.melt}</td><td style="text-align:left">${d.use}</td></tr>` }))).join('');
+renderAtlasPanel();
+
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => setTimeout(densDraw));
+new MutationObserver(() => setTimeout(densDraw)).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>
+
+<div class="mm-footer" role="contentinfo"><div class="mm-footer-top"><div><strong>MECH · METAL LAB</strong><br>만든이 : 기계금속 교사 박승엽</div><div class="mm-pager"><a href="소성 가공 압연과 인발.html">← 이전 자료</a><a href="index.html">전체 자료 목록</a><a href="컴활생산 CNC 경로 시뮬레이터.html">다음 자료 →</a></div></div><p class="mm-footer-note">실험·계산은 인터넷 없이 실행됩니다. 출처를 확인하는 외부 참고자료 링크는 인터넷 연결이 필요합니다.</p></div><style id="mm-revised-layout">
+/* 시안 일치 보정: 목록과 실험 화면의 동일한 탐색 골격 */
+.mm-page .mm-breadcrumb{margin-bottom:12px}
+.mm-page .mm-menu{margin-bottom:12px}
+.mm-page .mm-standard .lede{max-width:none}
+.mm-standard .lede{max-width:none;font-size:14px;line-height:1.65}
+.mm-page h1{font-size:clamp(25px,2.6vw,34px);margin:6px 0 8px}
+.mm-page .mm-credit{margin:5px 0 9px}
+.mm-page .mm-chrome{min-height:68px;margin-bottom:20px}
+.mm-page-tabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--mm-line);background:#fff;border-radius:10px;margin:0 0 18px;overflow:hidden}
+.mm-page .mm-page-tabs a{flex:1;min-width:130px;text-align:center;padding:10px 14px;color:var(--mm-muted);text-decoration:none;font-size:13px;font-weight:650;border-bottom:3px solid transparent}
+.mm-page .mm-page-tabs a:first-child{color:var(--mm-blue);border-bottom-color:var(--mm-blue);background:#f8fbff}
+.mm-page .mm-page-tabs a:hover{background:var(--mm-soft);color:var(--mm-blue)}
+@media(min-width:1100px){
+ body.mm-page:not(.mm-plc){padding-left:238px}
+ .mm-page:not(.mm-plc) .mm-chrome{margin-left:-238px}
+ .mm-page:not(.mm-plc) .mm-menu{display:none}
+ .mm-page:not(.mm-plc) .mm-rail{display:grid;gap:3px;position:fixed;left:24px;top:97px;width:184px;max-height:calc(100vh - 117px);overflow:auto;padding-right:8px;font:500 13px/1.5 var(--font-body)}
+ .mm-page .mm-rail-title{font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--mm-muted);padding:5px 10px 10px}
+ .mm-page .mm-rail a{padding:8px 11px;border-radius:8px;text-decoration:none;color:var(--mm-muted);display:flex;justify-content:space-between;gap:8px}
+ .mm-page .mm-rail a:hover,.mm-page .mm-rail a[aria-current="page"]{background:var(--mm-soft);color:var(--mm-blue)}
+ .mm-page .mm-rail small{font:500 11px/1.8 var(--font-mono)}
+ .mm-page .mm-rail-foot{border-top:1px solid var(--mm-line);padding:16px 10px;margin-top:14px;font-size:11px;line-height:1.8;color:var(--mm-muted)}
+}
+@media(max-width:600px){
+ .mm-page .mm-chrome{min-height:64px}
+ .mm-page .mm-page-tabs a{min-width:90px;padding:10px 6px;font-size:12px}
+}
+@media print{.mm-page .mm-page-tabs{display:none}}
+</style></body></html>
